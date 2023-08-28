@@ -30,8 +30,9 @@ const CustomSpeedDial = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 0,
-    right: 0,
+    backgroundColor: 'black',
+    bottom: 50,
+    right: 50,
     margin: 16, // Adjust the margin as needed to avoid overlapping with other content
   },
 });

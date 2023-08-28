@@ -11,23 +11,23 @@ import { RootStackParamList } from './src/navigation/types';
 import BottomBar from './src/navigation/BottomBar';
 import MedicinesScreen from './src/screens/Medicines/MedicinesScreen';
 import MedicineItemDetails from './src/screens/Medicines/MedicineItemDetails';
+import { useColorScheme } from 'react-native';
+import { StatusBar } from 'react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  const colorScheme = useColorScheme();
+
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName='Welcome'
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: 'lightblue',
-          },
-          headerTintColor: 'white',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}>
+      <StatusBar
+        animated={true}
+        backgroundColor='transparent'
+        barStyle={'dark-content'}
+        translucent={true}
+      />
+      <Stack.Navigator initialRouteName='Welcome'>
         <Stack.Screen
           name='Welcome'
           component={WelcomeScreen}

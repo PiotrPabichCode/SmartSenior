@@ -1,15 +1,58 @@
-import { StyleSheet, Text } from 'react-native';
 import WelcomeSvg from '../../assets/welcome-image.svg';
 import { Icon, Input, Button } from '@rneui/themed';
 import {
+  StyleSheet,
+  Text,
+  Alert,
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
   Dimensions,
 } from 'react-native';
 import { SignUpProps } from '../../navigation/types';
+import auth from '@react-native-firebase/auth';
+import { useState } from 'react';
+import db from '@react-native-firebase/database';
 
 const RegisterScreen = ({ navigation }: SignUpProps) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+
+  const validateCredentials = () => {
+    if (email && password && repeatPassword) {
+      if (password === repeatPassword) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const createProfile = async (response: any) => {
+    db().ref(`/users/${response.user.uid}`).set({ email });
+  };
+
+  const registerAndGoToMainDisplay = async () => {
+    try {
+      if (validateCredentials()) {
+        const response = await auth().createUserWithEmailAndPassword(
+          email,
+          password
+        );
+
+        if (response.user) {
+          await createProfile(response);
+          navigation.replace('BottomBar', {
+            screen: 'Home',
+          });
+        }
+      }
+    } catch (e) {
+      // Alert.alert('Wystąpił błąd', 'Proszę sprawdzić wprowadzone dane');
+      console.log(e);
+    }
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -28,29 +71,31 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
           leftIcon={<Icon name='email' size={30} color='black' />}
           placeholder='Adres e-mail'
           keyboardType='email-address'
+          onChangeText={(text) => setEmail(text)}
+          value={email}
         />
         <Input
           style={styles.inputField}
           leftIcon={<Icon name='lock' size={30} color='black' />}
           secureTextEntry={true}
           placeholder='Hasło'
+          onChangeText={(text) => setPassword(text)}
+          value={password}
         />
         <Input
           style={styles.inputField}
           leftIcon={<Icon name='lock' size={30} color='black' />}
           secureTextEntry={true}
           placeholder='Powtórz hasło'
+          onChangeText={(text) => setRepeatPassword(text)}
+          value={repeatPassword}
         />
         <Button
           title={'Zarejestruj się'}
           buttonStyle={styles.buttonSignUpStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonSignUpTitleStyle}
-          onPress={() =>
-            navigation.navigate('BottomBar', {
-              screen: 'Home',
-            })
-          }
+          onPress={() => registerAndGoToMainDisplay()}
         />
         <Text style={styles.textLinks}>
           Masz już konto?{' '}

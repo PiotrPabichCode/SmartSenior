@@ -1,5 +1,6 @@
 import React from 'react';
 import type { PropsWithChildren } from 'react';
+import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 type IconProps = PropsWithChildren<{
@@ -10,14 +11,20 @@ type IconProps = PropsWithChildren<{
 const Icons = ({ name, onPress }: IconProps) => {
   switch (name) {
     case 'home-bottom-nav':
-      return <Icon name='home' size={24} color='#000000' onPress={onPress} />;
+      return <Icon name='home' size={24} onPress={onPress} solid />;
     case 'calendar-bottom-nav':
       return (
         <Icon name='calendar' size={24} color='#000000' onPress={onPress} />
       );
     case 'events-bottom-nav':
       return (
-        <Icon name='user-md' size={24} color='#000000' onPress={onPress} />
+        <Icon
+          name='user-md'
+          size={24}
+          color='#000000'
+          onPress={onPress}
+          solid
+        />
       );
     case 'chat-bottom-nav':
       return (
@@ -85,5 +92,15 @@ const Icons = ({ name, onPress }: IconProps) => {
       );
   }
 };
+
+const styles = StyleSheet.create({
+  iconOutline: {
+    color: 'rgb(170, 207, 202)',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: 'rgb(170, 207, 202)',
+    overflow: 'hidden',
+  },
+});
 
 export default Icons;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { Divider } from '@rneui/themed';
+import { Button, Divider } from '@rneui/themed';
 
 const MedicineItemDetails = () => {
   // TODO
@@ -22,6 +22,21 @@ const MedicineItemDetails = () => {
       <Divider style={styles.dividerStyle} />
       <Text style={styles.detailTitle}>Kraj wytworzenia</Text>
       <Text style={styles.details}>Austria</Text>
+      <Divider style={styles.dividerStyle} />
+      <View style={styles.buttons}>
+        <Button
+          title='Ulotka'
+          titleStyle={styles.buttonTitle}
+          containerStyle={styles.buttonContainer}
+          buttonStyle={styles.buttonStyle}
+        />
+        <Button
+          title='Charakterystyka'
+          titleStyle={styles.buttonTitle}
+          containerStyle={styles.buttonContainer}
+          buttonStyle={styles.buttonStyle}
+        />
+      </View>
       <Divider style={styles.dividerStyle} />
       <Text style={styles.detailTitle}>Ulotka</Text>
       <Text style={styles.link}>
@@ -65,6 +80,25 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     backgroundColor: 'black',
     height: 1,
+  },
+  buttons: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '100%',
+    padding: 10,
+  },
+  buttonTitle: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    width: 140,
+    borderRadius: 10,
+  },
+  buttonStyle: {
+    backgroundColor: 'blue',
   },
 });
 

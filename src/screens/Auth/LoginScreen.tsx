@@ -3,8 +3,60 @@ import WelcomeSvg from '../../assets/welcome-image.svg';
 import { Icon, Input, Button } from '@rneui/themed';
 import { TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import { SignInProps } from '../../navigation/types';
+import auth from '@react-native-firebase/auth';
+import { useState } from 'react';
+import db from '@react-native-firebase/database';
 
 const LoginScreen = ({ navigation }: SignInProps) => {
+  interface UserCredentials {
+    email: string;
+    password: string;
+    repeatPassword: string;
+  }
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+
+  const validateCredentials = ({
+    email,
+    password,
+    repeatPassword,
+  }: UserCredentials) => {
+    if (email && password && repeatPassword) {
+      if (password === repeatPassword) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const createProfile = async (response: any) => {
+    db().ref(`/users/${response.user.uid}`).set({ email });
+  };
+
+  const registerAndGoToMainDisplay = async (
+    userCredentials: UserCredentials
+  ) => {
+    try {
+      if (validateCredentials(userCredentials)) {
+        const response = await auth().createUserWithEmailAndPassword(
+          userCredentials.email,
+          userCredentials.password
+        );
+
+        if (response.user) {
+          await createProfile(response);
+          navigation.navigate('BottomBar', {
+            screen: 'Home',
+          });
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {

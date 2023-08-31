@@ -3,16 +3,15 @@ import { Icon, Input, Button } from '@rneui/themed';
 import {
   StyleSheet,
   Text,
-  Alert,
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
   Dimensions,
 } from 'react-native';
 import { SignUpProps } from '../../navigation/types';
-import auth from '@react-native-firebase/auth';
 import { useState } from 'react';
-import db from '@react-native-firebase/database';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../../../firebaseConfig';
 
 const RegisterScreen = ({ navigation }: SignUpProps) => {
   const [email, setEmail] = useState('');
@@ -28,27 +27,23 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
     return false;
   };
 
-  const createProfile = async (response: any) => {
-    db().ref(`/users/${response.user.uid}`).set({ email });
-  };
-
   const registerAndGoToMainDisplay = async () => {
     try {
       if (validateCredentials()) {
-        const response = await auth().createUserWithEmailAndPassword(
+        const response = await createUserWithEmailAndPassword(
+          FIREBASE_AUTH,
           email,
           password
         );
 
         if (response.user) {
-          await createProfile(response);
-          navigation.replace('BottomBar', {
+          // await createProfile(response);
+          navigation.navigate('BottomBar', {
             screen: 'Home',
           });
         }
       }
     } catch (e) {
-      // Alert.alert('Wystąpił błąd', 'Proszę sprawdzić wprowadzone dane');
       console.log(e);
     }
   };

@@ -13,6 +13,7 @@ import MedicinesScreen from './src/screens/Medicines/MedicinesScreen';
 import MedicineItemDetails from './src/screens/Medicines/MedicineItemDetails';
 import { useColorScheme } from 'react-native';
 import { StatusBar } from 'react-native';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -20,51 +21,53 @@ export default function App() {
   const colorScheme = useColorScheme();
 
   return (
-    <NavigationContainer>
-      <StatusBar
-        animated={true}
-        backgroundColor='transparent'
-        barStyle={'dark-content'}
-        translucent={true}
-      />
-      <Stack.Navigator initialRouteName='Welcome'>
-        <Stack.Screen
-          name='Welcome'
-          component={WelcomeScreen}
-          options={{ title: 'Strona powitalna' }}
+    <RootSiblingParent>
+      <NavigationContainer>
+        <StatusBar
+          animated={true}
+          backgroundColor='transparent'
+          barStyle={'dark-content'}
+          translucent={true}
         />
-        <Stack.Screen
-          name='SignIn'
-          component={LoginScreen}
-          options={{ title: 'Formularz logowania' }}
-        />
-        <Stack.Screen
-          name='SignUp'
-          component={RegisterScreen}
-          options={{ title: 'Formularz rejestracji' }}
-        />
-        <Stack.Screen
-          name='BottomBar'
-          component={BottomBar}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name='AccountItemDetails'
-          component={AccountItemDetailsScreen}
-          options={({ route }) => ({ title: route.params.title })}
-        />
-        <Stack.Screen
-          name='Medicines'
-          component={MedicinesScreen}
-          options={{ title: 'Lista leków' }}
-        />
-        <Stack.Screen
-          name='MedicinesItemDetails'
-          component={MedicineItemDetails}
-          options={{ title: 'Lista leków' }}
-        />
-      </Stack.Navigator>
-      {/* <CustomSpeedDial /> */}
-    </NavigationContainer>
+        <Stack.Navigator initialRouteName='Welcome'>
+          <Stack.Screen
+            name='Welcome'
+            component={WelcomeScreen}
+            options={{ title: 'Strona powitalna' }}
+          />
+          <Stack.Screen
+            name='SignIn'
+            component={LoginScreen}
+            options={{ title: 'Formularz logowania' }}
+          />
+          <Stack.Screen
+            name='SignUp'
+            component={RegisterScreen}
+            options={{ title: 'Formularz rejestracji' }}
+          />
+          <Stack.Screen
+            name='BottomBar'
+            component={BottomBar}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='AccountItemDetails'
+            component={AccountItemDetailsScreen}
+            options={({ route }) => ({ title: route.params.title })}
+          />
+          <Stack.Screen
+            name='Medicines'
+            component={MedicinesScreen}
+            options={{ title: 'Lista leków' }}
+          />
+          <Stack.Screen
+            name='MedicinesItemDetails'
+            component={MedicineItemDetails}
+            options={{ title: 'Lista leków' }}
+          />
+        </Stack.Navigator>
+        {/* <CustomSpeedDial /> */}
+      </NavigationContainer>
+    </RootSiblingParent>
   );
 }

@@ -1,46 +1,69 @@
-import WelcomeSvg from '../../assets/welcome-image.svg';
+import WelcomeSvg from '../../assets/register-image.svg';
 import { Icon, Input, Button } from '@rneui/themed';
 import { StyleSheet, Text, ScrollView, Dimensions } from 'react-native';
 import { SignUpProps } from '../../navigation/types';
 import { registerUser } from '../../firebase/auth';
 
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { ErrorMessage, Formik } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native';
+import CustomToast, { SHORT_MESSAGE } from '../../custom/CustomToast';
+import { DATABASE } from '../../../firebaseConfig';
+import { ref, set } from 'firebase/database';
 
 const RegisterSchema = Yup.object().shape({
-  email: Yup.string().email('Podany e-mail jest nieprawidłowy').required(),
+  email: Yup.string()
+    .email('Podany e-mail jest nieprawidłowy')
+    .required('To pole jest wymagane'),
   password: Yup.string()
     .min(6, 'Hasło powinno mieć co najmniej 6 znaków')
     .max(30, 'Hasło może mieć maksymalnie 30 znaków')
-    .required(),
+    .required('To pole jest wymagane'),
   repeatPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Hasła muszą być takie same')
-    .required(),
+    .required('To pole jest wymagane'),
 });
 
 const RegisterScreen = ({ navigation }: SignUpProps) => {
   return (
     <ScrollView keyboardShouldPersistTaps='handled'>
       <SafeAreaView style={styles.appContainer}>
+        <WelcomeSvg width={230} height={170} />
         <View style={styles.formContainer}>
+          <Text style={styles.headerText}>
+            Cieszymy się, że zdecydowałeś się dołączyć do nas!
+          </Text>
           <Formik
-            initialValues={{ email: '', password: '', repeatPassword: '' }}
+            initialValues={{
+              email: '',
+              password: '',
+              repeatPassword: '',
+              firstName: '',
+              lastName: '',
+              birthDate: new Date(),
+            }}
             validationSchema={RegisterSchema}
             onSubmit={async (values) => {
-              console.log(values);
-              const response = await registerUser(values);
-              console.log(response);
-              if (response) {
-                navigation.navigate('BottomBar', {
-                  screen: 'Home',
+              try {
+                const user = await registerUser(values);
+                if (user) {
+                  const userRef = ref(DATABASE, 'users/' + user.uid);
+                  await set(userRef, values);
+                  navigation.navigate('BottomBar', {
+                    screen: 'Home',
+                  });
+                }
+              } catch (e) {
+                CustomToast('Nie udało się zarejestrować', {
+                  type: 'error',
+                  duration: SHORT_MESSAGE,
                 });
               }
             }}>
-            {({ values, errors, touched, handleChange, handleSubmit }) => (
+            {({ values, handleChange, handleSubmit }) => (
               <>
-                <View>
+                <View style={styles.inputField}>
                   <Input
                     style={styles.inputField}
                     underlineColorAndroid='transparent'
@@ -50,12 +73,14 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
                     onChangeText={handleChange('email')}
                     value={values.email}
                   />
-                  {touched.email && errors.email && (
-                    <Text style={styles.errorText}>{errors.email}</Text>
-                  )}
+                  <ErrorMessage
+                    className='errorText'
+                    component={Text}
+                    name='email'
+                  />
                 </View>
 
-                <View>
+                <View style={styles.inputField}>
                   <Input
                     style={styles.inputField}
                     leftIcon={<Icon name='lock' size={30} color='black' />}
@@ -64,11 +89,13 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
                     onChangeText={handleChange('password')}
                     value={values.password}
                   />
-                  {touched.password && errors.password && (
-                    <Text style={styles.errorText}>{errors.password}</Text>
-                  )}
+                  <ErrorMessage
+                    className='errorText'
+                    component={Text}
+                    name='password'
+                  />
                 </View>
-                <View>
+                <View style={styles.inputField}>
                   <Input
                     style={styles.inputField}
                     leftIcon={<Icon name='lock' size={30} color='black' />}
@@ -77,11 +104,11 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
                     onChangeText={handleChange('repeatPassword')}
                     value={values.repeatPassword}
                   />
-                  {touched.repeatPassword && errors.repeatPassword && (
-                    <Text style={styles.errorText}>
-                      {errors.repeatPassword}
-                    </Text>
-                  )}
+                  <ErrorMessage
+                    className='errorText'
+                    component={Text}
+                    name='repeatPassword'
+                  />
                 </View>
 
                 <Button
@@ -108,25 +135,18 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
   );
 };
 
-// if (response.user) {
-//   // await createProfile(response);
-//   navigation.navigate('BottomBar', {
-//     screen: 'Home',
-//   });
-// }
-
 const styles = StyleSheet.create({
   appContainer: {
-    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
   },
   formContainer: {
-    margin: 8,
     padding: 8,
-  },
-  viewStyle: {
-    flexGrow: 1,
+    margin: 8,
+    display: 'flex',
     alignItems: 'center',
-    width: Dimensions.get('window').width,
+    width: '100%',
   },
   headerText: {
     fontSize: 30,
@@ -137,14 +157,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     alignSelf: 'stretch',
     borderRadius: 5,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
   },
   inputField: {
     alignSelf: 'stretch',
     textAlign: 'left',
     fontSize: 16,
     fontWeight: '700',
-    marginHorizontal: 20,
   },
   buttonSignUpStyle: {
     backgroundColor: 'black',

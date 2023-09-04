@@ -4,6 +4,7 @@ import AccountItem from './AccountItem';
 import { Divider } from '@rneui/themed';
 import AccountProfileHint from './AccountProfileHint';
 import { AccountProps } from '../../navigation/types';
+import { FIREBASE_AUTH } from '../../../firebaseConfig';
 
 const AccountScreen = ({ navigation }: AccountProps) => {
   return (
@@ -56,7 +57,7 @@ const AccountScreen = ({ navigation }: AccountProps) => {
       <AccountItem
         icon='logout-account'
         title='Wyloguj się'
-        onPress={() => navigation.navigate('Welcome')}
+        onPress={() => FIREBASE_AUTH.signOut()}
       />
     </View>
   );

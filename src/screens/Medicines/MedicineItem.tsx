@@ -15,7 +15,9 @@ const MedicineItem = ({ name, price, onPress }: MedicineItemProps) => {
   return (
     <View style={styles.viewStyle}>
       <Icons name='pills-home-page' />
-      <Text>{name}</Text>
+      <Text style={styles.name} numberOfLines={1}>
+        {name}
+      </Text>
       <Text>{price}</Text>
       <Button
         title='Zobacz więcej'
@@ -45,6 +47,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 60,
     padding: 5,
+  },
+  name: {
+    width: 130,
   },
 });
 

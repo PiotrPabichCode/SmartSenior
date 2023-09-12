@@ -17,7 +17,9 @@ export type RootStackParamList = {
     title: string;
   };
   Medicines: undefined;
-  MedicinesItemDetails: undefined;
+  MedicinesItemDetails: {
+    item: any;
+  };
 };
 
 export type BottomBarParamList = {

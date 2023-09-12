@@ -18,7 +18,6 @@ const MedicineItem = ({ name, price, onPress }: MedicineItemProps) => {
       <Text style={styles.name} numberOfLines={1}>
         {name}
       </Text>
-      <Text>{price}</Text>
       <Button
         title='Zobacz więcej'
         onPress={onPress}
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   name: {
-    width: 130,
+    width: 150,
   },
 });
 

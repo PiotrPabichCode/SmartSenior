@@ -1,27 +1,78 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Platform } from 'react-native';
 import { Button, Divider } from '@rneui/themed';
+import * as FileSystem from 'expo-file-system';
+import { shareAsync } from 'expo-sharing';
 
-const MedicineItemDetails = () => {
+const MedicineItemDetails = ({ route }: any) => {
+  const renderDetail = (title: string, detail: string) => {
+    return (
+      <>
+        <Divider style={styles.dividerStyle} />
+        <Text style={styles.detailTitle}>{title}</Text>
+        <Text style={styles.details}>{detail}</Text>
+      </>
+    );
+  };
+
+  const downloadFromUrl = async (url: string, type: string) => {
+    const filename = type + '-' + new Date() + '.pdf';
+    const result = await FileSystem.downloadAsync(
+      url,
+      FileSystem.documentDirectory + filename
+    );
+    console.log(result);
+
+    save(result.uri, filename, 'application/pdf');
+  };
+
+  const save = async (uri: any, filename: any, mimetype: any) => {
+    if (Platform.OS === 'android') {
+      const permissions =
+        await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+      if (permissions.granted) {
+        const base64 = await FileSystem.readAsStringAsync(uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        await FileSystem.StorageAccessFramework.createFileAsync(
+          permissions.directoryUri,
+          filename,
+          mimetype
+        )
+          .then(async (uri) => {
+            await FileSystem.writeAsStringAsync(uri, base64, {
+              encoding: FileSystem.EncodingType.Base64,
+            });
+          })
+          .catch((e) => console.log(e));
+      } else {
+        shareAsync(uri);
+      }
+    } else {
+      shareAsync(uri);
+    }
+  };
+
+  const { item } = route.params;
+  console.log(item);
   // TODO
   return (
-    <View style={styles.viewStyle}>
-      <Text style={styles.title}>Ibuprom Max</Text>
-      <Divider style={styles.dividerStyle} />
-      <Text style={styles.detailTitle}>Cena</Text>
-      <Text style={styles.details}>25,20zł</Text>
-      <Divider style={styles.dividerStyle} />
-      <Text style={styles.detailTitle}>Moc</Text>
-      <Text style={styles.details}>4 mg/5 ml</Text>
-      <Divider style={styles.dividerStyle} />
-      <Text style={styles.detailTitle}>Postać farmaceutyczna</Text>
-      <Text style={styles.details}>Tabletki powlekane</Text>
-      <Divider style={styles.dividerStyle} />
-      <Text style={styles.detailTitle}>Substancja czynna</Text>
-      <Text style={styles.details}>Acidum zoledronicum 4 mg/5 ml</Text>
-      <Divider style={styles.dividerStyle} />
-      <Text style={styles.detailTitle}>Kraj wytworzenia</Text>
-      <Text style={styles.details}>Austria</Text>
+    <ScrollView contentContainerStyle={styles.viewStyle}>
+      <Text style={styles.title}>{item['medicinalProductName']}</Text>
+      {renderDetail('Nazwa powszechna', item['commonName'])}
+      {renderDetail('Moc', item['medicinalProductPower'])}
+      {renderDetail('Postać farmaceutyczna', item['pharmaceuticalFormName'])}
+      {renderDetail('Substancja czynna', item['activeSubstanceName'])}
+      {renderDetail(
+        'Dostępne opakowania',
+        item['packaging'].replaceAll('\\n', '\n')
+      )}
+      {renderDetail('Termin ważności', item['expirationDateString'])}
+      {renderDetail('Firma', item['subjectMedicinalProductName'])}
+      {renderDetail(
+        'Kraj wytworzenia',
+        item['manufacturersDtos'][0]['countryName']
+      )}
       <Divider style={styles.dividerStyle} />
       <View style={styles.buttons}>
         <Button
@@ -29,25 +80,31 @@ const MedicineItemDetails = () => {
           titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
           buttonStyle={styles.buttonStyle}
+          onPress={() =>
+            downloadFromUrl(
+              'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/' +
+                item['id'] +
+                '/leaflet',
+              'ulotka'
+            )
+          }
         />
         <Button
           title='Charakterystyka'
           titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
           buttonStyle={styles.buttonStyle}
+          onPress={() =>
+            downloadFromUrl(
+              'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/' +
+                item['id'] +
+                '/characteristic',
+              'charakterystyka'
+            )
+          }
         />
       </View>
-      <Divider style={styles.dividerStyle} />
-      <Text style={styles.detailTitle}>Ulotka</Text>
-      <Text style={styles.link}>
-        https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/1/leaflet
-      </Text>
-      <Divider style={styles.dividerStyle} />
-      <Text style={styles.detailTitle}>Charakterystyka</Text>
-      <Text style={styles.link}>
-        https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/1/characteristic
-      </Text>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -56,13 +113,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    height: '100%',
     padding: 10,
     backgroundColor: '#FFFAFA',
   },
   title: {
     fontSize: 26,
     fontWeight: '600',
+    textAlign: 'center',
   },
   detailTitle: {
     fontSize: 22,
@@ -71,6 +128,7 @@ const styles = StyleSheet.create({
   details: {
     fontSize: 16,
     fontWeight: '400',
+    textAlign: 'center',
   },
   link: {
     textDecorationLine: 'underline',

@@ -2,22 +2,27 @@ import { Button, Divider, Input } from '@rneui/themed';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, ScrollView } from 'react-native';
 import MedicineItem from './MedicineItem';
-import {
-  MedicinesItemDetailsProps,
-  MedicinesProps,
-} from '../../navigation/types';
-import useLoadMedicinesFromWebsite from '../../api/useLoadMedicinesFromWebsite';
-import { RootObject } from '../../api/medicalTypes';
+import { MedicinesProps } from '../../navigation/types';
+import { Formik } from 'formik';
 
 const MedicinesScreen = ({ navigation }: MedicinesProps) => {
   const [items, setItems] = useState([]);
 
-  const GOV_URL =
-    'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/search/public?specimenTypeEnum=L';
+  const BASE_URL =
+    'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/search/public?specimenTypeEnum=L&';
 
-  const loadData = async () => {
+  const buildRequest = (params: any) => {
+    const entries = Object.entries(params).filter(
+      ([key, value]) => String(value).trim() !== ''
+    );
+    return (
+      BASE_URL + entries.map(([key, value]) => `${key}=${value}`).join('&')
+    );
+  };
+
+  const loadData = async (request: string) => {
     try {
-      const response = await fetch(GOV_URL);
+      const response = await fetch(request);
       const json = await response.json();
       setItems(json.content);
     } catch (e) {
@@ -25,28 +30,50 @@ const MedicinesScreen = ({ navigation }: MedicinesProps) => {
     }
   };
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
   return (
     <ScrollView contentContainerStyle={styles.viewStyle}>
       <Text style={styles.title}>Lista leków</Text>
       <Divider style={styles.dividerStyle} />
-      <Input placeholder='Wpisz nazwę leku...' />
-      <Button
-        containerStyle={styles.buttonSearchContainer}
-        buttonStyle={styles.buttonSearchStyle}
-        title='Szukaj'
-      />
+      <Formik
+        initialValues={{ name: '' }}
+        onSubmit={(params) => {
+          try {
+            console.log('Params', params);
+            const request = buildRequest(params);
+            console.log('Request', request);
+            loadData(request);
+          } catch (e) {
+            console.log(e);
+          }
+        }}>
+        {({ values, handleChange, handleSubmit }) => (
+          <>
+            <Input
+              placeholder='Wpisz nazwę leku...'
+              onChangeText={handleChange('name')}
+              value={values.name}
+            />
+            <Button
+              title='Szukaj'
+              containerStyle={styles.buttonSearchContainer}
+              buttonStyle={styles.buttonSearchStyle}
+              onPress={() => handleSubmit()}
+            />
+          </>
+        )}
+      </Formik>
 
       {items &&
         items.map((item, index) => (
           <MedicineItem
             key={index}
-            name={item['commonName']}
+            name={item['medicinalProductName']}
             price='35,20zł'
-            onPress={() => navigation.navigate('MedicinesItemDetails')}
+            onPress={() =>
+              navigation.navigate('MedicinesItemDetails', {
+                item: item,
+              })
+            }
           />
         ))}
     </ScrollView>

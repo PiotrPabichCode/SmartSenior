@@ -3,6 +3,16 @@ import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 import { getStorage } from 'firebase/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_STORAGE_BUCKET,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_APP_ID,
+  FIREBASE_MEASUREMENT_ID,
+  FIREBASE_DATABASE_URL,
+} from '@env';
 
 // Optionally import the services that you want to use
 // import {...} from "firebase/auth";
@@ -13,14 +23,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: 'AIzaSyDdvdVbItPTuuQiETum3WmV5K_mHraVFno',
-  authDomain: 'smartsenior-6dd25.firebaseapp.com',
-  databaseURL: 'https://smartsenior-6dd25-default-rtdb.firebaseio.com',
-  projectId: 'smartsenior-6dd25',
-  storageBucket: 'smartsenior-6dd25.appspot.com',
-  messagingSenderId: '515080154204',
-  appId: '1:515080154204:web:ab7ca056154ca042f7ca99',
-  measurementId: 'G-8QFXX2QMHJ',
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  databaseURL: FIREBASE_DATABASE_URL,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID,
+  measurementId: FIREBASE_MEASUREMENT_ID,
 };
 
 export const FIREBASE_APP = initializeApp(firebaseConfig);

@@ -16,6 +16,8 @@ import { StatusBar } from 'react-native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_AUTH } from './firebaseConfig';
+import PharmaciesScreen from './src/screens/Pharmacies/PharmaciesScreen';
+import PharmacyItemDetails from './src/screens/Pharmacies/PharmacyItemDetails';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -72,6 +74,16 @@ export default function App() {
         <Stack.Screen
           name='MedicinesItemDetails'
           component={MedicineItemDetails}
+          options={{ title: 'Lista leków' }}
+        />
+        <Stack.Screen
+          name='Pharmacies'
+          component={PharmaciesScreen}
+          options={{ title: 'Lista leków' }}
+        />
+        <Stack.Screen
+          name='PharmaciesItemDetails'
+          component={PharmacyItemDetails}
           options={{ title: 'Lista leków' }}
         />
       </Stack.Navigator>

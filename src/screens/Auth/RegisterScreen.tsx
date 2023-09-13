@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native';
-import CustomToast, { SHORT_MESSAGE } from '../../custom/CustomToast';
+import CustomToast from '../../custom/CustomToast';
 import { DATABASE } from '../../../firebaseConfig';
 import { ref, set } from 'firebase/database';
 
@@ -55,10 +55,7 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
                   });
                 }
               } catch (e) {
-                CustomToast('Nie udało się zarejestrować', {
-                  type: 'error',
-                  duration: SHORT_MESSAGE,
-                });
+                CustomToast('error', 'Nie udało się zarejestrować');
               }
             }}>
             {({ values, handleChange, handleSubmit }) => (

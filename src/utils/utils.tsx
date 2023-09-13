@@ -1,14 +1,6 @@
-import Papa, { ParseResult } from 'papaparse';
-
-export const getCSV = async (file: string) => {
-  try {
-    console.log('before');
-    const result = await Papa.parse(file, {
-      header: true,
-      dynamicTyping: true,
-    });
-    return result;
-  } catch (e) {
-    console.log(e);
-  }
+export const buildRequest = (baseUrl: string, params: any) => {
+  const entries = Object.entries(params).filter(
+    ([key, value]) => String(value).trim() !== ''
+  );
+  return baseUrl + entries.map(([key, value]) => `${key}=${value}`).join('&');
 };

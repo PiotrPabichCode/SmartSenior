@@ -40,6 +40,15 @@ const Icons = ({ name, onPress }: IconProps) => {
       return (
         <Icon name='user-md' size={38} color='#000000' onPress={onPress} />
       );
+    case 'pharmacy-home-page':
+      return (
+        <Icon
+          name='clinic-medical'
+          size={38}
+          color='#000000'
+          onPress={onPress}
+        />
+      );
     case 'notes-home-page':
       return (
         <Icon name='sticky-note' size={38} color='#000000' onPress={onPress} />

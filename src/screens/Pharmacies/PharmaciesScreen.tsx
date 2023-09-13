@@ -1,22 +1,22 @@
-import { Button, Divider, Input } from '@rneui/themed';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, ScrollView } from 'react-native';
-import MedicineItem from './MedicineItem';
-import { MedicinesProps } from '../../navigation/types';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { PharmaciesProps } from '../../navigation/types';
 import { Formik } from 'formik';
 import { buildRequest } from '../../utils/utils';
+import { Button, Divider, Input } from '@rneui/themed';
+import PharmacyItem from './PharmacyItem';
 
-const MedicinesScreen = ({ navigation }: MedicinesProps) => {
-  const [items, setItems] = useState([]);
-
+const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
+  const [pharmacies, setPharmacies] = useState([]);
   const BASE_URL =
-    'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/search/public?specimenTypeEnum=L&';
+    'https://rejestrymedyczne.ezdrowie.gov.pl/api/pharmacies/search?page=0&size=10&sortField=dateOfChanged&sortDirection=DESC&';
 
   const loadData = async (request: string) => {
     try {
       const response = await fetch(request);
       const json = await response.json();
-      setItems(json.content);
+      console.log(json);
+      setPharmacies(json);
     } catch (e) {
       console.log(e);
     }
@@ -24,7 +24,7 @@ const MedicinesScreen = ({ navigation }: MedicinesProps) => {
 
   return (
     <ScrollView contentContainerStyle={styles.viewStyle}>
-      <Text style={styles.title}>Lista leków</Text>
+      <Text style={styles.title}>Lista aptek</Text>
       <Divider style={styles.dividerStyle} />
       <Formik
         initialValues={{ name: '' }}
@@ -41,7 +41,7 @@ const MedicinesScreen = ({ navigation }: MedicinesProps) => {
         {({ values, handleChange, handleSubmit }) => (
           <>
             <Input
-              placeholder='Wpisz nazwę leku...'
+              placeholder='Wpisz nazwę apteki...'
               onChangeText={handleChange('name')}
               value={values.name}
             />
@@ -55,14 +55,13 @@ const MedicinesScreen = ({ navigation }: MedicinesProps) => {
         )}
       </Formik>
 
-      {items &&
-        items.map((item, index) => (
-          <MedicineItem
+      {pharmacies &&
+        pharmacies.map((item, index) => (
+          <PharmacyItem
             key={index}
-            name={item['medicinalProductName']}
-            price='35,20zł'
+            name={item['name']}
             onPress={() =>
-              navigation.navigate('MedicinesItemDetails', {
+              navigation.navigate('PharmaciesItemDetails', {
                 item: item,
               })
             }
@@ -99,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MedicinesScreen;
+export default PharmaciesScreen;

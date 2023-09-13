@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { authUser } from '../../firebase/auth';
-import CustomToast, { SHORT_MESSAGE } from '../../custom/CustomToast';
+import CustomToast from '../../custom/CustomToast';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -50,10 +50,7 @@ const LoginScreen = ({ navigation }: SignInProps) => {
                 screen: 'Home',
               });
             } catch (e) {
-              CustomToast('Nie udało się zalogować', {
-                type: 'error',
-                duration: SHORT_MESSAGE,
-              });
+              CustomToast('error', 'Nie udało się zalogować');
             }
           }}>
           {({ values, handleChange, handleSubmit }) => (

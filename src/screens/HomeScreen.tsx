@@ -26,6 +26,12 @@ const HomeScreen = ({ navigation }: HomeProps) => {
           icon={<Icons name='doctor-home-page' />}
         />
         <CustomButton
+          onPress={() => navigation.navigate('Pharmacies')}
+          title='Lista aptek'
+          backgroundColor={'#9564FE'}
+          icon={<Icons name='pharmacy-home-page' />}
+        />
+        <CustomButton
           title='Twoje notatki'
           backgroundColor={'#469323'}
           icon={<Icons name='notes-home-page' />}

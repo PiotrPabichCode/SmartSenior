@@ -20,6 +20,10 @@ export type RootStackParamList = {
   MedicinesItemDetails: {
     item: any;
   };
+  Pharmacies: undefined;
+  PharmaciesItemDetails: {
+    item: any;
+  };
 };
 
 export type BottomBarParamList = {
@@ -56,6 +60,16 @@ export type MedicinesProps = NativeStackScreenProps<
 export type MedicinesItemDetailsProps = NativeStackScreenProps<
   RootStackParamList,
   'MedicinesItemDetails'
+>;
+
+export type PharmaciesProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Pharmacies'
+>;
+
+export type PharmaciesItemDetailsProps = NativeStackScreenProps<
+  RootStackParamList,
+  'PharmaciesItemDetails'
 >;
 
 export type HomeProps = CompositeScreenProps<

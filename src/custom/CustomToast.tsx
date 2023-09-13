@@ -1,42 +1,33 @@
-import Toast from 'react-native-root-toast';
+import Toast from 'react-native-toast-message';
 
-type CustomToastType = {
-  type: string;
-  duration: number;
-};
-
-export const SHORT_MESSAGE = 3000;
-export const LONG_MESSAGE = 5000;
-
-const CustomToast = (message: string, { type, duration }: CustomToastType) => {
+const CustomToast = (type: string, text1: string, text2?: string) => {
   switch (type) {
-    case 'success':
-      return Toast.show(message, {
-        duration: duration,
-        position: Toast.positions.BOTTOM,
-        hideOnPress: true,
-        opacity: 1,
-        backgroundColor: '#355E3B',
-        textColor: '#FFFFFF',
+    case 'success': {
+      return Toast.show({
+        type: 'success',
+        text1: text1,
+        text2: text2,
+        visibilityTime: 2000,
       });
-    case 'error':
-      return Toast.show(message, {
-        duration: duration,
-        position: Toast.positions.BOTTOM,
-        hideOnPress: true,
-        opacity: 1,
-        backgroundColor: '#FF0000',
-        textColor: '#FFFFFF',
+    }
+    case 'error': {
+      return Toast.show({
+        type: 'error',
+        text1: text1,
+        text2: text2,
+        visibilityTime: 2000,
       });
+    }
+    case 'info': {
+      return Toast.show({
+        type: 'info',
+        text1: text1,
+        text2: text2,
+        visibilityTime: 2000,
+      });
+    }
     default:
-      return Toast.show(message, {
-        duration: duration,
-        position: Toast.positions.BOTTOM,
-        hideOnPress: true,
-        opacity: 1,
-        backgroundColor: '#808080',
-        textColor: '#000000',
-      });
+      return;
   }
 };
 

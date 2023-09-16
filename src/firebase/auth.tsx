@@ -4,12 +4,12 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 
-export const registerUser = async (registrationData: any) => {
+export const registerUser = async (authData: any) => {
   try {
     const response = await createUserWithEmailAndPassword(
       FIREBASE_AUTH,
-      registrationData.email,
-      registrationData.password
+      authData.email,
+      authData.password
     );
 
     if (response.user) {
@@ -20,12 +20,12 @@ export const registerUser = async (registrationData: any) => {
   }
 };
 
-export const authUser = async (registrationData: any) => {
+export const authUser = async (authData: any) => {
   try {
     const response = await signInWithEmailAndPassword(
       FIREBASE_AUTH,
-      registrationData.email,
-      registrationData.password
+      authData.email,
+      authData.password
     );
 
     if (response.user) {

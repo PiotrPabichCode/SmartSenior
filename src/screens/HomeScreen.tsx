@@ -7,8 +7,6 @@ import { useState } from 'react';
 import { SpeedDial } from '@rneui/themed';
 
 const HomeScreen = ({ navigation }: HomeProps) => {
-  const [open, setOpen] = useState(false);
-
   return (
     <ScrollView contentContainerStyle={styles.viewStyle}>
       <Text style={styles.welcomeText}>Hej Piotr!</Text>
@@ -37,24 +35,6 @@ const HomeScreen = ({ navigation }: HomeProps) => {
           icon={<Icons name='notes-home-page' />}
         />
       </View>
-      <SpeedDial
-        isOpen={open}
-        icon={{ name: 'edit', color: 'white' }}
-        openIcon={{ name: 'close', color: 'white' }}
-        onOpen={() => setOpen(!open)}
-        onClose={() => setOpen(!open)}
-        style={{ position: 'absolute', bottom: 0, right: 0 }}>
-        <SpeedDial.Action
-          icon={{ name: 'add', color: '#fff' }}
-          title='Add'
-          onPress={() => console.log('Add Something')}
-        />
-        <SpeedDial.Action
-          icon={{ name: 'delete', color: '#fff' }}
-          title='Delete'
-          onPress={() => console.log('Delete Something')}
-        />
-      </SpeedDial>
     </ScrollView>
   );
 };

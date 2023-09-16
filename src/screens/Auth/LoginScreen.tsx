@@ -45,7 +45,7 @@ const LoginScreen = ({ navigation }: SignInProps) => {
           validationSchema={LoginSchema}
           onSubmit={async (values) => {
             try {
-              const user = await authUser(values);
+              await authUser(values);
               navigation.navigate('BottomBar', {
                 screen: 'Home',
               });

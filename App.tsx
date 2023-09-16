@@ -1,33 +1,48 @@
 import { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 import WelcomeScreen from './src/screens/Auth/WelcomeScreen';
 import LoginScreen from './src/screens/Auth/LoginScreen';
 import RegisterScreen from './src/screens/Auth/RegisterScreen';
-import CustomSpeedDial from './src/components/CustomSpeedDial';
 import AccountItemDetailsScreen from './src/screens/Account/AccountItemDetailsScreen';
-import { RootStackParamList } from './src/navigation/types';
+import { CreateEventProps, RootStackParamList } from './src/navigation/types';
 import BottomBar from './src/navigation/BottomBar';
 import MedicinesScreen from './src/screens/Medicines/MedicinesScreen';
 import MedicineItemDetails from './src/screens/Medicines/MedicineItemDetails';
 import { useColorScheme } from 'react-native';
-import { StatusBar } from 'react-native';
+import { StatusBar, StyleSheet, ActivityIndicator, View } from 'react-native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_AUTH } from './firebaseConfig';
 import PharmaciesScreen from './src/screens/Pharmacies/PharmaciesScreen';
 import PharmacyItemDetails from './src/screens/Pharmacies/PharmacyItemDetails';
+import { SpeedDial } from '@rneui/themed';
+import CreateEventScreen from './src/screens/Events/CreateEventScreen';
+import SpeedDialMenu from './src/navigation/SpeedDialMenu';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   const colorScheme = useColorScheme();
   const [user, setUser] = useState<User | null>(null);
+  const [open, setOpen] = useState(false);
+  const [connecting, setConnecting] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setConnecting(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
       setUser(user);
+      setConnecting(false);
     });
   });
 
@@ -79,14 +94,22 @@ export default function App() {
         <Stack.Screen
           name='Pharmacies'
           component={PharmaciesScreen}
-          options={{ title: 'Lista leków' }}
+          options={{ title: 'Lista aptek' }}
         />
         <Stack.Screen
           name='PharmaciesItemDetails'
           component={PharmacyItemDetails}
-          options={{ title: 'Lista leków' }}
+          options={{ title: 'Lista aptek' }}
         />
       </Stack.Navigator>
+    );
+  }
+
+  if (connecting) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size='large' />
+      </View>
     );
   }
 
@@ -99,7 +122,7 @@ export default function App() {
           barStyle={'dark-content'}
           translucent={true}
         />
-        <Stack.Navigator initialRouteName='Welcome'>
+        <Stack.Navigator initialRouteName={user ? 'BottomBar' : 'Welcome'}>
           {user ? (
             <Stack.Screen
               name='Inside'
@@ -114,8 +137,15 @@ export default function App() {
             />
           )}
         </Stack.Navigator>
-        {/* <CustomSpeedDial /> */}
+        {/* <SpeedDialMenu navigation={navigation} route={undefined} /> */}
       </NavigationContainer>
     </RootSiblingParent>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+});

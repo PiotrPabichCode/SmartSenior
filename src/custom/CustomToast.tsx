@@ -8,6 +8,8 @@ const CustomToast = (type: string, text1: string, text2?: string) => {
         text1: text1,
         text2: text2,
         visibilityTime: 2000,
+        position: 'bottom',
+        bottomOffset: 20,
       });
     }
     case 'error': {
@@ -16,6 +18,8 @@ const CustomToast = (type: string, text1: string, text2?: string) => {
         text1: text1,
         text2: text2,
         visibilityTime: 2000,
+        position: 'bottom',
+        bottomOffset: 20,
       });
     }
     case 'info': {
@@ -24,6 +28,8 @@ const CustomToast = (type: string, text1: string, text2?: string) => {
         text1: text1,
         text2: text2,
         visibilityTime: 2000,
+        position: 'bottom',
+        bottomOffset: 20,
       });
     }
     default:

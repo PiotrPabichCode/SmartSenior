@@ -3,13 +3,16 @@ import { SpeedDial } from '@rneui/themed';
 import { CreateEventProps } from './types';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-const SpeedDialMenu = ({ navigation }: CreateEventProps) => {
+const SpeedDialMenu = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);
 
   const onClickAction = (command: string) => {
     switch (command) {
-      case 'ADD':
+      case 'ADD_EVENT':
         navigation.navigate('CreateEvent');
+        break;
+      case 'ADD_KEEPER':
+        navigation.navigate('AddKeeper');
         break;
     }
   };
@@ -21,16 +24,16 @@ const SpeedDialMenu = ({ navigation }: CreateEventProps) => {
       openIcon={{ name: 'close', color: 'white' }}
       onOpen={() => setOpen(!open)}
       onClose={() => setOpen(!open)}
-      style={{ position: 'absolute', bottom: 50, right: 0 }}>
+      style={{ position: 'absolute', bottom: 0, right: 0 }}>
       <SpeedDial.Action
         icon={{ name: 'add', color: '#fff' }}
-        title='Add'
-        onPress={() => onClickAction('ADD')}
+        title='Dodaj wydarzenie'
+        onPress={() => onClickAction('ADD_EVENT')}
       />
       <SpeedDial.Action
-        icon={{ name: 'delete', color: '#fff' }}
-        title='Delete'
-        onPress={() => console.log('Delete Something')}
+        icon={{ name: 'add', color: '#fff' }}
+        title='Dodaj opiekuna'
+        onPress={() => onClickAction('ADD_KEEPER')}
       />
     </SpeedDial>
   );

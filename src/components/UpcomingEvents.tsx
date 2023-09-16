@@ -1,6 +1,66 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, Icon, Divider } from '@rneui/themed';
 
+const UpcomingEvents = () => {
+  const moreButton = (
+    <Button
+      title='Zobacz więcej'
+      containerStyle={styles.moreButtonStyle}
+      buttonStyle={styles.moreButtonStyle}
+      titleStyle={styles.moreButtonTitle}
+    />
+  );
+  const actionButton = (
+    <Button
+      title='Wykonaj'
+      containerStyle={styles.actionButtonStyle}
+      buttonStyle={styles.actionButtonStyle}
+      titleStyle={styles.actionButtonTitle}
+    />
+  );
+  const events = [
+    {
+      startTime: '17.07.2023r. godzina 16:00',
+      description: 'Badanie ciśnieniomierzem',
+    },
+    {
+      startTime: '21.07.2023r. godzina 12:00',
+      description: 'Poranny rozruch',
+    },
+    {
+      startTime: '21.07.2023r. godzina 12:00',
+      description: 'Poranny rozruch',
+    },
+    {
+      startTime: '21.07.2023r. godzina 12:00',
+      description: 'Poranny rozruch',
+    },
+  ];
+
+  const mapEventItems = events.map((event, index) => {
+    const isEnd = index !== events.length - 1;
+    return (
+      <View style={styles.eventView} key={'event' + index.toString()}>
+        <View style={styles.eventTimeView}>
+          <Icon name='arrow-right' color='#000' size={30} />
+          <Text style={styles.eventText}>{event.startTime}</Text>
+          <Icon name='arrow-left' color='#000' size={30} />
+        </View>
+        <Text style={styles.eventTitle}>{event.description}</Text>
+        {actionButton}
+        {isEnd && <Divider style={styles.dividerStyle} />}
+      </View>
+    );
+  });
+
+  return (
+    <View style={styles.viewStyle}>
+      <Text style={styles.titleStyle}>Nadchodzące wydarzenia</Text>
+      {mapEventItems}
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   viewStyle: {
     display: 'flex',
@@ -70,65 +130,5 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 });
-
-const UpcomingEvents = () => {
-  const moreButton = (
-    <Button
-      title='Zobacz więcej'
-      containerStyle={styles.moreButtonStyle}
-      buttonStyle={styles.moreButtonStyle}
-      titleStyle={styles.moreButtonTitle}
-    />
-  );
-  const actionButton = (
-    <Button
-      title='Wykonaj'
-      containerStyle={styles.actionButtonStyle}
-      buttonStyle={styles.actionButtonStyle}
-      titleStyle={styles.actionButtonTitle}
-    />
-  );
-  const events = [
-    {
-      startTime: '17.07.2023r. godzina 16:00',
-      description: 'Badanie ciśnieniomierzem',
-    },
-    {
-      startTime: '21.07.2023r. godzina 12:00',
-      description: 'Poranny rozruch',
-    },
-    {
-      startTime: '21.07.2023r. godzina 12:00',
-      description: 'Poranny rozruch',
-    },
-    {
-      startTime: '21.07.2023r. godzina 12:00',
-      description: 'Poranny rozruch',
-    },
-  ];
-
-  const mapEventItems = events.map((event, index) => {
-    const isEnd = index !== events.length - 1;
-    return (
-      <View style={styles.eventView} key={'event' + index.toString()}>
-        <View style={styles.eventTimeView}>
-          <Icon name='arrow-right' color='#000' size={30} />
-          <Text style={styles.eventText}>{event.startTime}</Text>
-          <Icon name='arrow-left' color='#000' size={30} />
-        </View>
-        <Text style={styles.eventTitle}>{event.description}</Text>
-        {actionButton}
-        {isEnd && <Divider style={styles.dividerStyle} />}
-      </View>
-    );
-  });
-
-  return (
-    <View style={styles.viewStyle}>
-      <Text style={styles.titleStyle}>Nadchodzące wydarzenia</Text>
-      {mapEventItems}
-    </View>
-  );
-};
 
 export default UpcomingEvents;

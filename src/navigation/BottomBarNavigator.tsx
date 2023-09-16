@@ -1,16 +1,16 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CalendarScreen from '../screens/CalendarScreen';
-import CustomSpeedDial from '../components/CustomSpeedDial';
 import Icons from '../custom/Icons';
 import AccountScreen from '../screens/Account/AccountScreen';
 import EventsScreen from '../screens/EventsScreen';
 import ChatScreen from '../screens/ChatScreen';
 import { BottomBarParamList } from './types';
 import HomeScreen from '../screens/HomeScreen';
+import CreateEventScreen from '../screens/Events/CreateEventScreen';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
-const BottomBar = () => {
+const BottomBarNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -24,7 +24,7 @@ const BottomBar = () => {
       />
       <Tab.Screen
         name='Calendar'
-        component={CalendarScreen}
+        component={CreateEventScreen}
         options={{
           title: 'Kalendarz',
           tabBarLabel: 'Kalendarz',
@@ -64,4 +64,4 @@ const BottomBar = () => {
   );
 };
 
-export default BottomBar;
+export default BottomBarNavigator;

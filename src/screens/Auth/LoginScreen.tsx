@@ -1,9 +1,8 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import WelcomeSvg from '../../assets/welcome-image.svg';
 import { Icon, Input, Button } from '@rneui/themed';
-import { TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { SignInProps } from '../../navigation/types';
-import { useState } from 'react';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';

@@ -3,8 +3,6 @@ import CustomButton from '../components/CustomButton';
 import UpcomingEvents from '../components/UpcomingEvents';
 import Icons from '../custom/Icons';
 import { HomeProps } from '../navigation/types';
-import { useState } from 'react';
-import { SpeedDial } from '@rneui/themed';
 
 const HomeScreen = ({ navigation }: HomeProps) => {
   return (

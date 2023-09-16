@@ -3,7 +3,6 @@ import { Icon, Input, Button } from '@rneui/themed';
 import { StyleSheet, Text, ScrollView, Dimensions } from 'react-native';
 import { SignUpProps } from '../../navigation/types';
 import { registerUser } from '../../firebase/auth';
-
 import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';

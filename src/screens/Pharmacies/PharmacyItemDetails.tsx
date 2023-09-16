@@ -31,20 +31,21 @@ const PharmacyItemDetails = ({ route }: any) => {
       </>
     );
   };
+  console.log('Item', item);
 
   // TODO
   return (
     <ScrollView contentContainerStyle={styles.viewStyle}>
-      {renderDetail('Nazwa apteki', item['name'])}
-      {renderDetail('Dostępność', item['pharmacyStatus']['code'])}
-      {renderDetail('Postać farmaceutyczna', item['pharmacyGenre']['code'])}
-      {renderAddress('Adres: ', item['address'])}
-      {renderDetail('Numer telefonu', item['phoneNumber'])}
-      {renderDetail('E-mail', item['email'])}
-      {renderDetail('Właściciele', item['owners'][0])}
+      {renderDetail('Nazwa apteki', item.name)}
+      {renderDetail('Dostępność', item.pharmacyStatus.displayName)}
+      {renderDetail('Postać farmaceutyczna', item.pharmacyGenre.displayName)}
+      {renderAddress('Adres: ', item.address)}
+      {renderDetail('Numer telefonu', item.phoneNumber)}
+      {renderDetail('E-mail', item.email)}
+      {renderDetail('Właściciele', item.owners[0].name)}
       {renderDetail(
         'Otwarte w niedziele niehandlowe',
-        item['openOnSundaysNonTrade'] ? 'Tak' : 'Nie'
+        item.openOnSundaysNonTrade ? 'Tak' : 'Nie'
       )}
       <Divider style={styles.dividerStyle} />
     </ScrollView>

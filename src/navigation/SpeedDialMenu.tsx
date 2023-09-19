@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { SpeedDial } from '@rneui/themed';
-import { CreateEventProps } from './types';
-import { useNavigation, useRoute } from '@react-navigation/native';
 
 const SpeedDialMenu = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);
@@ -12,7 +10,7 @@ const SpeedDialMenu = ({ navigation }: any) => {
         navigation.navigate('CreateEvent');
         break;
       case 'ADD_KEEPER':
-        navigation.navigate('AddKeeper');
+        navigation.navigate('AddKeeper'); // TODO
         break;
     }
   };

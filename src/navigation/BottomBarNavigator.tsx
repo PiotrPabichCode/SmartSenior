@@ -24,7 +24,7 @@ const BottomBarNavigator = () => {
       />
       <Tab.Screen
         name='Calendar'
-        component={CreateEventScreen}
+        component={CreateEventScreen} // TODO
         options={{
           title: 'Kalendarz',
           tabBarLabel: 'Kalendarz',

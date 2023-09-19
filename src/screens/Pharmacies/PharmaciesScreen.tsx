@@ -8,7 +8,6 @@ import PharmacyItem from './PharmacyItem';
 import CustomDropdown from '../../components/CustomDropdown';
 
 const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
-  const [value, setValue] = useState('');
   const [pharmacies, setPharmacies] = useState([]);
   const BASE_URL =
     'https://rejestrymedyczne.ezdrowie.gov.pl/api/pharmacies/search?page=0&size=10&sortField=dateOfChanged&sortDirection=DESC&statusCode=AKTYWNA';

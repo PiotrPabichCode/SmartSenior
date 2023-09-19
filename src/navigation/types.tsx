@@ -25,6 +25,7 @@ export type RootStackParamList = {
     item: any;
   };
   CreateEvent: undefined;
+  AddKeeper: undefined;
 };
 
 export type BottomBarParamList = {
@@ -76,6 +77,11 @@ export type PharmaciesItemDetailsProps = NativeStackScreenProps<
 export type CreateEventProps = NativeStackScreenProps<
   RootStackParamList,
   'CreateEvent'
+>;
+
+export type AddKeeperProps = NativeStackScreenProps<
+  RootStackParamList,
+  'AddKeeper'
 >;
 
 export type HomeProps = CompositeScreenProps<

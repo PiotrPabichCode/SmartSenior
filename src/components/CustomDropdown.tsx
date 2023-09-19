@@ -18,7 +18,7 @@ const CustomDropdown = (props: any) => {
       selectedTextStyle={styles.selectedTextStyle}
       iconStyle={styles.iconStyle}
       data={props.data}
-      maxHeight={300}
+      maxHeight={180}
       labelField='label'
       valueField='value'
       placeholder={props.placeholder}

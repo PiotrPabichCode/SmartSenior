@@ -44,7 +44,6 @@ export default function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <AppNavigator user={user} />
-        {/* <SpeedDialMenu navigation={navigation} route={undefined} /> */}
       </NavigationContainer>
       <Toast />
     </SafeAreaProvider>

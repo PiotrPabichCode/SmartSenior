@@ -6,6 +6,7 @@ import { buildRequest } from '../../utils/utils';
 import { Button, Divider, Input } from '@rneui/themed';
 import PharmacyItem from './PharmacyItem';
 import CustomDropdown from '../../components/CustomDropdown';
+import SpeedDialMenu from '../../navigation/SpeedDialMenu';
 
 const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
   const [pharmacies, setPharmacies] = useState([]);
@@ -43,71 +44,77 @@ const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
   ];
 
   return (
-    <ScrollView contentContainerStyle={styles.viewStyle}>
-      <Text style={styles.title}>Lista aptek</Text>
-      <Divider style={styles.dividerStyle} />
-      <Formik
-        initialValues={{ name: '', companyCity: '', companyProvince: '' }}
-        onSubmit={(params) => {
-          try {
-            console.log('Params', params);
-            const request = buildRequest(BASE_URL, params);
-            console.log('Request', request);
-            loadData(request);
-          } catch (e) {
-            console.log(e);
-          }
-        }}>
-        {({ values, handleChange, handleSubmit }) => (
-          <>
-            <Input
-              placeholder='Wpisz nazwę apteki...'
-              onChangeText={handleChange('name')}
-              value={values.name}
-            />
-            <Input
-              placeholder='Wpisz miejscowość...'
-              onChangeText={handleChange('companyCity')}
-              value={values.companyCity}
-            />
-            <CustomDropdown
-              data={provinces}
-              placeholder={'Wybierz województwo'}
-              value={values.companyProvince}
-              handleChange={handleChange('companyProvince')}
-            />
-            <Button
-              title='Szukaj'
-              containerStyle={styles.buttonSearchContainer}
-              buttonStyle={styles.buttonSearchStyle}
-              onPress={() => handleSubmit()}
-            />
-          </>
-        )}
-      </Formik>
-
-      {pharmacies &&
-        pharmacies.map((item, index) => (
-          <PharmacyItem
-            key={index}
-            name={item['name']}
-            onPress={() =>
-              navigation.navigate('PharmaciesItemDetails', {
-                item: item,
-              })
+    <View style={styles.view}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollView}>
+        <Text style={styles.title}>Lista aptek</Text>
+        <Divider style={styles.dividerStyle} />
+        <Formik
+          initialValues={{ name: '', companyCity: '', companyProvince: '' }}
+          onSubmit={(params) => {
+            try {
+              const request = buildRequest(BASE_URL, params);
+              loadData(request);
+            } catch (e) {
+              console.log(e);
             }
-          />
-        ))}
-    </ScrollView>
+          }}>
+          {({ values, handleChange, handleSubmit }) => (
+            <>
+              <Input
+                placeholder='Wpisz nazwę apteki...'
+                onChangeText={handleChange('name')}
+                value={values.name}
+              />
+              <Input
+                placeholder='Wpisz miejscowość...'
+                onChangeText={handleChange('companyCity')}
+                value={values.companyCity}
+              />
+              <CustomDropdown
+                data={provinces}
+                placeholder={'Wybierz województwo'}
+                value={values.companyProvince}
+                handleChange={handleChange('companyProvince')}
+              />
+              <Button
+                title='Szukaj'
+                containerStyle={styles.buttonSearchContainer}
+                buttonStyle={styles.buttonSearchStyle}
+                onPress={() => handleSubmit()}
+              />
+            </>
+          )}
+        </Formik>
+
+        {pharmacies &&
+          pharmacies.map((item, index) => (
+            <PharmacyItem
+              key={index}
+              name={item['name']}
+              onPress={() =>
+                navigation.navigate('PharmaciesItemDetails', {
+                  item: item,
+                })
+              }
+            />
+          ))}
+      </ScrollView>
+      <SpeedDialMenu navigation={navigation} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  viewStyle: {
+  view: {
+    backgroundColor: 'white',
+    height: '100%',
+  },
+  scrollView: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#FFFAFA',
   },
   buttonSearchContainer: {
     width: '90%',

@@ -7,6 +7,7 @@ import { Button, CheckBox, Input } from '@rneui/themed';
 import CustomDropdown from '../../components/CustomDropdown';
 import SpeedDialMenu from '../../navigation/SpeedDialMenu';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import DayFieldsRenderer from './DayFieldsRenderer';
 
 const CreateEventScreen = ({ navigation }: CreateEventProps) => {
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
@@ -38,8 +39,18 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
     { label: 'Wpisz wartość: (liczba = ilość dni)', value: -1 },
   ];
 
+  const days = [
+    { shortTitle: 'p', title: 'pon.', value: 1, active: false },
+    { shortTitle: 'w', title: 'wt.', value: 2, active: false },
+    { shortTitle: 'ś', title: 'śr.', value: 3, active: false },
+    { shortTitle: 'c', title: 'czw.', value: 4, active: false },
+    { shortTitle: 'p', title: 'pt.', value: 5, active: false },
+    { shortTitle: 's', title: 'sob.', value: 6, active: false },
+    { shortTitle: 'n', title: 'niedz.', value: 7, active: false },
+  ];
+
   return (
-    <SafeAreaView style={styles.view}>
+    <View style={styles.view}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}>
@@ -51,13 +62,14 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
             date: 0,
             priority: '',
             repeat: 0,
+            days: [],
             time: 0,
             cyclic: false,
             notification: true,
           }}
           onSubmit={(values) => {
             try {
-              console.log(values); // Tworzenie wydarzenia
+              console.log(values.title); // Tworzenie wydarzenia
             } catch (e) {
               console.error(e);
             }
@@ -83,6 +95,10 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                     : 'Wybierz datę wydarzenia'
                 }
               />
+              {values.date !== 0 && (
+                <DayFieldsRenderer days={days} setFieldValue={setFieldValue} />
+              )}
+
               {showDatePicker && (
                 <RNDateTimePicker
                   value={new Date()}
@@ -110,9 +126,8 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                     }
                     const hours = newTime!.getHours();
                     const minutes = newTime!.getMinutes();
-                    const seconds = newTime!.getSeconds();
                     const datetime = new Date(
-                      `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`
+                      `${year}-${month}-${day}T${hours}:${minutes}`
                     );
                     !isNaN(datetime.getDate()) &&
                       setFieldValue('date', datetime);
@@ -157,22 +172,30 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                 value={values.priority}
                 handleChange={handleChange('priority')}
               />
+              <Button
+                title='Utwórz wydarzenie'
+                buttonStyle={styles.buttonSubmit}
+                containerStyle={styles.buttonSubmitContainer}
+                titleStyle={styles.buttonSubmitTitle}
+                onPress={() => handleSubmit()}
+              />
             </>
           )}
         </Formik>
       </ScrollView>
       <SpeedDialMenu navigation={navigation} />
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   view: {
     backgroundColor: 'white',
+    height: '100%',
   },
   scrollView: {
-    height: '100%',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   inlineView: {
@@ -228,6 +251,20 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
+  },
+  buttonSubmit: {
+    backgroundColor: 'rgba(127, 220, 103, 1)',
+    borderRadius: 25,
+  },
+  buttonSubmitTitle: {
+    color: 'white',
+    marginHorizontal: 20,
+  },
+  buttonSubmitContainer: {
+    height: 40,
+    width: 200,
+    marginHorizontal: 50,
+    marginVertical: 10,
   },
 });
 

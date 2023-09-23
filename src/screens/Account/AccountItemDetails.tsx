@@ -3,8 +3,8 @@ import { Text, TextInput, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 import type { PropsWithChildren } from 'react';
-import Icons from '../../custom/Icons';
 import { CheckBox, Switch } from '@rneui/themed';
+import { renderIcon } from '../../custom/Icons';
 
 type AccountItemDetailsProps = PropsWithChildren<{
   type?: string;
@@ -41,7 +41,7 @@ const AccountItemDetails = ({
               onChangeText={setInput}
               keyboardType='numbers-and-punctuation'
             />
-            <Icons name='edit-account' />
+            {renderIcon('edit')}
           </View>
         </View>
       );

@@ -1,12 +1,12 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CalendarScreen from '../screens/CalendarScreen';
-import Icons from '../custom/Icons';
 import AccountScreen from '../screens/Account/AccountScreen';
 import EventsScreen from '../screens/EventsScreen';
 import ChatScreen from '../screens/ChatScreen';
 import { BottomBarParamList } from './types';
 import HomeScreen from '../screens/HomeScreen';
 import CreateEventScreen from '../screens/Events/CreateEventScreen';
+import { renderIcon } from '../custom/Icons';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
@@ -19,26 +19,26 @@ const BottomBarNavigator = () => {
         options={{
           title: 'Strona główna',
           tabBarLabel: 'Strona główna',
-          tabBarIcon: () => <Icons name='home-bottom-nav' />,
+          tabBarIcon: ({ focused }) => renderIcon('home-bottom-nav', focused),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name='Calendar'
         component={CreateEventScreen} // TODO
         options={{
           title: 'Kalendarz',
           tabBarLabel: 'Kalendarz',
-          tabBarIcon: () => <Icons name='calendar-bottom-nav' />,
+          tabBarIcon: ({ focused }) => renderIcon('calendar-bottom-nav', focused),
           tabBarBadge: 3,
         }}
-      />
+      /> */}
       <Tab.Screen
         name='Events'
         component={EventsScreen}
         options={{
           title: 'Wydarzenia',
           tabBarLabel: 'Wydarzenia',
-          tabBarIcon: () => <Icons name='events-bottom-nav' />,
+          tabBarIcon: ({ focused }) => renderIcon('events-bottom-nav', focused),
           tabBarBadge: 3,
         }}
       />
@@ -47,7 +47,7 @@ const BottomBarNavigator = () => {
         component={ChatScreen}
         options={{
           tabBarLabel: 'Czat',
-          tabBarIcon: () => <Icons name='chat-bottom-nav' />,
+          tabBarIcon: ({ focused }) => renderIcon('chat-bottom-nav', focused),
           tabBarBadge: 3,
         }}
       /> */}
@@ -57,7 +57,8 @@ const BottomBarNavigator = () => {
         options={{
           title: 'Profil',
           tabBarLabel: 'Profil',
-          tabBarIcon: () => <Icons name='account-bottom-nav' />,
+          tabBarIcon: ({ focused }) =>
+            renderIcon('account-bottom-nav', focused),
         }}
       />
     </Tab.Navigator>

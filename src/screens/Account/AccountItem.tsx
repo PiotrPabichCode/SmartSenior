@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import Icons from '../../custom/Icons';
 
 import type { PropsWithChildren } from 'react';
+import { renderIcon } from '../../custom/Icons';
 
 type AccountItemProps = PropsWithChildren<{
   type?: string;
@@ -19,34 +19,28 @@ const renderRightItems = (type?: string) => {
       return (
         <View style={styles.rightItemsStacked}>
           <Text style={styles.languageName}>Polski</Text>
-          <Icons name='arrow-right' />
+          {renderIcon('arrow-right')}
         </View>
       );
     }
     case 'theme': {
       return (
         <View style={styles.rightItemsStacked}>
-          <Icons
-            name={
-              themeMode === 'light'
-                ? 'light-mode-active-account'
-                : 'light-mode-account'
-            }
-            onPress={() => setThemeMode('light')}
-          />
-          <Icons
-            name={
-              themeMode === 'dark'
-                ? 'dark-mode-active-account'
-                : 'dark-mode-account'
-            }
-            onPress={() => setThemeMode('dark')}
-          />
+          <TouchableOpacity onPress={() => setThemeMode('light')}>
+            {themeMode === 'light'
+              ? renderIcon('theme-light', true)
+              : renderIcon('theme-light')}
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setThemeMode('dark')}>
+            {themeMode === 'dark'
+              ? renderIcon('theme-dark', true)
+              : renderIcon('theme-dark')}
+          </TouchableOpacity>
         </View>
       );
     }
     default:
-      return <Icons name='arrow-right' />;
+      return renderIcon('arrow-right');
   }
 };
 
@@ -54,9 +48,7 @@ const AccountItem = ({ type, icon, title, onPress }: AccountItemProps) => {
   return onPress ? (
     <TouchableOpacity style={styles.viewStyle} onPress={onPress}>
       <View style={styles.iconTitleStyle}>
-        <View style={{ width: 70 }}>
-          <Icons name={icon} />
-        </View>
+        <View style={{ width: 70 }}>{renderIcon(icon)}</View>
         <Text style={styles.textStyle}>{title}</Text>
       </View>
       {renderRightItems(type)}
@@ -64,9 +56,7 @@ const AccountItem = ({ type, icon, title, onPress }: AccountItemProps) => {
   ) : (
     <View style={styles.viewStyle}>
       <View style={styles.iconTitleStyle}>
-        <View style={{ width: 70 }}>
-          <Icons name={icon} />
-        </View>
+        <View style={{ width: 70 }}>{renderIcon(icon)}</View>
         <Text style={styles.textStyle}>{title}</Text>
       </View>
       {renderRightItems(type)}

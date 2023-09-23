@@ -1,9 +1,9 @@
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import UpcomingEvents from '../components/UpcomingEvents';
-import Icons from '../custom/Icons';
 import { HomeProps } from '../navigation/types';
 import SpeedDialMenu from '../navigation/SpeedDialMenu';
+import { renderIcon } from '../custom/Icons';
 
 const HomeScreen = ({ navigation }: HomeProps) => {
   return (
@@ -18,23 +18,23 @@ const HomeScreen = ({ navigation }: HomeProps) => {
             onPress={() => navigation.navigate('Medicines')}
             title='Lista leków'
             backgroundColor={'#FB6D6C'}
-            icon={<Icons name='pills-home-page' />}
+            icon={renderIcon('pills')}
           />
           <CustomButton
             title='Lista lekarzy'
             backgroundColor={'#9564FE'}
-            icon={<Icons name='doctor-home-page' />}
+            icon={renderIcon('doctor')}
           />
           <CustomButton
             onPress={() => navigation.navigate('Pharmacies')}
             title='Lista aptek'
             backgroundColor={'#9564FE'}
-            icon={<Icons name='pharmacy-home-page' />}
+            icon={renderIcon('pharmacy')}
           />
           <CustomButton
             title='Twoje notatki'
             backgroundColor={'#469323'}
-            icon={<Icons name='notes-home-page' />}
+            icon={renderIcon('notes')}
           />
         </View>
       </ScrollView>

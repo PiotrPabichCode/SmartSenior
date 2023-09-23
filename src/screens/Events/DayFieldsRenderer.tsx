@@ -1,4 +1,4 @@
-import React, { useRef, useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import DayField, { Day } from './DayField';
 

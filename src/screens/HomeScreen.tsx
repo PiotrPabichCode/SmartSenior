@@ -3,7 +3,6 @@ import CustomButton from '../components/CustomButton';
 import UpcomingEvents from '../components/UpcomingEvents';
 import { HomeProps } from '../navigation/types';
 import SpeedDialMenu from '../navigation/SpeedDialMenu';
-import { renderIcon } from '../custom/Icons';
 
 const HomeScreen = ({ navigation }: HomeProps) => {
   return (
@@ -18,23 +17,23 @@ const HomeScreen = ({ navigation }: HomeProps) => {
             onPress={() => navigation.navigate('Medicines')}
             title='Lista leków'
             backgroundColor={'#FB6D6C'}
-            icon={renderIcon('pills')}
+            icon={'pills'}
           />
           <CustomButton
             title='Lista lekarzy'
-            backgroundColor={'#9564FE'}
-            icon={renderIcon('doctor')}
+            backgroundColor={'#fb8500'}
+            icon={'doctor'}
           />
           <CustomButton
             onPress={() => navigation.navigate('Pharmacies')}
             title='Lista aptek'
             backgroundColor={'#9564FE'}
-            icon={renderIcon('pharmacy')}
+            icon={'pharmacy'}
           />
           <CustomButton
             title='Twoje notatki'
             backgroundColor={'#469323'}
-            icon={renderIcon('notes')}
+            icon={'notes'}
           />
         </View>
       </ScrollView>
@@ -46,7 +45,6 @@ const HomeScreen = ({ navigation }: HomeProps) => {
 const styles = StyleSheet.create({
   view: {
     backgroundColor: 'white',
-    height: '100%',
   },
   scrollView: {
     display: 'flex',

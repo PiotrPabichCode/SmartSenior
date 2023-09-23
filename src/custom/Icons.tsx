@@ -2,6 +2,7 @@ import type { PropsWithChildren } from 'react';
 import {
   AntDesign,
   Fontisto,
+  Foundation,
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
@@ -54,11 +55,15 @@ const Icons = ({ name, onPress }: IconProps) => {
     case 'theme-light':
       return <Ionicons name='sunny-outline' size={34} onPress={onPress} />;
     case 'theme-light-active':
-      return <Ionicons name='sunny' size={34} onPress={onPress} />;
+      return (
+        <Ionicons name='sunny' size={34} onPress={onPress} color={'#d4d700'} />
+      );
     case 'theme-dark':
       return <Ionicons name='moon-outline' size={34} onPress={onPress} />;
     case 'theme-dark-active':
-      return <Ionicons name='moon' size={34} onPress={onPress} />;
+      return (
+        <Ionicons name='moon' size={34} onPress={onPress} color={'darkblue'} />
+      );
     case 'language-account':
       return <Ionicons name='language-outline' size={34} onPress={onPress} />;
     case 'notification-account':
@@ -89,6 +94,8 @@ const Icons = ({ name, onPress }: IconProps) => {
       return <Ionicons name='arrow-back' size={34} onPress={onPress} />;
     case 'edit':
       return <AntDesign name='edit' size={20} onPress={onPress} />;
+    case 'more':
+      return <Foundation name='indent-more' size={24} color='black' />;
     default:
       return <Ionicons name='search' size={24} onPress={onPress} />;
   }

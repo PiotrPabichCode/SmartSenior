@@ -1,5 +1,11 @@
-import { Button } from '@rneui/themed';
-import { ColorValue, StyleSheet } from 'react-native';
+import {
+  ColorValue,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+} from 'react-native';
+import Icons from '../custom/Icons';
 
 interface ButtonProps {
   icon: any;
@@ -8,38 +14,43 @@ interface ButtonProps {
   onPress?: () => void;
 }
 
-const CustomButton = (props: ButtonProps) => {
+const CustomButton = ({
+  icon,
+  title,
+  backgroundColor,
+  onPress,
+}: ButtonProps) => {
   const styles = StyleSheet.create({
-    buttonContainer: {
-      padding: 10,
-    },
-    buttonStyle: {
+    container: {
       display: 'flex',
+      gap: 50,
+      flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-around',
-      borderRadius: 20,
-      backgroundColor: props.backgroundColor,
+      justifyContent: 'space-between',
+      padding: 20,
+      marginHorizontal: 10,
+      marginVertical: 5,
+      borderRadius: 50,
+      backgroundColor: backgroundColor,
     },
-    titleStyle: {
+    title: {
+      flex: 1,
       color: 'white',
-      fontSize: 30,
+      fontWeight: '500',
+      fontSize: 24,
     },
     iconStyle: {
-      width: 50,
-      height: 50,
+      marginStart: 20,
     },
   });
 
   return (
-    <Button
-      title={props.title}
-      titleStyle={styles.titleStyle}
-      icon={props.icon}
-      iconContainerStyle={styles.iconStyle}
-      containerStyle={styles.buttonContainer}
-      buttonStyle={styles.buttonStyle}
-      onPress={props.onPress}
-    />
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <View style={styles.iconStyle}>
+        <Icons name={icon} />
+      </View>
+      <Text style={styles.title}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 

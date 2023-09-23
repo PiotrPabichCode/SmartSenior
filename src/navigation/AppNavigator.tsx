@@ -8,19 +8,15 @@ const AppNavigator = (props: any) => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
 
   return (
-    <Stack.Navigator initialRouteName={'Welcome'}>
+    <Stack.Navigator
+      initialRouteName={'Welcome'}
+      screenOptions={{
+        headerShown: false,
+      }}>
       {props.user ? (
-        <Stack.Screen
-          name='Inside'
-          component={AuthNavigator}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name='Inside' component={AuthNavigator} />
       ) : (
-        <Stack.Screen
-          name='Initial'
-          component={RootNavigator}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name='Initial' component={RootNavigator} />
       )}
     </Stack.Navigator>
   );

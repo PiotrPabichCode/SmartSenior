@@ -6,6 +6,7 @@ import MedicineItemDetails from '../screens/Medicines/MedicineItemDetails';
 import PharmaciesScreen from '../screens/Pharmacies/PharmaciesScreen';
 import PharmacyItemDetails from '../screens/Pharmacies/PharmacyItemDetails';
 import BottomBarNavigator from './BottomBarNavigator';
+import CustomHeader from '../components/CustomHeader';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -20,27 +21,51 @@ const AuthNavigator = () => {
       <Stack.Screen
         name='AccountItemDetails'
         component={AccountItemDetailsScreen}
-        options={({ route }) => ({ title: route.params.title })}
+        options={({ route }) => ({
+          header: () => (
+            <CustomHeader
+              title={route.params.title}
+              nested={true}
+              more={true}
+            />
+          ),
+        })}
       />
       <Stack.Screen
         name='Medicines'
         component={MedicinesScreen}
-        options={{ title: 'Lista leków' }}
+        options={{
+          header: () => (
+            <CustomHeader title='Lista leków' nested={true} more={true} />
+          ),
+        }}
       />
       <Stack.Screen
         name='MedicinesItemDetails'
         component={MedicineItemDetails}
-        options={{ title: 'Lista leków' }}
+        options={{
+          header: () => (
+            <CustomHeader title='Lek - opis' nested={true} more={true} />
+          ),
+        }}
       />
       <Stack.Screen
         name='Pharmacies'
         component={PharmaciesScreen}
-        options={{ title: 'Lista aptek' }}
+        options={{
+          header: () => (
+            <CustomHeader title='Lista aptek' nested={true} more={true} />
+          ),
+        }}
       />
       <Stack.Screen
         name='PharmaciesItemDetails'
         component={PharmacyItemDetails}
-        options={{ title: 'Lista aptek' }}
+        options={{
+          header: () => (
+            <CustomHeader title='Apteka - opis' nested={true} more={true} />
+          ),
+        }}
       />
     </Stack.Navigator>
   );

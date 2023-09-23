@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import Icons from '../../custom/Icons';
+import { renderIcon } from '../../custom/Icons';
 import { Button } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';
@@ -14,7 +14,7 @@ type MedicineItemProps = PropsWithChildren<{
 const MedicineItem = ({ name, price, onPress }: MedicineItemProps) => {
   return (
     <View style={styles.viewStyle}>
-      <Icons name='pills-home-page' />
+      {renderIcon('pills')}
       <Text style={styles.name} numberOfLines={1}>
         {name}
       </Text>

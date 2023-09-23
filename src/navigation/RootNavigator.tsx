@@ -3,6 +3,7 @@ import { RootStackParamList } from './types';
 import WelcomeScreen from '../screens/Auth/WelcomeScreen';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
+import CustomHeader from '../components/CustomHeader';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -12,17 +13,19 @@ const RootNavigator = () => {
       <Stack.Screen
         name='Welcome'
         component={WelcomeScreen}
-        options={{ title: 'Strona powitalna' }}
+        options={{
+          header: () => <CustomHeader title='Strona powitalna' />,
+        }}
       />
       <Stack.Screen
         name='SignIn'
         component={LoginScreen}
-        options={{ title: 'Formularz logowania' }}
+        options={{ header: () => <CustomHeader title='Strona logowania' /> }}
       />
       <Stack.Screen
         name='SignUp'
         component={RegisterScreen}
-        options={{ title: 'Formularz rejestracji' }}
+        options={{ header: () => <CustomHeader title='Strona rejestracji' /> }}
       />
     </Stack.Navigator>
   );

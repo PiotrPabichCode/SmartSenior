@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { CreateEventProps } from '../../navigation/types';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik } from 'formik';
 import { Button, CheckBox, Input } from '@rneui/themed';
 import CustomDropdown from '../../components/CustomDropdown';
@@ -62,14 +61,14 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
             date: 0,
             priority: '',
             repeat: 0,
-            days: [],
+            days: days.map((day) => ({ ...day, active: false })),
             time: 0,
             cyclic: false,
             notification: true,
           }}
           onSubmit={(values) => {
             try {
-              console.log(values.title); // Tworzenie wydarzenia
+              console.log(values.days); // Tworzenie wydarzenia
             } catch (e) {
               console.error(e);
             }
@@ -96,7 +95,10 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                 }
               />
               {values.date !== 0 && (
-                <DayFieldsRenderer days={days} setFieldValue={setFieldValue} />
+                <DayFieldsRenderer
+                  days={values.days}
+                  setFieldValue={setFieldValue}
+                />
               )}
 
               {showDatePicker && (
@@ -104,10 +106,18 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                   value={new Date()}
                   minimumDate={new Date()}
                   onChange={(e, newDate) => {
+                    setFieldValue(
+                      'days',
+                      days.map((day) => ({ ...day, active: false }))
+                    );
                     setShowDatePicker(false);
                     if (e.type === 'dismissed') {
                       return;
                     }
+                    setFieldValue(
+                      `days[${newDate!.getDay() - 1}].active`,
+                      true
+                    );
                     setDay(newDate!.getDate());
                     setMonth(newDate!.getMonth());
                     setYear(newDate!.getFullYear());

@@ -11,6 +11,7 @@ export type RootStackParamList = {
   Welcome: undefined;
   SignIn: undefined;
   SignUp: undefined;
+  FirstLoginWizard: undefined;
   BottomBar: NavigatorScreenParams<BottomBarParamList>;
   AccountItemDetails: {
     screenType: string;
@@ -43,6 +44,10 @@ export type WelcomeProps = NativeStackScreenProps<
 export type SignInProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
 export type SignUpProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
+export type FirstLoginWizardProps = NativeStackScreenProps<
+  RootStackParamList,
+  'FirstLoginWizard'
+>;
 
 export type BottomBarProps = NativeStackScreenProps<
   RootStackParamList,

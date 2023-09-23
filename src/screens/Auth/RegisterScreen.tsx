@@ -8,8 +8,6 @@ import { ErrorMessage, Formik } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native';
 import CustomToast from '../../custom/CustomToast';
-import { DATABASE } from '../../../firebaseConfig';
-import { ref, set } from 'firebase/database';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()
@@ -38,21 +36,12 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
               email: '',
               password: '',
               repeatPassword: '',
-              firstName: '',
-              lastName: '',
-              birthDate: new Date(),
             }}
             validationSchema={RegisterSchema}
             onSubmit={async (values) => {
               try {
                 const user = await registerUser(values);
-                if (user) {
-                  const userRef = ref(DATABASE, 'users/' + user.uid);
-                  await set(userRef, values);
-                  navigation.navigate('BottomBar', {
-                    screen: 'Home',
-                  });
-                }
+                navigation.navigate('FirstLoginWizard');
               } catch (e) {
                 CustomToast('error', 'Nie udało się zarejestrować');
               }

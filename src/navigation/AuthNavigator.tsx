@@ -7,12 +7,19 @@ import PharmaciesScreen from '../screens/Pharmacies/PharmaciesScreen';
 import PharmacyItemDetails from '../screens/Pharmacies/PharmacyItemDetails';
 import BottomBarNavigator from './BottomBarNavigator';
 import CustomHeader from '../components/CustomHeader';
+import CreateEventScreen from '../screens/Events/CreateEventScreen';
+import FirstLoginWizard from '../screens/Auth/FirstLoginWizard';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='FirstLoginWizard'>
+      <Stack.Screen
+        name='FirstLoginWizard'
+        component={FirstLoginWizard}
+        options={{ header: () => <CustomHeader title='Początek' /> }}
+      />
       <Stack.Screen
         name='BottomBar'
         component={BottomBarNavigator}
@@ -64,6 +71,15 @@ const AuthNavigator = () => {
         options={{
           header: () => (
             <CustomHeader title='Apteka - opis' nested={true} more={true} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name='CreateEvent'
+        component={CreateEventScreen}
+        options={{
+          header: () => (
+            <CustomHeader title='Wydarzenie' nested={true} more={true} />
           ),
         }}
       />

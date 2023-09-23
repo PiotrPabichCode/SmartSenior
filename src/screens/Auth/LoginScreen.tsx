@@ -45,9 +45,7 @@ const LoginScreen = ({ navigation }: SignInProps) => {
           onSubmit={async (values) => {
             try {
               await authUser(values);
-              navigation.navigate('BottomBar', {
-                screen: 'Home',
-              });
+              navigation.navigate('FirstLoginWizard');
             } catch (e) {
               CustomToast('error', 'Nie udało się zalogować');
             }

@@ -18,7 +18,10 @@ const AuthNavigator = () => {
       <Stack.Screen
         name='FirstLoginWizard'
         component={FirstLoginWizard}
-        options={{ header: () => <CustomHeader title='Początek' /> }}
+        options={{
+          header: () => <CustomHeader title='Początek' />,
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name='BottomBar'

@@ -74,6 +74,15 @@ const Icons = ({ name, onPress }: IconProps) => {
       return (
         <Ionicons name='share-social-outline' size={34} onPress={onPress} />
       );
+    case 'logout-wizard':
+      return (
+        <Ionicons
+          name='exit-outline'
+          size={24}
+          onPress={onPress}
+          color={'white'}
+        />
+      );
     case 'logout-account':
       return <Ionicons name='exit-outline' size={34} onPress={onPress} />;
     case 'pills':
@@ -86,8 +95,6 @@ const Icons = ({ name, onPress }: IconProps) => {
       );
     case 'notes':
       return <MaterialCommunityIcons name='note' size={38} onPress={onPress} />;
-    case 'logout-account':
-      return <Ionicons name='exit-outline' size={34} onPress={onPress} />;
     case 'arrow-right':
       return <Ionicons name='arrow-forward' size={34} onPress={onPress} />;
     case 'arrow-left':

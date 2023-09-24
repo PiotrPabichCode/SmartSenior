@@ -23,9 +23,7 @@ const CustomDropdown = (props: any) => {
       valueField='value'
       placeholder={props.placeholder}
       value={props.value}
-      onChange={() => {
-        props.handleChange;
-      }}
+      onChange={props.handleChange}
       renderItem={renderItem}
     />
   );

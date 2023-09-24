@@ -4,7 +4,6 @@ import { CreateEventProps } from '../../navigation/types';
 import { Formik } from 'formik';
 import { Button, CheckBox, Input } from '@rneui/themed';
 import CustomDropdown from '../../components/CustomDropdown';
-import SpeedDialMenu from '../../navigation/SpeedDialMenu';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import DayFieldsRenderer from './DayFieldsRenderer';
 
@@ -97,6 +96,7 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
               {values.date !== 0 && (
                 <DayFieldsRenderer
                   days={values.days}
+                  startDate={values.date}
                   setFieldValue={setFieldValue}
                 />
               )}
@@ -108,20 +108,20 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                   onChange={(e, newDate) => {
                     setFieldValue(
                       'days',
-                      days.map((day) => ({ ...day, active: false }))
-                    );
-                    setShowDatePicker(false);
-                    if (e.type === 'dismissed') {
-                      return;
-                    }
-                    setFieldValue(
-                      `days[${newDate!.getDay() - 1}].active`,
-                      true
-                    );
-                    setDay(newDate!.getDate());
-                    setMonth(newDate!.getMonth());
-                    setYear(newDate!.getFullYear());
-                    setShowTimePicker(true);
+                      days.map((day) => ({
+                        ...day,
+                        active: false,
+                      }))
+                    ).then(() => {
+                      setShowDatePicker(false);
+                      if (e.type === 'dismissed') {
+                        return;
+                      }
+                      setDay(newDate!.getDate());
+                      setMonth(newDate!.getMonth() + 1);
+                      setYear(newDate!.getFullYear());
+                      setShowTimePicker(true);
+                    });
                   }}
                 />
               )}
@@ -139,6 +139,11 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                     const datetime = new Date(
                       `${year}-${month}-${day}T${hours}:${minutes}`
                     );
+                    !isNaN(datetime.getDay()) &&
+                      setFieldValue(
+                        `days[${datetime!.getDay() - 1}].active`,
+                        true
+                      );
                     !isNaN(datetime.getDate()) &&
                       setFieldValue('date', datetime);
                   }}
@@ -193,7 +198,6 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
           )}
         </Formik>
       </ScrollView>
-      <SpeedDialMenu navigation={navigation} />
     </View>
   );
 };
@@ -201,12 +205,11 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
 const styles = StyleSheet.create({
   view: {
     backgroundColor: 'white',
-    height: '100%',
+    flex: 1,
   },
   scrollView: {
-    display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
+    flexDirection: 'column',
   },
   inlineView: {
     display: 'flex',
@@ -267,12 +270,10 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   buttonSubmitTitle: {
-    color: 'white',
     marginHorizontal: 20,
   },
   buttonSubmitContainer: {
-    height: 40,
-    width: 200,
+    alignSelf: 'stretch',
     marginHorizontal: 50,
     marginVertical: 10,
   },

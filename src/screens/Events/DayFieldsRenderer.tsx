@@ -4,10 +4,11 @@ import DayField, { Day } from './DayField';
 
 interface DaysProps {
   days: Day[];
+  startDate: number;
   setFieldValue: any;
 }
 
-const DayFieldsRenderer = ({ days, setFieldValue }: DaysProps) => {
+const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
   const renderDaysLabel = () => {
     const activeDays = days.filter((day) => day.active);
     return (
@@ -25,7 +26,14 @@ const DayFieldsRenderer = ({ days, setFieldValue }: DaysProps) => {
   const [_, update] = useReducer((x) => x + 1, 0);
 
   const toggleDay = (day: any) => {
+    const date = new Date(startDate);
     day.active = !day.active;
+    console.log('DAY', day);
+    console.log('DateDAY', date.getDay());
+    if (date.getDay() === day.value) {
+      days = days.map((day) => ({ ...day, active: false }));
+      setFieldValue('date', 0);
+    }
     setFieldValue('days', days);
     update();
   };

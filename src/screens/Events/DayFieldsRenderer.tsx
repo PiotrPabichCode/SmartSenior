@@ -4,7 +4,7 @@ import DayField, { Day } from './DayField';
 
 interface DaysProps {
   days: Day[];
-  startDate: number;
+  startDate: any;
   setFieldValue: any;
 }
 
@@ -28,8 +28,6 @@ const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
   const toggleDay = (day: any) => {
     const date = new Date(startDate);
     day.active = !day.active;
-    console.log('DAY', day);
-    console.log('DateDAY', date.getDay());
     if (date.getDay() === day.value) {
       days = days.map((day) => ({ ...day, active: false }));
       setFieldValue('date', 0);

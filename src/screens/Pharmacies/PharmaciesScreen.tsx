@@ -52,15 +52,16 @@ const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
         <Divider style={styles.dividerStyle} />
         <Formik
           initialValues={{ name: '', companyCity: '', companyProvince: '' }}
-          onSubmit={(params) => {
+          onSubmit={(values) => {
             try {
-              const request = buildRequest(BASE_URL, params);
-              loadData(request);
+              console.log(values);
+              // const request = buildRequest(BASE_URL, params);
+              // loadData(request);
             } catch (e) {
               console.log(e);
             }
           }}>
-          {({ values, handleChange, handleSubmit }) => (
+          {({ values, handleChange, handleSubmit, setFieldValue }) => (
             <>
               <Input
                 placeholder='Wpisz nazwę apteki...'
@@ -76,7 +77,9 @@ const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
                 data={provinces}
                 placeholder={'Wybierz województwo'}
                 value={values.companyProvince}
-                handleChange={handleChange('companyProvince')}
+                handleChange={(e: any) =>
+                  setFieldValue('companyProvince', e.value)
+                }
               />
               <Button
                 title='Szukaj'

@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import type { PropsWithChildren } from 'react';
@@ -17,7 +23,7 @@ const CustomHeader = ({ title, nested, more }: HeaderProps) => {
     navigation.goBack();
   };
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {nested && (
         <TouchableOpacity onPress={handleBackClick} style={styles.back}>
           <Icons name='arrow-left' />
@@ -29,39 +35,35 @@ const CustomHeader = ({ title, nested, more }: HeaderProps) => {
           <Icons name='more' />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 80,
-    padding: 10,
+    height: 70,
     flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    alignItems: 'flex-end',
+    backgroundColor: 'white',
+    justifyContent: 'center',
   },
   back: {
-    paddingTop: 25,
-    paddingStart: 10,
     position: 'absolute',
     left: 0,
+    paddingStart: 10,
+    paddingBottom: 10,
   },
   title: {
-    paddingTop: 25,
-    position: 'absolute',
-    left: 50,
-    right: 50,
+    paddingBottom: 10,
     fontSize: 18,
     fontWeight: '500',
     color: 'blue',
-    textAlign: 'center',
   },
   more: {
-    paddingTop: 25,
-    paddingEnd: 10,
+    paddingBottom: 10,
     position: 'absolute',
     right: 0,
+    paddingEnd: 10,
   },
 });
 

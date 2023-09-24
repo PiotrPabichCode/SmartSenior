@@ -98,7 +98,7 @@ const Icons = ({ name, onPress }: IconProps) => {
     case 'arrow-right':
       return <Ionicons name='arrow-forward' size={34} onPress={onPress} />;
     case 'arrow-left':
-      return <Ionicons name='arrow-back' size={34} onPress={onPress} />;
+      return <Ionicons name='arrow-back' size={24} onPress={onPress} />;
     case 'edit':
       return <AntDesign name='edit' size={20} onPress={onPress} />;
     case 'more':

@@ -7,7 +7,14 @@ import type { PropsWithChildren } from 'react';
 type EventItemProps = PropsWithChildren<{
   title: string;
   time: string;
-  days: string;
+  days: object;
+}>;
+
+type DayProps = PropsWithChildren<{
+  active: boolean;
+  shortTitle: string;
+  title: string;
+  value: number;
 }>;
 
 const EventItem = ({ title, time, days }: EventItemProps) => {
@@ -17,13 +24,27 @@ const EventItem = ({ title, time, days }: EventItemProps) => {
     setChecked(!checked);
   };
 
+  function generateDayTags() {
+    return Object.values(days).map((day: DayProps) => {
+      return (
+        <Text
+          style={day.active ? styles.activeDay : styles.inactiveDay}
+          key={day.value}>
+          {day.shortTitle}
+        </Text>
+      );
+    });
+  }
+  // renderDays();
+  console.log(days);
+
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.viewDetails}>
         <Text style={styles.time}>{time}</Text>
         <View style={styles.viewRightPanel}>
-          <Text style={styles.days}>{days}</Text>
+          <Text style={styles.days}>{generateDayTags()}</Text>
           <Switch
             value={checked}
             onValueChange={(value) => setChecked(value)}
@@ -40,18 +61,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '100%',
-    paddingHorizontal: 10,
-    paddingVertical: 7,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
   },
   time: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '400',
-    width: 150,
+    width: 190,
   },
   viewRightPanel: {
     display: 'flex',
@@ -64,6 +82,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
   },
+  activeDay: {
+    color: 'blue',
+  },
+  inactiveDay: {
+    color: 'black',
+  },
   viewDetails: {
     display: 'flex',
     flexDirection: 'row',
@@ -73,8 +97,8 @@ const styles = StyleSheet.create({
   },
   dividerStyle: {
     backgroundColor: '#000000',
-    width: 400,
     height: 1,
+    width: 300,
   },
 });
 

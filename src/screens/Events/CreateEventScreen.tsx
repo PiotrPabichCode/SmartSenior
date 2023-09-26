@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  FlatListComponent,
+} from 'react-native';
 import { CreateEventProps } from '../../navigation/types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -9,7 +15,7 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomToast from '../../custom/CustomToast';
 import { getAuth } from 'firebase/auth';
-import { db } from '../../../firebaseConfig';
+import { FIREBASE_APP, db } from '../../../firebaseConfig';
 import { push, ref } from 'firebase/database';
 
 const CreateEventScreen = ({ navigation }: CreateEventProps) => {
@@ -34,7 +40,7 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
     { label: '1000', value: 1000 },
   ];
 
-  const repeatValues = [
+  const cyclicValues = [
     { label: 'Codziennie', value: 1 },
     { label: 'Co 2 dni', value: 2 },
     { label: 'Co tydzień', value: 7 },
@@ -55,14 +61,17 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
   const NewEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
     description: Yup.string(),
-    date: Yup.date().min(new Date()).nonNullable().required(),
-    priority: Yup.number().required(),
-    repeat: Yup.number(),
+    executionTime: Yup.number().min(Date.now()).nonNullable().required(),
     days: Yup.array().required(),
-    time: Yup.date().required(),
-    cyclic: Yup.boolean().required(),
-    notification: Yup.boolean().required(),
-    user: Yup.object().nonNullable().required(),
+    priority: Yup.number().required(),
+    isCyclic: Yup.boolean().required(),
+    cyclicTime: Yup.number(),
+    isNotification: Yup.boolean().required(),
+    notificationTime: Yup.number(),
+    userUid: Yup.string().nonNullable().required(),
+    createdAt: Yup.number().min(Date.now()).required(),
+    updatedAt: Yup.number().min(Date.now()).required(),
+    deleted: Yup.boolean().required(),
   });
 
   return (
@@ -76,17 +85,23 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
             initialValues={{
               title: '',
               description: '',
-              date: 0,
-              priority: 0,
-              repeat: 0,
+              executionTime: Date.now(),
               days: days.map((day) => ({ ...day, active: false })),
-              time: null,
-              cyclic: false,
-              notification: true,
-              user: getAuth().currentUser,
+              priority: 0,
+              isCyclic: false,
+              cyclicTime: 0,
+              isNotification: true,
+              notificationTime: 0,
+              createdAt: Date.now(),
+              updatedAt: Date.now(),
+              deleted: false,
+              userUid: getAuth().currentUser?.uid + '-deleted-false',
             }}
             onSubmit={(values) => {
               try {
+                values.createdAt = Date.now();
+                values.updatedAt = Date.now();
+                console.log(values);
                 NewEventSchema.validate(values)
                   .then(() => {
                     const eventsRef = ref(db, 'events/');
@@ -119,15 +134,18 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                 <Button
                   onPress={() => setShowDatePicker(true)}
                   title={
-                    values.date
-                      ? values.date.toLocaleString()
+                    values.executionTime
+                      ? 'Data wydarzenia: ' +
+                        new Date(values.executionTime).toLocaleDateString() +
+                        ' ' +
+                        new Date(values.executionTime).toLocaleTimeString()
                       : 'Wybierz datę wydarzenia'
                   }
                 />
-                {values.date !== 0 && (
+                {values.executionTime !== 0 && (
                   <DayFieldsRenderer
                     days={values.days}
-                    startDate={values.date}
+                    startDate={values.executionTime}
                     setFieldValue={setFieldValue}
                   />
                 )}
@@ -176,38 +194,42 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                           true
                         );
                       !isNaN(datetime.getDate()) &&
-                        setFieldValue('date', datetime);
+                        setFieldValue('executionTime', datetime.getTime());
                     }}
                   />
                 )}
                 <View style={styles.inlineView}>
                   <CheckBox
                     title='Powiadomienia'
-                    checked={values.notification}
+                    checked={values.isNotification}
                     onPress={() =>
-                      setFieldValue('notification', !values.notification)
+                      setFieldValue('isNotification', !values.isNotification)
                     }
                   />
                   <CheckBox
                     title='Wydarzenie cykliczne'
-                    checked={values.cyclic}
-                    onPress={() => setFieldValue('cyclic', !values.cyclic)}
+                    checked={values.isCyclic}
+                    onPress={() => setFieldValue('isCyclic', !values.isCyclic)}
                   />
                 </View>
-                {values.notification && (
+                {values.isNotification && (
                   <CustomDropdown
                     data={times}
                     placeholder='Czas powiadomień'
-                    value={values.time}
-                    handleChange={(e: any) => setFieldValue('time', e.value)}
+                    value={values.notificationTime}
+                    handleChange={(e: any) =>
+                      setFieldValue('notificationTime', e.value)
+                    }
                   />
                 )}
-                {values.cyclic && (
+                {values.isCyclic && (
                   <CustomDropdown
-                    data={repeatValues}
+                    data={cyclicValues}
                     placeholder='Powtarzalność'
-                    value={values.repeat}
-                    handleChange={(e: any) => setFieldValue('repeat', e.value)}
+                    value={values.cyclicTime}
+                    handleChange={(e: any) =>
+                      setFieldValue('cyclicTime', e.value)
+                    }
                   />
                 )}
                 <CustomDropdown
@@ -247,6 +269,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     gap: 15,
+    elevation: 5,
   },
   inlineView: {
     flexDirection: 'row',

@@ -1,12 +1,20 @@
-import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import AccountItem from './AccountItem';
 import { Divider } from '@rneui/themed';
 import AccountProfileHint from './AccountProfileHint';
 import { AccountProps } from '../../navigation/types';
 import { FIREBASE_AUTH } from '../../../firebaseConfig';
+import { useUser } from '../../context/UserContext';
+import CustomActivityIndicator from '../../components/CustomActivityIndicator';
+import SpeedDialMenu from '../../navigation/SpeedDialMenu';
 
 const AccountScreen = ({ navigation }: AccountProps) => {
+  const user = useUser();
+
+  if (!user) {
+    return <CustomActivityIndicator />;
+  }
+
   return (
     <View style={styles.viewStyle}>
       <AccountProfileHint />
@@ -59,6 +67,7 @@ const AccountScreen = ({ navigation }: AccountProps) => {
         title='Wyloguj się'
         onPress={() => FIREBASE_AUTH.signOut()}
       />
+      <SpeedDialMenu />
     </View>
   );
 };

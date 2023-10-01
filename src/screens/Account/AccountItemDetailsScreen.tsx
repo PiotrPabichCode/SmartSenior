@@ -1,41 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
 import { AccountItemDetailsProps } from '../../navigation/types';
+import { useUser } from '../../context/UserContext';
+import CustomActivityIndicator from '../../components/CustomActivityIndicator';
+import SpeedDialMenu from '../../navigation/SpeedDialMenu';
 
 const AccountItemDetailsScreen = ({
   route,
   navigation,
 }: AccountItemDetailsProps) => {
+  const user = useUser();
+
+  if (!user) {
+    return <CustomActivityIndicator />;
+  }
+
   const { screenType, title } = route.params;
   const [language, setLanguage] = useState('Polski');
 
   const renderUserDetailsScreen = () => {
     return (
-      <ScrollView contentContainerStyle={styles.viewStyle}>
+      <>
         <AccountItemDetails
           type='input'
           title='Adres e-mail:'
           placeholder='Podaj adres e-mail'
-          value='235944@edu.p.lodz.pl'
+          value={user.email || ''}
         />
         <AccountItemDetails
           type='input'
           title='Imię:'
           placeholder='Podaj imię'
-          value='Piotr'
+          value={user.firstName || ''}
         />
         <AccountItemDetails
           type='input'
           title='Nazwisko:'
           placeholder='Podaj nazwisko'
-          value='Pabich'
+          value={user.lastName || ''}
         />
         <AccountItemDetails
           type='input'
           title='Data urodzenia:'
           placeholder='Podaj datę urodzenia'
-          value='29.03.2001r.'
+          value={user.birthDate || ''}
         />
         <AccountItemDetails
           type='input'
@@ -43,13 +52,13 @@ const AccountItemDetailsScreen = ({
           placeholder='*********'
           value='*********'
         />
-      </ScrollView>
+      </>
     );
   };
 
   const renderLanguageScreen = () => {
     return (
-      <View style={styles.viewLanguage}>
+      <>
         <Text style={styles.languageTitle}>Wybrany język</Text>
         <Text style={styles.language}>{language}</Text>
         <Text style={styles.pickLanguage} onPress={() => setLanguage('Polski')}>
@@ -60,52 +69,68 @@ const AccountItemDetailsScreen = ({
           onPress={() => setLanguage('English')}>
           English
         </Text>
-      </View>
+      </>
     );
   };
 
   const renderNotificationScreen = () => {
     return (
-      <View>
+      <>
         <AccountItemDetails
           type='input'
           title='Czas powiadomień:'
           placeholder='Wybierz czas powiadomień'
           value='0'
         />
-      </View>
+      </>
     );
   };
 
-  switch (screenType) {
-    case 'user':
-      return renderUserDetailsScreen();
-    case 'language':
-      return renderLanguageScreen();
-    case 'notification':
-      return renderNotificationScreen();
-    case 'share':
-      return <></>;
-    default:
-      return <></>;
-  }
+  const renderScreenByType = (screenType: string) => {
+    switch (screenType) {
+      case 'user':
+        return renderUserDetailsScreen();
+      case 'language':
+        return renderLanguageScreen();
+      case 'notification':
+        return renderNotificationScreen();
+      case 'share':
+        return <></>;
+      default:
+        return <></>;
+    }
+  };
+
+  return (
+    <View style={styles.view}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollView}>
+        <View style={styles.innerContainer}>
+          {renderScreenByType(screenType)}
+        </View>
+      </ScrollView>
+      <SpeedDialMenu />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-  viewStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'white',
+  view: {
+    flex: 1,
   },
-  viewLanguage: {
-    display: 'flex',
-    flexDirection: 'column',
+  scrollView: {
+    flexGrow: 1,
+  },
+  innerContainer: {
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 25,
+    margin: 10,
+    padding: 10,
+    gap: 15,
+    elevation: 5,
   },
   languageTitle: {
     fontSize: 26,

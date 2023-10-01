@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  ActivityIndicator,
 } from 'react-native';
 import { useEffect, useState } from 'react';
 import { FIREBASE_AUTH, db } from '../../../firebaseConfig';
@@ -19,7 +18,7 @@ import CustomToast from '../../custom/CustomToast';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import Icons from '../../custom/Icons';
-import { authUser } from '../../firebase/auth';
+import CustomActivityIndicator from '../../components/CustomActivityIndicator';
 
 const GenderEnum = {
   WOMEN: 'Female',
@@ -77,11 +76,7 @@ const FirstLoginWizard = ({ navigation }: FirstLoginWizardProps) => {
     Show ActivityIndicator when user connection is loading
   */
   if (connecting) {
-    return (
-      <View style={styles.activityIndicator}>
-        <ActivityIndicator size='large' />
-      </View>
-    );
+    return <CustomActivityIndicator />;
   }
 
   return (
@@ -103,6 +98,7 @@ const FirstLoginWizard = ({ navigation }: FirstLoginWizardProps) => {
               lastName: '',
               birthDate: null,
               gender: '',
+              email: getAuth().currentUser?.email,
             }}
             onSubmit={async (values) => {
               try {

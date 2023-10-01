@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import EventItem from '../components/EventItem';
 import { Divider } from '@rneui/themed';
 import { EventsProps } from '../navigation/types';
 import SpeedDialMenu from '../navigation/SpeedDialMenu';
-import { equalTo, get, orderByChild, query, ref } from 'firebase/database';
-import { db } from '../../firebaseConfig';
-import { getAuth } from 'firebase/auth';
-import CustomToast from '../custom/CustomToast';
 
 import type { PropsWithChildren } from 'react';
+import { loadUserActiveEvents } from '../firebase/queries';
 
-type EventProp = PropsWithChildren<{
+export type EventProp = PropsWithChildren<{
   title: string;
   description: string;
   executionTime: number;
@@ -28,27 +25,22 @@ type EventProp = PropsWithChildren<{
 }>;
 
 const EventsScreen = ({ navigation }: EventsProps) => {
-  const [events, setEvents] = useState([]);
-  useEffect(() => {
-    const loadUserEvents = async () => {
+  const [events, setEvents] = useState<EventProp[]>([]);
+  useLayoutEffect(() => {
+    const fetchData = async () => {
       try {
-        const eventsQuery = query(
-          ref(db, 'events'),
-          orderByChild('userUid'),
-          equalTo(getAuth().currentUser?.uid!! + '-deleted-false')
-        );
-
-        const eventsSnapshot = await get(eventsQuery);
-        const eventsValues = eventsSnapshot.val();
-        setEvents(Object.values(eventsValues));
+        const eventsData: any = await loadUserActiveEvents();
+        setEvents(eventsData);
       } catch (e) {
         console.log(e);
-        CustomToast('error', 'Nie udało się załadować wydarzeń');
       }
     };
-    loadUserEvents();
+
+    fetchData();
   }, []);
-  // console.log(events);
+
+  console.log(events[0]);
+
   return (
     <View style={styles.view}>
       <ScrollView
@@ -62,7 +54,7 @@ const EventsScreen = ({ navigation }: EventsProps) => {
             events.map((event: EventProp, index: number) => {
               return (
                 <EventItem
-                  key={'event' + index}
+                  key={index}
                   title={event.title}
                   time={
                     new Date(event.executionTime).toLocaleDateString() +
@@ -73,22 +65,6 @@ const EventsScreen = ({ navigation }: EventsProps) => {
                 />
               );
             })}
-
-          {/* <EventItem
-            title='Pomiar ciśnienia'
-            time='Godzina 17:00'
-            days='Codziennie'
-          />
-          <EventItem
-            title='Zadzwonić do wnuczka'
-            time='Godzina 10:00'
-            days='pwścpsn'
-          />
-          <EventItem
-            title='Wzięcie leków porannych'
-            time='Godzina 08:00'
-            days='Codziennie'
-          /> */}
         </View>
       </ScrollView>
       <SpeedDialMenu navigation={navigation} />

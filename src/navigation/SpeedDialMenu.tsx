@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SpeedDial } from '@rneui/themed';
+import { generateEvents } from '../firebase/queries';
 
 const SpeedDialMenu = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);
@@ -11,6 +12,7 @@ const SpeedDialMenu = ({ navigation }: any) => {
         break;
       case 'ADD_KEEPER':
         navigation.navigate('AddKeeper'); // TODO
+        // generateEvents();
         break;
     }
   };

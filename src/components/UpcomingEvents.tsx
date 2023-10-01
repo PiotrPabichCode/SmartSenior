@@ -1,13 +1,23 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, Icon, Divider } from '@rneui/themed';
+import { EventProp } from '../screens/EventsScreen';
+import { useNavigation } from '@react-navigation/native';
+import { navigate } from '../navigation/navigation-utils';
 
-const UpcomingEvents = () => {
+interface UpcomingEventsProps {
+  events: EventProp[];
+}
+
+const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
+  const navigation = useNavigation();
   const moreButton = (
     <Button
+      key={'more-button-event'}
       title='Zobacz więcej'
-      containerStyle={styles.moreButtonStyle}
+      containerStyle={styles.moreButtonContainerStyle}
       buttonStyle={styles.moreButtonStyle}
       titleStyle={styles.moreButtonTitle}
+      onPress={() => navigation.navigate('Events')}
     />
   );
   const actionButton = (
@@ -18,44 +28,48 @@ const UpcomingEvents = () => {
       titleStyle={styles.actionButtonTitle}
     />
   );
-  const events = [
-    {
-      startTime: '17.07.2023r. godzina 16:00',
-      description: 'Badanie ciśnieniomierzem',
-    },
-    {
-      startTime: '21.07.2023r. godzina 12:00',
-      description: 'Poranny rozruch',
-    },
-    {
-      startTime: '21.07.2023r. godzina 12:00',
-      description: 'Poranny rozruch',
-    },
-    {
-      startTime: '21.07.2023r. godzina 12:00',
-      description: 'Poranny rozruch',
-    },
-  ];
 
   const mapEventItems = events.map((event, index) => {
+    if (index === 3) {
+      return moreButton;
+    }
+    if (index > 3) {
+      return;
+    }
     const isEnd = index !== events.length - 1;
     return (
       <View style={styles.eventView} key={'event' + index.toString()}>
         <View style={styles.eventTimeView}>
           <Icon name='arrow-right' color='#000' size={30} />
-          <Text style={styles.eventText}>{event.startTime}</Text>
+          <Text style={styles.eventText} numberOfLines={1}>
+            {new Date(event.executionTime).toLocaleDateString() +
+              ' ' +
+              new Date(event.executionTime).toLocaleTimeString()}
+          </Text>
           <Icon name='arrow-left' color='#000' size={30} />
         </View>
-        <Text style={styles.eventTitle}>{event.description}</Text>
+        <Text style={styles.eventTitle} numberOfLines={1}>
+          {event.description}
+        </Text>
         {actionButton}
         {isEnd && <Divider style={styles.dividerStyle} />}
       </View>
     );
   });
 
+  const renderTitleAction = () => {
+    if (events.length > 0) {
+      return (
+        <Text style={styles.titleStyle} numberOfLines={1}>
+          Nadchodzące wydarzenia
+        </Text>
+      );
+    }
+  };
+
   return (
     <View style={styles.viewStyle}>
-      <Text style={styles.titleStyle}>Nadchodzące wydarzenia</Text>
+      {renderTitleAction()}
       {mapEventItems}
     </View>
   );
@@ -70,13 +84,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FB6D6C',
     width: '95%',
     borderRadius: 20,
-    padding: 15,
+    overflow: 'hidden',
   },
   titleStyle: {
-    fontSize: 26,
+    fontSize: 18,
     fontWeight: '500',
     color: 'white',
-    width: '100%',
     textAlign: 'center',
   },
   actionButtonStyle: {
@@ -89,10 +102,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
+  moreButtonContainerStyle: {
+    borderRadius: 25,
+    marginBottom: 10,
+    width: 200,
+  },
   moreButtonStyle: {
     backgroundColor: '#0940FF',
-    width: 200,
-    borderRadius: 25,
   },
   moreButtonTitle: {
     fontSize: 20,
@@ -104,15 +120,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 5,
   },
   eventTitle: {
     color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18,
+    fontWeight: '500',
+    fontSize: 16,
     marginVertical: 7,
   },
   eventTimeView: {
-    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -127,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: 'white',
     width: 300,
-    marginVertical: 10,
+    marginVertical: 5,
   },
 });
 

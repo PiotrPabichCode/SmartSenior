@@ -1,8 +1,15 @@
 import { Avatar } from '@rneui/themed';
-import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { useUser } from '../../context/UserContext';
+import CustomActivityIndicator from '../../components/CustomActivityIndicator';
 
 const AccountProfileHint = () => {
+  const user = useUser();
+
+  if (!user) {
+    return <CustomActivityIndicator />;
+  }
+
   return (
     <View style={styles.viewStyle}>
       <Avatar
@@ -14,10 +21,10 @@ const AccountProfileHint = () => {
       />
       <View style={styles.detailsView}>
         <Text style={styles.name} numberOfLines={1}>
-          Piotr Pabich
+          {`${user?.firstName} ${user?.lastName}`}
         </Text>
         <Text style={styles.email} numberOfLines={1}>
-          235944@edu.p.lodz.pl
+          {user?.email}
         </Text>
       </View>
     </View>

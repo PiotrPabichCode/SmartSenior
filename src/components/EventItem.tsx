@@ -36,7 +36,6 @@ const EventItem = ({ title, time, days }: EventItemProps) => {
     });
   }
   // renderDays();
-  console.log(days);
 
   return (
     <View style={styles.viewStyle}>

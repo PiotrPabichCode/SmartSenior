@@ -7,6 +7,7 @@ import { FIREBASE_AUTH } from './firebaseConfig';
 import Toast from 'react-native-toast-message';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
+import { UserProvider } from './src/context/UserContext';
 
 export default function App() {
   const colorScheme = useColorScheme();
@@ -41,12 +42,14 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <AppNavigator user={user} />
-      </NavigationContainer>
-      <Toast />
-    </SafeAreaProvider>
+    <UserProvider>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <AppNavigator user={user} />
+        </NavigationContainer>
+        <Toast />
+      </SafeAreaProvider>
+    </UserProvider>
   );
 }
 

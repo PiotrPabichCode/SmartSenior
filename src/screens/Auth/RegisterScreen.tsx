@@ -2,12 +2,13 @@ import WelcomeSvg from '../../assets/register-image.svg';
 import { Icon, Input, Button } from '@rneui/themed';
 import { StyleSheet, Text, ScrollView, Dimensions } from 'react-native';
 import { SignUpProps } from '../../navigation/types';
-import { registerUser } from '../../firebase/auth';
 import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native';
 import CustomToast from '../../custom/CustomToast';
+import { useAppDispatch } from '../../redux/store';
+import { signUpAction } from '../../redux/actions';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()
@@ -23,6 +24,7 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const RegisterScreen = ({ navigation }: SignUpProps) => {
+  const dispatch = useAppDispatch();
   return (
     <ScrollView keyboardShouldPersistTaps='handled'>
       <SafeAreaView style={styles.appContainer}>
@@ -40,8 +42,7 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
             validationSchema={RegisterSchema}
             onSubmit={async (values) => {
               try {
-                const user = await registerUser(values);
-                navigation.navigate('FirstLoginWizard');
+                dispatch(signUpAction(values, navigation.navigate));
               } catch (e) {
                 CustomToast('error', 'Nie udało się zarejestrować');
               }
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    marginTop: 50,
   },
   formContainer: {
     padding: 8,

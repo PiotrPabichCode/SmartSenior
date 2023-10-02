@@ -3,21 +3,17 @@ import CustomButton from '../components/CustomButton';
 import UpcomingEvents from '../components/UpcomingEvents';
 import { HomeProps } from '../navigation/types';
 import SpeedDialMenu from '../navigation/SpeedDialMenu';
-import { useUser } from '../context/UserContext';
 import CustomActivityIndicator from '../components/CustomActivityIndicator';
 import { useLayoutEffect, useState } from 'react';
-import { get, ref } from 'firebase/database';
-import { db } from '../../firebaseConfig';
 import { EventProp } from './EventsScreen';
 import { loadUserActiveEvents } from '../firebase/queries';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { logoutAction } from '../redux/actions';
 
 const HomeScreen = ({ navigation }: HomeProps) => {
-  const user = useUser();
   const [events, setEvents] = useState<EventProp[]>([]);
-
-  if (!user) {
-    return <CustomActivityIndicator />;
-  }
+  const userData = useAppSelector((state) => state.auth.userData);
+  const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {
     const fetchData = async () => {
@@ -32,13 +28,17 @@ const HomeScreen = ({ navigation }: HomeProps) => {
     fetchData();
   }, []);
 
+  if (!userData) {
+    return <CustomActivityIndicator />;
+  }
+
   return (
     <View style={styles.view}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
-          <Text style={styles.welcomeText}>{`Hej ${user.firstName}!`}</Text>
+          <Text style={styles.welcomeText}>{`Hej ${userData.firstName}!`}</Text>
           <UpcomingEvents events={events} />
           <View style={styles.buttonContainer}>
             <CustomButton

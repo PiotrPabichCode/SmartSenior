@@ -4,12 +4,12 @@ import { Divider } from '@rneui/themed';
 import AccountProfileHint from './AccountProfileHint';
 import { AccountProps } from '../../navigation/types';
 import { FIREBASE_AUTH } from '../../../firebaseConfig';
-import { useUser } from '../../context/UserContext';
 import CustomActivityIndicator from '../../components/CustomActivityIndicator';
 import SpeedDialMenu from '../../navigation/SpeedDialMenu';
+import { useAppSelector } from '../../redux/store';
 
 const AccountScreen = ({ navigation }: AccountProps) => {
-  const user = useUser();
+  const user = useAppSelector((state) => state.auth.userData);
 
   if (!user) {
     return <CustomActivityIndicator />;

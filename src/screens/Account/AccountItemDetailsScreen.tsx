@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
 import { AccountItemDetailsProps } from '../../navigation/types';
-import { useUser } from '../../context/UserContext';
 import CustomActivityIndicator from '../../components/CustomActivityIndicator';
 import SpeedDialMenu from '../../navigation/SpeedDialMenu';
+import { useAppSelector } from '../../redux/store';
 
 const AccountItemDetailsScreen = ({
   route,
   navigation,
 }: AccountItemDetailsProps) => {
-  const user = useUser();
+  const user = useAppSelector((state) => state.auth.userData);
 
   if (!user) {
     return <CustomActivityIndicator />;

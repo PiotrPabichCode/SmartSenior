@@ -6,8 +6,10 @@ import { SignInProps } from '../../navigation/types';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { authUser } from '../../firebase/auth';
 import CustomToast from '../../custom/CustomToast';
+import { signInAction } from '../../redux/actions';
+import { useAppDispatch } from '../../redux/store';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -20,6 +22,8 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginScreen = ({ navigation }: SignInProps) => {
+  const dispatch = useAppDispatch();
+
   return (
     <ScrollView keyboardShouldPersistTaps='handled'>
       <SafeAreaView style={styles.appContainer}>
@@ -44,8 +48,7 @@ const LoginScreen = ({ navigation }: SignInProps) => {
           validationSchema={LoginSchema}
           onSubmit={async (values) => {
             try {
-              await authUser(values);
-              navigation.navigate('FirstLoginWizard');
+              dispatch(signInAction(values, navigation.navigate));
             } catch (e) {
               CustomToast('error', 'Nie udało się zalogować');
             }
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
   appContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    marginTop: 50,
   },
   viewStyle: {
     flexGrow: 1,

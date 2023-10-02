@@ -1,10 +1,10 @@
 import { Avatar } from '@rneui/themed';
 import { StyleSheet, View, Text } from 'react-native';
-import { useUser } from '../../context/UserContext';
 import CustomActivityIndicator from '../../components/CustomActivityIndicator';
+import { useAppSelector } from '../../redux/store';
 
 const AccountProfileHint = () => {
-  const user = useUser();
+  const user = useAppSelector((state) => state.auth.userData);
 
   if (!user) {
     return <CustomActivityIndicator />;

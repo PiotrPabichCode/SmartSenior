@@ -3,10 +3,11 @@ import { Text, View, StyleSheet } from 'react-native';
 import { Button } from '@rneui/themed';
 import WelcomeSvg from '../../assets/welcome-image.svg';
 import { WelcomeProps } from '../../navigation/types';
+import { SafeAreaView } from 'react-native';
 
 const WelcomeScreen = ({ navigation }: WelcomeProps) => {
   return (
-    <View style={styles.viewStyle}>
+    <SafeAreaView style={styles.viewStyle}>
       {/* Image at the top */}
       <Text style={styles.headerText}>SmartSenior</Text>
       <WelcomeSvg width={300} height={300} />
@@ -36,7 +37,7 @@ const WelcomeScreen = ({ navigation }: WelcomeProps) => {
           onPress={() => navigation.navigate('SignIn')}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -44,9 +45,9 @@ const styles = StyleSheet.create({
   viewStyle: {
     flex: 1,
     alignItems: 'center',
-    height: '100%',
   },
   headerText: {
+    marginTop: 50,
     fontSize: 48,
     fontWeight: 'bold',
   },
@@ -69,23 +70,24 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   buttonContainerStyle: {
-    alignSelf: 'stretch',
     margin: 10,
   },
   buttonSignUpStyle: {
     backgroundColor: 'rgba(39, 39, 39, 1)',
+    borderRadius: 5,
   },
   buttonSignUpTitleStyle: {
     fontSize: 20,
     color: 'white',
   },
   buttonSignInStyle: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: 'blue',
     marginBottom: 10,
+    borderRadius: 5,
   },
   buttonSignInTitleStyle: {
     fontSize: 20,
-    color: 'black',
+    color: 'white',
   },
 });
 

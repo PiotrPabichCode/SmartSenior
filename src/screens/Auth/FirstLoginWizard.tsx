@@ -5,11 +5,9 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import { useEffect, useState } from 'react';
-import { FIREBASE_AUTH, db } from '../../../firebaseConfig';
-import { get, ref, set } from 'firebase/database';
+import { useState } from 'react';
 import { FirstLoginWizardProps } from '../../navigation/types';
-import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Input } from '@rneui/themed';
@@ -18,7 +16,8 @@ import CustomToast from '../../custom/CustomToast';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import Icons from '../../custom/Icons';
-import CustomActivityIndicator from '../../components/CustomActivityIndicator';
+import { useAppDispatch } from '../../redux/store';
+import { firstLoginWizardAction, logoutAction } from '../../redux/actions';
 
 const GenderEnum = {
   WOMEN: 'Female',
@@ -38,52 +37,12 @@ const FirstLoginSchema = Yup.object().shape({
 });
 
 const FirstLoginWizard = ({ navigation }: FirstLoginWizardProps) => {
+  const dispatch = useAppDispatch();
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-  const [connecting, setConnecting] = useState<boolean>(true);
-
-  useEffect(() => {
-    // Check if user exists
-    onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      const checkIfExistsUserData = (user: User | null) => {
-        const userRef = ref(db, 'users/' + user?.uid);
-        get(userRef)
-          .then((snapshot) => {
-            if (snapshot.exists()) {
-              navigation.navigate('BottomBar', {
-                screen: 'Home',
-              });
-              const unsubscribe = navigation.addListener('focus', () => {
-                setConnecting(false);
-                unsubscribe();
-              });
-            }
-          })
-          .catch((e) => {
-            console.error('Error', e);
-          })
-          .finally(() => {
-            setConnecting(false);
-            navigation.setOptions({
-              headerShown: true,
-            });
-          });
-      };
-      checkIfExistsUserData(user);
-    });
-  }, [connecting, navigation]);
-
-  /*
-    Show ActivityIndicator when user connection is loading
-  */
-  if (connecting) {
-    return <CustomActivityIndicator />;
-  }
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.logout}
-        onPress={() => FIREBASE_AUTH.signOut()}>
+      <TouchableOpacity style={styles.logout} onPress={dispatch(logoutAction)}>
         <Text style={styles.logoutTitle}>Wyloguj się</Text>
         <Icons name='logout-wizard' />
       </TouchableOpacity>
@@ -105,12 +64,9 @@ const FirstLoginWizard = ({ navigation }: FirstLoginWizardProps) => {
                 console.log(values);
                 FirstLoginSchema.validate(values)
                   .then(() => {
-                    const user = getAuth().currentUser;
-                    const userRef = ref(db, 'users/' + user?.uid);
-                    set(userRef, values);
-                    navigation.navigate('BottomBar', {
-                      screen: 'Home',
-                    });
+                    dispatch(
+                      firstLoginWizardAction(values, navigation.navigate)
+                    );
                     CustomToast('success', 'Zapisano zmiany');
                   })
                   .catch((errors) => {
@@ -186,6 +142,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    marginTop: 50,
   },
   view: {
     flexGrow: 1,

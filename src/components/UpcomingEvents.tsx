@@ -1,15 +1,13 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, Icon, Divider } from '@rneui/themed';
 import { EventProp } from '../screens/EventsScreen';
-import { useNavigation } from '@react-navigation/native';
-import { navigate } from '../navigation/navigation-utils';
+import { navigate } from '../navigation/navigationUtils';
 
 interface UpcomingEventsProps {
   events: EventProp[];
 }
 
 const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
-  const navigation = useNavigation();
   const moreButton = (
     <Button
       key={'more-button-event'}
@@ -17,7 +15,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
       containerStyle={styles.moreButtonContainerStyle}
       buttonStyle={styles.moreButtonStyle}
       titleStyle={styles.moreButtonTitle}
-      onPress={() => navigation.navigate('Events')}
+      onPress={() => navigate('Events')}
     />
   );
   const actionButton = (

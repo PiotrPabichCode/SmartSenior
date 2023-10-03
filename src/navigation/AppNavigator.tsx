@@ -1,11 +1,12 @@
-import React from 'react';
 import AuthNavigator from './AuthNavigator';
 import RootNavigator from './RootNavigator';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
+import { useAppSelector } from '../redux/store';
 
-const AppNavigator = (props: any) => {
+const AppNavigator = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
+  const user = useAppSelector((state) => state.auth.user);
 
   return (
     <Stack.Navigator
@@ -13,7 +14,7 @@ const AppNavigator = (props: any) => {
       screenOptions={{
         headerShown: false,
       }}>
-      {props.user ? (
+      {user ? (
         <Stack.Screen name='Inside' component={AuthNavigator} />
       ) : (
         <Stack.Screen name='Initial' component={RootNavigator} />

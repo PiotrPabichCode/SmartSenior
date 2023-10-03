@@ -1,42 +1,38 @@
 import { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { User, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import Toast from 'react-native-toast-message';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Provider } from 'react-redux';
 import { store } from './src/redux/store';
 import { FIREBASE_AUTH } from './firebaseConfig';
 import CustomActivityIndicator from './src/components/CustomActivityIndicator';
+import { logoutAction, verifyAuth } from './src/redux/actions';
+import { navigationRef } from './src/navigation/navigationUtils';
 
 export default function App() {
-  const [user, setUser] = useState<User | null>(null);
-  const [connecting, setConnecting] = useState(true);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setConnecting(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
+  const [isReady, setIsReady] = useState(false);
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      setUser(user);
-      setConnecting(false);
+      if (user) {
+        store.dispatch(verifyAuth(user));
+      } else {
+        store.dispatch(logoutAction());
+      }
     });
   }, []);
 
   /*
     Show ActivityIndicator when user connection is loading
   */
-  if (connecting) {
-    return <CustomActivityIndicator />;
-  }
+  // if (!isReady) {
+  //   return <CustomActivityIndicator />;
+  // }
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <AppNavigator user={user} />
+      <NavigationContainer ref={navigationRef} onReady={() => setIsReady(true)}>
+        <AppNavigator />
       </NavigationContainer>
       <Toast />
     </Provider>

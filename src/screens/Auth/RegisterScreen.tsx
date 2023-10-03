@@ -42,7 +42,7 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
             validationSchema={RegisterSchema}
             onSubmit={async (values) => {
               try {
-                dispatch(signUpAction(values, navigation.navigate));
+                dispatch(signUpAction(values));
               } catch (e) {
                 CustomToast('error', 'Nie udało się zarejestrować');
               }

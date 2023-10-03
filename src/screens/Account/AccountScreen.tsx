@@ -3,17 +3,12 @@ import AccountItem from './AccountItem';
 import { Divider } from '@rneui/themed';
 import AccountProfileHint from './AccountProfileHint';
 import { AccountProps } from '../../navigation/types';
-import { FIREBASE_AUTH } from '../../../firebaseConfig';
-import CustomActivityIndicator from '../../components/CustomActivityIndicator';
 import SpeedDialMenu from '../../navigation/SpeedDialMenu';
-import { useAppSelector } from '../../redux/store';
+import { useAppDispatch } from '../../redux/store';
+import { logoutAction } from '../../redux/actions';
 
 const AccountScreen = ({ navigation }: AccountProps) => {
-  const user = useAppSelector((state) => state.auth.userData);
-
-  if (!user) {
-    return <CustomActivityIndicator />;
-  }
+  const dispatch = useAppDispatch();
 
   return (
     <View style={styles.viewStyle}>
@@ -65,7 +60,7 @@ const AccountScreen = ({ navigation }: AccountProps) => {
       <AccountItem
         icon='logout-account'
         title='Wyloguj się'
-        onPress={() => FIREBASE_AUTH.signOut()}
+        onPress={() => dispatch(logoutAction())}
       />
       <SpeedDialMenu />
     </View>

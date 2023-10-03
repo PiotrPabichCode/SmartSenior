@@ -9,7 +9,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomToast from '../../custom/CustomToast';
 import { signInAction } from '../../redux/actions';
 import { useAppDispatch } from '../../redux/store';
-import { useNavigation } from '@react-navigation/native';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -48,7 +47,7 @@ const LoginScreen = ({ navigation }: SignInProps) => {
           validationSchema={LoginSchema}
           onSubmit={async (values) => {
             try {
-              dispatch(signInAction(values, navigation.navigate));
+              dispatch(signInAction(values));
             } catch (e) {
               CustomToast('error', 'Nie udało się zalogować');
             }

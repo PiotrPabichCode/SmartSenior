@@ -10,9 +10,9 @@ const AccountItemDetailsScreen = ({
   route,
   navigation,
 }: AccountItemDetailsProps) => {
-  const user = useAppSelector((state) => state.auth.userData);
+  const userDetails = useAppSelector((state) => state.auth.userDetails);
 
-  if (!user) {
+  if (!userDetails) {
     return <CustomActivityIndicator />;
   }
 
@@ -26,25 +26,25 @@ const AccountItemDetailsScreen = ({
           type='input'
           title='Adres e-mail:'
           placeholder='Podaj adres e-mail'
-          value={user.email || ''}
+          value={userDetails.email || ''}
         />
         <AccountItemDetails
           type='input'
           title='Imię:'
           placeholder='Podaj imię'
-          value={user.firstName || ''}
+          value={userDetails.firstName || ''}
         />
         <AccountItemDetails
           type='input'
           title='Nazwisko:'
           placeholder='Podaj nazwisko'
-          value={user.lastName || ''}
+          value={userDetails.lastName || ''}
         />
         <AccountItemDetails
           type='input'
           title='Data urodzenia:'
           placeholder='Podaj datę urodzenia'
-          value={user.birthDate || ''}
+          value={userDetails.birthDate || ''}
         />
         <AccountItemDetails
           type='input'

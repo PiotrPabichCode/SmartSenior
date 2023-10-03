@@ -12,7 +12,7 @@ import { logoutAction } from '../redux/actions';
 
 const HomeScreen = ({ navigation }: HomeProps) => {
   const [events, setEvents] = useState<EventProp[]>([]);
-  const userData = useAppSelector((state) => state.auth.userData);
+  const userDetails = useAppSelector((state) => state.auth.userDetails);
   const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {
@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation }: HomeProps) => {
     fetchData();
   }, []);
 
-  if (!userData) {
+  if (!userDetails) {
     return <CustomActivityIndicator />;
   }
 
@@ -38,7 +38,8 @@ const HomeScreen = ({ navigation }: HomeProps) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
-          <Text style={styles.welcomeText}>{`Hej ${userData.firstName}!`}</Text>
+          <Text
+            style={styles.welcomeText}>{`Hej ${userDetails.firstName}!`}</Text>
           <UpcomingEvents events={events} />
           <View style={styles.buttonContainer}>
             <CustomButton

@@ -1,8 +1,9 @@
 import * as types from './constants';
 
 const initialState = {
-  userData: null,
-  authenticated: false,
+  user: null,
+  userDetails: null,
+  error: null,
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -13,18 +14,29 @@ const authReducer = (state = initialState, action: any) => {
     case types.SIGN_UP_SUCCESS:
       return {
         ...state,
-        authenticated: true,
+        user: payload,
+        error: null,
       };
-    case types.FIRST_LOGIN_WIZARD_SUCCESS:
+    case types.SIGN_IN_FAIL:
+    case types.SIGN_UP_FAIL:
       return {
         ...state,
-        userData: payload,
+        error: payload,
+      };
+    case types.GET_USER_DETAILS_SUCCESS:
+      return {
+        ...state,
+        userDetails: payload,
+      };
+    case types.GET_USER_DETAILS_FAIL:
+      return {
+        ...state,
+        error: payload,
       };
     case types.LOGOUT:
       return {
         ...state,
-        userData: null,
-        authenticated: false,
+        ...initialState,
       };
     default:
       return state;

@@ -4,9 +4,9 @@ import CustomActivityIndicator from '../../components/CustomActivityIndicator';
 import { useAppSelector } from '../../redux/store';
 
 const AccountProfileHint = () => {
-  const user = useAppSelector((state) => state.auth.userData);
+  const userDetails = useAppSelector((state) => state.auth.userDetails);
 
-  if (!user) {
+  if (!userDetails) {
     return <CustomActivityIndicator />;
   }
 
@@ -21,10 +21,10 @@ const AccountProfileHint = () => {
       />
       <View style={styles.detailsView}>
         <Text style={styles.name} numberOfLines={1}>
-          {`${user?.firstName} ${user?.lastName}`}
+          {`${userDetails?.firstName} ${userDetails?.lastName}`}
         </Text>
         <Text style={styles.email} numberOfLines={1}>
-          {user?.email}
+          {userDetails?.email}
         </Text>
       </View>
     </View>

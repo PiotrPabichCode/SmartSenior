@@ -17,7 +17,7 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import Icons from '../../custom/Icons';
 import { useAppDispatch } from '../../redux/store';
-import { firstLoginWizardAction, logoutAction } from '../../redux/actions';
+import { UserDetailsAction, logoutAction } from '../../redux/actions';
 
 const GenderEnum = {
   WOMEN: 'Female',
@@ -42,7 +42,9 @@ const FirstLoginWizard = ({ navigation }: FirstLoginWizardProps) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.logout} onPress={dispatch(logoutAction)}>
+      <TouchableOpacity
+        style={styles.logout}
+        onPress={() => dispatch(logoutAction())}>
         <Text style={styles.logoutTitle}>Wyloguj się</Text>
         <Icons name='logout-wizard' />
       </TouchableOpacity>
@@ -64,9 +66,7 @@ const FirstLoginWizard = ({ navigation }: FirstLoginWizardProps) => {
                 console.log(values);
                 FirstLoginSchema.validate(values)
                   .then(() => {
-                    dispatch(
-                      firstLoginWizardAction(values, navigation.navigate)
-                    );
+                    dispatch(UserDetailsAction(values));
                     CustomToast('success', 'Zapisano zmiany');
                   })
                   .catch((errors) => {
@@ -106,7 +106,7 @@ const FirstLoginWizard = ({ navigation }: FirstLoginWizardProps) => {
                     onChange={(e, newDate) => {
                       setShowDatePicker(false);
                       if (e.type === 'dismissed') {
-                        return;
+                        return false;
                       }
                       setFieldValue(
                         'birthDate',

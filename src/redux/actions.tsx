@@ -1,13 +1,27 @@
 import * as api from './api';
 import * as types from './constants';
-import { useAppDispatch } from './store';
+import { useAppDispatch, useAppSelector } from './store';
+import { navigate } from '../navigation/navigationUtils';
+
+type AuthCredentials = {
+  email: string;
+  password: string;
+};
+
+type UserDetails = {
+  firstName: string;
+  lastName: string;
+  birthDate: null | string;
+  gender: string;
+  email: string | null | undefined;
+};
 
 export const signInAction =
-  (userData: any, navigate: any) =>
+  (userData: AuthCredentials) =>
   async (dispatch = useAppDispatch()) => {
     try {
-      const response = await api.signIn(userData);
-      const { error } = response;
+      let response = await api.signIn(userData);
+      const { error, data } = response;
       if (error) {
         dispatch({
           type: types.SIGN_IN_FAIL,
@@ -16,13 +30,11 @@ export const signInAction =
       } else {
         dispatch({
           type: types.SIGN_IN_SUCCESS,
-          payload: null,
+          payload: data,
         });
-        const userData = await api.checkIfUserDataExists();
-        const { error, data } = userData;
-        console.log(data);
-        if (userData) {
-          dispatch(firstLoginWizardAction(data, navigate));
+        const response = await api.checkIfUserDataExists();
+        if (response.data) {
+          dispatch(UserDetailsAction(response.data));
         } else {
           navigate('FirstLoginWizard');
         }
@@ -36,11 +48,11 @@ export const signInAction =
   };
 
 export const signUpAction =
-  (userData: any, navigate: any) =>
+  (userData: AuthCredentials) =>
   async (dispatch = useAppDispatch()) => {
     try {
       const response = await api.signUp(userData);
-      const { error } = response;
+      const { error, data } = response;
       if (error) {
         dispatch({
           type: types.SIGN_UP_FAIL,
@@ -49,14 +61,11 @@ export const signUpAction =
       } else {
         dispatch({
           type: types.SIGN_UP_SUCCESS,
-          payload: types.SIGN_UP_SUCCESS_MESSAGE,
+          payload: data,
         });
-        const userData = await api.checkIfUserDataExists();
-        console.log(userData);
-        if (userData) {
-          navigate('BottomBar', {
-            screen: 'Home',
-          });
+        const response = await api.checkIfUserDataExists();
+        if (response.data) {
+          dispatch(UserDetailsAction(response.data));
         } else {
           navigate('FirstLoginWizard');
         }
@@ -80,33 +89,49 @@ export const logoutAction =
     }
   };
 
-export const firstLoginWizardAction =
-  (firstLoginWizardData: any, navigate: any) =>
+export const UserDetailsAction =
+  (userDetails: UserDetails) =>
   async (dispatch = useAppDispatch()) => {
     try {
-      const response = await api.setFirstLoginWizardData(firstLoginWizardData);
-      const { error, data } = response;
+      const response = await api.setUserDetails(userDetails);
+      const { error } = response;
       if (error) {
         dispatch({
-          type: types.FIRST_LOGIN_WIZARD_FAIL,
+          type: types.GET_USER_DETAILS_FAIL,
           payload: error,
         });
       } else {
         dispatch({
-          type: types.FIRST_LOGIN_WIZARD_SUCCESS,
-          payload: data,
+          type: types.GET_USER_DETAILS_SUCCESS,
+          payload: userDetails,
         });
+
         navigate('BottomBar', {
           screen: 'Home',
         });
       }
     } catch (error) {
-      dispatch({ type: types.FIRST_LOGIN_WIZARD, payload: error });
+      dispatch({ type: types.GET_USER_DETAILS_FAIL, payload: error });
     }
   };
 
-export const setUserData =
-  (userData: any) =>
+export const verifyAuth =
+  (user: any) =>
   async (dispatch = useAppDispatch()) => {
-    dispatch({ type: types.SET_USER_DATA, payload: userData });
+    const response = await api.checkIfUserDataExists();
+    const { data } = response;
+
+    if (data) {
+      dispatch({
+        type: types.GET_USER_DETAILS_SUCCESS,
+        payload: data,
+      });
+      dispatch({ type: types.SIGN_IN_SUCCESS, payload: user });
+      navigate('BottomBar', {
+        screen: 'Home',
+      });
+    } else {
+      dispatch({ type: types.SIGN_IN_SUCCESS, payload: user });
+      navigate('FirstLoginWizard');
+    }
   };

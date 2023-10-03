@@ -19,15 +19,13 @@ export const signIn = async (authData: any): Promise<ApiResponse> => {
       authData.email,
       authData.password
     );
-    console.log(response.user);
-
     if (response.user) {
       return { error: null, data: response.user };
     }
+    return { error: new Error('User not found'), data: null };
   } catch (error) {
     return handleApiError(error);
   }
-  return { error: new Error('User not found'), data: null };
 };
 
 export const signUp = async (authData: any): Promise<ApiResponse> => {
@@ -41,17 +39,15 @@ export const signUp = async (authData: any): Promise<ApiResponse> => {
     if (response.user) {
       return { error: null, data: response.user };
     }
+    return { error: new Error('Something went wrong'), data: null };
   } catch (error) {
     return handleApiError(error);
   }
-
-  return { error: new Error('Something went wrong'), data: null };
 };
 
 export const logout = async () => {
   try {
-    const response = await FIREBASE_AUTH.signOut();
-    return { error: null, data: response };
+    await FIREBASE_AUTH.signOut();
   } catch (error) {
     return handleApiError(error);
   }
@@ -61,19 +57,17 @@ export const checkIfUserDataExists = async (): Promise<ApiResponse> => {
   try {
     const userUid = getAuth().currentUser?.uid;
     const userRef = ref(db, 'users/' + userUid);
-    const response = await get(userRef);
-    if (response.exists()) {
-      return { error: null, data: response.val() };
+    const snapshot = await get(userRef);
+    if (snapshot.exists()) {
+      return { error: null, data: snapshot.val() };
     }
-    return { error: null, data: null };
+    return { error: new Error('User data not found'), data: null };
   } catch (error) {
     return handleApiError(error);
   }
 };
 
-export const setFirstLoginWizardData = async (
-  values: any
-): Promise<ApiResponse> => {
+export const setUserDetails = async (values: any): Promise<ApiResponse> => {
   try {
     const userUid = getAuth().currentUser?.uid;
     const userRef = ref(db, 'users/' + userUid);

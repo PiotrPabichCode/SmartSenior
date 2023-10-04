@@ -6,7 +6,7 @@ import { buildRequest } from '@utils/utils';
 import { Button, Divider, Input } from '@rneui/themed';
 import PharmacyItem from './PharmacyItem';
 import CustomDropdown from '@components/CustomDropdown';
-import SpeedDialMenu from '@navigation/SpeedDialMenu';
+import SpeedDialMenu from '@src/components/SpeedDialMenu';
 
 const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
   const [pharmacies, setPharmacies] = useState([]);

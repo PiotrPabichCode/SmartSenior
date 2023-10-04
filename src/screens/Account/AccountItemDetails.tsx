@@ -3,7 +3,7 @@ import { Text, TextInput, View, StyleSheet } from 'react-native';
 
 import type { PropsWithChildren } from 'react';
 import { CheckBox, Switch } from '@rneui/themed';
-import { renderIcon } from '@custom/Icons';
+import { renderIcon } from '@src/components/Icons';
 
 type AccountItemDetailsProps = PropsWithChildren<{
   type?: string;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import type { PropsWithChildren } from 'react';
-import { renderIcon } from '@custom/Icons';
+import { renderIcon } from '@src/components/Icons';
 
 type AccountItemProps = PropsWithChildren<{
   type?: string;

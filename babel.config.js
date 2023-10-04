@@ -11,7 +11,7 @@ module.exports = function (api) {
             '@api': './src/api',
             '@assets': './src/assets',
             '@components': './src/components',
-            '@custom': './src/custom',
+            '@helpers': './src/helpers',
             '@navigation': './src/navigation',
             '@redux': './src/redux',
             '@screens': './src/screens',

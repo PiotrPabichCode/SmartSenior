@@ -1,20 +1,8 @@
-import * as api from '../api';
-import * as types from '../constants';
+import * as api from '../api/authAPI';
+import * as types from '../constants/authConstants';
 import { useAppDispatch, useAppSelector } from '../store';
 import { navigate } from '@navigation/navigationUtils';
-
-type AuthCredentials = {
-  email: string;
-  password: string;
-};
-
-type UserDetails = {
-  firstName: string;
-  lastName: string;
-  birthDate: null | string;
-  gender: string;
-  email: string | null | undefined;
-};
+import { AuthCredentials, UserDetails } from '../types/authTypes';
 
 export const signInAction =
   (userData: AuthCredentials) =>

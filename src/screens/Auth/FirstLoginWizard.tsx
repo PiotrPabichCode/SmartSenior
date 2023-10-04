@@ -12,12 +12,15 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Input } from '@rneui/themed';
 import CustomDropdown from '@components/CustomDropdown';
-import CustomToast from '@custom/CustomToast';
+import CustomToast from '@src/components/CustomToast';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
-import Icons from '@custom/Icons';
+import Icons from '@src/components/Icons';
 import { useAppDispatch } from '@redux/store';
-import { UserDetailsAction, logoutAction } from '@redux/actions/actions';
+import {
+  UserDetailsAction,
+  logoutAction,
+} from '@src/redux/actions/authActions';
 
 const GenderEnum = {
   WOMEN: 'Female',

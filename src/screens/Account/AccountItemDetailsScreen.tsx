@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
 import { AccountItemDetailsProps } from '@navigation/types';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
-import SpeedDialMenu from '@navigation/SpeedDialMenu';
+import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import { useAppSelector } from '@redux/store';
 
 const AccountItemDetailsScreen = ({

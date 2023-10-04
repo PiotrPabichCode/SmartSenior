@@ -13,7 +13,7 @@ import { Button, CheckBox, Input } from '@rneui/themed';
 import CustomDropdown from '@components/CustomDropdown';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import DayFieldsRenderer from './DayFieldsRenderer';
-import CustomToast from '@custom/CustomToast';
+import CustomToast from '@src/components/CustomToast';
 import { getAuth } from 'firebase/auth';
 import { FIREBASE_APP, db } from 'firebaseConfig';
 import { push, ref } from 'firebase/database';

@@ -6,8 +6,8 @@ import { SignInProps } from '@navigation/types';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import CustomToast from '@custom/CustomToast';
-import { signInAction } from '@redux/actions/actions';
+import CustomToast from '@src/components/CustomToast';
+import { signInAction } from '@src/redux/actions/authActions';
 import { useAppDispatch } from '@redux/store';
 
 const LoginSchema = Yup.object().shape({

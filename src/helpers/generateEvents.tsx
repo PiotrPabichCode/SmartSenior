@@ -1,3 +1,8 @@
+import CustomToast from '@src/components/CustomToast';
+import { getAuth } from 'firebase/auth';
+import { push, ref } from 'firebase/database';
+import { db } from 'firebaseConfig';
+
 const times = [
   { label: '5 minut', value: 5 },
   { label: '15 minut', value: 15 },
@@ -166,3 +171,33 @@ export const events = [
     deleted: false,
   },
 ];
+
+export const generateEvents = () => {
+  try {
+    const eventsRef = ref(db, 'events/');
+    const eventsData = events; // Assuming events is an array of event objects
+    const now = new Date();
+
+    eventsData.forEach((event, index) => {
+      const userUid = getAuth().currentUser?.uid + '-deleted-false';
+      const createdAt = now.getTime();
+      const updatedAt = now.getTime();
+      const executionTime = now.getTime() + index * 0.5 * 86400000;
+
+      const modifiedEvent = {
+        ...event,
+        userUid,
+        createdAt,
+        updatedAt,
+        executionTime,
+      };
+      // console.log(modifiedEvent);
+
+      push(eventsRef, modifiedEvent);
+    });
+
+    CustomToast('success', 'Dodano testowe wydarzenia');
+  } catch (e) {
+    console.error(e);
+  }
+};

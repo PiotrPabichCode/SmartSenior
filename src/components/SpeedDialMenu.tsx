@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SpeedDial } from '@rneui/themed';
-import { generateEvents } from '@src/api/queries';
+import { generateEvents } from '@src/helpers/generateEvents';
 
 const SpeedDialMenu = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);

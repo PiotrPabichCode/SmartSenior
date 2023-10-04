@@ -3,9 +3,9 @@ import AccountItem from './AccountItem';
 import { Divider } from '@rneui/themed';
 import AccountProfileHint from './AccountProfileHint';
 import { AccountProps } from '@navigation/types';
-import SpeedDialMenu from '@navigation/SpeedDialMenu';
+import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import { useAppDispatch } from '@redux/store';
-import { logoutAction } from '@redux/actions/actions';
+import { logoutAction } from '@src/redux/actions/authActions';
 
 const AccountScreen = ({ navigation }: AccountProps) => {
   const dispatch = useAppDispatch();

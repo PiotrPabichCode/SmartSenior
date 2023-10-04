@@ -6,9 +6,9 @@ import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native';
-import CustomToast from '@custom/CustomToast';
+import CustomToast from '@src/components/CustomToast';
 import { useAppDispatch } from '@redux/store';
-import { signUpAction } from '@redux/actions/actions';
+import { signUpAction } from '@src/redux/actions/authActions';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()

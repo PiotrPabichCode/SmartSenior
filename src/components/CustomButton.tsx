@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import Icons from '@custom/Icons';
+import Icons from '@src/components/Icons';
 
 interface ButtonProps {
   icon: any;

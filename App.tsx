@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from 'src/redux/store';
 import { FIREBASE_AUTH } from './firebaseConfig';
 import CustomActivityIndicator from './src/components/CustomActivityIndicator';
-import { logoutAction, verifyAuth } from './src/redux/actions/actions';
+import { logoutAction, verifyAuth } from './src/redux/actions/authActions';
 import { navigationRef } from './src/navigation/navigationUtils';
 
 export default function App() {

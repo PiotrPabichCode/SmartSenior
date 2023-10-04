@@ -5,12 +5,12 @@ import React, {
   PropsWithChildren,
 } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import EventItem from '@components/EventItem';
+import EventItem from '@src/screens/Events/EventItem';
 import { Divider } from '@rneui/themed';
 import { EventsProps } from '@navigation/types';
-import SpeedDialMenu from '@navigation/SpeedDialMenu';
+import SpeedDialMenu from '@src/components/SpeedDialMenu';
 
-import { loadUserActiveEvents } from '@src/api/queries';
+import { loadUserActiveEvents } from '@src/redux/api/eventsAPI';
 
 export type EventProp = PropsWithChildren<{
   title: string;

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TextInput, View } from 'react-native';
-import { StyleSheet } from 'react-native';
+import { Text, TextInput, View, StyleSheet } from 'react-native';
 
 import type { PropsWithChildren } from 'react';
 import { CheckBox, Switch } from '@rneui/themed';
-import { renderIcon } from '../../custom/Icons';
+import { renderIcon } from '@custom/Icons';
 
 type AccountItemDetailsProps = PropsWithChildren<{
   type?: string;

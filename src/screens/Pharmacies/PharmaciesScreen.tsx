@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { PharmaciesProps } from '../../navigation/types';
+import { PharmaciesProps } from '@navigation/types';
 import { Formik } from 'formik';
-import { buildRequest } from '../../utils/utils';
+import { buildRequest } from '@utils/utils';
 import { Button, Divider, Input } from '@rneui/themed';
 import PharmacyItem from './PharmacyItem';
-import CustomDropdown from '../../components/CustomDropdown';
-import SpeedDialMenu from '../../navigation/SpeedDialMenu';
+import CustomDropdown from '@components/CustomDropdown';
+import SpeedDialMenu from '@navigation/SpeedDialMenu';
 
 const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
   const [pharmacies, setPharmacies] = useState([]);

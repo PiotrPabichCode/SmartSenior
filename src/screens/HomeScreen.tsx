@@ -1,14 +1,14 @@
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import CustomButton from '../components/CustomButton';
-import UpcomingEvents from '../components/UpcomingEvents';
-import { HomeProps } from '../navigation/types';
-import SpeedDialMenu from '../navigation/SpeedDialMenu';
-import CustomActivityIndicator from '../components/CustomActivityIndicator';
+import CustomButton from 'src/components/CustomButton';
+import UpcomingEvents from 'src/components/UpcomingEvents';
+import { HomeProps } from 'src/navigation/types';
+import SpeedDialMenu from '@navigation/SpeedDialMenu';
+import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { useLayoutEffect, useState } from 'react';
 import { EventProp } from './EventsScreen';
-import { loadUserActiveEvents } from '../firebase/queries';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import { logoutAction } from '../redux/actions';
+import { loadUserActiveEvents } from '@src/api/queries';
+import { useAppDispatch, useAppSelector } from '@redux/store';
+import { logoutAction } from '@redux/actions/actions';
 
 const HomeScreen = ({ navigation }: HomeProps) => {
   const [events, setEvents] = useState<EventProp[]>([]);

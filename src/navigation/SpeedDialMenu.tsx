@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { SpeedDial } from '@rneui/themed';
-import { generateEvents } from '../firebase/queries';
+import { generateEvents } from '@src/api/queries';
 
 const SpeedDialMenu = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);
 
   const onClickAction = (command: string) => {
+    console.log(navigation);
     switch (command) {
       case 'ADD_EVENT':
         navigation.navigate('CreateEvent');

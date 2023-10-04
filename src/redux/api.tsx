@@ -3,7 +3,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { FIREBASE_AUTH, db } from '../../firebaseConfig';
+import { FIREBASE_AUTH, db } from 'firebaseConfig';
 import { handleApiError } from './utils';
 import { get, ref, set } from 'firebase/database';
 

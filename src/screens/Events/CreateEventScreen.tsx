@@ -6,16 +6,16 @@ import {
   ScrollView,
   FlatListComponent,
 } from 'react-native';
-import { CreateEventProps } from '../../navigation/types';
+import { CreateEventProps } from '@navigation/types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, CheckBox, Input } from '@rneui/themed';
-import CustomDropdown from '../../components/CustomDropdown';
+import CustomDropdown from '@components/CustomDropdown';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import DayFieldsRenderer from './DayFieldsRenderer';
-import CustomToast from '../../custom/CustomToast';
+import CustomToast from '@custom/CustomToast';
 import { getAuth } from 'firebase/auth';
-import { FIREBASE_APP, db } from '../../../firebaseConfig';
+import { FIREBASE_APP, db } from 'firebaseConfig';
 import { push, ref } from 'firebase/database';
 
 const CreateEventScreen = ({ navigation }: CreateEventProps) => {

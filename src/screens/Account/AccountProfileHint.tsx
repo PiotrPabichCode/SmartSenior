@@ -1,7 +1,7 @@
 import { Avatar } from '@rneui/themed';
 import { StyleSheet, View, Text } from 'react-native';
-import CustomActivityIndicator from '../../components/CustomActivityIndicator';
-import { useAppSelector } from '../../redux/store';
+import CustomActivityIndicator from '@components/CustomActivityIndicator';
+import { useAppSelector } from '@redux/store';
 
 const AccountProfileHint = () => {
   const userDetails = useAppSelector((state) => state.auth.userDetails);

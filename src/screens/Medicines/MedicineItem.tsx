@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { renderIcon } from '../../custom/Icons';
+import { renderIcon } from '@custom/Icons';
 import { Button } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';

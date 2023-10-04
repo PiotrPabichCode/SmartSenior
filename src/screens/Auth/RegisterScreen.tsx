@@ -1,14 +1,14 @@
-import WelcomeSvg from '../../assets/register-image.svg';
+import WelcomeSvg from '@assets/register-image.svg';
 import { Icon, Input, Button } from '@rneui/themed';
 import { StyleSheet, Text, ScrollView, Dimensions } from 'react-native';
-import { SignUpProps } from '../../navigation/types';
+import { SignUpProps } from '@navigation/types';
 import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native';
-import CustomToast from '../../custom/CustomToast';
-import { useAppDispatch } from '../../redux/store';
-import { signUpAction } from '../../redux/actions';
+import CustomToast from '@custom/CustomToast';
+import { useAppDispatch } from '@redux/store';
+import { signUpAction } from '@redux/actions/actions';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()

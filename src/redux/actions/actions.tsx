@@ -1,7 +1,7 @@
-import * as api from './api';
-import * as types from './constants';
-import { useAppDispatch, useAppSelector } from './store';
-import { navigate } from '../navigation/navigationUtils';
+import * as api from '../api';
+import * as types from '../constants';
+import { useAppDispatch, useAppSelector } from '../store';
+import { navigate } from '@navigation/navigationUtils';
 
 type AuthCredentials = {
   email: string;

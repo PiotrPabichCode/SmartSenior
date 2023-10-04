@@ -2,10 +2,10 @@ import { StyleSheet, View } from 'react-native';
 import AccountItem from './AccountItem';
 import { Divider } from '@rneui/themed';
 import AccountProfileHint from './AccountProfileHint';
-import { AccountProps } from '../../navigation/types';
-import SpeedDialMenu from '../../navigation/SpeedDialMenu';
-import { useAppDispatch } from '../../redux/store';
-import { logoutAction } from '../../redux/actions';
+import { AccountProps } from '@navigation/types';
+import SpeedDialMenu from '@navigation/SpeedDialMenu';
+import { useAppDispatch } from '@redux/store';
+import { logoutAction } from '@redux/actions/actions';
 
 const AccountScreen = ({ navigation }: AccountProps) => {
   const dispatch = useAppDispatch();
@@ -62,7 +62,7 @@ const AccountScreen = ({ navigation }: AccountProps) => {
         title='Wyloguj się'
         onPress={() => dispatch(logoutAction())}
       />
-      <SpeedDialMenu />
+      <SpeedDialMenu navigation={navigation} />
     </View>
   );
 };

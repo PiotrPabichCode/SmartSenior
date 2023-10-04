@@ -1,14 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
-import AccountItemDetailsScreen from '../screens/Account/AccountItemDetailsScreen';
-import MedicinesScreen from '../screens/Medicines/MedicinesScreen';
-import MedicineItemDetails from '../screens/Medicines/MedicineItemDetails';
-import PharmaciesScreen from '../screens/Pharmacies/PharmaciesScreen';
-import PharmacyItemDetails from '../screens/Pharmacies/PharmacyItemDetails';
+import AccountItemDetailsScreen from '@screens/Account/AccountItemDetailsScreen';
+import MedicinesScreen from '@screens/Medicines/MedicinesScreen';
+import MedicineItemDetails from '@screens/Medicines/MedicineItemDetails';
+import PharmaciesScreen from '@screens/Pharmacies/PharmaciesScreen';
+import PharmacyItemDetails from '@screens/Pharmacies/PharmacyItemDetails';
+import CreateEventScreen from '@screens/Events/CreateEventScreen';
+import FirstLoginWizard from '@screens/Auth/FirstLoginWizard';
+
 import BottomBarNavigator from './BottomBarNavigator';
-import CustomHeader from '../components/CustomHeader';
-import CreateEventScreen from '../screens/Events/CreateEventScreen';
-import FirstLoginWizard from '../screens/Auth/FirstLoginWizard';
+import CustomHeader from '@components/CustomHeader';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
 import { Button } from '@rneui/themed';
-import WelcomeSvg from '../../assets/welcome-image.svg';
-import { WelcomeProps } from '../../navigation/types';
-import { SafeAreaView } from 'react-native';
+import WelcomeSvg from '@assets/welcome-image.svg';
+import { WelcomeProps } from '@navigation/types';
 
 const WelcomeScreen = ({ navigation }: WelcomeProps) => {
   return (

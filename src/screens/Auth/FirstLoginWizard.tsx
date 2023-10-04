@@ -6,18 +6,18 @@ import {
   ScrollView,
 } from 'react-native';
 import { useState } from 'react';
-import { FirstLoginWizardProps } from '../../navigation/types';
+import { FirstLoginWizardProps } from '@navigation/types';
 import { getAuth } from 'firebase/auth';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Input } from '@rneui/themed';
-import CustomDropdown from '../../components/CustomDropdown';
-import CustomToast from '../../custom/CustomToast';
+import CustomDropdown from '@components/CustomDropdown';
+import CustomToast from '@custom/CustomToast';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
-import Icons from '../../custom/Icons';
-import { useAppDispatch } from '../../redux/store';
-import { UserDetailsAction, logoutAction } from '../../redux/actions';
+import Icons from '@custom/Icons';
+import { useAppDispatch } from '@redux/store';
+import { UserDetailsAction, logoutAction } from '@redux/actions/actions';
 
 const GenderEnum = {
   WOMEN: 'Female',

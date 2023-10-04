@@ -1,13 +1,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CalendarScreen from '../screens/CalendarScreen';
-import AccountScreen from '../screens/Account/AccountScreen';
-import EventsScreen from '../screens/EventsScreen';
-import ChatScreen from '../screens/ChatScreen';
+import CalendarScreen from '@screens/CalendarScreen';
+import AccountScreen from '@screens/Account/AccountScreen';
+import EventsScreen from '@screens/EventsScreen';
+import HomeScreen from '@screens/HomeScreen';
+import CreateEventScreen from '@screens/Events/CreateEventScreen';
+
 import { BottomBarParamList } from './types';
-import HomeScreen from '../screens/HomeScreen';
-import CreateEventScreen from '../screens/Events/CreateEventScreen';
-import Icons, { renderIcon } from '../custom/Icons';
-import CustomHeader from '../components/CustomHeader';
+import Icons, { renderIcon } from '@custom/Icons';
+import CustomHeader from '@components/CustomHeader';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 

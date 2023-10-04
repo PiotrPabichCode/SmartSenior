@@ -2,10 +2,10 @@ import { Button, Divider, Input } from '@rneui/themed';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, ScrollView, View } from 'react-native';
 import MedicineItem from './MedicineItem';
-import { MedicinesProps } from '../../navigation/types';
+import { MedicinesProps } from '@navigation/types';
 import { Formik } from 'formik';
-import SpeedDialMenu from '../../navigation/SpeedDialMenu';
-import { buildRequest } from '../../utils/utils';
+import SpeedDialMenu from '@navigation/SpeedDialMenu';
+import { buildRequest } from '@utils/utils';
 
 const MedicinesScreen = ({ navigation }: MedicinesProps) => {
   const [items, setItems] = useState([]);

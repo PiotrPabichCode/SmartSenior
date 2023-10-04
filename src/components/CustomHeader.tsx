@@ -8,7 +8,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import type { PropsWithChildren } from 'react';
-import Icons from '../custom/Icons';
+import Icons from '@custom/Icons';
 
 type HeaderProps = PropsWithChildren<{
   title: string;

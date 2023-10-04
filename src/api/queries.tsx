@@ -6,9 +6,9 @@ import {
   query,
   ref,
 } from 'firebase/database';
-import { db } from '../../firebaseConfig';
+import { db } from 'firebaseConfig';
 import { getAuth } from 'firebase/auth';
-import CustomToast from '../custom/CustomToast';
+import CustomToast from '@custom/CustomToast';
 import { events } from './events';
 
 export const loadUserActiveEvents = async () => {

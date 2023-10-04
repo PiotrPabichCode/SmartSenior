@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
-import { AccountItemDetailsProps } from '../../navigation/types';
-import CustomActivityIndicator from '../../components/CustomActivityIndicator';
-import SpeedDialMenu from '../../navigation/SpeedDialMenu';
-import { useAppSelector } from '../../redux/store';
+import { AccountItemDetailsProps } from '@navigation/types';
+import CustomActivityIndicator from '@components/CustomActivityIndicator';
+import SpeedDialMenu from '@navigation/SpeedDialMenu';
+import { useAppSelector } from '@redux/store';
 
 const AccountItemDetailsScreen = ({
   route,
@@ -110,7 +110,7 @@ const AccountItemDetailsScreen = ({
           {renderScreenByType(screenType)}
         </View>
       </ScrollView>
-      <SpeedDialMenu />
+      <SpeedDialMenu navigation={navigation} />
     </View>
   );
 };

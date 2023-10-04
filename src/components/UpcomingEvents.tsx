@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, Icon, Divider } from '@rneui/themed';
-import { EventProp } from '../screens/EventsScreen';
-import { navigate } from '../navigation/navigationUtils';
+import { EventProp } from '@screens/EventsScreen';
+import { navigate } from '@navigation/navigationUtils';
 
 interface UpcomingEventsProps {
   events: EventProp[];

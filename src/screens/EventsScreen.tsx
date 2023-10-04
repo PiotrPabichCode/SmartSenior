@@ -1,12 +1,16 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useState,
+  PropsWithChildren,
+} from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import EventItem from '../components/EventItem';
+import EventItem from '@components/EventItem';
 import { Divider } from '@rneui/themed';
-import { EventsProps } from '../navigation/types';
-import SpeedDialMenu from '../navigation/SpeedDialMenu';
+import { EventsProps } from '@navigation/types';
+import SpeedDialMenu from '@navigation/SpeedDialMenu';
 
-import type { PropsWithChildren } from 'react';
-import { loadUserActiveEvents } from '../firebase/queries';
+import { loadUserActiveEvents } from '@src/api/queries';
 
 export type EventProp = PropsWithChildren<{
   title: string;

@@ -1,7 +1,3 @@
-import { useEffect, useState } from 'react';
-import { getCSV } from '../utils/utils';
-import XLSX from 'xlsx';
-
 /*
     Don't load columns (COLUMN_NAME - INDEX):
     Rodzaj preparatu - 3

@@ -1,4 +1,3 @@
-import type { PropsWithChildren } from 'react';
 import {
   AntDesign,
   Fontisto,
@@ -7,104 +6,331 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons';
+import { constants } from '@src/constants/Constants';
 
-type IconProps = PropsWithChildren<{
+type IconProps = {
   name: string;
+  size?: number;
+  color?: string;
+  style?: object;
   onPress?: () => void;
-}>;
-
-export const renderIcon = (
-  name: string,
-  focused?: boolean,
-  onPress?: () => void
-) => {
-  const iconName = name + (focused ? '-active' : '');
-  return <Icons name={iconName} onPress={onPress} />;
+  focused?: boolean;
 };
 
-const Icons = ({ name, onPress }: IconProps) => {
+export const renderIcon = ({
+  name,
+  size,
+  color,
+  style,
+  focused,
+  onPress,
+}: IconProps) => {
+  const iconName = name + (focused ? '-active' : '');
+  return <Icons name={iconName} onPress={onPress} size={size} color={color} />;
+};
+
+const Icons = ({ name, size, color, style, onPress }: IconProps) => {
   switch (name) {
     case 'home-bottom-nav':
-      return <Ionicons name='home-outline' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='home-outline'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'home-bottom-nav-active':
-      return <Ionicons name='home' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='home'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'calendar-bottom-nav':
-      return <Ionicons name='calendar-outline' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='calendar-outline'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'calendar-bottom-nav-active':
-      return <Ionicons name='calendar' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='calendar'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'events-bottom-nav':
-      return <Ionicons name='calendar-outline' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='calendar-outline'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'events-bottom-nav-active':
-      return <Ionicons name='calendar' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='calendar'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'chat-bottom-nav':
-      return <Ionicons name='chatbox-outline' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='chatbox-outline'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'chat-bottom-nav-active':
-      return <Ionicons name='chatbox' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='chatbox'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'account-bottom-nav':
       return (
-        <Ionicons name='person-circle-outline' size={24} onPress={onPress} />
+        <Ionicons
+          name='person-circle-outline'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
       );
     case 'account-bottom-nav-active':
-      return <Ionicons name='person-circle' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='person-circle'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'user-account':
-      return <Ionicons name='person-outline' size={34} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='person-outline'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'theme-account':
       return (
-        <Ionicons name='partly-sunny-outline' size={34} onPress={onPress} />
+        <Ionicons
+          name='partly-sunny-outline'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
       );
     case 'theme-light':
-      return <Ionicons name='sunny-outline' size={34} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='sunny-outline'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'theme-light-active':
       return (
-        <Ionicons name='sunny' size={34} onPress={onPress} color={'#d4d700'} />
+        <Ionicons
+          name='sunny'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color || '#d4d700'}
+          style={style}
+        />
       );
     case 'theme-dark':
-      return <Ionicons name='moon-outline' size={34} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='moon-outline'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'theme-dark-active':
       return (
-        <Ionicons name='moon' size={34} onPress={onPress} color={'darkblue'} />
+        <Ionicons
+          name='moon'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color || 'darkblue'}
+          style={style}
+        />
       );
     case 'language-account':
-      return <Ionicons name='language-outline' size={34} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='language-outline'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'notification-account':
       return (
-        <Ionicons name='notifications-outline' size={34} onPress={onPress} />
+        <Ionicons
+          name='notifications-outline'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
       );
     case 'share-account':
       return (
-        <Ionicons name='share-social-outline' size={34} onPress={onPress} />
+        <Ionicons
+          name='share-social-outline'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
       );
     case 'logout-wizard':
       return (
         <Ionicons
           name='exit-outline'
-          size={24}
+          size={size || constants.iconSizeM}
           onPress={onPress}
-          color={'white'}
+          color={color || 'white'}
+          style={style}
         />
       );
     case 'logout-account':
-      return <Ionicons name='exit-outline' size={34} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='exit-outline'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'pills':
-      return <Fontisto name='pills' size={38} onPress={onPress} />;
+      return (
+        <Fontisto
+          name='pills'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'doctor':
-      return <Fontisto name='doctor' size={38} onPress={onPress} />;
+      return (
+        <Fontisto
+          name='doctor'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'pharmacy':
       return (
-        <MaterialIcons name='local-pharmacy' size={38} onPress={onPress} />
+        <MaterialIcons
+          name='local-pharmacy'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
       );
     case 'notes':
-      return <MaterialCommunityIcons name='note' size={38} onPress={onPress} />;
+      return (
+        <MaterialCommunityIcons
+          name='note'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'arrow-right':
-      return <Ionicons name='arrow-forward' size={34} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='arrow-forward'
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'arrow-left':
-      return <Ionicons name='arrow-back' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='arrow-back'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'edit':
-      return <AntDesign name='edit' size={20} onPress={onPress} />;
+      return (
+        <AntDesign
+          name='edit'
+          size={size || constants.iconSizeS}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
     case 'more':
-      return <Foundation name='indent-more' size={24} color='black' />;
+      return (
+        <Foundation
+          name='indent-more'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color || 'black'}
+          style={style}
+        />
+      );
     default:
-      return <Ionicons name='search' size={24} onPress={onPress} />;
+      return (
+        <Ionicons
+          name='search'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
   }
 };
 

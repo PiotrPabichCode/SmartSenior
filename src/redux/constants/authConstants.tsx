@@ -12,3 +12,13 @@ export const LOGOUT = 'LOGOUT';
 export const ERROR_MESSAGE = 'Coś poszło nie tak. Spróbuj ponownie';
 
 export const SIGN_UP_SUCCESS_MESSAGE = 'Pomyślnie utworzono konto!';
+
+export const GenderEnum = {
+  WOMEN: 'Female',
+  MEN: 'Male',
+};
+
+export const genders = [
+  { label: 'Kobieta', value: GenderEnum.WOMEN },
+  { label: 'Mężczyzna', value: GenderEnum.MEN },
+];

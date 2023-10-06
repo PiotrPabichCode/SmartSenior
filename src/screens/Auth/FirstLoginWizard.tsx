@@ -21,16 +21,7 @@ import {
   UserDetailsAction,
   logoutAction,
 } from '@src/redux/actions/authActions';
-
-const GenderEnum = {
-  WOMEN: 'Female',
-  MEN: 'Male',
-};
-
-const genders = [
-  { label: 'Kobieta', value: GenderEnum.WOMEN },
-  { label: 'Mężczyzna', value: GenderEnum.MEN },
-];
+import { GenderEnum, genders } from '@src/redux/constants/authConstants';
 
 const FirstLoginSchema = Yup.object().shape({
   firstName: Yup.string().min(1).required(),

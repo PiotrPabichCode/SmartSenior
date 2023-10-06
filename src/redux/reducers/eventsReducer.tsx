@@ -12,13 +12,30 @@ const eventsReducer = (state = initialState, action: any) => {
     case types.EVENT_CREATION_SUCCESS:
       return {
         ...state,
-        events: payload,
+        events: [...state.events, payload],
       };
     case types.EVENT_CREATION_FAIL:
       return {
         ...state,
         error: payload,
       };
+    case types.LOAD_ACTIVE_EVENTS_SUCCESS:
+      return {
+        ...state,
+        events: payload,
+      };
+    case types.LOAD_ACTIVE_EVENTS_FAIL: {
+      return {
+        ...state,
+        error: payload,
+      };
+    }
+    case types.CLEAR_EVENTS: {
+      return {
+        ...state,
+        initialState,
+      };
+    }
     default:
       return state;
   }

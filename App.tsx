@@ -9,14 +9,28 @@ import { FIREBASE_AUTH } from './firebaseConfig';
 import CustomActivityIndicator from './src/components/CustomActivityIndicator';
 import { logoutAction, verifyAuth } from './src/redux/actions/authActions';
 import { navigationRef } from './src/navigation/navigationUtils';
+import SpeedDialMenu from '@src/components/SpeedDialMenu';
+import {
+  clearEventsAction,
+  loadActiveEventsAction,
+} from '@src/redux/actions/eventsActions';
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  }, []);
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      console.log(user);
       if (user) {
         store.dispatch(verifyAuth(user));
+        store.dispatch(loadActiveEventsAction());
       } else {
+        store.dispatch(clearEventsAction());
         store.dispatch(logoutAction());
       }
     });
@@ -25,9 +39,9 @@ export default function App() {
   /*
     Show ActivityIndicator when user connection is loading
   */
-  // if (!isReady) {
-  //   return <CustomActivityIndicator />;
-  // }
+  if (isLoading) {
+    return <CustomActivityIndicator />;
+  }
 
   return (
     <Provider store={store}>

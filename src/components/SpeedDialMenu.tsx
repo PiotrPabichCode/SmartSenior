@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { SpeedDial } from '@rneui/themed';
-import { generateEvents } from '@src/helpers/generateEvents';
 import { navigate } from '@src/navigation/navigationUtils';
 
 const SpeedDialMenu = () => {

@@ -1,33 +1,51 @@
-import { equalTo, get, orderByChild, query, ref } from 'firebase/database';
+import {
+  equalTo,
+  get,
+  orderByChild,
+  push,
+  query,
+  ref,
+} from 'firebase/database';
 import { db } from 'firebaseConfig';
 import { getAuth } from 'firebase/auth';
-import CustomToast from '@src/components/CustomToast';
+import { handleApiError } from '../utils';
+import { EventDetails } from '../types/eventsTypes';
+import { ApiResponse } from '../types';
 
-export const loadUserActiveEvents = async () => {
+export const createEvent = async (
+  newEventData: EventDetails
+): Promise<ApiResponse> => {
   try {
-    const userUid = getAuth().currentUser?.uid;
+    const eventsRef = ref(db, 'events/');
+    push(eventsRef, newEventData);
+    return { error: null, data: newEventData };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
 
-    if (!userUid) {
+export const loadActiveEvents = async (): Promise<ApiResponse> => {
+  try {
+    const userUID = getAuth().currentUser?.uid;
+    if (!userUID) {
       throw new Error('User UID not found.');
     }
 
     const eventsQuery = query(
       ref(db, 'events'),
       orderByChild('userUid'),
-      equalTo(userUid + '-deleted-false')
+      equalTo(userUID + '-deleted-false')
     );
 
     const eventsSnapshot = await get(eventsQuery);
 
     if (!eventsSnapshot.exists()) {
-      return [];
+      return { error: new Error('Unable to load events'), data: null };
     }
 
     const eventsValues = eventsSnapshot.val();
-    return Object.values(eventsValues);
-  } catch (e) {
-    console.error(e);
-    CustomToast('error', 'Nie udało się załadować wydarzeń');
-    throw e;
+    return { error: null, data: Object.values(eventsValues) };
+  } catch (error) {
+    return handleApiError(error);
   }
 };

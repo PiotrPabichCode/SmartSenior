@@ -3,15 +3,16 @@ import CalendarScreen from '@src/screens/Calendar/CalendarScreen';
 import AccountScreen from '@screens/Account/AccountScreen';
 import EventsScreen from '@src/screens/Events/EventsScreen';
 import HomeScreen from '@src/screens/Home/HomeScreen';
-import CreateEventScreen from '@screens/Events/CreateEventScreen';
 
 import { BottomBarParamList } from './types';
-import Icons, { renderIcon } from '@src/components/Icons';
+import { renderIcon } from '@src/components/Icons';
 import CustomHeader from '@components/CustomHeader';
+import { useAppSelector } from '@src/redux/store';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
 const BottomBarNavigator = () => {
+  const events = useAppSelector((state) => state.events.events);
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -19,7 +20,8 @@ const BottomBarNavigator = () => {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Strona główna',
-          tabBarIcon: ({ focused }) => renderIcon('home-bottom-nav', focused),
+          tabBarIcon: ({ focused }) =>
+            renderIcon({ name: 'home-bottom-nav', focused: focused }),
           header: () => <CustomHeader title='Strona główna' more={true} />,
         }}
       />
@@ -29,7 +31,7 @@ const BottomBarNavigator = () => {
         options={{
           tabBarLabel: 'Kalendarz',
           tabBarIcon: ({ focused }) =>
-            renderIcon('calendar-bottom-nav', focused),
+            renderIcon({ name: 'calendar-bottom-nav', focused: focused }),
           tabBarBadge: 3,
           header: () => <CustomHeader title='Kalendarz' more={true} />,
         }}
@@ -39,8 +41,9 @@ const BottomBarNavigator = () => {
         component={EventsScreen}
         options={{
           tabBarLabel: 'Wydarzenia',
-          tabBarIcon: ({ focused }) => renderIcon('events-bottom-nav', focused),
-          tabBarBadge: 3,
+          tabBarIcon: ({ focused }) =>
+            renderIcon({ name: 'home-bottom-nav', focused: focused }),
+          tabBarBadge: Array.from(events).length,
           header: () => <CustomHeader title='Wydarzenia' more={true} />,
         }}
       />
@@ -60,7 +63,7 @@ const BottomBarNavigator = () => {
         options={{
           tabBarLabel: 'Profil',
           tabBarIcon: ({ focused }) =>
-            renderIcon('account-bottom-nav', focused),
+            renderIcon({ name: 'account-bottom-nav', focused: focused }),
           header: () => <CustomHeader title='Profil' more={true} />,
         }}
       />

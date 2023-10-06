@@ -19,7 +19,7 @@ const renderRightItems = (type?: string) => {
       return (
         <View style={styles.rightItemsStacked}>
           <Text style={styles.languageName}>Polski</Text>
-          {renderIcon('arrow-right')}
+          {renderIcon({ name: 'arrow-right' })}
         </View>
       );
     }
@@ -28,19 +28,19 @@ const renderRightItems = (type?: string) => {
         <View style={styles.rightItemsStacked}>
           <TouchableOpacity onPress={() => setThemeMode('light')}>
             {themeMode === 'light'
-              ? renderIcon('theme-light', true)
-              : renderIcon('theme-light')}
+              ? renderIcon({ name: 'theme-light', focused: true })
+              : renderIcon({ name: 'theme-light' })}
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setThemeMode('dark')}>
             {themeMode === 'dark'
-              ? renderIcon('theme-dark', true)
-              : renderIcon('theme-dark')}
+              ? renderIcon({ name: 'theme-dark', focused: true })
+              : renderIcon({ name: 'theme-dark' })}
           </TouchableOpacity>
         </View>
       );
     }
     default:
-      return renderIcon('arrow-right');
+      return renderIcon({ name: 'arrow-right' });
   }
 };
 
@@ -48,7 +48,7 @@ const AccountItem = ({ type, icon, title, onPress }: AccountItemProps) => {
   return onPress ? (
     <TouchableOpacity style={styles.viewStyle} onPress={onPress}>
       <View style={styles.iconTitleStyle}>
-        <View style={{ width: 70 }}>{renderIcon(icon)}</View>
+        <View style={{ width: 70 }}>{renderIcon({ name: icon })}</View>
         <Text style={styles.textStyle}>{title}</Text>
       </View>
       {renderRightItems(type)}
@@ -56,7 +56,7 @@ const AccountItem = ({ type, icon, title, onPress }: AccountItemProps) => {
   ) : (
     <View style={styles.viewStyle}>
       <View style={styles.iconTitleStyle}>
-        <View style={{ width: 70 }}>{renderIcon(icon)}</View>
+        <View style={{ width: 70 }}>{renderIcon({ name: icon })}</View>
         <Text style={styles.textStyle}>{title}</Text>
       </View>
       {renderRightItems(type)}

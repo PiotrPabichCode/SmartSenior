@@ -1,15 +1,10 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
-import { AccountItemDetailsProps } from '@navigation/types';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
-import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import { useAppSelector } from '@redux/store';
 
-const AccountItemDetailsScreen = ({
-  route,
-  navigation,
-}: AccountItemDetailsProps) => {
+const AccountItemDetailsScreen = ({ route }: any) => {
   const userDetails = useAppSelector((state) => state.auth.userDetails);
 
   if (!userDetails) {
@@ -110,7 +105,6 @@ const AccountItemDetailsScreen = ({
           {renderScreenByType(screenType)}
         </View>
       </ScrollView>
-      <SpeedDialMenu navigation={navigation} />
     </View>
   );
 };

@@ -1,13 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, Icon, Divider } from '@rneui/themed';
-import { EventProp } from '@src/screens/Events/EventsScreen';
 import { navigate } from '@navigation/navigationUtils';
+import { EventDetails } from '@src/redux/types/eventsTypes';
 
 interface UpcomingEventsProps {
-  events: EventProp[];
+  events: EventDetails[];
 }
 
 const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
+  const MAX_DISPLAYED_EVENTS = 3;
   const moreButton = (
     <Button
       key={'more-button-event'}
@@ -27,8 +28,8 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
     />
   );
 
-  const mapEventItems = events.map((event, index) => {
-    if (index === 3) {
+  const mapEventItems = events.map((event: EventDetails, index: number) => {
+    if (index === MAX_DISPLAYED_EVENTS) {
       return moreButton;
     }
     if (index > 3) {

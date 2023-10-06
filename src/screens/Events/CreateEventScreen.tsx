@@ -1,12 +1,5 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  FlatListComponent,
-} from 'react-native';
-import { CreateEventProps } from '@navigation/types';
+import { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, CheckBox, Input } from '@rneui/themed';
@@ -15,48 +8,25 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomToast from '@src/components/CustomToast';
 import { getAuth } from 'firebase/auth';
-import { FIREBASE_APP, db } from 'firebaseConfig';
-import { push, ref } from 'firebase/database';
+import { useAppDispatch } from '@src/redux/store';
+import { createEventAction } from '@src/redux/actions/eventsActions';
+import { renderLocalDateWithTime } from '@src/utils/utils';
+import { createDatetimeTimezone } from '@src/utils/utils';
+import {
+  cyclicValues,
+  days,
+  priorities,
+  times,
+} from '@src/redux/constants/eventsConstants';
 
-const CreateEventScreen = ({ navigation }: CreateEventProps) => {
+const CreateEventScreen = () => {
+  const dispatch = useAppDispatch();
+
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
-  const [year, setYear] = useState<number>();
-  const [month, setMonth] = useState<number>();
-  const [day, setDay] = useState<number>();
-  const times = [
-    { label: '5 minut', value: 5 },
-    { label: '15 minut', value: 15 },
-    { label: '30 minut', value: 30 },
-    { label: '1h', value: 60 },
-    { label: '3h', value: 60 * 3 },
-  ];
 
-  const priorities = [
-    { label: '50', value: 50 },
-    { label: '100', value: 100 },
-    { label: '300', value: 300 },
-    { label: '500', value: 500 },
-    { label: '1000', value: 1000 },
-  ];
-
-  const cyclicValues = [
-    { label: 'Codziennie', value: 1 },
-    { label: 'Co 2 dni', value: 2 },
-    { label: 'Co tydzień', value: 7 },
-    { label: 'Co miesiąc - tego samego dnia', value: 30 },
-    { label: 'Wpisz wartość: (liczba = ilość dni)', value: -1 },
-  ];
-
-  const days = [
-    { shortTitle: 'p', title: 'pon.', value: 1, active: false },
-    { shortTitle: 'w', title: 'wt.', value: 2, active: false },
-    { shortTitle: 'ś', title: 'śr.', value: 3, active: false },
-    { shortTitle: 'c', title: 'czw.', value: 4, active: false },
-    { shortTitle: 'p', title: 'pt.', value: 5, active: false },
-    { shortTitle: 's', title: 'sob.', value: 6, active: false },
-    { shortTitle: 'n', title: 'niedz.', value: 7, active: false },
-  ];
+  const [dateValue, setDateValue] = useState<Date | undefined>(undefined);
+  const [timeValue, setTimeValue] = useState<Date | undefined>(undefined);
 
   const NewEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
@@ -101,20 +71,17 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
               try {
                 values.createdAt = Date.now();
                 values.updatedAt = Date.now();
-                console.log(values);
                 NewEventSchema.validate(values)
                   .then(() => {
-                    const eventsRef = ref(db, 'events/');
-                    push(eventsRef, values);
-                    navigation.goBack();
+                    dispatch(createEventAction(values));
                     CustomToast('success', 'Dodano nowe wydarzenie');
                   })
-                  .catch((errors) => {
-                    console.log(errors);
+                  .catch((error) => {
+                    console.log(error);
                     CustomToast('error', 'Nie podano wszystkich danych');
                   });
-              } catch (e) {
-                console.log(e);
+              } catch (error) {
+                console.log(error);
                 CustomToast('error', 'Coś poszło nie tak');
               }
             }}>
@@ -136,9 +103,7 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                   title={
                     values.executionTime
                       ? 'Data wydarzenia: ' +
-                        new Date(values.executionTime).toLocaleDateString() +
-                        ' ' +
-                        new Date(values.executionTime).toLocaleTimeString()
+                        renderLocalDateWithTime(values.executionTime)
                       : 'Wybierz datę wydarzenia'
                   }
                 />
@@ -164,11 +129,9 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                       ).then(() => {
                         setShowDatePicker(false);
                         if (e.type === 'dismissed') {
-                          return;
+                          return false;
                         }
-                        setDay(newDate!.getDate());
-                        setMonth(newDate!.getMonth() + 1);
-                        setYear(newDate!.getFullYear());
+                        setDateValue(newDate);
                         setShowTimePicker(true);
                       });
                     }}
@@ -181,20 +144,21 @@ const CreateEventScreen = ({ navigation }: CreateEventProps) => {
                     onChange={(e, newTime) => {
                       setShowTimePicker(false);
                       if (e.type === 'dismissed') {
-                        return;
+                        return false;
                       }
-                      const hours = newTime!.getHours();
-                      const minutes = newTime!.getMinutes();
-                      const datetime = new Date(
-                        `${year}-${month}-${day}T${hours}:${minutes}`
+                      setTimeValue(newTime);
+                      const datetime = createDatetimeTimezone(
+                        dateValue,
+                        timeValue
                       );
-                      !isNaN(datetime.getDay()) &&
-                        setFieldValue(
-                          `days[${datetime!.getDay() - 1}].active`,
-                          true
-                        );
-                      !isNaN(datetime.getDate()) &&
-                        setFieldValue('executionTime', datetime.getTime());
+                      if (!datetime) {
+                        return false;
+                      }
+                      setFieldValue(
+                        `days[${datetime.getDay() - 1}].active`,
+                        true
+                      );
+                      setFieldValue('executionTime', datetime.getTime());
                     }}
                   />
                 )}

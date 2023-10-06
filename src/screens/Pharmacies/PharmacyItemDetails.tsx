@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet, Text, ScrollView } from 'react-native';
 import { Divider } from '@rneui/themed';
 
@@ -14,7 +13,6 @@ const PharmacyItemDetails = ({ route }: any) => {
   };
 
   const { item } = route.params;
-  console.log(item);
 
   const renderAddress = (title: string, address: any) => {
     const street = address['street'];
@@ -31,7 +29,6 @@ const PharmacyItemDetails = ({ route }: any) => {
       </>
     );
   };
-  console.log('Item', item);
 
   // TODO
   return (

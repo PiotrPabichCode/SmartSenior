@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Divider, Switch } from '@rneui/themed';
 
@@ -25,11 +25,11 @@ const EventItem = ({ title, time, days }: EventItemProps) => {
   };
 
   function generateDayTags() {
-    return Object.values(days).map((day: DayProps) => {
+    return Object.values(days).map((day: DayProps, index) => {
       return (
         <Text
           style={day.active ? styles.activeDay : styles.inactiveDay}
-          key={day.value}>
+          key={index}>
           {day.shortTitle}
         </Text>
       );

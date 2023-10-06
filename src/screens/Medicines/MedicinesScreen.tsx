@@ -1,13 +1,12 @@
 import { Button, Divider, Input } from '@rneui/themed';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, Text, ScrollView, View } from 'react-native';
 import MedicineItem from './MedicineItem';
-import { MedicinesProps } from '@navigation/types';
 import { Formik } from 'formik';
-import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import { buildRequest } from '@utils/utils';
+import { navigate } from '@src/navigation/navigationUtils';
 
-const MedicinesScreen = ({ navigation }: MedicinesProps) => {
+const MedicinesScreen = () => {
   const [items, setItems] = useState([]);
 
   const BASE_URL =
@@ -66,14 +65,13 @@ const MedicinesScreen = ({ navigation }: MedicinesProps) => {
               name={item['medicinalProductName']}
               price='35,20zł'
               onPress={() =>
-                navigation.navigate('MedicinesItemDetails', {
+                navigate('MedicinesItemDetails', {
                   item: item,
                 })
               }
             />
           ))}
       </ScrollView>
-      <SpeedDialMenu navigation={navigation} />
     </View>
   );
 };

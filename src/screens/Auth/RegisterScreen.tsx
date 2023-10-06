@@ -1,7 +1,6 @@
 import WelcomeSvg from '@assets/register-image.svg';
 import { Icon, Input, Button } from '@rneui/themed';
-import { StyleSheet, Text, ScrollView, Dimensions } from 'react-native';
-import { SignUpProps } from '@navigation/types';
+import { StyleSheet, Text, ScrollView } from 'react-native';
 import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,6 +8,7 @@ import { View } from 'react-native';
 import CustomToast from '@src/components/CustomToast';
 import { useAppDispatch } from '@redux/store';
 import { signUpAction } from '@src/redux/actions/authActions';
+import { navigate } from '@src/navigation/navigationUtils';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()
@@ -23,7 +23,7 @@ const RegisterSchema = Yup.object().shape({
     .required('To pole jest wymagane'),
 });
 
-const RegisterScreen = ({ navigation }: SignUpProps) => {
+const RegisterScreen = () => {
   const dispatch = useAppDispatch();
   return (
     <ScrollView keyboardShouldPersistTaps='handled'>
@@ -111,7 +111,7 @@ const RegisterScreen = ({ navigation }: SignUpProps) => {
             Masz już konto?{' '}
             <Text
               style={styles.textRegister}
-              onPress={() => navigation.navigate('SignIn')}>
+              onPress={() => navigate('SignIn')}>
               Zaloguj się
             </Text>
           </Text>

@@ -1,6 +1,6 @@
 import * as api from '../api/authAPI';
 import * as types from '../constants/authConstants';
-import { useAppDispatch, useAppSelector } from '../store';
+import { useAppDispatch } from '../store';
 import { navigate } from '@navigation/navigationUtils';
 import { AuthCredentials, UserDetails } from '../types/authTypes';
 

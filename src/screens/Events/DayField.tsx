@@ -1,5 +1,4 @@
 import { Button } from '@rneui/themed';
-import React, { useState, useLayoutEffect } from 'react';
 import { StyleSheet } from 'react-native';
 
 export interface Day {

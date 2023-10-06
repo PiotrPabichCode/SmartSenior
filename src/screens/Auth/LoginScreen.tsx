@@ -1,14 +1,14 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import WelcomeSvg from '@assets/welcome-image.svg';
 import { Icon, Input, Button } from '@rneui/themed';
 import { ScrollView } from 'react-native';
-import { SignInProps } from '@navigation/types';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomToast from '@src/components/CustomToast';
 import { signInAction } from '@src/redux/actions/authActions';
 import { useAppDispatch } from '@redux/store';
+import { navigate } from '@src/navigation/navigationUtils';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -20,7 +20,7 @@ const LoginSchema = Yup.object().shape({
     .required('To pole jest wymagane'),
 });
 
-const LoginScreen = ({ navigation }: SignInProps) => {
+const LoginScreen = () => {
   const dispatch = useAppDispatch();
 
   return (
@@ -98,9 +98,7 @@ const LoginScreen = ({ navigation }: SignInProps) => {
         </Formik>
         <Text style={styles.textLinks}>
           Nie masz konta?{' '}
-          <Text
-            style={styles.textRegister}
-            onPress={() => navigation.navigate('SignUp')}>
+          <Text style={styles.textRegister} onPress={() => navigate('SignUp')}>
             Zarejestruj się
           </Text>
         </Text>

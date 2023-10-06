@@ -2,12 +2,11 @@ import { StyleSheet, View } from 'react-native';
 import AccountItem from './AccountItem';
 import { Divider } from '@rneui/themed';
 import AccountProfileHint from './AccountProfileHint';
-import { AccountProps } from '@navigation/types';
-import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import { useAppDispatch } from '@redux/store';
 import { logoutAction } from '@src/redux/actions/authActions';
+import { navigate } from '@src/navigation/navigationUtils';
 
-const AccountScreen = ({ navigation }: AccountProps) => {
+const AccountScreen = () => {
   const dispatch = useAppDispatch();
 
   return (
@@ -17,7 +16,7 @@ const AccountScreen = ({ navigation }: AccountProps) => {
         icon='user-account'
         title='Konto'
         onPress={() =>
-          navigation.navigate('AccountItemDetails', {
+          navigate('AccountItemDetails', {
             screenType: 'user',
             title: 'Profil - konto',
           })
@@ -30,7 +29,7 @@ const AccountScreen = ({ navigation }: AccountProps) => {
         title='Język'
         type='language'
         onPress={() =>
-          navigation.navigate('AccountItemDetails', {
+          navigate('AccountItemDetails', {
             screenType: 'language',
             title: 'Profil - język',
           })
@@ -40,7 +39,7 @@ const AccountScreen = ({ navigation }: AccountProps) => {
         icon='notification-account'
         title='Powiadomienia'
         onPress={() =>
-          navigation.navigate('AccountItemDetails', {
+          navigate('AccountItemDetails', {
             screenType: 'notification',
             title: 'Profil - powiadomienia',
           })
@@ -50,7 +49,7 @@ const AccountScreen = ({ navigation }: AccountProps) => {
         icon='share-account'
         title='Poleć naszą aplikację'
         onPress={() =>
-          navigation.navigate('AccountItemDetails', {
+          navigate('AccountItemDetails', {
             screenType: 'share',
             title: 'Profil - polecenia',
           })
@@ -62,7 +61,6 @@ const AccountScreen = ({ navigation }: AccountProps) => {
         title='Wyloguj się'
         onPress={() => dispatch(logoutAction())}
       />
-      <SpeedDialMenu navigation={navigation} />
     </View>
   );
 };

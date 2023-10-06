@@ -1,32 +1,13 @@
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import CustomButton from 'src/components/CustomButton';
 import UpcomingEvents from '@src/screens/Home/UpcomingEvents';
-import { HomeProps } from 'src/navigation/types';
-import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
-import { useLayoutEffect, useState } from 'react';
-import { EventProp } from '../Events/EventsScreen';
-import { loadUserActiveEvents } from '@src/redux/api/eventsAPI';
-import { useAppDispatch, useAppSelector } from '@redux/store';
-import { logoutAction } from '@src/redux/actions/authActions';
+import { useAppSelector } from '@redux/store';
+import { navigate } from '@src/navigation/navigationUtils';
 
-const HomeScreen = ({ navigation }: HomeProps) => {
-  const [events, setEvents] = useState<EventProp[]>([]);
+const HomeScreen = () => {
+  const events = useAppSelector((state) => state.events.events);
   const userDetails = useAppSelector((state) => state.auth.userDetails);
-  const dispatch = useAppDispatch();
-
-  useLayoutEffect(() => {
-    const fetchData = async () => {
-      try {
-        const eventsData: any = await loadUserActiveEvents();
-        setEvents(eventsData);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   if (!userDetails) {
     return <CustomActivityIndicator />;
@@ -43,7 +24,7 @@ const HomeScreen = ({ navigation }: HomeProps) => {
           <UpcomingEvents events={events} />
           <View style={styles.buttonContainer}>
             <CustomButton
-              onPress={() => navigation.navigate('Medicines')}
+              onPress={() => navigate('Medicines')}
               title='Lista leków'
               backgroundColor={'#FB6D6C'}
               icon={'pills'}
@@ -54,7 +35,7 @@ const HomeScreen = ({ navigation }: HomeProps) => {
               icon={'doctor'}
             />
             <CustomButton
-              onPress={() => navigation.navigate('Pharmacies')}
+              onPress={() => navigate('Pharmacies')}
               title='Lista aptek'
               backgroundColor={'#9564FE'}
               icon={'pharmacy'}
@@ -67,7 +48,6 @@ const HomeScreen = ({ navigation }: HomeProps) => {
           </View>
         </View>
       </ScrollView>
-      <SpeedDialMenu navigation={navigation} />
     </View>
   );
 };

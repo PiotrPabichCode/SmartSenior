@@ -1,49 +1,11 @@
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useState,
-  PropsWithChildren,
-} from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import EventItem from '@src/screens/Events/EventItem';
 import { Divider } from '@rneui/themed';
-import { EventsProps } from '@navigation/types';
-import SpeedDialMenu from '@src/components/SpeedDialMenu';
+import { useAppSelector } from '@src/redux/store';
+import { EventDetails } from '@src/redux/types/eventsTypes';
 
-import { loadUserActiveEvents } from '@src/redux/api/eventsAPI';
-
-export type EventProp = PropsWithChildren<{
-  title: string;
-  description: string;
-  executionTime: number;
-  date: number;
-  isCyclic: boolean;
-  cyclicTime: number;
-  isNotification: boolean;
-  notificationTime: number;
-  priority: number;
-  updatedAt: number;
-  createdAt: number;
-  userUid: string;
-  days: object;
-}>;
-
-const EventsScreen = ({ navigation }: EventsProps) => {
-  const [events, setEvents] = useState<EventProp[]>([]);
-  useLayoutEffect(() => {
-    const fetchData = async () => {
-      try {
-        const eventsData: any = await loadUserActiveEvents();
-        setEvents(eventsData);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  console.log(events[0]);
+const EventsScreen = () => {
+  const events = useAppSelector((state) => state.events.events);
 
   return (
     <View style={styles.view}>
@@ -55,7 +17,7 @@ const EventsScreen = ({ navigation }: EventsProps) => {
           <Divider style={styles.dividerStyle} />
 
           {events.length > 0 &&
-            events.map((event: EventProp, index: number) => {
+            events.map((event: EventDetails, index: number) => {
               return (
                 <EventItem
                   key={index}
@@ -71,7 +33,6 @@ const EventsScreen = ({ navigation }: EventsProps) => {
             })}
         </View>
       </ScrollView>
-      <SpeedDialMenu navigation={navigation} />
     </View>
   );
 };

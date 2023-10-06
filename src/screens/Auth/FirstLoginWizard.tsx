@@ -6,7 +6,6 @@ import {
   ScrollView,
 } from 'react-native';
 import { useState } from 'react';
-import { FirstLoginWizardProps } from '@navigation/types';
 import { getAuth } from 'firebase/auth';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -30,7 +29,7 @@ const FirstLoginSchema = Yup.object().shape({
   gender: Yup.string().oneOf(Object.values(GenderEnum)).required(),
 });
 
-const FirstLoginWizard = ({ navigation }: FirstLoginWizardProps) => {
+const FirstLoginWizard = () => {
   const dispatch = useAppDispatch();
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 

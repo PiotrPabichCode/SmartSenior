@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet, View, Text, ScrollView, Platform } from 'react-native';
 import { Button, Divider } from '@rneui/themed';
 import * as FileSystem from 'expo-file-system';

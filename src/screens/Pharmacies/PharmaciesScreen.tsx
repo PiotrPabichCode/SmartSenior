@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { PharmaciesProps } from '@navigation/types';
 import { Formik } from 'formik';
-import { buildRequest } from '@utils/utils';
 import { Button, Divider, Input } from '@rneui/themed';
 import PharmacyItem from './PharmacyItem';
 import CustomDropdown from '@components/CustomDropdown';
-import SpeedDialMenu from '@src/components/SpeedDialMenu';
+import { navigate } from '@src/navigation/navigationUtils';
 
-const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
+const PharmaciesScreen = () => {
   const [pharmacies, setPharmacies] = useState([]);
   const BASE_URL =
     'https://rejestrymedyczne.ezdrowie.gov.pl/api/pharmacies/search?page=0&size=10&sortField=dateOfChanged&sortDirection=DESC&statusCode=AKTYWNA';
@@ -97,14 +95,13 @@ const PharmaciesScreen = ({ navigation }: PharmaciesProps) => {
               key={index}
               name={item['name']}
               onPress={() =>
-                navigation.navigate('PharmaciesItemDetails', {
+                navigate('PharmaciesItemDetails', {
                   item: item,
                 })
               }
             />
           ))}
       </ScrollView>
-      <SpeedDialMenu navigation={navigation} />
     </View>
   );
 };

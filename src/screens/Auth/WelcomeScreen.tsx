@@ -1,10 +1,9 @@
-import React from 'react';
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
 import { Button } from '@rneui/themed';
 import WelcomeSvg from '@assets/welcome-image.svg';
-import { WelcomeProps } from '@navigation/types';
+import { navigate } from '@src/navigation/navigationUtils';
 
-const WelcomeScreen = ({ navigation }: WelcomeProps) => {
+const WelcomeScreen = () => {
   return (
     <SafeAreaView style={styles.viewStyle}>
       {/* Image at the top */}
@@ -26,14 +25,14 @@ const WelcomeScreen = ({ navigation }: WelcomeProps) => {
           buttonStyle={styles.buttonSignUpStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonSignUpTitleStyle}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => navigate('SignUp')}
         />
         <Button
           title='Zaloguj się'
           buttonStyle={styles.buttonSignInStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonSignInTitleStyle}
-          onPress={() => navigation.navigate('SignIn')}
+          onPress={() => navigate('SignIn')}
         />
       </View>
     </SafeAreaView>

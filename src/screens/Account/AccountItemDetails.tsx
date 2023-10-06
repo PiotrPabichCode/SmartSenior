@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
 
 import type { PropsWithChildren } from 'react';
-import { CheckBox, Switch } from '@rneui/themed';
+import { CheckBox } from '@rneui/themed';
 import { renderIcon } from '@src/components/Icons';
 
 type AccountItemDetailsProps = PropsWithChildren<{
@@ -40,7 +40,7 @@ const AccountItemDetails = ({
               onChangeText={setInput}
               keyboardType='numbers-and-punctuation'
             />
-            {renderIcon('edit')}
+            {renderIcon({ name: 'edit' })}
           </View>
         </View>
       );

@@ -27,8 +27,10 @@ export default function App() {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
       console.log(user);
       if (user) {
+        setIsLoading(true);
         store.dispatch(verifyAuth(user));
         store.dispatch(loadActiveEventsAction());
+        setIsLoading(false);
       } else {
         store.dispatch(clearEventsAction());
         store.dispatch(logoutAction());
@@ -45,7 +47,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer ref={navigationRef} onReady={() => setIsReady(true)}>
+      <NavigationContainer ref={navigationRef}>
         <AppNavigator />
       </NavigationContainer>
       <Toast />

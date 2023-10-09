@@ -22,11 +22,7 @@ const EventsScreen = () => {
                 <EventItem
                   key={index}
                   title={event.title}
-                  time={
-                    new Date(event.executionTime).toLocaleDateString() +
-                    ' ' +
-                    new Date(event.executionTime).toLocaleTimeString()
-                  }
+                  time={event.executionTime}
                   days={event.days}
                 />
               );

@@ -73,8 +73,8 @@ const AccountItemDetailsScreen = ({ route }: any) => {
       <>
         <AccountItemDetails
           type='input'
+          keyboard='numeric'
           title='Czas powiadomień:'
-          placeholder='Wybierz czas powiadomień'
           value='0'
         />
       </>

@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Button, Icon, Divider } from '@rneui/themed';
 import { navigate } from '@navigation/navigationUtils';
 import { EventDetails } from '@src/redux/types/eventsTypes';
+import { renderLocalDateWithTime } from '@src/utils/utils';
 
 interface UpcomingEventsProps {
   events: EventDetails[];
@@ -41,9 +42,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
         <View style={styles.eventTimeView}>
           <Icon name='arrow-right' color='#000' size={30} />
           <Text style={styles.eventText} numberOfLines={1}>
-            {new Date(event.executionTime).toLocaleDateString() +
-              ' ' +
-              new Date(event.executionTime).toLocaleTimeString()}
+            {renderLocalDateWithTime(event.executionTime)}
           </Text>
           <Icon name='arrow-left' color='#000' size={30} />
         </View>

@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -15,12 +15,17 @@ import CustomToast from '@src/components/CustomToast';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import Icons from '@src/components/Icons';
-import { useAppDispatch } from '@redux/store';
+import { useAppDispatch, useAppSelector } from '@redux/store';
 import {
   UserDetailsAction,
   logoutAction,
+  verifyUserDetailsAction,
 } from '@src/redux/actions/authActions';
 import { GenderEnum, genders } from '@src/redux/constants/authConstants';
+import { useSelector } from 'react-redux';
+import { navigate } from '@src/navigation/navigationUtils';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import { loadActiveEventsAction } from '@src/redux/actions/eventsActions';
 
 const FirstLoginSchema = Yup.object().shape({
   firstName: Yup.string().min(1).required(),
@@ -30,8 +35,37 @@ const FirstLoginSchema = Yup.object().shape({
 });
 
 const FirstLoginWizard = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+  const userData = useAppSelector((state) => state.auth.userDetails);
+
+  useEffect(() => {
+    const loadUserDetails = async () => {
+      try {
+        dispatch(verifyUserDetailsAction());
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    loadUserDetails();
+  }, []);
+
+  useEffect(() => {
+    if (userData) {
+      dispatch(loadActiveEventsAction());
+      navigate('BottomBar', {
+        screen: 'Home',
+      });
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
+  }, [userData]);
+
+  if (isLoading) {
+    return <CustomActivityIndicator />;
+  }
 
   return (
     <View style={styles.container}>

@@ -3,10 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Divider, Switch } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';
+import { renderLocalDateWithTime } from '@src/utils/utils';
 
 type EventItemProps = PropsWithChildren<{
   title: string;
-  time: string;
+  time: number;
   days: object;
 }>;
 
@@ -35,13 +36,14 @@ const EventItem = ({ title, time, days }: EventItemProps) => {
       );
     });
   }
-  // renderDays();
 
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.viewDetails}>
-        <Text style={styles.time}>{time}</Text>
+        <Text style={styles.time} numberOfLines={1}>
+          {renderLocalDateWithTime(time)}
+        </Text>
         <View style={styles.viewRightPanel}>
           <Text style={styles.days}>{generateDayTags()}</Text>
           <Switch
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
   dividerStyle: {
     backgroundColor: '#000000',
     height: 1,
-    width: 300,
+    width: 350,
   },
 });
 

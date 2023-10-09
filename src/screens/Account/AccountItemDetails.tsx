@@ -7,6 +7,7 @@ import { renderIcon } from '@src/components/Icons';
 
 type AccountItemDetailsProps = PropsWithChildren<{
   type?: string;
+  keyboard?: string;
   title: string;
   placeholder?: string;
   value?: string | number;
@@ -15,6 +16,7 @@ type AccountItemDetailsProps = PropsWithChildren<{
 
 const AccountItemDetails = ({
   type,
+  keyboard,
   title,
   placeholder,
   value,
@@ -38,7 +40,7 @@ const AccountItemDetails = ({
               value={input}
               underlineColorAndroid='transparent'
               onChangeText={setInput}
-              keyboardType='numbers-and-punctuation'
+              keyboardType={keyboard || 'default'}
             />
             {renderIcon({ name: 'edit' })}
           </View>

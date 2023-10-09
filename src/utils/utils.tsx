@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+
 export const buildRequest = (baseUrl: string, params: any) => {
   const entries = Object.entries(params).filter(
     ([key, value]) => String(value).trim() !== ''
@@ -5,13 +7,14 @@ export const buildRequest = (baseUrl: string, params: any) => {
   return baseUrl + entries.map(([key, value]) => `${key}=${value}`).join('&');
 };
 
-export const renderLocalDateWithTime = (value: number) => {
-  const date = new Date(value);
-  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+export const renderLocalDateWithTime = (timestamp: number) => {
+  const date = moment.tz(timestamp, 'Europe/Warsaw');
+  return date.format('YYYY-MM-DD HH:mm');
 };
 
-export const renderLocalDate = (value: number) => {
-  return new Date(value).toLocaleDateString();
+export const renderLocalDate = (timestamp: number) => {
+  const date = moment.tz(timestamp, 'Europe/Warsaw');
+  return date.format('YYYY-MM-DD');
 };
 
 export const createDatetimeTimezone = (dateValue?: Date, timeValue?: Date) => {

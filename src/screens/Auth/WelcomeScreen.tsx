@@ -1,9 +1,22 @@
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
+import { useState, useEffect } from 'react';
 import { Button } from '@rneui/themed';
 import WelcomeSvg from '@assets/welcome-image.svg';
-import { navigate } from '@src/navigation/navigationUtils';
+import { navigate, navigationRef } from '@src/navigation/navigationUtils';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 
 const WelcomeScreen = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+    return <CustomActivityIndicator />;
+  }
   return (
     <SafeAreaView style={styles.viewStyle}>
       {/* Image at the top */}
@@ -25,7 +38,7 @@ const WelcomeScreen = () => {
           buttonStyle={styles.buttonSignUpStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonSignUpTitleStyle}
-          onPress={() => navigate('SignUp')}
+          onPress={() => console.log(navigationRef.current?.getCurrentRoute())}
         />
         <Button
           title='Zaloguj się'

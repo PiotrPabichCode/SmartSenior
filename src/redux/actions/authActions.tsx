@@ -106,20 +106,35 @@ export const UserDetailsAction =
 export const verifyAuth =
   (user: any) =>
   async (dispatch = useAppDispatch()) => {
-    const response = await api.checkIfUserDataExists();
-    const { data } = response;
-
-    if (data) {
+    if (user) {
       dispatch({
-        type: types.GET_USER_DETAILS_SUCCESS,
-        payload: data,
+        type: types.SIGN_IN_SUCCESS,
+        payload: user,
       });
-      dispatch({ type: types.SIGN_IN_SUCCESS, payload: user });
-      navigate('BottomBar', {
-        screen: 'Home',
-      });
-    } else {
-      dispatch({ type: types.SIGN_IN_SUCCESS, payload: user });
-      navigate('FirstLoginWizard');
+    }
+  };
+
+export const verifyUserDetailsAction =
+  () =>
+  async (dispatch = useAppDispatch()) => {
+    try {
+      const response = await api.checkIfUserDataExists();
+      const { error, data } = response;
+      if (error) {
+        dispatch({
+          type: types.GET_USER_DETAILS_FAIL,
+          payload: error,
+        });
+        return false;
+      } else {
+        dispatch({
+          type: types.GET_USER_DETAILS_SUCCESS,
+          payload: data,
+        });
+        return true;
+      }
+    } catch (error) {
+      dispatch({ type: types.GET_USER_DETAILS_FAIL, payload: error });
+      throw error;
     }
   };

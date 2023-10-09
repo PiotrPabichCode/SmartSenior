@@ -55,15 +55,15 @@ const CreateEventScreen = () => {
             initialValues={{
               title: '',
               description: '',
-              executionTime: Date.now(),
+              executionTime: 0,
               days: days.map((day) => ({ ...day, active: false })),
               priority: 0,
               isCyclic: false,
               cyclicTime: 0,
               isNotification: true,
               notificationTime: 0,
-              createdAt: Date.now(),
-              updatedAt: Date.now(),
+              createdAt: 0,
+              updatedAt: 0,
               deleted: false,
               userUid: getAuth().currentUser?.uid + '-deleted-false',
             }}
@@ -101,7 +101,7 @@ const CreateEventScreen = () => {
                 <Button
                   onPress={() => setShowDatePicker(true)}
                   title={
-                    values.executionTime
+                    values.executionTime !== 0
                       ? 'Data wydarzenia: ' +
                         renderLocalDateWithTime(values.executionTime)
                       : 'Wybierz datę wydarzenia'

@@ -33,9 +33,7 @@ const MedicinesScreen = () => {
           initialValues={{ name: '' }}
           onSubmit={(params) => {
             try {
-              console.log('Params', params);
               const request = buildRequest(BASE_URL, params);
-              console.log('Request', request);
               loadData(request);
             } catch (e) {
               console.log(e);

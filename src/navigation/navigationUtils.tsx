@@ -4,12 +4,8 @@ import { RootStackParamList } from './types';
 export const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
 export function navigate(name: string, params?: object) {
-  if (navigationRef.isReady() && navigationRef.current?.getState()) {
-    navigationRef.current.navigate(name as never, params as never);
-  } else {
-    setTimeout(() => {
-      navigate(name as never, params as never);
-    });
+  if (navigationRef.isReady()) {
+    navigationRef.current?.navigate(name as never, params as never);
   }
 }
 

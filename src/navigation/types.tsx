@@ -1,8 +1,10 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
+import { EventDetails } from '@src/redux/types/eventsTypes';
 
 export type RootStackParamList = {
   Initial: undefined;
   Inside: undefined;
+  SideDrawer: undefined;
   Welcome: undefined;
   SignIn: undefined;
   SignUp: undefined;
@@ -21,6 +23,9 @@ export type RootStackParamList = {
     item: any;
   };
   CreateEvent: undefined;
+  EventItem: {
+    event: EventDetails;
+  };
   AddKeeper: undefined;
 };
 

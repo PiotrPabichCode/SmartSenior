@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { SpeedDial } from '@rneui/themed';
 import { navigate } from '@src/navigation/navigationUtils';
+import { generateEvents } from '@src/helpers/generateEvents';
 
-const SpeedDialMenu = () => {
+const SpeedDialMenu = (props: any) => {
   const [open, setOpen] = useState(false);
 
   const onClickAction = (command: string) => {
@@ -11,8 +12,8 @@ const SpeedDialMenu = () => {
         navigate('CreateEvent');
         break;
       case 'ADD_KEEPER':
-        navigate('AddKeeper'); // TODO
-        // generateEvents();
+        // navigate('AddKeeper'); // TODO
+        generateEvents();
         break;
     }
   };
@@ -24,7 +25,7 @@ const SpeedDialMenu = () => {
       openIcon={{ name: 'close', color: 'white' }}
       onOpen={() => setOpen(!open)}
       onClose={() => setOpen(!open)}
-      style={{ position: 'absolute', bottom: 50, right: 0 }}>
+      style={{ ...props.style }}>
       <SpeedDial.Action
         icon={{ name: 'add', color: '#fff' }}
         title='Dodaj wydarzenie'

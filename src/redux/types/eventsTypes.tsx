@@ -12,4 +12,5 @@ export type EventDetails = {
   createdAt: number;
   userUid: string;
   days: object;
+  active: boolean;
 };

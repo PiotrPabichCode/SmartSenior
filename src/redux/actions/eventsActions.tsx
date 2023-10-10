@@ -3,6 +3,7 @@ import * as api from '../api/eventsAPI';
 import * as types from '../constants/eventsConstants';
 
 import { useAppDispatch } from '../store';
+import { EventDetails } from '../types/eventsTypes';
 
 export const createEventAction =
   (newEventData: any) =>
@@ -60,4 +61,29 @@ export const clearEventsAction =
     dispatch({
       type: types.CLEAR_EVENTS,
     });
+  };
+
+export const updateEventAction =
+  (changeUserData: any) =>
+  async (dispatch = useAppDispatch()) => {
+    try {
+      let response = await api.updateEvent(changeUserData);
+      const { error, data } = response;
+      if (error) {
+        dispatch({
+          type: types.UPDATE_EVENT_FAIL,
+          payload: error,
+        });
+      } else {
+        dispatch({
+          type: types.UPDATE_EVENT_SUCCESS,
+          payload: data,
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: types.UPDATE_EVENT_FAIL,
+        payload: error,
+      });
+    }
   };

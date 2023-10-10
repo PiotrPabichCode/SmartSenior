@@ -5,6 +5,7 @@ import {
   push,
   query,
   ref,
+  update,
 } from 'firebase/database';
 import { db } from 'firebaseConfig';
 import { getAuth } from 'firebase/auth';
@@ -19,6 +20,18 @@ export const createEvent = async (
     const eventsRef = ref(db, 'events/');
     push(eventsRef, newEventData);
     return { error: null, data: newEventData };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const updateEvent = async (
+  changeEventData: EventDetails
+): Promise<ApiResponse> => {
+  try {
+    const eventRef = ref(db, 'events/');
+    update(eventRef, changeEventData);
+    return { error: null, data: changeEventData };
   } catch (error) {
     return handleApiError(error);
   }

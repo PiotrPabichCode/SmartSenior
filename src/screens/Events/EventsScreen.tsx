@@ -14,18 +14,9 @@ const EventsScreen = () => {
         contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Wydarzenia</Text>
-          <Divider style={styles.dividerStyle} />
-
           {events.length > 0 &&
             events.map((event: EventDetails, index: number) => {
-              return (
-                <EventItem
-                  key={index}
-                  title={event.title}
-                  time={event.executionTime}
-                  days={event.days}
-                />
-              );
+              return <EventItem key={index} event={event} />;
             })}
         </View>
       </ScrollView>

@@ -28,3 +28,18 @@ export const createDatetimeTimezone = (dateValue?: Date, timeValue?: Date) => {
   const minutes = timeValue.getMinutes();
   return new Date(`${year}-${month}-${day}T${hours}:${minutes}`);
 };
+
+export function getUpdatedFields<T>(
+  oldValue: T,
+  newValue: Partial<T>
+): Partial<T> {
+  const updatedFields: Partial<T> = {};
+
+  for (const key in newValue) {
+    if (oldValue[key] !== newValue[key]) {
+      updatedFields[key] = newValue[key];
+    }
+  }
+
+  return updatedFields;
+}

@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Divider, Switch } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';
 import { renderLocalDateWithTime } from '@src/utils/utils';
+import { navigate } from '@src/navigation/navigationUtils';
+import { EventDetails } from '@src/redux/types/eventsTypes';
 
 type EventItemProps = PropsWithChildren<{
-  title: string;
-  time: number;
-  days: object;
+  event: EventDetails;
 }>;
 
 type DayProps = PropsWithChildren<{
@@ -18,7 +18,7 @@ type DayProps = PropsWithChildren<{
   value: number;
 }>;
 
-const EventItem = ({ title, time, days }: EventItemProps) => {
+const EventItem = ({ event }: EventItemProps) => {
   const [checked, setChecked] = useState(false);
 
   const toggleSwitch = () => {
@@ -26,7 +26,7 @@ const EventItem = ({ title, time, days }: EventItemProps) => {
   };
 
   function generateDayTags() {
-    return Object.values(days).map((day: DayProps, index) => {
+    return Object.values(event.days).map((day: DayProps, index) => {
       return (
         <Text
           style={day.active ? styles.activeDay : styles.inactiveDay}
@@ -38,26 +38,39 @@ const EventItem = ({ title, time, days }: EventItemProps) => {
   }
 
   return (
-    <View style={styles.viewStyle}>
-      <Text style={styles.title}>{title}</Text>
-      <View style={styles.viewDetails}>
-        <Text style={styles.time} numberOfLines={1}>
-          {renderLocalDateWithTime(time)}
-        </Text>
-        <View style={styles.viewRightPanel}>
-          <Text style={styles.days}>{generateDayTags()}</Text>
-          <Switch
-            value={checked}
-            onValueChange={(value) => setChecked(value)}
-          />
+    <>
+      <View style={styles.divider} />
+      <TouchableOpacity
+        style={styles.viewStyle}
+        onPress={() =>
+          navigate('EventItem', {
+            event: event,
+          })
+        }>
+        <Text style={styles.title}>{event.title}</Text>
+        <View style={styles.viewDetails}>
+          <Text style={styles.time} numberOfLines={1}>
+            {renderLocalDateWithTime(event.executionTime)}
+          </Text>
+          <View style={styles.viewRightPanel}>
+            <Text style={styles.days}>{generateDayTags()}</Text>
+            <Switch
+              value={event.active}
+              onValueChange={(value) => setChecked(value)}
+            />
+          </View>
         </View>
-      </View>
-      <Divider style={styles.dividerStyle} />
-    </View>
+      </TouchableOpacity>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  divider: {
+    width: '100%',
+    height: 1,
+    backgroundColor: 'black',
+  },
   viewStyle: {
     display: 'flex',
     flexDirection: 'column',
@@ -87,7 +100,7 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   inactiveDay: {
-    color: 'black',
+    color: 'red',
   },
   viewDetails: {
     display: 'flex',
@@ -95,11 +108,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'flex-start',
-  },
-  dividerStyle: {
-    backgroundColor: '#000000',
-    height: 1,
-    width: 350,
   },
 });
 

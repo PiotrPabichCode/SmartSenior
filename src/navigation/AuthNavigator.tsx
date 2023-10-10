@@ -10,6 +10,7 @@ import FirstLoginWizard from '@screens/Auth/FirstLoginWizard';
 
 import BottomBarNavigator from './BottomBarNavigator';
 import CustomHeader from '@components/CustomHeader';
+import EventItemScreen from '@src/screens/Events/EventItemScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -81,6 +82,15 @@ const AuthNavigator = () => {
       <Stack.Screen
         name='CreateEvent'
         component={CreateEventScreen}
+        options={{
+          header: () => (
+            <CustomHeader title='Wydarzenie' nested={true} more={true} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name='EventItem'
+        component={EventItemScreen}
         options={{
           header: () => (
             <CustomHeader title='Wydarzenie' nested={true} more={true} />

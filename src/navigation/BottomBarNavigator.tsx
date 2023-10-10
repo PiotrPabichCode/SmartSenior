@@ -16,7 +16,6 @@ const Tab = createBottomTabNavigator<BottomBarParamList>();
 const BottomBarNavigator = () => {
   const events = useAppSelector((state) => state.events.events);
   return (
-    // <NavigationContainer>
     <>
       <Tab.Navigator>
         <Tab.Screen
@@ -74,8 +73,6 @@ const BottomBarNavigator = () => {
       </Tab.Navigator>
       <SpeedDialMenu style={{ position: 'absolute', right: 0, bottom: 50 }} />
     </>
-
-    // {/* </NavigationContainer> */}
   );
 };
 

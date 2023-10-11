@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Button, Icon, Divider } from '@rneui/themed';
 import { navigate } from '@navigation/navigationUtils';
 import { EventDetails } from '@src/redux/types/eventsTypes';
@@ -20,40 +20,48 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
       onPress={() => navigate('Events')}
     />
   );
-  const actionButton = (
+  const actionButton = (eventKey: string, event: EventDetails) => (
     <Button
       title='Wykonaj'
       containerStyle={styles.actionButtonStyle}
       buttonStyle={styles.actionButtonStyle}
       titleStyle={styles.actionButtonTitle}
+      onPress={() =>
+        navigate('EventItem', {
+          eventKey: eventKey,
+          event: event,
+        })
+      }
     />
   );
 
-  const mapEventItems = events.map((event: EventDetails, index: number) => {
-    if (index === MAX_DISPLAYED_EVENTS) {
-      return moreButton;
-    }
-    if (index > 3) {
-      return;
-    }
-    const isEnd = index !== events.length - 1;
-    return (
-      <View style={styles.eventView} key={'event' + index.toString()}>
-        <View style={styles.eventTimeView}>
-          <Icon name='arrow-right' color='#000' size={30} />
-          <Text style={styles.eventText} numberOfLines={1}>
-            {renderLocalDateWithTime(event.executionTime)}
+  const mapEventItems = Object.entries(events)?.map(
+    ([eventKey, event]: [string, EventDetails], index: number) => {
+      if (index === MAX_DISPLAYED_EVENTS) {
+        return moreButton;
+      }
+      if (index > 3) {
+        return;
+      }
+      const isEnd = index !== events.length - 1;
+      return (
+        <View style={styles.eventView} key={eventKey}>
+          <View style={styles.eventTimeView}>
+            <Icon name='arrow-right' color='#000' size={30} />
+            <Text style={styles.eventText} numberOfLines={1}>
+              {renderLocalDateWithTime(event.executionTime)}
+            </Text>
+            <Icon name='arrow-left' color='#000' size={30} />
+          </View>
+          <Text style={styles.eventTitle} numberOfLines={1}>
+            {event.description}
           </Text>
-          <Icon name='arrow-left' color='#000' size={30} />
+          {actionButton(eventKey, event)}
+          {isEnd && <Divider style={styles.dividerStyle} />}
         </View>
-        <Text style={styles.eventTitle} numberOfLines={1}>
-          {event.description}
-        </Text>
-        {actionButton}
-        {isEnd && <Divider style={styles.dividerStyle} />}
-      </View>
-    );
-  });
+      );
+    }
+  );
 
   const renderTitleAction = () => {
     if (events.length > 0) {

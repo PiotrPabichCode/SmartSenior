@@ -35,7 +35,7 @@ const BottomBarNavigator = () => {
             tabBarLabel: 'Kalendarz',
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'calendar-bottom-nav', focused: focused }),
-            tabBarBadge: 3,
+            tabBarBadge: Object.values(events).length,
             header: () => <CustomHeader title='Kalendarz' more={true} />,
           }}
         />
@@ -46,7 +46,7 @@ const BottomBarNavigator = () => {
             tabBarLabel: 'Wydarzenia',
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'home-bottom-nav', focused: focused }),
-            tabBarBadge: Array.from(events).length,
+            tabBarBadge: Object.values(events).length,
             header: () => <CustomHeader title='Wydarzenia' more={true} />,
           }}
         />

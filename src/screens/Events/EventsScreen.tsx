@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import EventItem from '@src/screens/Events/EventItem';
-import { Divider } from '@rneui/themed';
 import { useAppSelector } from '@src/redux/store';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 
 const EventsScreen = () => {
-  const events = useAppSelector((state) => state.events.events);
+  const events: EventDetails[] = useAppSelector((state) => state.events.events);
 
   return (
     <View style={styles.view}>
@@ -14,10 +13,13 @@ const EventsScreen = () => {
         contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Wydarzenia</Text>
-          {events.length > 0 &&
-            events.map((event: EventDetails, index: number) => {
-              return <EventItem key={index} event={event} />;
-            })}
+          {Object.entries(events).map(
+            ([eventKey, event]: [string, EventDetails]) => {
+              return (
+                <EventItem key={eventKey} event={event} eventKey={eventKey} />
+              );
+            }
+          )}
         </View>
       </ScrollView>
     </View>

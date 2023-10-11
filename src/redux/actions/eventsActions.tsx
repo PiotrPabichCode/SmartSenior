@@ -64,10 +64,10 @@ export const clearEventsAction =
   };
 
 export const updateEventAction =
-  (changeUserData: any) =>
+  (eventKey: string, changeEventData: any) =>
   async (dispatch = useAppDispatch()) => {
     try {
-      let response = await api.updateEvent(changeUserData);
+      let response = await api.updateEvent(eventKey, changeEventData);
       const { error, data } = response;
       if (error) {
         dispatch({

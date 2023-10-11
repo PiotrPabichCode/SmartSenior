@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Divider, Switch } from '@rneui/themed';
+import { Switch } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';
 import { renderLocalDateWithTime } from '@src/utils/utils';
@@ -8,6 +8,7 @@ import { navigate } from '@src/navigation/navigationUtils';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 
 type EventItemProps = PropsWithChildren<{
+  eventKey: string;
   event: EventDetails;
 }>;
 
@@ -18,7 +19,7 @@ type DayProps = PropsWithChildren<{
   value: number;
 }>;
 
-const EventItem = ({ event }: EventItemProps) => {
+const EventItem = ({ eventKey, event }: EventItemProps) => {
   const [checked, setChecked] = useState(false);
 
   const toggleSwitch = () => {
@@ -44,6 +45,7 @@ const EventItem = ({ event }: EventItemProps) => {
         style={styles.viewStyle}
         onPress={() =>
           navigate('EventItem', {
+            eventKey: eventKey,
             event: event,
           })
         }>

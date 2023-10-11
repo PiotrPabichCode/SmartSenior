@@ -25,7 +25,6 @@ export default function App() {
   }, []);
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log(user);
       if (user) {
         setIsLoading(true);
         store.dispatch(verifyAuth(user));

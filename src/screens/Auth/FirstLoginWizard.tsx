@@ -22,7 +22,6 @@ import {
   verifyUserDetailsAction,
 } from '@src/redux/actions/authActions';
 import { GenderEnum, genders } from '@src/redux/constants/authConstants';
-import { useSelector } from 'react-redux';
 import { navigate } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { loadActiveEventsAction } from '@src/redux/actions/eventsActions';

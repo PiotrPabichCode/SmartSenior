@@ -5,7 +5,7 @@ import {
   getUpdatedFields,
   renderLocalDateWithTime,
 } from '@src/utils/utils';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomDropdown from '@src/components/CustomDropdown';
 import { Button, CheckBox, Input } from '@rneui/themed';
@@ -24,12 +24,13 @@ import { updateEventAction } from '@src/redux/actions/eventsActions';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '@src/constants/Colors';
 import FormikObserver from '@src/utils/FormikObserver';
+import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 
 const EventItemScreen = ({ route, navigation }: Props) => {
   const dispatch = useAppDispatch();
-  const { event } = route.params;
+  const { eventKey, event } = route.params;
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
@@ -63,7 +64,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
               title: event.title,
               description: event.description,
               executionTime: event.executionTime,
-              days: days.map((day) => ({ ...day, active: false })),
+              days: Object.values(event.days),
               priority: event.priority,
               isCyclic: event.isCyclic,
               cyclicTime: event.cyclicTime,
@@ -80,8 +81,8 @@ const EventItemScreen = ({ route, navigation }: Props) => {
                 const updatedFields = getUpdatedFields(event, values);
                 ChangeEventSchema.validate(values)
                   .then(() => {
-                    console.log('Zmiana', updatedFields);
-                    dispatch(updateEventAction(updatedFields));
+                    console.log('Zmienione pola: ', updatedFields);
+                    dispatch(updateEventAction(eventKey, updatedFields));
                     CustomToast('success', 'Wydarzenie zaaktulizowane');
                   })
                   .catch((error) => {
@@ -239,6 +240,10 @@ const EventItemScreen = ({ route, navigation }: Props) => {
                       setIsUpdate(false);
                     }
                   }}
+                />
+                <DiscardChangesAlert
+                  navigation={navigation}
+                  isUpdate={isUpdate}
                 />
               </>
             )}

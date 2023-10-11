@@ -1,4 +1,5 @@
 import moment from 'moment-timezone';
+import isEqual from 'lodash.isequal';
 
 export const buildRequest = (baseUrl: string, params: any) => {
   const entries = Object.entries(params).filter(
@@ -36,7 +37,7 @@ export function getUpdatedFields<T>(
   const updatedFields: Partial<T> = {};
 
   for (const key in newValue) {
-    if (oldValue[key] !== newValue[key]) {
+    if (!isEqual(oldValue[key], newValue[key])) {
       updatedFields[key] = newValue[key];
     }
   }

@@ -26,10 +26,11 @@ export const createEvent = async (
 };
 
 export const updateEvent = async (
+  eventKey: string,
   changeEventData: EventDetails
 ): Promise<ApiResponse> => {
   try {
-    const eventRef = ref(db, 'events/');
+    const eventRef = ref(db, 'events/' + eventKey);
     update(eventRef, changeEventData);
     return { error: null, data: changeEventData };
   } catch (error) {
@@ -57,7 +58,7 @@ export const loadActiveEvents = async (): Promise<ApiResponse> => {
     }
 
     const eventsValues = eventsSnapshot.val();
-    return { error: null, data: Object.values(eventsValues) };
+    return { error: null, data: eventsValues };
   } catch (error) {
     return handleApiError(error);
   }

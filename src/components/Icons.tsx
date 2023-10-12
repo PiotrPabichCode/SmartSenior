@@ -321,6 +321,17 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           style={style}
         />
       );
+    case 'delete': {
+      return (
+        <MaterialIcons
+          name='delete'
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color='red'
+          style={style}
+        />
+      );
+    }
     default:
       return (
         <Ionicons

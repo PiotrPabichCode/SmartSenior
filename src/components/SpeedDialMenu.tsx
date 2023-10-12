@@ -10,9 +10,11 @@ const SpeedDialMenu = (props: any) => {
     switch (command) {
       case 'ADD_EVENT':
         navigate('CreateEvent');
+        setOpen(!open);
         break;
       case 'ADD_KEEPER':
         // navigate('AddKeeper'); // TODO
+        setOpen(!open);
         generateEvents();
         break;
     }

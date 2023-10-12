@@ -10,6 +10,7 @@ import CustomHeader from '@components/CustomHeader';
 import { useAppSelector } from '@src/redux/store';
 import { NavigationContainer } from '@react-navigation/native';
 import SpeedDialMenu from '@src/components/SpeedDialMenu';
+import AgendaScreen from '@src/screens/Calendar/AgendaScreen';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
@@ -30,7 +31,7 @@ const BottomBarNavigator = () => {
         />
         <Tab.Screen
           name='Calendar'
-          component={CalendarScreen} // TODO
+          component={AgendaScreen} // TODO
           options={{
             tabBarLabel: 'Kalendarz',
             tabBarIcon: ({ focused }) =>

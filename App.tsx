@@ -14,8 +14,95 @@ import {
   clearEventsAction,
   loadActiveEventsAction,
 } from '@src/redux/actions/eventsActions';
+import { LocaleConfig } from 'react-native-calendars';
 
-export default function App() {
+LocaleConfig.locales['pl'] = {
+  monthNames: [
+    'styczeń',
+    'luty',
+    'marzec',
+    'kwiecień',
+    'maj',
+    'czerwiec',
+    'lipiec',
+    'sierpień',
+    'wrzesień',
+    'październik',
+    'listopad',
+    'grudzień',
+  ],
+  monthNamesShort: [
+    'sty',
+    'lut',
+    'mar',
+    'kwi',
+    'maj',
+    'cze',
+    'lip',
+    'sie',
+    'wrz',
+    'paź',
+    'lis',
+    'gru',
+  ],
+  dayNames: [
+    'niedziela',
+    'poniedziałek',
+    'wtorek',
+    'środa',
+    'czwartek',
+    'piątek',
+    'sobota',
+  ],
+  dayNamesShort: ['niedz.', 'pon.', 'wt.', 'śr.', 'czw.', 'pt.', 'sob.'],
+  today: 'dzisiaj',
+};
+
+LocaleConfig.locales['en'] = {
+  monthNames: [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ],
+  monthNamesShort: [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ],
+  dayNames: [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ],
+  dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  today: 'today',
+};
+
+LocaleConfig.defaultLocale = 'pl';
+
+const App = () => {
   const [isReady, setIsReady] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
@@ -52,4 +139,6 @@ export default function App() {
       <Toast />
     </Provider>
   );
-}
+};
+
+export default App;

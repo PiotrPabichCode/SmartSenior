@@ -1,5 +1,5 @@
 export type EventDetails = {
-  id: number;
+  key: string;
   title: string;
   description: string;
   executionTime: number;

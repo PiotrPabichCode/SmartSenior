@@ -25,7 +25,6 @@ export type RootStackParamList = {
   CreateEvent: undefined;
   EventItem: {
     eventKey: string;
-    event: EventDetails;
   };
   AddKeeper: undefined;
 };

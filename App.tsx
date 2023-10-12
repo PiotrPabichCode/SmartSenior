@@ -103,7 +103,6 @@ LocaleConfig.locales['en'] = {
 LocaleConfig.defaultLocale = 'pl';
 
 const App = () => {
-  const [isReady, setIsReady] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
     setTimeout(() => {

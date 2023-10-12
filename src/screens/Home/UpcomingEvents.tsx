@@ -20,7 +20,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
       onPress={() => navigate('Events')}
     />
   );
-  const actionButton = (eventKey: string, event: EventDetails) => (
+  const actionButton = (eventKey: string) => (
     <Button
       title='Wykonaj'
       containerStyle={styles.actionButtonStyle}
@@ -29,23 +29,22 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
       onPress={() =>
         navigate('EventItem', {
           eventKey: eventKey,
-          event: event,
         })
       }
     />
   );
 
-  const mapEventItems = Object.entries(events)?.map(
-    ([eventKey, event]: [string, EventDetails], index: number) => {
+  const mapEventItems = Object.values(events)?.map(
+    (event: EventDetails, index: number) => {
       if (index === MAX_DISPLAYED_EVENTS) {
         return moreButton;
       }
-      if (index > 3) {
+      if (index > MAX_DISPLAYED_EVENTS) {
         return;
       }
       const isEnd = index !== events.length - 1;
       return (
-        <View style={styles.eventView} key={eventKey}>
+        <View style={styles.eventView} key={index}>
           <View style={styles.eventTimeView}>
             <Icon name='arrow-right' color='#000' size={30} />
             <Text style={styles.eventText} numberOfLines={1}>
@@ -56,7 +55,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
           <Text style={styles.eventTitle} numberOfLines={1}>
             {event.description}
           </Text>
-          {actionButton(eventKey, event)}
+          {actionButton(event.key)}
           {isEnd && <Divider style={styles.dividerStyle} />}
         </View>
       );

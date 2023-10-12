@@ -5,19 +5,18 @@ import { Switch } from '@rneui/themed';
 import type { PropsWithChildren } from 'react';
 import { renderLocalDateWithTime } from '@src/utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
-import { EventDetails } from '@src/redux/types/eventsTypes';
 import Icons from '@src/components/Icons';
-import { useAppDispatch } from '@src/redux/store';
+import { useAppDispatch, useAppSelector } from '@src/redux/store';
 import {
   loadActiveEventsAction,
   updateEventAction,
 } from '@src/redux/actions/eventsActions';
 import CustomToast from '@src/components/CustomToast';
 import { getAuth } from 'firebase/auth';
+import { EventDetails } from '@src/redux/types/eventsTypes';
 
 type EventItemProps = PropsWithChildren<{
-  eventKey: string;
-  event: EventDetails;
+  key: string;
 }>;
 
 type DayProps = PropsWithChildren<{
@@ -27,16 +26,19 @@ type DayProps = PropsWithChildren<{
   value: number;
 }>;
 
-const EventItem = ({ eventKey, event }: EventItemProps) => {
+const EventItem = ({ key }: EventItemProps) => {
   const [checked, setChecked] = useState(false);
   const dispatch = useAppDispatch();
+  const event: EventDetails = useAppSelector(
+    (state) => state.events.events[key]
+  );
 
   const toggleSwitch = () => {
     setChecked(!checked);
   };
 
   function generateDayTags() {
-    return Object.values(event.days).map((day: DayProps, index) => {
+    return Object.values(event.days).map((day: DayProps, index: number) => {
       return (
         <Text
           style={day.active ? styles.activeDay : styles.inactiveDay}
@@ -58,7 +60,7 @@ const EventItem = ({ eventKey, event }: EventItemProps) => {
           style: 'destructive',
           onPress: () => {
             dispatch(
-              updateEventAction(eventKey, {
+              updateEventAction(key, {
                 deleted: true,
                 userUid: getAuth().currentUser?.uid + 'deleted-true',
               })
@@ -78,8 +80,7 @@ const EventItem = ({ eventKey, event }: EventItemProps) => {
         style={styles.viewStyle}
         onPress={() =>
           navigate('EventItem', {
-            eventKey: eventKey,
-            event: event,
+            eventKey: key,
           })
         }>
         <Text style={styles.title}>{event.title}</Text>

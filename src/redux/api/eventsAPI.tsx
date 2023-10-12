@@ -18,7 +18,19 @@ export const createEvent = async (
 ): Promise<ApiResponse> => {
   try {
     const eventsRef = ref(db, 'events/');
-    push(eventsRef, newEventData);
+    const response = push(eventsRef, newEventData);
+    if (!response || !response.key) {
+      return {
+        error: new Error('Wystąpił błąd podczas dodawania wydarzenia'),
+        data: null,
+      };
+    }
+    const key = response.key;
+    const currentEventRef = ref(db, 'events/' + key);
+    update(currentEventRef, {
+      key: key,
+    });
+    newEventData.key = key;
     return { error: null, data: newEventData };
   } catch (error) {
     return handleApiError(error);
@@ -57,8 +69,12 @@ export const loadActiveEvents = async (): Promise<ApiResponse> => {
       return { error: new Error('Unable to load events'), data: null };
     }
 
-    const eventsValues = eventsSnapshot.val();
-    return { error: null, data: eventsValues };
+    let events = eventsSnapshot.val();
+    for (let key in events) {
+      events[key].key = key;
+    }
+
+    return { error: null, data: events };
   } catch (error) {
     return handleApiError(error);
   }

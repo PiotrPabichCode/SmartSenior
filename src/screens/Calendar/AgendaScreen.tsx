@@ -18,7 +18,6 @@ interface State {
 
 const mapStateToProps = (state: any) => {
   return {
-    items: undefined,
     events: state.events.events,
   };
 };
@@ -41,13 +40,14 @@ class AgendaScreen extends Component<State> {
         selected={moment().format('YYYY-MM-DD')}
         pastScrollRange={1}
         futureScrollRange={3}
+        showOnlySelectedDayItems
       />
     );
   }
 
   loadItemsForMonth = ({ month, year }: DateData) => {
     // Load items for certain month
-    const items = this.props.items || {};
+    const items = this.state.items || {};
 
     setTimeout(() => {
       let events: EventDetails[] = this.props.events;
@@ -64,6 +64,7 @@ class AgendaScreen extends Component<State> {
         if (!items[key]) {
           items[key] = [];
           items[key].push({
+            key: event.key,
             name: event.title,
             height: Math.max(50, Math.floor(Math.random() * 150)),
             day: key,
@@ -89,7 +90,7 @@ class AgendaScreen extends Component<State> {
         style={[styles.item, { height: event.height }]}
         onPress={() =>
           navigate('EventItem', {
-            eventKey: event.height,
+            eventKey: event.key,
           })
         }>
         <Text style={{ fontSize, color }}>{event.name}</Text>

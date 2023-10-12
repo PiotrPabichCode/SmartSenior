@@ -19,18 +19,22 @@ import { useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import CustomToast from '@src/components/CustomToast';
-import { useAppDispatch } from '@src/redux/store';
+import { useAppDispatch, useAppSelector } from '@src/redux/store';
 import { updateEventAction } from '@src/redux/actions/eventsActions';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '@src/constants/Colors';
 import FormikObserver from '@src/utils/FormikObserver';
 import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
+import { EventDetails } from '@src/redux/types/eventsTypes';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 
 const EventItemScreen = ({ route, navigation }: Props) => {
   const dispatch = useAppDispatch();
-  const { eventKey, event } = route.params;
+  const { eventKey } = route.params;
+  const event: EventDetails = useAppSelector(
+    (state) => state.events.events[eventKey]
+  );
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
@@ -72,7 +76,6 @@ const EventItemScreen = ({ route, navigation }: Props) => {
               cyclicTime: event.cyclicTime,
               isNotification: event.isNotification,
               notificationTime: event.notificationTime,
-              createdAt: event.createdAt,
               updatedAt: event.updatedAt,
               deleted: event.deleted,
               userUid: event.userUid,
@@ -86,7 +89,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
                 ChangeEventSchema.validate(values)
                   .then(() => {
                     console.log('Zmienione pola: ', updatedFields);
-                    // dispatch(updateEventAction(eventKey, updatedFields));
+                    dispatch(updateEventAction(eventKey, updatedFields));
                     CustomToast('success', 'Wydarzenie zaaktulizowane');
                   })
                   .catch((error) => {
@@ -238,9 +241,6 @@ const EventItemScreen = ({ route, navigation }: Props) => {
                       event,
                       values.values
                     );
-                    // console.log(values.initialValues.days);
-                    // console.log(values.values.days);
-                    // console.log(changedFields);
                     if (Object.keys(changedFields).length > 0) {
                       setIsUpdate(true);
                     } else {

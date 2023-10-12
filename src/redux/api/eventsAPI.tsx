@@ -63,3 +63,9 @@ export const loadActiveEvents = async (): Promise<ApiResponse> => {
     return handleApiError(error);
   }
 };
+
+export const filterUpcomingEvents = (events: EventDetails[]) => {
+  return Object.values(events).filter((event) => {
+    return event.executionTime >= Date.now();
+  });
+};

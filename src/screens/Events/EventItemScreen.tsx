@@ -64,7 +64,9 @@ const EventItemScreen = ({ route, navigation }: Props) => {
               title: event.title,
               description: event.description,
               executionTime: event.executionTime,
-              days: Object.values(event.days),
+              days: Object.values(event.days).map((day) => ({
+                ...day,
+              })),
               priority: event.priority,
               isCyclic: event.isCyclic,
               cyclicTime: event.cyclicTime,
@@ -72,17 +74,19 @@ const EventItemScreen = ({ route, navigation }: Props) => {
               notificationTime: event.notificationTime,
               createdAt: event.createdAt,
               updatedAt: event.updatedAt,
-              deleted: false,
+              deleted: event.deleted,
               userUid: event.userUid,
             }}
             onSubmit={(values) => {
               try {
+                console.log(event.days);
+                console.log(values['days']);
                 values.updatedAt = Date.now();
                 const updatedFields = getUpdatedFields(event, values);
                 ChangeEventSchema.validate(values)
                   .then(() => {
                     console.log('Zmienione pola: ', updatedFields);
-                    dispatch(updateEventAction(eventKey, updatedFields));
+                    // dispatch(updateEventAction(eventKey, updatedFields));
                     CustomToast('success', 'Wydarzenie zaaktulizowane');
                   })
                   .catch((error) => {
@@ -234,6 +238,9 @@ const EventItemScreen = ({ route, navigation }: Props) => {
                       event,
                       values.values
                     );
+                    // console.log(values.initialValues.days);
+                    // console.log(values.values.days);
+                    // console.log(changedFields);
                     if (Object.keys(changedFields).length > 0) {
                       setIsUpdate(true);
                     } else {

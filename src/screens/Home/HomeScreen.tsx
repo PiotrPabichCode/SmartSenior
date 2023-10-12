@@ -4,9 +4,12 @@ import UpcomingEvents from '@src/screens/Home/UpcomingEvents';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { useAppSelector } from '@redux/store';
 import { navigate } from '@src/navigation/navigationUtils';
+import { EventDetails } from '@src/redux/types/eventsTypes';
+import { filterUpcomingEvents } from '@src/redux/api/eventsAPI';
 
 const HomeScreen = () => {
-  const events = useAppSelector((state) => state.events.events);
+  let events: EventDetails[] = useAppSelector((state) => state.events.events);
+  events = filterUpcomingEvents(events);
   const userDetails = useAppSelector((state) => state.auth.userDetails);
 
   if (!userDetails) {

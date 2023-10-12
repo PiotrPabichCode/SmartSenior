@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CalendarScreen from '@src/screens/Calendar/CalendarScreen';
 import AccountScreen from '@screens/Account/AccountScreen';
 import EventsScreen from '@src/screens/Events/EventsScreen';
 import HomeScreen from '@src/screens/Home/HomeScreen';

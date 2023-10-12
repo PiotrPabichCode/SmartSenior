@@ -1,11 +1,19 @@
 import { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { Switch } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';
 import { renderLocalDateWithTime } from '@src/utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
 import { EventDetails } from '@src/redux/types/eventsTypes';
+import Icons from '@src/components/Icons';
+import { useAppDispatch } from '@src/redux/store';
+import {
+  loadActiveEventsAction,
+  updateEventAction,
+} from '@src/redux/actions/eventsActions';
+import CustomToast from '@src/components/CustomToast';
+import { getAuth } from 'firebase/auth';
 
 type EventItemProps = PropsWithChildren<{
   eventKey: string;
@@ -21,6 +29,7 @@ type DayProps = PropsWithChildren<{
 
 const EventItem = ({ eventKey, event }: EventItemProps) => {
   const [checked, setChecked] = useState(false);
+  const dispatch = useAppDispatch();
 
   const toggleSwitch = () => {
     setChecked(!checked);
@@ -38,6 +47,30 @@ const EventItem = ({ eventKey, event }: EventItemProps) => {
     });
   }
 
+  const handleDeleteEvent = () => {
+    Alert.alert(
+      'Usunąć wydarzenie?',
+      'Czy na pewno chcesz usunąć to wydarzenie?',
+      [
+        { text: 'Nie', style: 'cancel', onPress: () => {} },
+        {
+          text: 'Tak',
+          style: 'destructive',
+          onPress: () => {
+            dispatch(
+              updateEventAction(eventKey, {
+                deleted: true,
+                userUid: getAuth().currentUser?.uid + 'deleted-true',
+              })
+            );
+            CustomToast('success', 'Usunięto wydarzenie');
+            dispatch(loadActiveEventsAction());
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <>
       <View style={styles.divider} />
@@ -50,6 +83,11 @@ const EventItem = ({ eventKey, event }: EventItemProps) => {
           })
         }>
         <Text style={styles.title}>{event.title}</Text>
+        <Icons
+          name='delete'
+          style={{ position: 'absolute', right: 5, top: 5 }}
+          onPress={handleDeleteEvent}
+        />
         <View style={styles.viewDetails}>
           <Text style={styles.time} numberOfLines={1}>
             {renderLocalDateWithTime(event.executionTime)}
@@ -73,6 +111,11 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: 'black',
   },
+  inlineFlex: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   viewStyle: {
     display: 'flex',
     flexDirection: 'column',
@@ -86,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
     width: 190,
+    alignSelf: 'center',
   },
   viewRightPanel: {
     display: 'flex',

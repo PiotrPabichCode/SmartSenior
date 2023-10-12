@@ -1,4 +1,5 @@
 export type EventDetails = {
+  id: number;
   title: string;
   description: string;
   executionTime: number;
@@ -13,4 +14,5 @@ export type EventDetails = {
   userUid: string;
   days: object;
   active: boolean;
+  deleted: boolean;
 };

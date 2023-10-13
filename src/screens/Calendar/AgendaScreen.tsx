@@ -10,6 +10,7 @@ import { navigate } from '@src/navigation/navigationUtils';
 import moment from 'moment';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 import { connect } from 'react-redux';
+import { renderLocalDateWithTime } from '@src/utils/utils';
 
 interface State {
   items?: AgendaSchedule;
@@ -65,6 +66,9 @@ class AgendaScreen extends Component<State> {
           items[key] = [];
           items[key].push({
             key: event.key,
+            description: event.description,
+            executionTime: event.executionTime,
+            priority: event.priority,
             name: event.title,
             height: Math.max(50, Math.floor(Math.random() * 150)),
             day: key,
@@ -87,13 +91,20 @@ class AgendaScreen extends Component<State> {
     const color = isFirst ? 'black' : '#43515c';
     return (
       <TouchableOpacity
-        style={[styles.item, { height: event.height }]}
+        style={[styles.item]}
         onPress={() =>
           navigate('EventItem', {
             eventKey: event.key,
           })
         }>
-        <Text style={{ fontSize, color }}>{event.name}</Text>
+        <Text style={{ fontSize, color }}>
+          {renderLocalDateWithTime(event.executionTime)}
+        </Text>
+        <Text style={[styles.name, { fontSize, color }]}>{event.name}</Text>
+        <Text numberOfLines={1} style={{ fontSize, color }}>
+          {event.description}
+        </Text>
+        <Text>{`Priorytet: ${event.priority}`}</Text>
       </TouchableOpacity>
     );
   };
@@ -121,6 +132,10 @@ const styles = StyleSheet.create({
     padding: 10,
     marginRight: 10,
     marginTop: 17,
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: '500',
   },
   emptyDate: {
     height: 15,

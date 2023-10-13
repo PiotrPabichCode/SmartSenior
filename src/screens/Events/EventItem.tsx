@@ -16,7 +16,7 @@ import { getAuth } from 'firebase/auth';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 
 type EventItemProps = PropsWithChildren<{
-  key: string;
+  eventKey: string;
 }>;
 
 type DayProps = PropsWithChildren<{
@@ -26,12 +26,13 @@ type DayProps = PropsWithChildren<{
   value: number;
 }>;
 
-const EventItem = ({ key }: EventItemProps) => {
+const EventItem = ({ eventKey }: EventItemProps) => {
   const [checked, setChecked] = useState(false);
   const dispatch = useAppDispatch();
   const event: EventDetails = useAppSelector(
-    (state) => state.events.events[key]
+    (state) => state.events.events[eventKey]
   );
+  console.log(event);
 
   const toggleSwitch = () => {
     setChecked(!checked);
@@ -60,7 +61,7 @@ const EventItem = ({ key }: EventItemProps) => {
           style: 'destructive',
           onPress: () => {
             dispatch(
-              updateEventAction(key, {
+              updateEventAction(eventKey, {
                 deleted: true,
                 userUid: getAuth().currentUser?.uid + 'deleted-true',
               })
@@ -80,7 +81,7 @@ const EventItem = ({ key }: EventItemProps) => {
         style={styles.viewStyle}
         onPress={() =>
           navigate('EventItem', {
-            eventKey: key,
+            eventKey: eventKey,
           })
         }>
         <Text style={styles.title}>{event.title}</Text>

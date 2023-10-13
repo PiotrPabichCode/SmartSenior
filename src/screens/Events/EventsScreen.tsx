@@ -13,13 +13,9 @@ const EventsScreen = () => {
         contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Wydarzenia</Text>
-          {Object.entries(events).map(
-            ([eventKey, event]: [string, EventDetails]) => {
-              return (
-                <EventItem key={eventKey} event={event} eventKey={eventKey} />
-              );
-            }
-          )}
+          {Object.values(events).map((event, index) => {
+            return <EventItem key={index} eventKey={event.key} />;
+          })}
         </View>
       </ScrollView>
     </View>

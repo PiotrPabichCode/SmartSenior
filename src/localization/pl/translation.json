@@ -1,0 +1,71 @@
+{
+  "language": "Język",
+  "bottomNav": {
+    "home": "Strona asdasdasd",
+    "calendar": "Kalendarz",
+    "events": "Wydarzenia",
+    "profile": "Profil"
+  },
+  "speedDial": {
+    "addEvent": "Dodaj wydarzenie",
+    "addKeeper": "Dodaj opiekuna"
+  },
+  "medicines": {
+    "title": "Lista leków",
+    "searchPlaceholder": "Wpisz nazwę leku..."
+  },
+  "pharmacies": {
+    "title": "Lista aptek",
+    "placeholder": {
+      "pharmacy": "Wpisz nazwę apteki...",
+      "city": "Wpisz nazwę miejscowości...",
+      "province": "Wybierz województwo..."
+    }
+  },
+  "account": {
+    "title": {
+      "email": "Adres e-mail:",
+      "firstName": "Imię:",
+      "lastName": "Nazwisko:",
+      "birthDate": "Data urodzenia",
+      "password": "Hasło:"
+    },
+    "placeholder": {
+      "email": "Podaj adres e-mail",
+      "firstName": "Podaj imię",
+      "lastName": "Podaj nazwisko",
+      "birthDate": "Podaj datę urodzenia",
+      "password": "*********"
+    },
+    "language": {
+      "title": "Wybrany język",
+      "polish": "Polski",
+      "english": "Angielski"
+    },
+    "notification": {
+      "title": "Czas powiadomień"
+    },
+    "button": {
+      "title": {
+        "user": "Konto",
+        "theme": "Motyw",
+        "language": "Język",
+        "notification": "Powiadomienia",
+        "share": "Poleć naszą aplikację",
+        "connected-users": "Połączone osoby",
+        "logout": "Wyloguj się"
+      }
+    },
+    "header": {
+      "user": "Profil - konto",
+      "language": "Profil - język",
+      "notification": "Profil - powiadomienia",
+      "share": "Profil - polecenia",
+      "connected-users": "Profil - połączone osoby"
+    }
+  },
+  "medicinesList": "Lista leków",
+  "pharmaciesList": "Lista aptek",
+  "notes": "Twoje notatki",
+  "search": "Szukaj"
+}

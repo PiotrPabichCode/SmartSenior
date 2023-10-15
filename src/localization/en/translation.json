@@ -1,0 +1,29 @@
+{
+  "language": "Language",
+  "bottomNav": {
+    "home": "Home",
+    "calendar": "Calendar",
+    "events": "Events",
+    "profile": "Profile"
+  },
+  "speedDial": {
+    "addEvent": "Add Event",
+    "addKeeper": "Add Caregiver"
+  },
+  "medicines": {
+    "title": "Medicine List",
+    "searchPlaceholder": "Enter medicine name..."
+  },
+  "pharmacies": {
+    "title": "Pharmacy List",
+    "placeholder": {
+      "pharmacy": "Enter pharmacy name...",
+      "city": "Enter city name...",
+      "province": "Select province..."
+    }
+  },
+  "medicinesList": "Medicine List",
+  "pharmaciesList": "Pharmacy List",
+  "notes": "Your Notes",
+  "search": "Search"
+}

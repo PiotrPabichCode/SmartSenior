@@ -1,5 +1,8 @@
 import moment from 'moment-timezone';
 import isEqual from 'lodash.isequal';
+import Localization from '@src/localization/Localization';
+import Calendar from '@src/components/Calendar/Calendar';
+import { useAppSelector } from '@src/redux/store';
 
 export const buildRequest = (baseUrl: string, params: any) => {
   const entries = Object.entries(params).filter(
@@ -44,3 +47,22 @@ export function getUpdatedFields<T>(
 
   return updatedFields;
 }
+
+export const splitLocale = (locale: string) => {
+  return locale.split('-')[0];
+};
+
+export const changeLanguage = (language: string) => {
+  try {
+    Localization.changeLanguage(language);
+    Calendar.changeLanguage(language);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createUserLabel = () => {
+  const userDetails = useAppSelector((state) => state.auth.userDetails);
+  const label = `${userDetails.firstName[0]}${userDetails.lastName[0]}`;
+  return label.toUpperCase();
+};

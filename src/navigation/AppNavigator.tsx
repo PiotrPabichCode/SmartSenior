@@ -6,7 +6,6 @@ import { useAppSelector } from '../redux/store';
 import SideDrawerNavigator from './SideDrawer/SideDrawerNavigator';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
-import SpeedDialMenu from '@src/components/SpeedDialMenu';
 
 export const drawerRef = React.createRef();
 
@@ -28,6 +27,7 @@ const AppNavigator = () => {
       initialRouteName={'Welcome'}
       screenOptions={{
         headerShown: false,
+        animation: 'none',
       }}>
       {user ? (
         // <Stack.Group>

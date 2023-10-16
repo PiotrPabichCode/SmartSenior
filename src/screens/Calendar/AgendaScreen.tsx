@@ -11,6 +11,7 @@ import moment from 'moment';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 import { connect } from 'react-redux';
 import { renderLocalDateWithTime } from '@src/utils/utils';
+import { translate } from '@src/localization/Localization';
 
 interface State {
   items?: AgendaSchedule;
@@ -104,17 +105,17 @@ class AgendaScreen extends Component<State> {
         <Text numberOfLines={1} style={{ fontSize, color }}>
           {event.description}
         </Text>
-        <Text>{`Priorytet: ${event.priority}`}</Text>
+        <Text>
+          {translate('agenda.priority', {
+            priority: event.priority,
+          })}
+        </Text>
       </TouchableOpacity>
     );
   };
 
   renderEmptyDate = () => {
-    return (
-      <View style={styles.emptyDate}>
-        <Text>Empty date</Text>
-      </View>
-    );
+    return <View />;
   };
 
   rowHasChanged = (r1: AgendaEntry, r2: AgendaEntry) => {

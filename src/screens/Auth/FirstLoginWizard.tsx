@@ -25,6 +25,7 @@ import { GenderEnum, genders } from '@src/redux/constants/authConstants';
 import { navigate } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { loadActiveEventsAction } from '@src/redux/actions/eventsActions';
+import { translate } from '@src/localization/Localization';
 
 const FirstLoginSchema = Yup.object().shape({
   firstName: Yup.string().min(1).required(),
@@ -71,7 +72,9 @@ const FirstLoginWizard = () => {
       <TouchableOpacity
         style={styles.logout}
         onPress={() => dispatch(logoutAction())}>
-        <Text style={styles.logoutTitle}>Wyloguj się</Text>
+        <Text style={styles.logoutTitle}>
+          {translate('firstLoginWizard.button.title.logout')}
+        </Text>
         <Icons name='logout-wizard' />
       </TouchableOpacity>
       <ScrollView
@@ -93,36 +96,45 @@ const FirstLoginWizard = () => {
                 FirstLoginSchema.validate(values)
                   .then(() => {
                     dispatch(UserDetailsAction(values));
-                    CustomToast('success', 'Zapisano zmiany');
+                    CustomToast('success', translate('success.saveChanges'));
                   })
                   .catch((errors) => {
                     console.log(errors);
-                    CustomToast('error', 'Nie podano wszystkich danych');
+                    CustomToast('error', translate('error.missingData'));
                   });
               } catch (e) {
-                console.log('Coś poszło nie tak');
-                CustomToast('error', 'Coś poszło nie tak');
+                CustomToast('error', translate('error.unknown'));
               }
             }}>
             {({ values, handleChange, handleSubmit, setFieldValue }) => (
               <>
-                <Text style={styles.title}>Wypełnij dane osobowe</Text>
+                <Text style={styles.title}>
+                  {translate('firstLoginWizard.title')}
+                </Text>
                 <Input
                   value={values.firstName}
                   onChangeText={handleChange('firstName')}
-                  placeholder='Podaj imię'
+                  placeholder={translate(
+                    'firstLoginWizard.button.title.firstName'
+                  )}
                 />
                 <Input
                   value={values.lastName}
                   onChangeText={handleChange('lastName')}
-                  placeholder='Podaj nazwisko'
+                  placeholder={translate(
+                    'firstLoginWizard.button.title.lastName'
+                  )}
                 />
                 <Button
                   onPress={() => setShowDatePicker(true)}
                   title={
                     values.birthDate
-                      ? 'Data urodzenia: ' + values.birthDate
-                      : 'Wybierz datę urodzenia'
+                      ? translate('firstLoginWizard.button.title.birthDate', {
+                          birthDate: values.birthDate,
+                        })
+                      : translate(
+                          'firstLoginWizard.button.title.birthDateEmpty'
+                        )
                   }
                 />
                 {showDatePicker && (
@@ -145,12 +157,16 @@ const FirstLoginWizard = () => {
                   fieldName='gender'
                   valueName='value'
                   data={genders}
-                  placeholder='Wybierz płeć'
+                  placeholder={translate(
+                    'firstLoginWizard.button.placeholder.gender'
+                  )}
                   value={values.gender}
                   handleChange={(e: any) => setFieldValue('gender', e.value)}
                 />
                 <TouchableOpacity onPress={() => handleSubmit()}>
-                  <Text style={styles.submit}>Zatwierdź zmiany</Text>
+                  <Text style={styles.submit}>
+                    {translate('firstLoginWizard.button.submit')}
+                  </Text>
                 </TouchableOpacity>
               </>
             )}

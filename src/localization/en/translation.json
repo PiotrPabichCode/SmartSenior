@@ -1,5 +1,14 @@
 {
+  "appName": "SmartSenior",
   "language": "Language",
+  "nav": {
+    "medicines": "Medicines List",
+    "medicinesItemDetails": "Medicine - Description",
+    "pharmacies": "Pharmacies List",
+    "pharmaciesItemDetails": "Pharmacy - Description",
+    "createEvent": "Event",
+    "eventItem": "Event"
+  },
   "bottomNav": {
     "home": "Home",
     "calendar": "Calendar",
@@ -11,19 +20,312 @@
     "addKeeper": "Add Caregiver"
   },
   "medicines": {
-    "title": "Medicine List",
+    "title": "Medicines List",
     "searchPlaceholder": "Enter medicine name..."
   },
   "pharmacies": {
-    "title": "Pharmacy List",
+    "title": "Pharmacies List",
     "placeholder": {
       "pharmacy": "Enter pharmacy name...",
       "city": "Enter city name...",
       "province": "Select province..."
     }
   },
-  "medicinesList": "Medicine List",
-  "pharmaciesList": "Pharmacy List",
+  "account": {
+    "title": {
+      "email": "Email:",
+      "firstName": "First Name:",
+      "lastName": "Last Name:",
+      "birthDate": "Date of Birth",
+      "password": "Password:"
+    },
+    "placeholder": {
+      "email": "Enter email",
+      "firstName": "Enter first name",
+      "lastName": "Enter last name",
+      "birthDate": "Enter date of birth",
+      "password": "*********"
+    },
+    "language": {
+      "title": "Selected Language",
+      "polish": "Polish",
+      "english": "English"
+    },
+    "notification": {
+      "title": "Notification Time"
+    },
+    "button": {
+      "title": {
+        "user": "Account",
+        "theme": "Theme",
+        "language": "Language",
+        "notification": "Notifications",
+        "share": "Recommend our app",
+        "connected-users": "Connected People",
+        "logout": "Logout"
+      }
+    },
+    "header": {
+      "user": "Profile - Account",
+      "language": "Profile - Language",
+      "notification": "Profile - Notifications",
+      "share": "Profile - Recommendations",
+      "connected-users": "Profile - Connected People"
+    }
+  },
+  "welcome": {
+    "message1": "Health control has never been easier!",
+    "message2": "Join now, in just 2 minutes!",
+    "signUp": "Get Started",
+    "signIn": "Sign In"
+  },
+  "firstLoginWizard": {
+    "title": "Fill in Personal Data",
+    "button": {
+      "title": {
+        "logout": "Logout",
+        "firstName": "Enter first name",
+        "lastName": "Enter last name",
+        "birthDate": "Date of Birth: {{birthDate}}",
+        "birthDateEmpty": "Select date of birth"
+      },
+      "placeholder": {
+        "gender": "Select gender"
+      },
+      "submit": "Save Changes"
+    },
+    "message": {
+      "success": {
+        "save": "Changes Saved"
+      }
+    }
+  },
+  "login": {
+    "welcomeBack": "Welcome back!",
+    "google": "Sign In with Google",
+    "or": "Or",
+    "button": {
+      "placeholder": {
+        "email": "Email Address",
+        "password": "Password"
+      },
+      "submit": "Sign In"
+    },
+    "question": "Don't have an account? ",
+    "signUp": "Sign Up",
+    "message": {
+      "error": {
+        "signIn": "Could not sign in"
+      }
+    },
+    "yup": {
+      "email": "The provided email address is invalid",
+      "passwordLengthMin": "Password must be at least 6 characters long",
+      "passwordLengthMax": "Password can be at most 30 characters long"
+    }
+  },
+  "register": {
+    "welcome": "We're glad you've decided to join us!",
+    "button": {
+      "placeholder": {
+        "email": "Email Address",
+        "password": "Password",
+        "repeatPassword": "Repeat Password"
+      },
+      "submit": "Sign Up"
+    },
+    "question": "Already have an account? ",
+    "signIn": "Sign In",
+    "yup": {
+      "email": "The provided email address is invalid",
+      "repeatPassword": "Passwords must match",
+      "passwordLengthMin": "Password must be at least 6 characters long",
+      "passwordLengthMax": "Password can be at most 30 characters long"
+    },
+    "message": {
+      "error": {
+        "signUp": "Could not register"
+      }
+    }
+  },
+  "createEvent": {
+    "title": "New Event",
+    "button": {
+      "placeholder": {
+        "title": "Event Title",
+        "description": "Event Description",
+        "notificationTime": "Notification Time",
+        "cyclicTime": "Repetition",
+        "priority": "Priority"
+      },
+      "title": {
+        "emptyDate": "Select event date",
+        "date": "Event Date {{date}}",
+        "notification": "Notifications",
+        "cyclic": "Recurring Event"
+      },
+      "submit": "Create Event"
+    },
+    "message": {
+      "success": {
+        "add": "New event added"
+      }
+    }
+  },
+  "dayFields": {
+    "repeat": "Repeat every: "
+  },
+  "eventItem": {
+    "alert": {
+      "title": "Delete Event?",
+      "message": "Are you sure you want to delete this event?",
+      "yes": "Yes",
+      "no": "No",
+      "success": "Event Deleted"
+    }
+  },
+  "eventItemScreen": {
+    "button": {
+      "placeholder": {
+        "title": "Event Title",
+        "description": "Event Description",
+        "notificationTime": "Notification Time",
+        "cyclicTime": "Repetition",
+        "priority": "Priority"
+      },
+      "title": {
+        "emptyDate": "Select event date",
+        "date": "Event Date {{date}}",
+        "notification": "Notifications",
+        "cyclic": "Recurring Event",
+        "update": "Update Event",
+        "execute": "Execute Event"
+      }
+    },
+    "message": {
+      "success": {
+        "change": "Event updated"
+      },
+      "error": {
+        "change": "Could not update event"
+      }
+    }
+  },
+  "eventsScreen": {
+    "title": "Events"
+  },
+  "homeScreen": {
+    "button": {
+      "title": {
+        "medicines": "Medicines List",
+        "doctors": "Doctors List",
+        "pharmacies": "Pharmacies List",
+        "notes": "Your Notes"
+      }
+    }
+  },
+  "medicineItem": {
+    "commonName": "Common Name",
+    "power": "Strength",
+    "pharmaceuticalForm": "Pharmaceutical Form",
+    "activeSubstance": "Active Substance",
+    "packaging": "Available Packages",
+    "expiration": "Expiration Date",
+    "company": "Company",
+    "country": "Country of Manufacture",
+    "leaflet": "Leaflet",
+    "characteristic": "Characteristics"
+  },
+  "medicinesScreen": {
+    "title": "Medicines List",
+    "placeholder": "Enter medicine name..."
+  },
+  "pharmaciesScreen": {
+    "title": "Pharmacies List",
+    "placeholder": {
+      "name": "Enter pharmacy name...",
+      "city": "Enter city name...",
+      "province": "Select province..."
+    }
+  },
+  "pharmacyItem": {
+    "name": "Pharmacy Name",
+    "status": "Availability",
+    "genre": "Pharmaceutical Form",
+    "address": "Address: ",
+    "phone": "Phone Number",
+    "email": "Email",
+    "owners": "Owners",
+    "openOnSundays": "Open on non-trading Sundays"
+  },
+  "upcomingEvents": {
+    "title": "Upcoming Events"
+  },
+  "button": {
+    "more": "See More",
+    "execute": "Execute",
+    "search": "Search"
+  },
+  "yes": "Yes",
+  "no": "No",
+  "alert": {
+    "discardChanges": {
+      "title": "Discard Changes?",
+      "message": "You have unsaved changes. Are you sure you want to discard them and leave the screen?",
+      "yes": "Discard Changes",
+      "no": "Stay"
+    }
+  },
+  "success": {
+    "saveChanges": "Changes Saved"
+  },
+  "error": {
+    "unknown": "Something went wrong",
+    "missingData": "Not all data provided"
+  },
+  "agenda": {
+    "priority": "Priority: {{priority}}"
+  },
+  "yup": {
+    "required": "This field is required"
+  },
+  "medicinesList": "Medicines List",
+  "pharmaciesList": "Pharmacies List",
   "notes": "Your Notes",
-  "search": "Search"
+  "search": "Search",
+  "genders": {
+    "man": "Man",
+    "woman": "Woman"
+  },
+  "cyclicValues": {
+    "everyday": "Everyday",
+    "2days": "Every 2 days",
+    "week": "Every week",
+    "month": "Every month - same day",
+    "any": "Enter value: (number = number of days)"
+  },
+  "timeValues": {
+    "min": "{{min}} minutes",
+    "hour": "{{hour}}h"
+  },
+  "dayValues": {
+    "shortTitle": {
+      "monday": "m",
+      "tuesday": "t",
+      "wednesday": "w",
+      "thursday": "th",
+      "friday": "f",
+      "saturday": "s",
+      "sunday": "su"
+    },
+    "title": {
+      "monday": "Mon",
+      "tuesday": "Tue",
+      "wednesday": "Wed",
+      "thursday": "Thu",
+      "friday": "Fri",
+      "saturday": "Sat",
+      "sunday": "Sun"
+    }
+  }
 }

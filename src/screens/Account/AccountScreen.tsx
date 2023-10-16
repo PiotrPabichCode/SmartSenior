@@ -5,6 +5,7 @@ import AccountProfileHint from './AccountProfileHint';
 import { useAppDispatch } from '@redux/store';
 import { logoutAction } from '@src/redux/actions/authActions';
 import { navigate } from '@src/navigation/navigationUtils';
+import { translate } from '@src/localization/Localization';
 
 const AccountScreen = () => {
   const dispatch = useAppDispatch();
@@ -14,51 +15,65 @@ const AccountScreen = () => {
       <AccountProfileHint />
       <AccountItem
         icon='user-account'
-        title='Konto'
+        title={translate('account.button.title.user')}
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'user',
-            title: 'Profil - konto',
+            title: translate('account.header.user'),
           })
         }
       />
       <Divider style={styles.dividerStyle} />
-      <AccountItem icon='theme-account' title='Motyw' type='theme' />
+      <AccountItem
+        icon='theme-account'
+        title={translate('account.button.title.theme')}
+        type='theme'
+      />
       <AccountItem
         icon='language-account'
-        title='Język'
+        title={translate('account.button.title.language')}
         type='language'
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'language',
-            title: 'Profil - język',
+            title: translate('account.header.language'),
           })
         }
       />
       <AccountItem
         icon='notification-account'
-        title='Powiadomienia'
+        title={translate('account.button.title.notification')}
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'notification',
-            title: 'Profil - powiadomienia',
+            title: translate('account.header.notification'),
           })
         }
       />
       <AccountItem
         icon='share-account'
-        title='Poleć naszą aplikację'
+        title={translate('account.button.title.share')}
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'share',
-            title: 'Profil - polecenia',
+            title: translate('account.header.share'),
+          })
+        }
+      />
+      <AccountItem
+        icon='connected-users'
+        title={translate('account.button.title.connected-users')}
+        onPress={() =>
+          navigate('AccountItemDetails', {
+            screenType: 'connected-users',
+            title: translate('account.header.connected-users'),
           })
         }
       />
       <Divider style={styles.dividerStyle} />
       <AccountItem
         icon='logout-account'
-        title='Wyloguj się'
+        title={translate('account.button.title.logout')}
         onPress={() => dispatch(logoutAction())}
       />
     </View>

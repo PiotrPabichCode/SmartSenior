@@ -9,18 +9,19 @@ import CustomToast from '@src/components/CustomToast';
 import { useAppDispatch } from '@redux/store';
 import { signUpAction } from '@src/redux/actions/authActions';
 import { navigate } from '@src/navigation/navigationUtils';
+import { translate } from '@src/localization/Localization';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Podany e-mail jest nieprawidłowy')
-    .required('To pole jest wymagane'),
+    .email(translate('login.yup.email'))
+    .required(translate('yup.required')),
   password: Yup.string()
-    .min(6, 'Hasło powinno mieć co najmniej 6 znaków')
-    .max(30, 'Hasło może mieć maksymalnie 30 znaków')
-    .required('To pole jest wymagane'),
+    .min(6, translate('login.yup.passwordLengthMin'))
+    .max(30, translate('login.yup.passwordLengthMax'))
+    .required(translate('yup.required')),
   repeatPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Hasła muszą być takie same')
-    .required('To pole jest wymagane'),
+    .oneOf([Yup.ref('password')], translate('login.yup.repeatPassword'))
+    .required(translate('yup.required')),
 });
 
 const RegisterScreen = () => {
@@ -30,9 +31,7 @@ const RegisterScreen = () => {
       <SafeAreaView style={styles.appContainer}>
         <WelcomeSvg width={230} height={170} />
         <View style={styles.formContainer}>
-          <Text style={styles.headerText}>
-            Cieszymy się, że zdecydowałeś się dołączyć do nas!
-          </Text>
+          <Text style={styles.headerText}>{translate('register.welcome')}</Text>
           <Formik
             initialValues={{
               email: '',
@@ -44,7 +43,10 @@ const RegisterScreen = () => {
               try {
                 dispatch(signUpAction(values));
               } catch (e) {
-                CustomToast('error', 'Nie udało się zarejestrować');
+                CustomToast(
+                  'error',
+                  translate('register.message.error.signUp')
+                );
               }
             }}>
             {({ values, handleChange, handleSubmit }) => (
@@ -54,7 +56,7 @@ const RegisterScreen = () => {
                     style={styles.inputField}
                     underlineColorAndroid='transparent'
                     leftIcon={<Icon name='email' size={30} color='black' />}
-                    placeholder='Adres e-mail'
+                    placeholder={translate('register.button.placeholder.email')}
                     keyboardType='email-address'
                     onChangeText={handleChange('email')}
                     value={values.email}
@@ -71,7 +73,9 @@ const RegisterScreen = () => {
                     style={styles.inputField}
                     leftIcon={<Icon name='lock' size={30} color='black' />}
                     secureTextEntry={true}
-                    placeholder='Hasło'
+                    placeholder={translate(
+                      'register.button.placeholder.password'
+                    )}
                     onChangeText={handleChange('password')}
                     value={values.password}
                   />
@@ -86,7 +90,9 @@ const RegisterScreen = () => {
                     style={styles.inputField}
                     leftIcon={<Icon name='lock' size={30} color='black' />}
                     secureTextEntry={true}
-                    placeholder='Powtórz hasło'
+                    placeholder={translate(
+                      'register.button.placeholder.repeatPassword'
+                    )}
                     onChangeText={handleChange('repeatPassword')}
                     value={values.repeatPassword}
                   />
@@ -98,7 +104,7 @@ const RegisterScreen = () => {
                 </View>
 
                 <Button
-                  title={'Zarejestruj się'}
+                  title={translate('register.button.submit')}
                   buttonStyle={styles.buttonSignUpStyle}
                   containerStyle={styles.buttonContainerStyle}
                   titleStyle={styles.buttonSignUpTitleStyle}
@@ -108,11 +114,11 @@ const RegisterScreen = () => {
             )}
           </Formik>
           <Text style={styles.textLinks}>
-            Masz już konto?{' '}
+            {translate('register.question')}
             <Text
               style={styles.textRegister}
               onPress={() => navigate('SignIn')}>
-              Zaloguj się
+              {translate('register.signIn')}
             </Text>
           </Text>
         </View>

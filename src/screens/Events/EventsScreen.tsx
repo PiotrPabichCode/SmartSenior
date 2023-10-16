@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import EventItem from '@src/screens/Events/EventItem';
 import { useAppSelector } from '@src/redux/store';
 import { EventDetails } from '@src/redux/types/eventsTypes';
+import { translate } from '@src/localization/Localization';
 
 const EventsScreen = () => {
   const events: EventDetails[] = useAppSelector((state) => state.events.events);
@@ -12,7 +13,7 @@ const EventsScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>Wydarzenia</Text>
+          <Text style={styles.title}>{translate('eventsScreen.title')}</Text>
           {Object.values(events).map((event, index) => {
             return <EventItem key={index} eventKey={event.key} />;
           })}

@@ -3,6 +3,7 @@ import { Button, Icon, Divider } from '@rneui/themed';
 import { navigate } from '@navigation/navigationUtils';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 import { renderLocalDateWithTime } from '@src/utils/utils';
+import { translate } from '@src/localization/Localization';
 
 interface UpcomingEventsProps {
   events: EventDetails[];
@@ -13,7 +14,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
   const moreButton = (
     <Button
       key={'more-button-event'}
-      title='Zobacz więcej'
+      title={translate('button.more')}
       containerStyle={styles.moreButtonContainerStyle}
       buttonStyle={styles.moreButtonStyle}
       titleStyle={styles.moreButtonTitle}
@@ -22,7 +23,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
   );
   const actionButton = (eventKey: string) => (
     <Button
-      title='Wykonaj'
+      title={translate('button.execute')}
       containerStyle={styles.actionButtonStyle}
       buttonStyle={styles.actionButtonStyle}
       titleStyle={styles.actionButtonTitle}
@@ -66,7 +67,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
     if (events.length > 0) {
       return (
         <Text style={styles.titleStyle} numberOfLines={1}>
-          Nadchodzące wydarzenia
+          {translate('upcomingEvents.title')}
         </Text>
       );
     }

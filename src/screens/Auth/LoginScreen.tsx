@@ -9,15 +9,16 @@ import CustomToast from '@src/components/CustomToast';
 import { signInAction } from '@src/redux/actions/authActions';
 import { useAppDispatch } from '@redux/store';
 import { navigate } from '@src/navigation/navigationUtils';
+import { translate } from '@src/localization/Localization';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Podany e-mail jest nieprawidłowy')
-    .required('To pole jest wymagane'),
+    .email(translate('login.yup.email'))
+    .required(translate('yup.required')),
   password: Yup.string()
-    .min(6, 'Hasło powinno mieć co najmniej 6 znaków')
-    .max(30, 'Hasło może mieć maksymalnie 30 znaków')
-    .required('To pole jest wymagane'),
+    .min(6, translate('login.yup.passwordLengthMin'))
+    .max(30, translate('login.yup.passwordLengthMax'))
+    .required(translate('yup.required')),
 });
 
 const LoginScreen = () => {
@@ -27,9 +28,9 @@ const LoginScreen = () => {
     <ScrollView keyboardShouldPersistTaps='handled'>
       <SafeAreaView style={styles.appContainer}>
         <WelcomeSvg width={250} height={220} />
-        <Text style={styles.headerText}>Witaj z powrotem!</Text>
+        <Text style={styles.headerText}>{translate('login.welcomeBack')}</Text>
         <Button
-          title={'Zaloguj się za pomocą Google'}
+          title={translate('login.google')}
           buttonStyle={styles.buttonAuthGoogleStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonAuthGoogleTitleStyle}
@@ -38,7 +39,9 @@ const LoginScreen = () => {
           style={{ flexDirection: 'row', alignItems: 'center', margin: 20 }}>
           <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
           <View>
-            <Text style={{ width: 50, textAlign: 'center' }}>Lub</Text>
+            <Text style={{ width: 50, textAlign: 'center' }}>
+              {translate('login.or')}
+            </Text>
           </View>
           <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
         </View>
@@ -47,9 +50,10 @@ const LoginScreen = () => {
           validationSchema={LoginSchema}
           onSubmit={async (values) => {
             try {
+              console.log(values);
               dispatch(signInAction(values));
             } catch (e) {
-              CustomToast('error', 'Nie udało się zalogować');
+              CustomToast('error', translate('login.message.error.signIn'));
             }
           }}>
           {({ values, handleChange, handleSubmit }) => (
@@ -59,7 +63,7 @@ const LoginScreen = () => {
                   style={styles.inputField}
                   underlineColorAndroid='transparent'
                   leftIcon={<Icon name='email' size={30} color='black' />}
-                  placeholder='Adres e-mail'
+                  placeholder={translate('login.button.placeholder.email')}
                   keyboardType='email-address'
                   onChangeText={handleChange('email')}
                   value={values.email}
@@ -76,7 +80,7 @@ const LoginScreen = () => {
                   style={styles.inputField}
                   leftIcon={<Icon name='lock' size={30} color='black' />}
                   secureTextEntry={true}
-                  placeholder='Hasło'
+                  placeholder={translate('login.button.placeholder.password')}
                   onChangeText={handleChange('password')}
                   value={values.password}
                 />
@@ -87,7 +91,7 @@ const LoginScreen = () => {
                 />
               </View>
               <Button
-                title={'Zaloguj się'}
+                title={translate('login.button.submit')}
                 buttonStyle={styles.buttonSignInStyle}
                 containerStyle={styles.buttonContainerStyle}
                 titleStyle={styles.buttonSignInTitleStyle}
@@ -97,9 +101,9 @@ const LoginScreen = () => {
           )}
         </Formik>
         <Text style={styles.textLinks}>
-          Nie masz konta?{' '}
+          {translate('login.question')}
           <Text style={styles.textRegister} onPress={() => navigate('SignUp')}>
-            Zarejestruj się
+            {translate('login.signUp')}
           </Text>
         </Text>
       </SafeAreaView>

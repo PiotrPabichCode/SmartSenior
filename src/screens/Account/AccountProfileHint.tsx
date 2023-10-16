@@ -2,6 +2,7 @@ import { Avatar } from '@rneui/themed';
 import { StyleSheet, View, Text } from 'react-native';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { useAppSelector } from '@redux/store';
+import { createUserLabel } from '@src/utils/utils';
 
 const AccountProfileHint = () => {
   const userDetails = useAppSelector((state) => state.auth.userDetails);
@@ -15,7 +16,7 @@ const AccountProfileHint = () => {
       <Avatar
         size='large'
         rounded
-        title='PP'
+        title={createUserLabel()}
         containerStyle={{ backgroundColor: '#C0C0C0' }}
         titleStyle={{ color: 'black', fontWeight: '500' }}
       />

@@ -3,6 +3,8 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { useAppSelector } from '@redux/store';
+import { changeLanguage } from '@src/utils/utils';
+import Localization, { translate } from '@src/localization/Localization';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const userDetails = useAppSelector((state) => state.auth.userDetails);
@@ -14,38 +16,43 @@ const AccountItemDetailsScreen = ({ route }: any) => {
   const { screenType, title } = route.params;
   const [language, setLanguage] = useState('Polski');
 
+  const handleLanguageChange = (language: string) => {
+    setLanguage(language);
+    // changeLanguage(language);
+  };
+
   const renderUserDetailsScreen = () => {
     return (
       <>
         <AccountItemDetails
           type='input'
-          title='Adres e-mail:'
-          placeholder='Podaj adres e-mail'
+          title={translate('account.title.email')}
+          placeholder={translate('account.placeholder.email')}
           value={userDetails.email || ''}
         />
         <AccountItemDetails
           type='input'
-          title='Imię:'
-          placeholder='Podaj imię'
+          title={translate('account.title.firstName')}
+          placeholder={translate('account.placeholder.firstName')}
           value={userDetails.firstName || ''}
         />
         <AccountItemDetails
           type='input'
-          title='Nazwisko:'
-          placeholder='Podaj nazwisko'
+          title={translate('account.title.lastName')}
+          placeholder={translate('account.placeholder.lastName')}
           value={userDetails.lastName || ''}
         />
         <AccountItemDetails
           type='input'
-          title='Data urodzenia:'
-          placeholder='Podaj datę urodzenia'
+          title={translate('account.title.birthDate')}
+          placeholder={translate('account.placeholder.birthDate')}
           value={userDetails.birthDate || ''}
         />
         <AccountItemDetails
           type='input'
-          title='Hasło:'
-          placeholder='*********'
-          value='*********'
+          title={translate('account.title.password')}
+          placeholder={translate('account.placeholder.password')}
+          value={translate('account.placeholder.password')}
         />
       </>
     );
@@ -54,15 +61,23 @@ const AccountItemDetailsScreen = ({ route }: any) => {
   const renderLanguageScreen = () => {
     return (
       <>
-        <Text style={styles.languageTitle}>Wybrany język</Text>
+        <Text style={styles.languageTitle}>
+          {translate('account.language.title')}
+        </Text>
         <Text style={styles.language}>{language}</Text>
-        <Text style={styles.pickLanguage} onPress={() => setLanguage('Polski')}>
-          Polski
+        <Text
+          style={styles.pickLanguage}
+          onPress={() =>
+            handleLanguageChange(Localization.supportedLanguages.POLISH)
+          }>
+          {translate('account.language.polish')}
         </Text>
         <Text
           style={styles.pickLanguage}
-          onPress={() => setLanguage('English')}>
-          English
+          onPress={() =>
+            handleLanguageChange(Localization.supportedLanguages.ENGLISH)
+          }>
+          {translate('account.language.english')}
         </Text>
       </>
     );
@@ -74,7 +89,7 @@ const AccountItemDetailsScreen = ({ route }: any) => {
         <AccountItemDetails
           type='input'
           keyboard='numeric'
-          title='Czas powiadomień:'
+          title={translate('account.notification.title')}
           value='0'
         />
       </>

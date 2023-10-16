@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, ScrollView, Platform } from 'react-native';
 import { Button, Divider } from '@rneui/themed';
 import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
+import { translate } from '@src/localization/Localization';
 
 const MedicineItemDetails = ({ route }: any) => {
   const renderDetail = (title: string, detail: string) => {
@@ -58,24 +59,39 @@ const MedicineItemDetails = ({ route }: any) => {
   return (
     <ScrollView contentContainerStyle={styles.viewStyle}>
       <Text style={styles.title}>{item['medicinalProductName']}</Text>
-      {renderDetail('Nazwa powszechna', item['commonName'])}
-      {renderDetail('Moc', item['medicinalProductPower'])}
-      {renderDetail('Postać farmaceutyczna', item['pharmaceuticalFormName'])}
-      {renderDetail('Substancja czynna', item['activeSubstanceName'])}
+      {renderDetail(translate('medicineItem.commonName'), item['commonName'])}
       {renderDetail(
-        'Dostępne opakowania',
+        translate('medicineItem.power'),
+        item['medicinalProductPower']
+      )}
+      {renderDetail(
+        translate('medicineItem.pharmaceuticalForm'),
+        item['pharmaceuticalFormName']
+      )}
+      {renderDetail(
+        translate('medicineItem.activeSubstance'),
+        item['activeSubstanceName']
+      )}
+      {renderDetail(
+        translate('medicineItem.packaging'),
         item['packaging'].replaceAll('\\n', '\n')
       )}
-      {renderDetail('Termin ważności', item['expirationDateString'])}
-      {renderDetail('Firma', item['subjectMedicinalProductName'])}
       {renderDetail(
-        'Kraj wytworzenia',
+        translate('medicineItem.expiration'),
+        item['expirationDateString']
+      )}
+      {renderDetail(
+        translate('medicineItem.company'),
+        item['subjectMedicinalProductName']
+      )}
+      {renderDetail(
+        translate('medicineItem.country'),
         item['manufacturersDtos'][0]['countryName']
       )}
       <Divider style={styles.dividerStyle} />
       <View style={styles.buttons}>
         <Button
-          title='Ulotka'
+          title={translate('medicineItem.leaflet')}
           titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
           buttonStyle={styles.buttonStyle}
@@ -89,7 +105,7 @@ const MedicineItemDetails = ({ route }: any) => {
           }
         />
         <Button
-          title='Charakterystyka'
+          title={translate('medicineItem.characteristic')}
           titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
           buttonStyle={styles.buttonStyle}

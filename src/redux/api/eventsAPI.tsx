@@ -21,7 +21,7 @@ export const createEvent = async (
     const response = push(eventsRef, newEventData);
     if (!response || !response.key) {
       return {
-        error: new Error('Wystąpił błąd podczas dodawania wydarzenia'),
+        error: new Error('Error: add event'),
         data: null,
       };
     }

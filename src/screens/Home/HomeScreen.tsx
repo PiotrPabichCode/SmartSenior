@@ -6,6 +6,7 @@ import { useAppSelector } from '@redux/store';
 import { navigate } from '@src/navigation/navigationUtils';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 import { filterUpcomingEvents } from '@src/redux/api/eventsAPI';
+import { translate } from '@src/localization/Localization';
 
 const HomeScreen = () => {
   let events: EventDetails[] = useAppSelector((state) => state.events.events);
@@ -28,23 +29,23 @@ const HomeScreen = () => {
           <View style={styles.buttonContainer}>
             <CustomButton
               onPress={() => navigate('Medicines')}
-              title='Lista leków'
+              title={translate('homeScreen.button.title.medicines')}
               backgroundColor={'#FB6D6C'}
               icon={'pills'}
             />
             <CustomButton
-              title='Lista lekarzy'
+              title={translate('homeScreen.button.title.doctors')}
               backgroundColor={'#fb8500'}
               icon={'doctor'}
             />
             <CustomButton
               onPress={() => navigate('Pharmacies')}
-              title='Lista aptek'
+              title={translate('homeScreen.button.title.pharmacies')}
               backgroundColor={'#9564FE'}
               icon={'pharmacy'}
             />
             <CustomButton
-              title='Twoje notatki'
+              title={translate('homeScreen.button.title.notes')}
               backgroundColor={'#469323'}
               icon={'notes'}
             />

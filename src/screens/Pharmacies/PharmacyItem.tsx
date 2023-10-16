@@ -3,6 +3,7 @@ import Icons from '@src/components/Icons';
 import { Button } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';
+import { translate } from '@src/localization/Localization';
 
 type PharmacyItemProps = PropsWithChildren<{
   name: string;
@@ -17,7 +18,7 @@ const PharmacyItem = ({ name, onPress }: PharmacyItemProps) => {
         {name}
       </Text>
       <Button
-        title='Zobacz więcej'
+        title={translate('button.more')}
         onPress={onPress}
         buttonStyle={{
           backgroundColor: 'rgba(78, 116, 289, 1)',

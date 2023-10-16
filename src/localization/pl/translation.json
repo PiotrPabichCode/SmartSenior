@@ -1,7 +1,16 @@
 {
+  "appName": "SmartSenior",
   "language": "Język",
+  "nav": {
+    "medicines": "Lista leków",
+    "medicinesItemDetails": "Lek - opis",
+    "pharmacies": "Lista aptek",
+    "pharmaciesItemDetails": "Apteka - opis",
+    "createEvent": "Wydarzenie",
+    "eventItem": "Wydarzenie"
+  },
   "bottomNav": {
-    "home": "Strona asdasdasd",
+    "home": "Strona główna",
     "calendar": "Kalendarz",
     "events": "Wydarzenia",
     "profile": "Profil"
@@ -64,8 +73,259 @@
       "connected-users": "Profil - połączone osoby"
     }
   },
+  "welcome": {
+    "message1": "Kontrola zdrowia nigdy nie była łatwiejsza!",
+    "message2": "Dołącz teraz, w zaledwie 2 minuty!",
+    "signUp": "Zacznij teraz",
+    "signIn": "Zaloguj się"
+  },
+  "firstLoginWizard": {
+    "title": "Wypełnij dane osobowe",
+    "button": {
+      "title": {
+        "logout": "Wyloguj się",
+        "firstName": "Podaj imię",
+        "lastName": "Podaj nazwisko",
+        "birthDate": "Data urodzenia: {{birthDate}}",
+        "birthDateEmpty": "Wybierz datę urodzenia"
+      },
+      "placeholder": {
+        "gender": "Wybierz płeć"
+      },
+      "submit": "Zatwierdź zmiany"
+    },
+    "message": {
+      "success": {
+        "save": "Zapisano zmiany"
+      }
+    }
+  },
+  "login": {
+    "welcomeBack": "Witaj z powrotem!",
+    "google": "Zaloguj się za pomocą Google",
+    "or": "Lub",
+    "button": {
+      "placeholder": {
+        "email": "Adres e-mail",
+        "password": "Hasło"
+      },
+      "submit": "Zaloguj się"
+    },
+    "question": "Nie masz konta? ",
+    "signUp": "Zarejestruj się",
+    "message": {
+      "error": {
+        "signIn": "Nie udało się zalogować"
+      }
+    },
+    "yup": {
+      "email": "Podany adres e-mail jest nieprawidłowy",
+      "passwordLengthMin": "Hasło powinno mieć co najmniej 6 znaków",
+      "passwordLengthMax": "Hasło może mieć maksymalnie 30 znaków"
+    }
+  },
+  "register": {
+    "welcome": "Cieszymy się, że zdecydowałeś się dołączyć do nas!",
+    "button": {
+      "placeholder": {
+        "email": "Adres e-mail",
+        "password": "Hasło",
+        "repeatPassword": "Powtórz hasło"
+      },
+      "submit": "Zarejestruj się"
+    },
+    "question": "Masz już konto? ",
+    "signIn": "Zaloguj się",
+    "yup": {
+      "email": "Podany adres e-mail jest nieprawidłowy",
+      "repeatPassword": "Hasła muszą być takie same",
+      "passwordLengthMin": "Hasło powinno mieć co najmniej 6 znaków",
+      "passwordLengthMax": "Hasło może mieć maksymalnie 30 znaków"
+    },
+    "message": {
+      "error": {
+        "signUp": "Nie udało się zarejestrować"
+      }
+    }
+  },
+  "createEvent": {
+    "title": "Nowe wydarzenie",
+    "button": {
+      "placeholder": {
+        "title": "Tytuł wydarzenia",
+        "description": "Opis wydarzenia",
+        "notificationTime": "Czas powiadomień",
+        "cyclicTime": "Powtarzalność",
+        "priority": "Priorytet"
+      },
+      "title": {
+        "emptyDate": "Wybierz datę wydarzenia",
+        "date": "Data wydarzenia {{date}}",
+        "notification": "Powiadomienia",
+        "cyclic": "Wydarzenie cykliczne"
+      },
+      "submit": "Utwórz wydarzenie"
+    },
+    "message": {
+      "success": {
+        "add": "Dodano nowe wydarzenie"
+      }
+    }
+  },
+  "dayFields": {
+    "repeat": "Powtarzaj co: "
+  },
+  "eventItem": {
+    "alert": {
+      "title": "Usunąć wydarzenie?",
+      "message": "Czy na pewno chcesz usunąć to wydarzenie?",
+      "yes": "Tak",
+      "no": "Nie",
+      "success": "Usunięto wydarzenie"
+    }
+  },
+  "eventItemScreen": {
+    "button": {
+      "placeholder": {
+        "title": "Tytuł wydarzenia",
+        "description": "Opis wydarzenia",
+        "notificationTime": "Czas powiadomień",
+        "cyclicTime": "Powtarzalność",
+        "priority": "Priorytet"
+      },
+      "title": {
+        "emptyDate": "Wybierz datę wydarzenia",
+        "date": "Data wydarzenia {{date}}",
+        "notification": "Powiadomienia",
+        "cyclic": "Wydarzenie cykliczne",
+        "update": "Zaaktualizuj wydarzenie",
+        "execute": "Wykonaj wydarzenie"
+      }
+    },
+    "message": {
+      "success": {
+        "change": "Wydarzenie zaaktualizowane"
+      },
+      "error": {
+        "change": "Nie udało się zaaktualizować wydarzenia"
+      }
+    }
+  },
+  "eventsScreen": {
+    "title": "Wydarzenia"
+  },
+  "homeScreen": {
+    "button": {
+      "title": {
+        "medicines": "Lista leków",
+        "doctors": "Lista lekarzy",
+        "pharmacies": "Lista aptek",
+        "notes": "Twoje notatki"
+      }
+    }
+  },
+  "medicineItem": {
+    "commonName": "Nazwa powszechna",
+    "power": "Moc",
+    "pharmaceuticalForm": "Postać farmaceutyczna",
+    "activeSubstance": "Substancja czynna",
+    "packaging": "Dostępne opakowania",
+    "expiration": "Termin ważności",
+    "company": "Firma",
+    "country": "Kraj wytworzenia",
+    "leaflet": "Ulotka",
+    "characteristic": "Charakterystyka"
+  },
+  "medicinesScreen": {
+    "title": "Lista leków",
+    "placeholder": "Wpisz nazwę leku..."
+  },
+  "pharmaciesScreen": {
+    "title": "Lista aptek",
+    "placeholder": {
+      "name": "Wpisz nazwę apteki...",
+      "city": "Wpisz nazwę miejscowości...",
+      "province": "Wybierz województwo..."
+    }
+  },
+  "pharmacyItem": {
+    "name": "Nazwa apteki",
+    "status": "Dostępność",
+    "genre": "Postać farmaceutyczna",
+    "address": "Adres: ",
+    "phone": "Numer telefonu",
+    "email": "E-mail",
+    "owners": "Właściciele",
+    "openOnSundays": "Otwarte w niedziele niehandlowe"
+  },
+  "upcomingEvents": {
+    "title": "Nadchodzące wydarzenia"
+  },
+  "button": {
+    "more": "Zobacz więcej",
+    "execute": "Wykonaj",
+    "search": "Szukaj"
+  },
+  "yes": "Tak",
+  "no": "Nie",
+  "alert": {
+    "discardChanges": {
+      "title": "Porzucić zmiany?",
+      "message": "Masz niezapisane zmiany. Czy na pewno chcesz je porzucić i opuścić ekran?",
+      "yes": "Porzuć zmiany",
+      "no": "Zostań"
+    }
+  },
+  "success": {
+    "saveChanges": "Zapisano zmiany"
+  },
+  "error": {
+    "unknown": "Coś poszło nie tak",
+    "missingData": "Nie podano wszystkich danych"
+  },
+  "agenda": {
+    "priority": "Priorytet: {{priority}}"
+  },
+  "yup": {
+    "required": "To pole jest wymagane"
+  },
   "medicinesList": "Lista leków",
   "pharmaciesList": "Lista aptek",
   "notes": "Twoje notatki",
-  "search": "Szukaj"
+  "search": "Szukaj",
+  "genders": {
+    "man": "Mężczyzna",
+    "woman": "Kobieta"
+  },
+  "cyclicValues": {
+    "everyday": "Codziennie",
+    "2days": "Co 2 dni",
+    "week": "Co tydzień",
+    "month": "Co miesiąc - tego samego dnia",
+    "any": "Wpisz wartość: (liczba = ilość dni)"
+  },
+  "timeValues": {
+    "min": "{{min}} minut",
+    "hour": "{{hour}}h"
+  },
+  "dayValues": {
+    "shortTitle": {
+      "monday": "p",
+      "tuesday": "w",
+      "wednesday": "ś",
+      "thursday": "c",
+      "friday": "p",
+      "saturday": "s",
+      "sunday": "n"
+    },
+    "title": {
+      "monday": "pon.",
+      "tuesday": "wt.",
+      "wednesday": "śr.",
+      "thursday": "czw.",
+      "friday": "pt.",
+      "saturday": "sob.",
+      "sunday": "niedz."
+    }
+  }
 }

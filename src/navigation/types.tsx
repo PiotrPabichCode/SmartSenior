@@ -1,5 +1,4 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
-import { EventDetails } from '@src/redux/types/eventsTypes';
 
 export type RootStackParamList = {
   Initial: undefined;

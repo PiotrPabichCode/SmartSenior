@@ -7,9 +7,9 @@ import { BottomBarParamList } from './types';
 import { renderIcon } from '@src/components/Icons';
 import CustomHeader from '@components/CustomHeader';
 import { useAppSelector } from '@src/redux/store';
-import { NavigationContainer } from '@react-navigation/native';
 import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import AgendaScreen from '@src/screens/Calendar/AgendaScreen';
+import { translate } from '@src/localization/Localization';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
@@ -22,32 +22,41 @@ const BottomBarNavigator = () => {
           name='Home'
           component={HomeScreen}
           options={{
-            tabBarLabel: 'Strona główna',
+            tabBarLabel: translate('bottomNav.home'),
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'home-bottom-nav', focused: focused }),
-            header: () => <CustomHeader title='Strona główna' more={true} />,
+            header: () => (
+              <CustomHeader title={translate('bottomNav.home')} more={true} />
+            ),
           }}
         />
         <Tab.Screen
           name='Calendar'
           component={AgendaScreen} // TODO
           options={{
-            tabBarLabel: 'Kalendarz',
+            tabBarLabel: translate('bottomNav.calendar'),
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'calendar-bottom-nav', focused: focused }),
             tabBarBadge: Object.values(events).length,
-            header: () => <CustomHeader title='Kalendarz' more={true} />,
+            header: () => (
+              <CustomHeader
+                title={translate('bottomNav.calendar')}
+                more={true}
+              />
+            ),
           }}
         />
         <Tab.Screen
           name='Events'
           component={EventsScreen}
           options={{
-            tabBarLabel: 'Wydarzenia',
+            tabBarLabel: translate('bottomNav.events'),
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'home-bottom-nav', focused: focused }),
             tabBarBadge: Object.values(events).length,
-            header: () => <CustomHeader title='Wydarzenia' more={true} />,
+            header: () => (
+              <CustomHeader title={translate('bottomNav.events')} more={true} />
+            ),
           }}
         />
         {/* <Tab.Screen
@@ -64,10 +73,15 @@ const BottomBarNavigator = () => {
           name='Account'
           component={AccountScreen}
           options={{
-            tabBarLabel: 'Profil',
+            tabBarLabel: translate('bottomNav.profile'),
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'account-bottom-nav', focused: focused }),
-            header: () => <CustomHeader title='Profil' more={true} />,
+            header: () => (
+              <CustomHeader
+                title={translate('bottomNav.profile')}
+                more={true}
+              />
+            ),
           }}
         />
       </Tab.Navigator>

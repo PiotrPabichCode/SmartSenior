@@ -1,3 +1,5 @@
+import { translate } from '@src/localization/Localization';
+
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_FAIL = 'SIGN_IN_FAIL';
 
@@ -19,6 +21,6 @@ export const GenderEnum = {
 };
 
 export const genders = [
-  { label: 'Kobieta', value: GenderEnum.WOMEN },
-  { label: 'Mężczyzna', value: GenderEnum.MEN },
+  { label: translate('genders.woman'), value: GenderEnum.WOMEN },
+  { label: translate('genders.man'), value: GenderEnum.MEN },
 ];

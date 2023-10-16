@@ -1,3 +1,5 @@
+import { translate } from '@src/localization/Localization';
+
 export const EVENT_CREATION_SUCCESS = 'EVENT_CREATION_SUCCESS';
 export const EVENT_CREATION_FAIL = 'EVENT_CREATION_FAIL';
 
@@ -10,21 +12,56 @@ export const UPDATE_EVENT_FAIL = 'UPDATE_EVENT_FAIL';
 export const CLEAR_EVENTS = 'CLEAR_EVENTS';
 
 export const days = [
-  { shortTitle: 'p', title: 'pon.', value: 1, active: false },
-  { shortTitle: 'w', title: 'wt.', value: 2, active: false },
-  { shortTitle: 'ś', title: 'śr.', value: 3, active: false },
-  { shortTitle: 'c', title: 'czw.', value: 4, active: false },
-  { shortTitle: 'p', title: 'pt.', value: 5, active: false },
-  { shortTitle: 's', title: 'sob.', value: 6, active: false },
-  { shortTitle: 'n', title: 'niedz.', value: 7, active: false },
+  {
+    shortTitle: translate('dayValues.shortTitle.monday'),
+    title: translate('dayValues.title.monday'),
+    value: 1,
+    active: false,
+  },
+  {
+    shortTitle: translate('dayValues.shortTitle.tuesday'),
+    title: translate('dayValues.title.tuesday'),
+    value: 2,
+    active: false,
+  },
+  {
+    shortTitle: translate('dayValues.shortTitle.wednesday'),
+    title: translate('dayValues.title.wednesday'),
+    value: 3,
+    active: false,
+  },
+  {
+    shortTitle: translate('dayValues.shortTitle.thursday'),
+    title: translate('dayValues.title.thursday'),
+    value: 4,
+    active: false,
+  },
+  {
+    shortTitle: translate('dayValues.shortTitle.friday'),
+    title: translate('dayValues.title.friday'),
+    value: 5,
+    active: false,
+  },
+  {
+    shortTitle: translate('dayValues.shortTitle.saturday'),
+    title: translate('dayValues.title.saturday'),
+    value: 6,
+    active: false,
+  },
+  {
+    shortTitle: translate('dayValues.shortTitle.sunday'),
+    title: translate('dayValues.title.sunday'),
+    value: 7,
+    active: false,
+  },
 ];
 
 export const cyclicValues = [
-  { label: 'Codziennie', value: 1 },
-  { label: 'Co 2 dni', value: 2 },
-  { label: 'Co tydzień', value: 7 },
-  { label: 'Co miesiąc - tego samego dnia', value: 30 },
-  { label: 'Wpisz wartość: (liczba = ilość dni)', value: -1 },
+  { label: translate('cyclicValues.everyday'), value: 1 },
+  { label: translate('cyclicValues.2days'), value: 2 },
+  { label: translate('cyclicValues.week'), value: 7 },
+  { label: translate('cyclicValues.month'), value: 30 },
+  { label: translate('cyclicValues.any'), value: -1 },
 ];
 
 export const priorities = [
@@ -36,9 +73,34 @@ export const priorities = [
 ];
 
 export const times = [
-  { label: '5 minut', value: 5 },
-  { label: '15 minut', value: 15 },
-  { label: '30 minut', value: 30 },
-  { label: '1h', value: 60 },
-  { label: '3h', value: 60 * 3 },
+  {
+    label: translate('timeValues.min', {
+      min: 5,
+    }),
+    value: 5,
+  },
+  {
+    label: translate('timeValues.min', {
+      min: 15,
+    }),
+    value: 15,
+  },
+  {
+    label: translate('timeValues.min', {
+      min: 30,
+    }),
+    value: 30,
+  },
+  {
+    label: translate('timeValues.hour', {
+      hour: 1,
+    }),
+    value: 60,
+  },
+  {
+    label: translate('timeValues.hour', {
+      hour: 3,
+    }),
+    value: 60 * 3,
+  },
 ];

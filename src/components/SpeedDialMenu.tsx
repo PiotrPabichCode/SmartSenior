@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { SpeedDial } from '@rneui/themed';
 import { navigate } from '@src/navigation/navigationUtils';
 import { generateEvents } from '@src/helpers/generateEvents';
+import { translate } from '@src/localization/Localization';
 
 const SpeedDialMenu = (props: any) => {
   const [open, setOpen] = useState(false);
@@ -30,12 +31,12 @@ const SpeedDialMenu = (props: any) => {
       style={{ ...props.style }}>
       <SpeedDial.Action
         icon={{ name: 'add', color: '#fff' }}
-        title='Dodaj wydarzenie'
+        title={translate('speedDial.addEvent')}
         onPress={() => onClickAction('ADD_EVENT')}
       />
       <SpeedDial.Action
         icon={{ name: 'add', color: '#fff' }}
-        title='Dodaj opiekuna'
+        title={translate('speedDial.addKeeper')}
         onPress={() => onClickAction('ADD_KEEPER')}
       />
     </SpeedDial>

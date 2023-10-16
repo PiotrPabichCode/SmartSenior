@@ -1,5 +1,6 @@
 import { StyleSheet, Text, ScrollView } from 'react-native';
 import { Divider } from '@rneui/themed';
+import { translate } from '@src/localization/Localization';
 
 const PharmacyItemDetails = ({ route }: any) => {
   const renderDetail = (title: string, detail: string) => {
@@ -33,16 +34,22 @@ const PharmacyItemDetails = ({ route }: any) => {
   // TODO
   return (
     <ScrollView contentContainerStyle={styles.viewStyle}>
-      {renderDetail('Nazwa apteki', item.name)}
-      {renderDetail('Dostępność', item.pharmacyStatus.displayName)}
-      {renderDetail('Postać farmaceutyczna', item.pharmacyGenre.displayName)}
-      {renderAddress('Adres: ', item.address)}
-      {renderDetail('Numer telefonu', item.phoneNumber)}
-      {renderDetail('E-mail', item.email)}
-      {renderDetail('Właściciele', item.owners[0].name)}
+      {renderDetail(translate('pharmacyItem.name'), item.name)}
       {renderDetail(
-        'Otwarte w niedziele niehandlowe',
-        item.openOnSundaysNonTrade ? 'Tak' : 'Nie'
+        translate('pharmacyItem.status'),
+        item.pharmacyStatus.displayName
+      )}
+      {renderDetail(
+        translate('pharmacyItem.genre'),
+        item.pharmacyGenre.displayName
+      )}
+      {renderAddress(translate('pharmacyItem.address'), item.address)}
+      {renderDetail(translate('pharmacyItem.phone'), item.phoneNumber)}
+      {renderDetail(translate('pharmacyItem.email'), item.email)}
+      {renderDetail(translate('pharmacyItem.owners'), item.owners[0].name)}
+      {renderDetail(
+        translate('pharmacyItem.openOnSundays'),
+        item.openOnSundaysNonTrade ? translate('yes') : translate('no')
       )}
       <Divider style={styles.dividerStyle} />
     </ScrollView>

@@ -11,6 +11,7 @@ import FirstLoginWizard from '@screens/Auth/FirstLoginWizard';
 import BottomBarNavigator from './BottomBarNavigator';
 import CustomHeader from '@components/CustomHeader';
 import EventItemScreen from '@src/screens/Events/EventItemScreen';
+import { translate } from '@src/localization/Localization';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,7 +22,6 @@ const AuthNavigator = () => {
         name='FirstLoginWizard'
         component={FirstLoginWizard}
         options={{
-          header: () => <CustomHeader title='Początek' />,
           headerShown: false,
         }}
       />
@@ -48,7 +48,11 @@ const AuthNavigator = () => {
         component={MedicinesScreen}
         options={{
           header: () => (
-            <CustomHeader title='Lista leków' nested={true} more={true} />
+            <CustomHeader
+              title={translate('nav.medicines')}
+              nested={true}
+              more={true}
+            />
           ),
         }}
       />
@@ -57,7 +61,11 @@ const AuthNavigator = () => {
         component={MedicineItemDetails}
         options={{
           header: () => (
-            <CustomHeader title='Lek - opis' nested={true} more={true} />
+            <CustomHeader
+              title={translate('nav.medicinesItemDetails')}
+              nested={true}
+              more={true}
+            />
           ),
         }}
       />
@@ -66,7 +74,11 @@ const AuthNavigator = () => {
         component={PharmaciesScreen}
         options={{
           header: () => (
-            <CustomHeader title='Lista aptek' nested={true} more={true} />
+            <CustomHeader
+              title={translate('nav.pharmacies')}
+              nested={true}
+              more={true}
+            />
           ),
         }}
       />
@@ -75,7 +87,11 @@ const AuthNavigator = () => {
         component={PharmacyItemDetails}
         options={{
           header: () => (
-            <CustomHeader title='Apteka - opis' nested={true} more={true} />
+            <CustomHeader
+              title={translate('nav.pharmaciesItemDetails')}
+              nested={true}
+              more={true}
+            />
           ),
         }}
       />
@@ -84,7 +100,11 @@ const AuthNavigator = () => {
         component={CreateEventScreen}
         options={{
           header: () => (
-            <CustomHeader title='Wydarzenie' nested={true} more={true} />
+            <CustomHeader
+              title={translate('nav.createEvent')}
+              nested={true}
+              more={true}
+            />
           ),
         }}
       />
@@ -93,7 +113,11 @@ const AuthNavigator = () => {
         component={EventItemScreen}
         options={{
           header: () => (
-            <CustomHeader title='Wydarzenie' nested={true} more={true} />
+            <CustomHeader
+              title={translate('nav.eventItem')}
+              nested={true}
+              more={true}
+            />
           ),
         }}
       />

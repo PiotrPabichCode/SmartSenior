@@ -4,6 +4,7 @@ import { Button } from '@rneui/themed';
 import WelcomeSvg from '@assets/welcome-image.svg';
 import { navigate, navigationRef } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import { translate } from '@src/localization/Localization';
 
 const WelcomeScreen = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -20,28 +21,24 @@ const WelcomeScreen = () => {
   return (
     <SafeAreaView style={styles.viewStyle}>
       {/* Image at the top */}
-      <Text style={styles.headerText}>SmartSenior</Text>
+      <Text style={styles.headerText}>{translate('appName')}</Text>
       <WelcomeSvg width={300} height={300} />
 
       {/* Text under the Image */}
-      <Text style={styles.welcomeText}>
-        Kontrola zdrowia nigdy nie była łatwiejsza!
-      </Text>
-      <Text style={styles.welcomeText2}>
-        Dołącz teraz, w zaledwie 2 minuty!
-      </Text>
+      <Text style={styles.welcomeText}>{translate('welcome.message1')}</Text>
+      <Text style={styles.welcomeText2}>{translate('welcome.message2')}</Text>
 
       <View style={styles.buttonsStyle}>
         {/* Buttons at the bottom */}
         <Button
-          title='Zacznij teraz'
+          title={translate('welcome.signUp')}
           buttonStyle={styles.buttonSignUpStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonSignUpTitleStyle}
           onPress={() => console.log(navigationRef.current?.getCurrentRoute())}
         />
         <Button
-          title='Zaloguj się'
+          title={translate('welcome.signIn')}
           buttonStyle={styles.buttonSignInStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonSignInTitleStyle}

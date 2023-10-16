@@ -18,6 +18,7 @@ import {
   priorities,
   times,
 } from '@src/redux/constants/eventsConstants';
+import { translate } from '@src/localization/Localization';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
@@ -50,7 +51,7 @@ const CreateEventScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
-          <Text style={styles.header}>Nowe wydarzenie</Text>
+          <Text style={styles.header}>{translate('createEvent.title')}</Text>
           <Formik
             initialValues={{
               title: '',
@@ -74,26 +75,33 @@ const CreateEventScreen = () => {
                 NewEventSchema.validate(values)
                   .then(() => {
                     dispatch(createEventAction(values));
-                    CustomToast('success', 'Dodano nowe wydarzenie');
+                    CustomToast(
+                      'success',
+                      translate('createEvent.message.success.add')
+                    );
                   })
                   .catch((error) => {
                     console.log(error);
-                    CustomToast('error', 'Nie podano wszystkich danych');
+                    CustomToast('error', translate('error.missingData'));
                   });
               } catch (error) {
                 console.log(error);
-                CustomToast('error', 'Coś poszło nie tak');
+                CustomToast('error', translate('error.unknown'));
               }
             }}>
             {({ values, handleChange, setFieldValue, handleSubmit }) => (
               <>
                 <Input
-                  placeholder='Tytuł wydarzenia'
+                  placeholder={translate(
+                    'createEvent.button.placeholder.title'
+                  )}
                   onChangeText={handleChange('title')}
                   value={values.title}
                 />
                 <Input
-                  placeholder='Opis wydarzenia'
+                  placeholder={translate(
+                    'createEvent.button.placeholder.description'
+                  )}
                   multiline={true}
                   onChangeText={handleChange('description')}
                   value={values.description}
@@ -102,9 +110,10 @@ const CreateEventScreen = () => {
                   onPress={() => setShowDatePicker(true)}
                   title={
                     values.executionTime !== 0
-                      ? 'Data wydarzenia: ' +
-                        renderLocalDateWithTime(values.executionTime)
-                      : 'Wybierz datę wydarzenia'
+                      ? translate('createEvent.button.title.date', {
+                          date: renderLocalDateWithTime(values.executionTime),
+                        })
+                      : translate('createEvent.button.title.emptyDate')
                   }
                 />
                 {values.executionTime !== 0 && (
@@ -164,14 +173,14 @@ const CreateEventScreen = () => {
                 )}
                 <View style={styles.inlineView}>
                   <CheckBox
-                    title='Powiadomienia'
+                    title={translate('createEvent.button.title.notification')}
                     checked={values.isNotification}
                     onPress={() =>
                       setFieldValue('isNotification', !values.isNotification)
                     }
                   />
                   <CheckBox
-                    title='Wydarzenie cykliczne'
+                    title={translate('createEvent.button.title.cyclic')}
                     checked={values.isCyclic}
                     onPress={() => setFieldValue('isCyclic', !values.isCyclic)}
                   />
@@ -179,7 +188,9 @@ const CreateEventScreen = () => {
                 {values.isNotification && (
                   <CustomDropdown
                     data={times}
-                    placeholder='Czas powiadomień'
+                    placeholder={translate(
+                      'createEvent.button.notificationTime'
+                    )}
                     value={values.notificationTime}
                     handleChange={(e: any) =>
                       setFieldValue('notificationTime', e.value)
@@ -189,7 +200,9 @@ const CreateEventScreen = () => {
                 {values.isCyclic && (
                   <CustomDropdown
                     data={cyclicValues}
-                    placeholder='Powtarzalność'
+                    placeholder={translate(
+                      'createEvent.button.placeholder.cyclicTime'
+                    )}
                     value={values.cyclicTime}
                     handleChange={(e: any) =>
                       setFieldValue('cyclicTime', e.value)
@@ -198,12 +211,14 @@ const CreateEventScreen = () => {
                 )}
                 <CustomDropdown
                   data={priorities}
-                  placeholder='Priorytet'
+                  placeholder={translate(
+                    'createEvent.button.placeholder.priority'
+                  )}
                   value={values.priority}
                   handleChange={(e: any) => setFieldValue('priority', e.value)}
                 />
                 <Button
-                  title='Utwórz wydarzenie'
+                  title={translate('createEvent.button.submit')}
                   buttonStyle={styles.buttonSubmit}
                   containerStyle={styles.buttonSubmitContainer}
                   titleStyle={styles.buttonSubmitTitle}

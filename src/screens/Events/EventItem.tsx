@@ -14,6 +14,7 @@ import {
 import CustomToast from '@src/components/CustomToast';
 import { getAuth } from 'firebase/auth';
 import { EventDetails } from '@src/redux/types/eventsTypes';
+import { translate } from '@src/localization/Localization';
 
 type EventItemProps = PropsWithChildren<{
   eventKey: string;
@@ -52,12 +53,16 @@ const EventItem = ({ eventKey }: EventItemProps) => {
 
   const handleDeleteEvent = () => {
     Alert.alert(
-      'Usunąć wydarzenie?',
-      'Czy na pewno chcesz usunąć to wydarzenie?',
+      translate('eventItem.alert.title'),
+      translate('eventItem.alert.message'),
       [
-        { text: 'Nie', style: 'cancel', onPress: () => {} },
         {
-          text: 'Tak',
+          text: translate('eventItem.alert.no'),
+          style: 'cancel',
+          onPress: () => {},
+        },
+        {
+          text: translate('eventItem.alert.yes'),
           style: 'destructive',
           onPress: () => {
             dispatch(
@@ -66,7 +71,7 @@ const EventItem = ({ eventKey }: EventItemProps) => {
                 userUid: getAuth().currentUser?.uid + 'deleted-true',
               })
             );
-            CustomToast('success', 'Usunięto wydarzenie');
+            CustomToast('success', translate('eventItem.alert.success'));
             dispatch(loadActiveEventsAction());
           },
         },

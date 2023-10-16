@@ -5,6 +5,7 @@ import MedicineItem from './MedicineItem';
 import { Formik } from 'formik';
 import { buildRequest } from '@utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
+import { translate } from '@src/localization/Localization';
 
 const MedicinesScreen = () => {
   const [items, setItems] = useState([]);
@@ -27,7 +28,7 @@ const MedicinesScreen = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}>
-        <Text style={styles.title}>Lista leków</Text>
+        <Text style={styles.title}>{translate('medicinesScreen.title')}</Text>
         <Divider style={styles.dividerStyle} />
         <Formik
           initialValues={{ name: '' }}
@@ -42,12 +43,12 @@ const MedicinesScreen = () => {
           {({ values, handleChange, handleSubmit }) => (
             <>
               <Input
-                placeholder='Wpisz nazwę leku...'
+                placeholder={translate('medicinesScreen.placeholder')}
                 onChangeText={handleChange('name')}
                 value={values.name}
               />
               <Button
-                title='Szukaj'
+                title={translate('button.search')}
                 containerStyle={styles.buttonSearchContainer}
                 buttonStyle={styles.buttonSearchStyle}
                 onPress={() => handleSubmit()}

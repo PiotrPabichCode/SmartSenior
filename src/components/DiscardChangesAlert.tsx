@@ -1,3 +1,4 @@
+import { translate } from '@src/localization/Localization';
 import { useEffect } from 'react';
 import { Alert } from 'react-native';
 
@@ -14,12 +15,16 @@ const DiscardChangesAlert = ({ navigation, isUpdate }: Props) => {
       }
       e.preventDefault();
       Alert.alert(
-        'Porzucić zmiany?',
-        'Czy masz niezapisane zmiany. Czy na pewno chcesz je porzucić i opuścić ekran?',
+        translate('alert.discardChanges.title'),
+        translate('alert.discardChanges.message'),
         [
-          { text: 'Zostań', style: 'cancel', onPress: () => {} },
           {
-            text: 'Porzuć zmiany',
+            text: translate('alert.discardChanges.no'),
+            style: 'cancel',
+            onPress: () => {},
+          },
+          {
+            text: translate('alert.discardChanges.yes'),
             style: 'destructive',
             onPress: () => navigation.dispatch(e.data.action),
           },

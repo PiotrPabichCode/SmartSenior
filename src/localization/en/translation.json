@@ -1,10 +1,11 @@
 {
   "appName": "SmartSenior",
   "language": "Language",
+  "languageName": "English",
   "nav": {
-    "medicines": "Medicines List",
+    "medicines": "Medicines",
     "medicinesItemDetails": "Medicine - Description",
-    "pharmacies": "Pharmacies List",
+    "pharmacies": "Pharmacies",
     "pharmaciesItemDetails": "Pharmacy - Description",
     "createEvent": "Event",
     "eventItem": "Event"
@@ -20,11 +21,11 @@
     "addKeeper": "Add Caregiver"
   },
   "medicines": {
-    "title": "Medicines List",
+    "title": "Medicines",
     "searchPlaceholder": "Enter medicine name..."
   },
   "pharmacies": {
-    "title": "Pharmacies List",
+    "title": "Pharmacies",
     "placeholder": {
       "pharmacy": "Enter pharmacy name...",
       "city": "Enter city name...",
@@ -215,11 +216,12 @@
     "title": "Events"
   },
   "homeScreen": {
+    "welcome": "Welcome {{name}}!",
     "button": {
       "title": {
-        "medicines": "Medicines List",
-        "doctors": "Doctors List",
-        "pharmacies": "Pharmacies List",
+        "medicines": "Medicines ",
+        "doctors": "Doctors",
+        "pharmacies": "Pharmacies",
         "notes": "Your Notes"
       }
     }
@@ -237,11 +239,11 @@
     "characteristic": "Characteristics"
   },
   "medicinesScreen": {
-    "title": "Medicines List",
+    "title": "Medicines",
     "placeholder": "Enter medicine name..."
   },
   "pharmaciesScreen": {
-    "title": "Pharmacies List",
+    "title": "Pharmacies",
     "placeholder": {
       "name": "Enter pharmacy name...",
       "city": "Enter city name...",
@@ -289,8 +291,8 @@
   "yup": {
     "required": "This field is required"
   },
-  "medicinesList": "Medicines List",
-  "pharmaciesList": "Pharmacies List",
+  "medicinesList": "Medicines",
+  "pharmaciesList": "Pharmacies",
   "notes": "Your Notes",
   "search": "Search",
   "genders": {
@@ -319,13 +321,13 @@
       "sunday": "su"
     },
     "title": {
-      "monday": "Mon",
-      "tuesday": "Tue",
-      "wednesday": "Wed",
-      "thursday": "Thu",
-      "friday": "Fri",
-      "saturday": "Sat",
-      "sunday": "Sun"
+      "monday": "Mon.",
+      "tuesday": "Tue.",
+      "wednesday": "Wed.",
+      "thursday": "Thu.",
+      "friday": "Fri.",
+      "saturday": "Sat.",
+      "sunday": "Sun."
     }
   }
 }

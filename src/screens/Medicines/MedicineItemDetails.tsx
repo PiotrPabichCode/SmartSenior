@@ -21,7 +21,6 @@ const MedicineItemDetails = ({ route }: any) => {
       url,
       FileSystem.documentDirectory + filename
     );
-    console.log(result);
 
     save(result.uri, filename, 'application/pdf');
   };
@@ -54,8 +53,6 @@ const MedicineItemDetails = ({ route }: any) => {
   };
 
   const { item } = route.params;
-  console.log(item);
-  // TODO
   return (
     <ScrollView contentContainerStyle={styles.viewStyle}>
       <Text style={styles.title}>{item['medicinalProductName']}</Text>

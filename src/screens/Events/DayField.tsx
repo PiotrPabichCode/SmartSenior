@@ -1,18 +1,17 @@
 import { Button } from '@rneui/themed';
+import { renderDayValue } from '@src/utils/utils';
 import { StyleSheet } from 'react-native';
 
 export interface Day {
-  shortTitle: string;
-  title?: string;
   value: number;
   active: any;
   onPress?: () => void;
 }
 
-const DayField = ({ shortTitle, active, onPress }: Day) => {
+const DayField = ({ value, active, onPress }: Day) => {
   return (
     <Button
-      title={shortTitle}
+      title={renderDayValue(value, false)}
       buttonStyle={[
         styles.button,
         active ? styles.dayActive : styles.dayInactive,

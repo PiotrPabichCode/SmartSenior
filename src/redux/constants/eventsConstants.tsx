@@ -11,47 +11,43 @@ export const UPDATE_EVENT_FAIL = 'UPDATE_EVENT_FAIL';
 
 export const CLEAR_EVENTS = 'CLEAR_EVENTS';
 
+export enum DAYS {
+  MONDAY = 1,
+  TUESDAY = 2,
+  WEDNESDAY = 3,
+  THURSDAY = 4,
+  FRIDAY = 5,
+  SATURDAY = 6,
+  SUNDAY = 7,
+}
+
 export const days = [
   {
-    shortTitle: translate('dayValues.shortTitle.monday'),
-    title: translate('dayValues.title.monday'),
-    value: 1,
+    value: DAYS.MONDAY,
     active: false,
   },
   {
-    shortTitle: translate('dayValues.shortTitle.tuesday'),
-    title: translate('dayValues.title.tuesday'),
-    value: 2,
+    value: DAYS.TUESDAY,
     active: false,
   },
   {
-    shortTitle: translate('dayValues.shortTitle.wednesday'),
-    title: translate('dayValues.title.wednesday'),
-    value: 3,
+    value: DAYS.WEDNESDAY,
     active: false,
   },
   {
-    shortTitle: translate('dayValues.shortTitle.thursday'),
-    title: translate('dayValues.title.thursday'),
-    value: 4,
+    value: DAYS.THURSDAY,
     active: false,
   },
   {
-    shortTitle: translate('dayValues.shortTitle.friday'),
-    title: translate('dayValues.title.friday'),
-    value: 5,
+    value: DAYS.FRIDAY,
     active: false,
   },
   {
-    shortTitle: translate('dayValues.shortTitle.saturday'),
-    title: translate('dayValues.title.saturday'),
-    value: 6,
+    value: DAYS.SATURDAY,
     active: false,
   },
   {
-    shortTitle: translate('dayValues.shortTitle.sunday'),
-    title: translate('dayValues.title.sunday'),
-    value: 7,
+    value: DAYS.SUNDAY,
     active: false,
   },
 ];

@@ -66,6 +66,7 @@ const App = () => {
   /*
     Show ActivityIndicator when user connection is loading
   */
+
   if (!isAppReady) {
     return null;
   }

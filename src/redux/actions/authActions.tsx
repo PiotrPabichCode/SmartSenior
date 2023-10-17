@@ -138,3 +138,12 @@ export const verifyUserDetailsAction =
       throw error;
     }
   };
+
+export const changeLanguageAction =
+  (language: string) =>
+  async (dispatch = useAppDispatch()) => {
+    dispatch({
+      type: types.CHANGE_LANGUAGE,
+      payload: language,
+    });
+  };

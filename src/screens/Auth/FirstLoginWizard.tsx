@@ -92,7 +92,6 @@ const FirstLoginWizard = () => {
             }}
             onSubmit={async (values) => {
               try {
-                console.log(values);
                 FirstLoginSchema.validate(values)
                   .then(() => {
                     dispatch(UserDetailsAction(values));

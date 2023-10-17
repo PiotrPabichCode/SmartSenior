@@ -233,21 +233,21 @@ const EventItemScreen = ({ route, navigation }: Props) => {
                 <CustomDropdown
                   data={priorities}
                   placeholder={translate(
-                    'createEventScreen.button.placeholder.priority'
+                    'eventItemScreen.button.placeholder.priority'
                   )}
                   value={values.priority}
                   handleChange={(e: any) => setFieldValue('priority', e.value)}
                 />
                 {isUpdate && (
                   <Button
-                    title={translate('createEventScreen.button.title.update')}
+                    title={translate('eventItemScreen.button.title.update')}
                     buttonStyle={styles.buttonUpdate}
                     containerStyle={styles.buttonContainer}
                     onPress={() => handleSubmit()}
                   />
                 )}
                 <Button
-                  title={translate('createEventScreen.button.title.execute')}
+                  title={translate('eventItemScreen.button.title.execute')}
                   buttonStyle={styles.buttonSubmit}
                   containerStyle={styles.buttonContainer}
                   onPress={() => handleSubmit()}

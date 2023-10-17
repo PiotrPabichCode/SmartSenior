@@ -1,4 +1,3 @@
-import { splitLocale } from '@src/utils/utils';
 import * as Localization from 'expo-localization';
 import { LocaleConfig } from 'react-native-calendars';
 
@@ -18,20 +17,18 @@ class Calendar {
     locale: string
   ): string | undefined => {
     for (const language of Object.values(Calendar.supportedLanguages)) {
-      if (language === splitLocale(locale)) {
+      if (language === locale.split('-')[0]) {
         return language;
       }
     }
   };
 
   public static setupCalendar = (): void => {
-    console.log('here');
     const fallback = Calendar.supportedLanguages.POLISH;
     const locale = Calendar.findSupportedLanguage(Localization.locale);
     const language = locale || fallback;
 
     const values = Calendar.getSupportedTranslation[language]();
-    console.log(values);
     LocaleConfig.defaultLocale = language;
   };
 

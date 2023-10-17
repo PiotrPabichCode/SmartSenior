@@ -50,7 +50,6 @@ const LoginScreen = () => {
           validationSchema={LoginSchema}
           onSubmit={async (values) => {
             try {
-              console.log(values);
               dispatch(signInAction(values));
             } catch (e) {
               CustomToast('error', translate('login.message.error.signIn'));

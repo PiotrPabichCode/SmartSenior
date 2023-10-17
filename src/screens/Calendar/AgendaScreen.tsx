@@ -80,7 +80,6 @@ class AgendaScreen extends Component<State> {
       Object.keys(items).forEach((key) => {
         newItems[key] = items[key];
       });
-      console.log(newItems);
       this.setState({
         items: newItems,
       });

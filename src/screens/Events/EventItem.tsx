@@ -33,7 +33,6 @@ const EventItem = ({ eventKey }: EventItemProps) => {
   const event: EventDetails = useAppSelector(
     (state) => state.events.events[eventKey]
   );
-  console.log(event);
 
   const toggleSwitch = () => {
     setChecked(!checked);

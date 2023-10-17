@@ -1,4 +1,4 @@
-import { splitLocale } from '@src/utils/utils';
+import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import * as LocalizationExpo from 'expo-localization';
 import i18n, { Scope, TranslateOptions } from 'i18n-js';
 import memoize from 'lodash.memoize';
@@ -8,6 +8,7 @@ class Localization {
     POLISH: 'pl',
     ENGLISH: 'en',
   };
+  public static localStorageLanguage = useLocalStorage('language');
 
   private static getSupportedTranslation: { [language: string]: () => object } =
     {
@@ -27,38 +28,47 @@ class Localization {
     locale: string
   ): string | undefined => {
     for (const language of Object.values(Localization.supportedLanguages)) {
-      if (language === splitLocale(locale)) {
+      if (language === locale.split('-')[0]) {
         return language;
       }
     }
   };
 
-  public static setupI18nConfig = (): void => {
+  public static setupI18nConfig = async (): Promise<void> => {
     if (Localization.translate.cache.clear) {
       Localization.translate.cache.clear();
     }
 
     const fallback = Localization.supportedLanguages.POLISH;
     const locale = Localization.findSupportedLanguage(LocalizationExpo.locale);
-    const language = locale || fallback;
-
-    i18n.locale = language;
+    const localStorage = await this.localStorageLanguage.getItem();
+    const language = localStorage || locale || fallback;
+    if (!localStorage) {
+      this.localStorageLanguage.setItem(language);
+    }
 
     i18n.translations = {
       [language]: Localization.getSupportedTranslation[language](),
     };
+    i18n.defaultLocale = language;
+    i18n.locale = language;
   };
 
-  public static changeLanguage = (
+  public static changeLanguage = async (
     language: string = Localization.supportedLanguages.POLISH
-  ): void => {
+  ): Promise<void> => {
     if (Localization.translate.cache.clear) {
       Localization.translate.cache.clear();
     }
-    i18n.locale = language;
     i18n.translations = {
       [language]: Localization.getSupportedTranslation[language](),
     };
+    i18n.locale = language;
+    await this.localStorageLanguage.setItem(language);
+  };
+
+  public static getLocale = () => {
+    return i18n.locale;
   };
 }
 

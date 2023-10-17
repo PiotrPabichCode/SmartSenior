@@ -1,6 +1,7 @@
 {
   "appName": "SmartSenior",
   "language": "Język",
+  "languageName": "Polski",
   "nav": {
     "medicines": "Lista leków",
     "medicinesItemDetails": "Lek - opis",
@@ -215,6 +216,7 @@
     "title": "Wydarzenia"
   },
   "homeScreen": {
+    "welcome": "Hej {{name}}!",
     "button": {
       "title": {
         "medicines": "Lista leków",

@@ -1,8 +1,9 @@
 import moment from 'moment-timezone';
 import isEqual from 'lodash.isequal';
-import Localization from '@src/localization/Localization';
+import Localization, { translate } from '@src/localization/Localization';
 import Calendar from '@src/components/Calendar/Calendar';
-import { useAppSelector } from '@src/redux/store';
+import { store, useAppSelector } from '@src/redux/store';
+import { DAYS } from '@src/redux/constants/eventsConstants';
 
 export const buildRequest = (baseUrl: string, params: any) => {
   const entries = Object.entries(params).filter(
@@ -48,10 +49,6 @@ export function getUpdatedFields<T>(
   return updatedFields;
 }
 
-export const splitLocale = (locale: string) => {
-  return locale.split('-')[0];
-};
-
 export const changeLanguage = (language: string) => {
   try {
     Localization.changeLanguage(language);
@@ -65,4 +62,25 @@ export const createUserLabel = () => {
   const userDetails = useAppSelector((state) => state.auth.userDetails);
   const label = `${userDetails.firstName[0]}${userDetails.lastName[0]}`;
   return label.toUpperCase();
+};
+
+export const renderDayValue = (value: number, shortTitle: boolean) => {
+  const type = shortTitle ? 'shortTitle' : 'title';
+  const base = `dayValues.${type}`;
+  switch (value) {
+    case DAYS.MONDAY:
+      return translate(`${base}.monday`);
+    case DAYS.TUESDAY:
+      return translate(`${base}.tuesday`);
+    case DAYS.WEDNESDAY:
+      return translate(`${base}.wednesday`);
+    case DAYS.THURSDAY:
+      return translate(`${base}.thursday`);
+    case DAYS.FRIDAY:
+      return translate(`${base}.friday`);
+    case DAYS.SATURDAY:
+      return translate(`${base}.saturday`);
+    case DAYS.SUNDAY:
+      return translate(`${base}.sunday`);
+  }
 };

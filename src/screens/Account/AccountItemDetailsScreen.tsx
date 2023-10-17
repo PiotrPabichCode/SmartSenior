@@ -2,23 +2,31 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
-import { useAppSelector } from '@redux/store';
+import { useAppDispatch, useAppSelector } from '@redux/store';
 import { changeLanguage } from '@src/utils/utils';
 import Localization, { translate } from '@src/localization/Localization';
+import { changeLanguageAction } from '@src/redux/actions/authActions';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const userDetails = useAppSelector((state) => state.auth.userDetails);
+  const dispatch = useAppDispatch();
 
   if (!userDetails) {
     return <CustomActivityIndicator />;
   }
 
-  const { screenType, title } = route.params;
-  const [language, setLanguage] = useState('Polski');
+  const { screenType } = route.params;
+  const [language, setLanguage] = useState(translate('languageName'));
 
   const handleLanguageChange = (language: string) => {
-    setLanguage(language);
-    // changeLanguage(language);
+    changeLanguage(language);
+    if (language === Localization.supportedLanguages.POLISH) {
+      setLanguage(translate('account.language.polish'));
+    }
+    if (language === Localization.supportedLanguages.ENGLISH) {
+      setLanguage(translate('account.language.english'));
+    }
+    dispatch(changeLanguageAction(language));
   };
 
   const renderUserDetailsScreen = () => {

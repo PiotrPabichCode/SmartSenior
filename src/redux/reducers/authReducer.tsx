@@ -1,9 +1,11 @@
+import Localization from '@src/localization/Localization';
 import * as types from '../constants/authConstants';
 
 const initialState = {
   user: null,
   userDetails: null,
   error: null,
+  language: Localization.getLocale(),
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -33,6 +35,12 @@ const authReducer = (state = initialState, action: any) => {
         ...state,
         error: payload,
       };
+    case types.CHANGE_LANGUAGE: {
+      return {
+        ...state,
+        language: payload,
+      };
+    }
     case types.LOGOUT:
       return {
         ...state,

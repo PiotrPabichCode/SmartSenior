@@ -9,6 +9,8 @@ export const SIGN_UP_FAIL = 'SIGN_UP_FAIL';
 export const GET_USER_DETAILS_SUCCESS = 'GET_USER_DETAILS_SUCCESS';
 export const GET_USER_DETAILS_FAIL = 'GET_USER_DETAILS_FAIL';
 
+export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
+
 export const LOGOUT = 'LOGOUT';
 
 export const ERROR_MESSAGE = 'Coś poszło nie tak. Spróbuj ponownie';

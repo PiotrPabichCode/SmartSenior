@@ -28,7 +28,7 @@ const DiscardChangesAlert = ({ navigation, isUpdate }: Props) => {
             style: 'destructive',
             onPress: () => navigation.dispatch(e.data.action),
           },
-        ]
+        ],
       );
     });
   }, [navigation, isUpdate]);

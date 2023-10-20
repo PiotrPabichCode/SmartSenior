@@ -46,19 +46,11 @@ const renderRightItems = (type?: string) => {
   }
 };
 
-const AccountItem = ({
-  type,
-  icon,
-  iconStyle,
-  title,
-  onPress,
-}: AccountItemProps) => {
+const AccountItem = ({ type, icon, iconStyle, title, onPress }: AccountItemProps) => {
   return onPress ? (
     <TouchableOpacity style={styles.viewStyle} onPress={onPress}>
       <View style={styles.iconTitleStyle}>
-        <View style={{ width: 70 }}>
-          {renderIcon({ name: icon, style: iconStyle })}
-        </View>
+        <View style={{ width: 70 }}>{renderIcon({ name: icon, style: iconStyle })}</View>
         <Text style={styles.textStyle}>{title}</Text>
       </View>
       {renderRightItems(type)}
@@ -66,9 +58,7 @@ const AccountItem = ({
   ) : (
     <View style={styles.viewStyle}>
       <View style={styles.iconTitleStyle}>
-        <View style={{ width: 70 }}>
-          {renderIcon({ name: icon, style: iconStyle })}
-        </View>
+        <View style={{ width: 70 }}>{renderIcon({ name: icon, style: iconStyle })}</View>
         <Text style={styles.textStyle}>{title}</Text>
       </View>
       {renderRightItems(type)}

@@ -1,10 +1,4 @@
-import {
-  ColorValue,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-} from 'react-native';
+import { ColorValue, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import Icons from '@src/components/Icons';
 
 interface ButtonProps {
@@ -14,12 +8,7 @@ interface ButtonProps {
   onPress?: () => void;
 }
 
-const CustomButton = ({
-  icon,
-  title,
-  backgroundColor,
-  onPress,
-}: ButtonProps) => {
+const CustomButton = ({ icon, title, backgroundColor, onPress }: ButtonProps) => {
   const styles = StyleSheet.create({
     container: {
       display: 'flex',

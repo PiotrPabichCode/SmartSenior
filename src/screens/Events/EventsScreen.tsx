@@ -3,15 +3,14 @@ import EventItem from '@src/screens/Events/EventItem';
 import { useAppSelector } from '@src/redux/store';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 import { translate } from '@src/localization/Localization';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const EventsScreen = () => {
-  const events: EventDetails[] = useAppSelector((state) => state.events.events);
+  const events: EventDetails[] = useAppSelector(state => state.events.events);
 
   return (
     <View style={styles.view}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollView}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>{translate('eventsScreen.title')}</Text>
           {Object.values(events).map((event, index) => {

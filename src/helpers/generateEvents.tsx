@@ -1,11 +1,5 @@
 import CustomToast from '@src/components/CustomToast';
-import {
-  DAYS,
-  cyclicValues,
-  days,
-  priorities,
-  times,
-} from '@src/redux/constants/eventsConstants';
+import { DAYS, cyclicValues, days, priorities, times } from '@src/redux/constants/eventsConstants';
 import { getAuth } from 'firebase/auth';
 import { push, ref } from 'firebase/database';
 import { db } from 'firebaseConfig';
@@ -14,7 +8,7 @@ export const events = [
   {
     title: 'Wizyta w parku',
     description: 'Spacer w pięknym parku miejskim',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active: day.value === DAYS.MONDAY || day.value === DAYS.TUESDAY,
     })),
@@ -29,12 +23,10 @@ export const events = [
   {
     title: 'Klub seniora',
     description: 'Spotkanie w klubie seniora',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active:
-        day.value === DAYS.MONDAY ||
-        day.value === DAYS.WEDNESDAY ||
-        day.value === DAYS.FRIDAY,
+        day.value === DAYS.MONDAY || day.value === DAYS.WEDNESDAY || day.value === DAYS.FRIDAY,
     })),
     priority: priorities[1].value,
     isCyclic: true,
@@ -47,7 +39,7 @@ export const events = [
   {
     title: 'Lekarz',
     description: 'Wizyta u lekarza',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active: day.value === DAYS.TUESDAY,
     })),
@@ -62,7 +54,7 @@ export const events = [
   {
     title: 'Kino',
     description: 'Wizyta w kinie',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active: day.value === DAYS.THURSDAY,
     })),
@@ -77,7 +69,7 @@ export const events = [
   {
     title: 'Zakupy spożywcze',
     description: 'Zakupy w lokalnym sklepie spożywczym',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active: day.value === DAYS.MONDAY,
     })),
@@ -92,7 +84,7 @@ export const events = [
   {
     title: 'Muzeum',
     description: 'Wizyta w muzeum',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active: day.value === DAYS.SATURDAY,
     })),
@@ -107,7 +99,7 @@ export const events = [
   {
     title: 'Kawa z przyjacielem',
     description: 'Spotkanie na kawę z przyjacielem',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active: day.value === DAYS.WEDNESDAY,
     })),
@@ -122,7 +114,7 @@ export const events = [
   {
     title: 'Szkolenie online',
     description: 'Szkolenie z obsługi komputera online',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active: day.value === DAYS.FRIDAY,
     })),
@@ -137,7 +129,7 @@ export const events = [
   {
     title: 'Spacer po plaży',
     description: 'Relaksujący spacer po plaży',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active: day.value === DAYS.SUNDAY,
     })),
@@ -152,7 +144,7 @@ export const events = [
   {
     title: 'Zajęcia rękodzielnicze',
     description: 'Warsztaty rękodzielnicze w centrum kultury',
-    days: days.map((day) => ({
+    days: days.map(day => ({
       value: day.value,
       active: day.value === DAYS.THURSDAY,
     })),
@@ -176,10 +168,12 @@ export const generateEvents = () => {
       const userUid = getAuth().currentUser?.uid + '-deleted-false';
       const createdAt = now.getTime();
       const updatedAt = now.getTime();
-      const updatedDays = event.days.map((day) => ({
+      console.log(event.days);
+      const updatedDays = event.days.map(day => ({
         value: day.value,
-        active: now.getDay() ? true : day.active,
+        active: day.value === now.getDay() ? true : day.active,
       }));
+      console.log(updatedDays);
       const executionTime = now.getTime() + index * 0.5 * 86400000;
 
       const modifiedEvent = {

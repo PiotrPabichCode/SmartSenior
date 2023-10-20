@@ -8,7 +8,7 @@ import Localization, { translate } from '@src/localization/Localization';
 import { changeLanguageAction } from '@src/redux/actions/authActions';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
-  const userDetails = useAppSelector((state) => state.auth.userDetails);
+  const userDetails = useAppSelector(state => state.auth.userDetails);
   const dispatch = useAppDispatch();
 
   if (!userDetails) {
@@ -20,6 +20,7 @@ const AccountItemDetailsScreen = ({ route }: any) => {
 
   const handleLanguageChange = (language: string) => {
     changeLanguage(language);
+
     if (language === Localization.supportedLanguages.POLISH) {
       setLanguage(translate('account.language.polish'));
     }
@@ -33,31 +34,31 @@ const AccountItemDetailsScreen = ({ route }: any) => {
     return (
       <>
         <AccountItemDetails
-          type='input'
+          type="input"
           title={translate('account.title.email')}
           placeholder={translate('account.placeholder.email')}
           value={userDetails.email || ''}
         />
         <AccountItemDetails
-          type='input'
+          type="input"
           title={translate('account.title.firstName')}
           placeholder={translate('account.placeholder.firstName')}
           value={userDetails.firstName || ''}
         />
         <AccountItemDetails
-          type='input'
+          type="input"
           title={translate('account.title.lastName')}
           placeholder={translate('account.placeholder.lastName')}
           value={userDetails.lastName || ''}
         />
         <AccountItemDetails
-          type='input'
+          type="input"
           title={translate('account.title.birthDate')}
           placeholder={translate('account.placeholder.birthDate')}
           value={userDetails.birthDate || ''}
         />
         <AccountItemDetails
-          type='input'
+          type="input"
           title={translate('account.title.password')}
           placeholder={translate('account.placeholder.password')}
           value={translate('account.placeholder.password')}
@@ -69,22 +70,16 @@ const AccountItemDetailsScreen = ({ route }: any) => {
   const renderLanguageScreen = () => {
     return (
       <>
-        <Text style={styles.languageTitle}>
-          {translate('account.language.title')}
-        </Text>
+        <Text style={styles.languageTitle}>{translate('account.language.title')}</Text>
         <Text style={styles.language}>{language}</Text>
         <Text
           style={styles.pickLanguage}
-          onPress={() =>
-            handleLanguageChange(Localization.supportedLanguages.POLISH)
-          }>
+          onPress={() => handleLanguageChange(Localization.supportedLanguages.POLISH)}>
           {translate('account.language.polish')}
         </Text>
         <Text
           style={styles.pickLanguage}
-          onPress={() =>
-            handleLanguageChange(Localization.supportedLanguages.ENGLISH)
-          }>
+          onPress={() => handleLanguageChange(Localization.supportedLanguages.ENGLISH)}>
           {translate('account.language.english')}
         </Text>
       </>
@@ -95,10 +90,10 @@ const AccountItemDetailsScreen = ({ route }: any) => {
     return (
       <>
         <AccountItemDetails
-          type='input'
-          keyboard='numeric'
+          type="input"
+          keyboard="numeric"
           title={translate('account.notification.title')}
-          value='0'
+          value="0"
         />
       </>
     );
@@ -121,12 +116,8 @@ const AccountItemDetailsScreen = ({ route }: any) => {
 
   return (
     <View style={styles.view}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollView}>
-        <View style={styles.innerContainer}>
-          {renderScreenByType(screenType)}
-        </View>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
+        <View style={styles.innerContainer}>{renderScreenByType(screenType)}</View>
       </ScrollView>
     </View>
   );

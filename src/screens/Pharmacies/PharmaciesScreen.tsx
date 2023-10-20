@@ -6,18 +6,21 @@ import PharmacyItem from './PharmacyItem';
 import CustomDropdown from '@components/CustomDropdown';
 import { navigate } from '@src/navigation/navigationUtils';
 import { translate } from '@src/localization/Localization';
+import { buildRequest } from '@src/utils/utils';
 
 const PharmaciesScreen = () => {
   const [pharmacies, setPharmacies] = useState([]);
   const BASE_URL =
-    'https://rejestrymedyczne.ezdrowie.gov.pl/api/pharmacies/search?page=0&size=10&sortField=dateOfChanged&sortDirection=DESC&statusCode=AKTYWNA';
+    'https://rejestrymedyczne.ezdrowie.gov.pl/api/pharmacies/search?page=0&size=10&sortField=dateOfChanged&sortDirection=DESC&statusCode=AKTYWNA&';
 
   const loadData = async (request: string) => {
     try {
+      console.log(request);
       const response = await fetch(request);
       const json = await response.json();
       const key = Object.keys(json)[0];
-      setPharmacies(json[key]);
+      const values = Object.values(json[key]).filter(item => item.name !== '');
+      setPharmacies(values);
     } catch (e) {
       console.log(e);
     }
@@ -44,18 +47,15 @@ const PharmaciesScreen = () => {
 
   return (
     <View style={styles.view}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollView}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
         <Text style={styles.title}>{translate('pharmaciesScreen.title')}</Text>
         <Divider style={styles.dividerStyle} />
         <Formik
           initialValues={{ name: '', companyCity: '', companyProvince: '' }}
-          onSubmit={(values) => {
+          onSubmit={params => {
             try {
-              console.log(values);
-              // const request = buildRequest(BASE_URL, params);
-              // loadData(request);
+              const request = buildRequest(BASE_URL, params);
+              loadData(request);
             } catch (e) {
               console.log(e);
             }
@@ -76,9 +76,7 @@ const PharmaciesScreen = () => {
                 data={provinces}
                 placeholder={translate('pharmaciesScreen.placeholder.province')}
                 value={values.companyProvince}
-                handleChange={(e: any) =>
-                  setFieldValue('companyProvince', e.value)
-                }
+                handleChange={(e: any) => setFieldValue('companyProvince', e.value)}
               />
               <Button
                 title={translate('button.search')}
@@ -120,6 +118,7 @@ const styles = StyleSheet.create({
   buttonSearchContainer: {
     width: '90%',
     borderRadius: 25,
+    marginTop: 10,
   },
   buttonSearchStyle: {
     backgroundColor: 'blue',

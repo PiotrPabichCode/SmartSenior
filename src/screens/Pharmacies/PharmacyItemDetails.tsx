@@ -35,21 +35,15 @@ const PharmacyItemDetails = ({ route }: any) => {
   return (
     <ScrollView contentContainerStyle={styles.viewStyle}>
       {renderDetail(translate('pharmacyItem.name'), item.name)}
-      {renderDetail(
-        translate('pharmacyItem.status'),
-        item.pharmacyStatus.displayName
-      )}
-      {renderDetail(
-        translate('pharmacyItem.genre'),
-        item.pharmacyGenre.displayName
-      )}
+      {renderDetail(translate('pharmacyItem.status'), item.pharmacyStatus.displayName)}
+      {renderDetail(translate('pharmacyItem.genre'), item.pharmacyGenre.displayName)}
       {renderAddress(translate('pharmacyItem.address'), item.address)}
       {renderDetail(translate('pharmacyItem.phone'), item.phoneNumber)}
       {renderDetail(translate('pharmacyItem.email'), item.email)}
       {renderDetail(translate('pharmacyItem.owners'), item.owners[0].name)}
       {renderDetail(
         translate('pharmacyItem.openOnSundays'),
-        item.openOnSundaysNonTrade ? translate('yes') : translate('no')
+        item.openOnSundaysNonTrade ? translate('yes') : translate('no'),
       )}
       <Divider style={styles.dividerStyle} />
     </ScrollView>
@@ -63,6 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     backgroundColor: '#FFFAFA',
+    height: '100%',
   },
   title: {
     fontSize: 26,

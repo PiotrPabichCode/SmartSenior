@@ -1,11 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
-import {
-  Agenda,
-  AgendaEntry,
-  AgendaSchedule,
-  DateData,
-} from 'react-native-calendars';
+import { Agenda, AgendaEntry, AgendaSchedule, DateData } from 'react-native-calendars';
 import { navigate } from '@src/navigation/navigationUtils';
 import moment from 'moment';
 import { EventDetails } from '@src/redux/types/eventsTypes';
@@ -54,14 +49,14 @@ class AgendaScreen extends Component<State> {
     setTimeout(() => {
       let events: EventDetails[] = this.props.events;
 
-      events = Object.values(events).filter((event) => {
+      events = Object.values(events).filter(event => {
         const eventDate = new Date(event.executionTime);
         const eMonth = eventDate.getMonth() + 1;
         const eYear = eventDate.getFullYear();
         return eMonth === month && eYear === year;
       });
 
-      Object.values(events).forEach((event) => {
+      Object.values(events).forEach(event => {
         const key = moment(event.executionTime).format('YYYY-MM-DD');
         if (!items[key]) {
           items[key] = [];
@@ -77,7 +72,7 @@ class AgendaScreen extends Component<State> {
         }
       });
       const newItems: AgendaSchedule = {};
-      Object.keys(items).forEach((key) => {
+      Object.keys(items).forEach(key => {
         newItems[key] = items[key];
       });
       this.setState({
@@ -97,9 +92,7 @@ class AgendaScreen extends Component<State> {
             eventKey: event.key,
           })
         }>
-        <Text style={{ fontSize, color }}>
-          {renderLocalDateWithTime(event.executionTime)}
-        </Text>
+        <Text style={{ fontSize, color }}>{renderLocalDateWithTime(event.executionTime)}</Text>
         <Text style={[styles.name, { fontSize, color }]}>{event.name}</Text>
         <Text numberOfLines={1} style={{ fontSize, color }}>
           {event.description}

@@ -35,7 +35,7 @@ const WelcomeScreen = () => {
           buttonStyle={styles.buttonSignUpStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonSignUpTitleStyle}
-          onPress={() => console.log(navigationRef.current?.getCurrentRoute())}
+          onPress={() => navigate('SignUp')}
         />
         <Button
           title={translate('welcome.signIn')}

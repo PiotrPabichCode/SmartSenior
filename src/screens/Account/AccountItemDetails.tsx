@@ -38,7 +38,7 @@ const AccountItemDetails = ({
             <TextInput
               placeholder={placeholder}
               value={input}
-              underlineColorAndroid='transparent'
+              underlineColorAndroid="transparent"
               onChangeText={setInput}
               keyboardType={keyboard || 'default'}
             />
@@ -50,11 +50,7 @@ const AccountItemDetails = ({
       return (
         <View style={styles.viewStyle}>
           <Text style={styles.title}>{title}</Text>
-          <CheckBox
-            checked={checked}
-            onPress={() => setChecked(!checked)}
-            checkedColor='blue'
-          />
+          <CheckBox checked={checked} onPress={() => setChecked(!checked)} checkedColor="blue" />
         </View>
       );
     default:

@@ -5,7 +5,7 @@ import { useAppSelector } from '@redux/store';
 import { createUserLabel } from '@src/utils/utils';
 
 const AccountProfileHint = () => {
-  const userDetails = useAppSelector((state) => state.auth.userDetails);
+  const userDetails = useAppSelector(state => state.auth.userDetails);
 
   if (!userDetails) {
     return <CustomActivityIndicator />;
@@ -14,7 +14,7 @@ const AccountProfileHint = () => {
   return (
     <View style={styles.viewStyle}>
       <Avatar
-        size='large'
+        size="large"
         rounded
         title={createUserLabel()}
         containerStyle={{ backgroundColor: '#C0C0C0' }}

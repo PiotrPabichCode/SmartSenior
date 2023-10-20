@@ -2,8 +2,32 @@ import { goBack } from '@src/navigation/navigationUtils';
 import * as api from '../api/eventsAPI';
 import * as types from '../constants/eventsConstants';
 
-import { useAppDispatch } from '../store';
+import { store, useAppDispatch, useAppSelector } from '../store';
 import { EventDetails } from '../types/eventsTypes';
+import { changeLanguageAction } from './authActions';
+
+export const useAuthStore = () => {
+  const state = useAppSelector(state => state.auth);
+
+  return {
+    state,
+    getUser: () => {
+      return store.getState().auth;
+    },
+    getUserDetails: () => {
+      return store.getState().auth.userDetails;
+    },
+    getError: () => {
+      return store.getState().auth.error;
+    },
+    getLanguage: () => {
+      return store.getState().auth.language;
+    },
+    setLanguage: (language: string) => {
+      store.dispatch(changeLanguageAction(language));
+    },
+  };
+};
 
 export const createEventAction =
   (newEventData: any) =>

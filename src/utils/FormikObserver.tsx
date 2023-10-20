@@ -4,10 +4,7 @@ import { useFormikContext } from 'formik';
 const FormikObserver = ({ onChange }: any) => {
   const { values, initialValues } = useFormikContext();
 
-  useEffect(
-    () => onChange({ values, initialValues }),
-    [values, initialValues, onChange]
-  );
+  useEffect(() => onChange({ values, initialValues }), [values, initialValues, onChange]);
 
   return null;
 };

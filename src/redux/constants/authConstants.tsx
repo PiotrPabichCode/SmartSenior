@@ -23,6 +23,6 @@ export const GenderEnum = {
 };
 
 export const genders = [
-  { label: translate('genders.woman'), value: GenderEnum.WOMEN },
-  { label: translate('genders.man'), value: GenderEnum.MEN },
+  { label: 'genders.woman', value: GenderEnum.WOMEN, multiLang: true },
+  { label: 'genders.man', value: GenderEnum.MEN, multiLang: true },
 ];

@@ -17,10 +17,7 @@ const MedicineItemDetails = ({ route }: any) => {
 
   const downloadFromUrl = async (url: string, type: string) => {
     const filename = type + '-' + new Date() + '.pdf';
-    const result = await FileSystem.downloadAsync(
-      url,
-      FileSystem.documentDirectory + filename
-    );
+    const result = await FileSystem.downloadAsync(url, FileSystem.documentDirectory + filename);
 
     save(result.uri, filename, 'application/pdf');
   };
@@ -36,14 +33,14 @@ const MedicineItemDetails = ({ route }: any) => {
         await FileSystem.StorageAccessFramework.createFileAsync(
           permissions.directoryUri,
           filename,
-          mimetype
+          mimetype,
         )
-          .then(async (uri) => {
+          .then(async uri => {
             await FileSystem.writeAsStringAsync(uri, base64, {
               encoding: FileSystem.EncodingType.Base64,
             });
           })
-          .catch((e) => console.log(e));
+          .catch(e => console.log(e));
       } else {
         shareAsync(uri);
       }
@@ -57,34 +54,13 @@ const MedicineItemDetails = ({ route }: any) => {
     <ScrollView contentContainerStyle={styles.viewStyle}>
       <Text style={styles.title}>{item['medicinalProductName']}</Text>
       {renderDetail(translate('medicineItem.commonName'), item['commonName'])}
-      {renderDetail(
-        translate('medicineItem.power'),
-        item['medicinalProductPower']
-      )}
-      {renderDetail(
-        translate('medicineItem.pharmaceuticalForm'),
-        item['pharmaceuticalFormName']
-      )}
-      {renderDetail(
-        translate('medicineItem.activeSubstance'),
-        item['activeSubstanceName']
-      )}
-      {renderDetail(
-        translate('medicineItem.packaging'),
-        item['packaging'].replaceAll('\\n', '\n')
-      )}
-      {renderDetail(
-        translate('medicineItem.expiration'),
-        item['expirationDateString']
-      )}
-      {renderDetail(
-        translate('medicineItem.company'),
-        item['subjectMedicinalProductName']
-      )}
-      {renderDetail(
-        translate('medicineItem.country'),
-        item['manufacturersDtos'][0]['countryName']
-      )}
+      {renderDetail(translate('medicineItem.power'), item['medicinalProductPower'])}
+      {renderDetail(translate('medicineItem.pharmaceuticalForm'), item['pharmaceuticalFormName'])}
+      {renderDetail(translate('medicineItem.activeSubstance'), item['activeSubstanceName'])}
+      {renderDetail(translate('medicineItem.packaging'), item['packaging'].replaceAll('\\n', '\n'))}
+      {renderDetail(translate('medicineItem.expiration'), item['expirationDateString'])}
+      {renderDetail(translate('medicineItem.company'), item['subjectMedicinalProductName'])}
+      {renderDetail(translate('medicineItem.country'), item['manufacturersDtos'][0]['countryName'])}
       <Divider style={styles.dividerStyle} />
       <View style={styles.buttons}>
         <Button
@@ -97,7 +73,7 @@ const MedicineItemDetails = ({ route }: any) => {
               'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/' +
                 item['id'] +
                 '/leaflet',
-              'ulotka'
+              'ulotka',
             )
           }
         />
@@ -111,7 +87,7 @@ const MedicineItemDetails = ({ route }: any) => {
               'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/' +
                 item['id'] +
                 '/characteristic',
-              'charakterystyka'
+              'charakterystyka',
             )
           }
         />

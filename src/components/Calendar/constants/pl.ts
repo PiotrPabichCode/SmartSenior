@@ -29,15 +29,7 @@ LocaleConfig.locales['pl'] = {
     'lis',
     'gru',
   ],
-  dayNames: [
-    'niedziela',
-    'poniedziałek',
-    'wtorek',
-    'środa',
-    'czwartek',
-    'piątek',
-    'sobota',
-  ],
+  dayNames: ['niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota'],
   dayNamesShort: ['niedz.', 'pon.', 'wt.', 'śr.', 'czw.', 'pt.', 'sob.'],
   today: 'dzisiaj',
 };

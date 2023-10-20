@@ -17,73 +17,55 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName='FirstLoginWizard'>
+    <Stack.Navigator initialRouteName="FirstLoginWizard">
       <Stack.Screen
-        name='FirstLoginWizard'
+        name="FirstLoginWizard"
         component={FirstLoginWizard}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name='BottomBar'
+        name="BottomBar"
         component={BottomBarNavigator}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name='AccountItemDetails'
+        name="AccountItemDetails"
         component={AccountItemDetailsScreen}
         options={({ route }) => ({
-          header: () => (
-            <CustomHeader
-              title={route.params.title}
-              nested={true}
-              more={true}
-            />
-          ),
+          header: () => <CustomHeader title={route.params.title} nested={true} more={true} />,
         })}
       />
       <Stack.Screen
-        name='Medicines'
+        name="Medicines"
         component={MedicinesScreen}
         options={{
           header: () => (
-            <CustomHeader
-              title={translate('nav.medicines')}
-              nested={true}
-              more={true}
-            />
+            <CustomHeader title={translate('nav.medicines')} nested={true} more={true} />
           ),
         }}
       />
       <Stack.Screen
-        name='MedicinesItemDetails'
+        name="MedicinesItemDetails"
         component={MedicineItemDetails}
         options={{
           header: () => (
-            <CustomHeader
-              title={translate('nav.medicinesItemDetails')}
-              nested={true}
-              more={true}
-            />
+            <CustomHeader title={translate('nav.medicinesItemDetails')} nested={true} more={true} />
           ),
         }}
       />
       <Stack.Screen
-        name='Pharmacies'
+        name="Pharmacies"
         component={PharmaciesScreen}
         options={{
           header: () => (
-            <CustomHeader
-              title={translate('nav.pharmacies')}
-              nested={true}
-              more={true}
-            />
+            <CustomHeader title={translate('nav.pharmacies')} nested={true} more={true} />
           ),
         }}
       />
       <Stack.Screen
-        name='PharmaciesItemDetails'
+        name="PharmaciesItemDetails"
         component={PharmacyItemDetails}
         options={{
           header: () => (
@@ -96,28 +78,20 @@ const AuthNavigator = () => {
         }}
       />
       <Stack.Screen
-        name='CreateEvent'
+        name="CreateEvent"
         component={CreateEventScreen}
         options={{
           header: () => (
-            <CustomHeader
-              title={translate('nav.createEvent')}
-              nested={true}
-              more={true}
-            />
+            <CustomHeader title={translate('nav.createEvent')} nested={true} more={true} />
           ),
         }}
       />
       <Stack.Screen
-        name='EventItem'
+        name="EventItem"
         component={EventItemScreen}
         options={{
           header: () => (
-            <CustomHeader
-              title={translate('nav.eventItem')}
-              nested={true}
-              more={true}
-            />
+            <CustomHeader title={translate('nav.eventItem')} nested={true} more={true} />
           ),
         }}
       />

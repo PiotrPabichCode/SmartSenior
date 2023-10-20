@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -10,18 +10,17 @@ import CustomToast from '@src/components/CustomToast';
 import { getAuth } from 'firebase/auth';
 import { useAppDispatch } from '@src/redux/store';
 import { createEventAction } from '@src/redux/actions/eventsActions';
-import { renderLocalDateWithTime } from '@src/utils/utils';
+import { fixConstData, renderLocalDateWithTime } from '@src/utils/utils';
 import { createDatetimeTimezone } from '@src/utils/utils';
-import {
-  cyclicValues,
-  days,
-  priorities,
-  times,
-} from '@src/redux/constants/eventsConstants';
+import I18n from 'i18n-js';
+import { days, priorities, times, cyclicValues } from '@src/redux/constants/eventsConstants';
 import { translate } from '@src/localization/Localization';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
+
+  const [updatedTimes, setUpdatedTimes] = useState(times);
+  const [updatedCyclicValues, setUpdatedCyclicValues] = useState(cyclicValues);
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
@@ -45,11 +44,14 @@ const CreateEventScreen = () => {
     deleted: Yup.boolean().required(),
   });
 
+  // useEffect(() => {
+  //   setUpdatedTimes(fixConstData(times));
+  //   setUpdatedCyclicValues(fixConstData(cyclicValues));
+  // }, [I18n.translations]);
+
   return (
     <View style={styles.view}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollView}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
           <Text style={styles.header}>{translate('createEvent.title')}</Text>
           <Formik
@@ -57,7 +59,7 @@ const CreateEventScreen = () => {
               title: '',
               description: '',
               executionTime: 0,
-              days: days.map((day) => ({ ...day, active: false })),
+              days: days.map(day => ({ ...day, active: false })),
               priority: 0,
               isCyclic: false,
               cyclicTime: 0,
@@ -68,19 +70,16 @@ const CreateEventScreen = () => {
               deleted: false,
               userUid: getAuth().currentUser?.uid + '-deleted-false',
             }}
-            onSubmit={(values) => {
+            onSubmit={values => {
               try {
                 values.createdAt = Date.now();
                 values.updatedAt = Date.now();
                 NewEventSchema.validate(values)
                   .then(() => {
                     dispatch(createEventAction(values));
-                    CustomToast(
-                      'success',
-                      translate('createEvent.message.success.add')
-                    );
+                    CustomToast('success', translate('createEvent.message.success.add'));
                   })
-                  .catch((error) => {
+                  .catch(error => {
                     console.log(error);
                     CustomToast('error', translate('error.missingData'));
                   });
@@ -92,16 +91,12 @@ const CreateEventScreen = () => {
             {({ values, handleChange, setFieldValue, handleSubmit }) => (
               <>
                 <Input
-                  placeholder={translate(
-                    'createEvent.button.placeholder.title'
-                  )}
+                  placeholder={translate('createEvent.button.placeholder.title')}
                   onChangeText={handleChange('title')}
                   value={values.title}
                 />
                 <Input
-                  placeholder={translate(
-                    'createEvent.button.placeholder.description'
-                  )}
+                  placeholder={translate('createEvent.button.placeholder.description')}
                   multiline={true}
                   onChangeText={handleChange('description')}
                   value={values.description}
@@ -131,10 +126,10 @@ const CreateEventScreen = () => {
                     onChange={(e, newDate) => {
                       setFieldValue(
                         'days',
-                        days.map((day) => ({
+                        days.map(day => ({
                           ...day,
                           active: false,
-                        }))
+                        })),
                       ).then(() => {
                         setShowDatePicker(false);
                         if (e.type === 'dismissed') {
@@ -149,24 +144,18 @@ const CreateEventScreen = () => {
                 {showTimePicker && (
                   <RNDateTimePicker
                     value={new Date()}
-                    mode='time'
+                    mode="time"
                     onChange={(e, newTime) => {
                       setShowTimePicker(false);
                       if (e.type === 'dismissed') {
                         return false;
                       }
                       setTimeValue(newTime);
-                      const datetime = createDatetimeTimezone(
-                        dateValue,
-                        timeValue
-                      );
+                      const datetime = createDatetimeTimezone(dateValue, timeValue);
                       if (!datetime) {
                         return false;
                       }
-                      setFieldValue(
-                        `days[${datetime.getDay() - 1}].active`,
-                        true
-                      );
+                      setFieldValue(`days[${datetime.getDay() - 1}].active`, true);
                       setFieldValue('executionTime', datetime.getTime());
                     }}
                   />
@@ -175,9 +164,7 @@ const CreateEventScreen = () => {
                   <CheckBox
                     title={translate('createEvent.button.title.notification')}
                     checked={values.isNotification}
-                    onPress={() =>
-                      setFieldValue('isNotification', !values.isNotification)
-                    }
+                    onPress={() => setFieldValue('isNotification', !values.isNotification)}
                   />
                   <CheckBox
                     title={translate('createEvent.button.title.cyclic')}
@@ -188,32 +175,22 @@ const CreateEventScreen = () => {
                 {values.isNotification && (
                   <CustomDropdown
                     data={times}
-                    placeholder={translate(
-                      'createEvent.button.notificationTime'
-                    )}
+                    placeholder={translate('createEvent.button.placeholder.notificationTime')}
                     value={values.notificationTime}
-                    handleChange={(e: any) =>
-                      setFieldValue('notificationTime', e.value)
-                    }
+                    handleChange={(e: any) => setFieldValue('notificationTime', e.value)}
                   />
                 )}
                 {values.isCyclic && (
                   <CustomDropdown
                     data={cyclicValues}
-                    placeholder={translate(
-                      'createEvent.button.placeholder.cyclicTime'
-                    )}
+                    placeholder={translate('createEvent.button.placeholder.cyclicTime')}
                     value={values.cyclicTime}
-                    handleChange={(e: any) =>
-                      setFieldValue('cyclicTime', e.value)
-                    }
+                    handleChange={(e: any) => setFieldValue('cyclicTime', e.value)}
                   />
                 )}
                 <CustomDropdown
                   data={priorities}
-                  placeholder={translate(
-                    'createEvent.button.placeholder.priority'
-                  )}
+                  placeholder={translate('createEvent.button.placeholder.priority')}
                   value={values.priority}
                   handleChange={(e: any) => setFieldValue('priority', e.value)}
                 />

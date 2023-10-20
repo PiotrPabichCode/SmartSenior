@@ -13,7 +13,7 @@ type PharmacyItemProps = PropsWithChildren<{
 const PharmacyItem = ({ name, onPress }: PharmacyItemProps) => {
   return (
     <View style={styles.viewStyle}>
-      <Icons name='pills-home-page' />
+      <Icons name="pills-home-page" />
       <Text style={styles.name} numberOfLines={1}>
         {name}
       </Text>

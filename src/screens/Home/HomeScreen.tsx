@@ -8,13 +8,13 @@ import { EventDetails } from '@src/redux/types/eventsTypes';
 import { filterUpcomingEvents } from '@src/redux/api/eventsAPI';
 import { translate } from '@src/localization/Localization';
 import { UserDetails } from '@src/redux/types/authTypes';
+import { useLocalStorage } from '@src/hooks/useLocalStorage';
+import Colors from '@src/constants/Colors';
+import HomeButtons from './HomeButtons';
 
 const HomeScreen = () => {
-  let events: EventDetails[] = useAppSelector((state) => state.events.events);
-  // events = filterUpcomingEvents(events);
-  const userDetails: UserDetails = useAppSelector(
-    (state) => state.auth.userDetails
-  );
+  let events: EventDetails[] = useAppSelector(state => state.events.events);
+  const userDetails: UserDetails = useAppSelector(state => state.auth.userDetails);
 
   if (!userDetails) {
     return <CustomActivityIndicator />;
@@ -22,9 +22,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.view}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollView}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
         <View style={styles.innerContainer}>
           <Text style={styles.welcomeText}>
             {translate('homeScreen.welcome', {
@@ -32,30 +30,7 @@ const HomeScreen = () => {
             })}
           </Text>
           <UpcomingEvents events={events} />
-          <View style={styles.buttonContainer}>
-            <CustomButton
-              onPress={() => navigate('Medicines')}
-              title={translate('homeScreen.button.title.medicines')}
-              backgroundColor={'#FB6D6C'}
-              icon={'pills'}
-            />
-            <CustomButton
-              title={translate('homeScreen.button.title.doctors')}
-              backgroundColor={'#fb8500'}
-              icon={'doctor'}
-            />
-            <CustomButton
-              onPress={() => navigate('Pharmacies')}
-              title={translate('homeScreen.button.title.pharmacies')}
-              backgroundColor={'#9564FE'}
-              icon={'pharmacy'}
-            />
-            <CustomButton
-              title={translate('homeScreen.button.title.notes')}
-              backgroundColor={'#469323'}
-              icon={'notes'}
-            />
-          </View>
+          <HomeButtons />
         </View>
       </ScrollView>
     </View>
@@ -72,7 +47,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: Colors.primary,
     borderRadius: 25,
     margin: 10,
     padding: 10,
@@ -84,10 +59,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
-  },
-  buttonContainer: {
-    width: '100%',
-    height: '100%',
   },
 });
 

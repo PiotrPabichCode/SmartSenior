@@ -35,33 +35,31 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
     />
   );
 
-  const mapEventItems = Object.values(events)?.map(
-    (event: EventDetails, index: number) => {
-      if (index === MAX_DISPLAYED_EVENTS) {
-        return moreButton;
-      }
-      if (index > MAX_DISPLAYED_EVENTS) {
-        return;
-      }
-      const isEnd = index !== events.length - 1;
-      return (
-        <View style={styles.eventView} key={index}>
-          <View style={styles.eventTimeView}>
-            <Icon name='arrow-right' color='#000' size={30} />
-            <Text style={styles.eventText} numberOfLines={1}>
-              {renderLocalDateWithTime(event.executionTime)}
-            </Text>
-            <Icon name='arrow-left' color='#000' size={30} />
-          </View>
-          <Text style={styles.eventTitle} numberOfLines={1}>
-            {event.description}
-          </Text>
-          {actionButton(event.key)}
-          {isEnd && <Divider style={styles.dividerStyle} />}
-        </View>
-      );
+  const mapEventItems = Object.values(events)?.map((event: EventDetails, index: number) => {
+    if (index === MAX_DISPLAYED_EVENTS) {
+      return moreButton;
     }
-  );
+    if (index > MAX_DISPLAYED_EVENTS) {
+      return;
+    }
+    const isEnd = index !== events.length - 1;
+    return (
+      <View style={styles.eventView} key={index}>
+        <View style={styles.eventTimeView}>
+          <Icon name="arrow-right" size={30} />
+          <Text style={styles.eventText} numberOfLines={1}>
+            {renderLocalDateWithTime(event.executionTime)}
+          </Text>
+          <Icon name="arrow-left" size={30} />
+        </View>
+        <Text style={styles.eventTitle} numberOfLines={1}>
+          {event.description}
+        </Text>
+        {actionButton(event.key)}
+        {isEnd && <Divider style={styles.dividerStyle} />}
+      </View>
+    );
+  });
 
   const renderTitleAction = () => {
     if (events.length > 0) {

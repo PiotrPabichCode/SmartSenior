@@ -12,13 +12,10 @@ const DayField = ({ value, active, onPress }: Day) => {
   return (
     <Button
       title={renderDayValue(value, false)}
-      buttonStyle={[
-        styles.button,
-        active ? styles.dayActive : styles.dayInactive,
-      ]}
+      buttonStyle={[styles.button, active ? styles.dayActive : styles.dayInactive]}
       titleStyle={styles.title}
       containerStyle={styles.container}
-      type='outline'
+      type="outline"
       onPress={onPress}
     />
   );

@@ -12,9 +12,7 @@ import { navigate } from '@src/navigation/navigationUtils';
 import { translate } from '@src/localization/Localization';
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email(translate('login.yup.email'))
-    .required(translate('yup.required')),
+  email: Yup.string().email(translate('login.yup.email')).required(translate('yup.required')),
   password: Yup.string()
     .min(6, translate('login.yup.passwordLengthMin'))
     .max(30, translate('login.yup.passwordLengthMax'))
@@ -25,7 +23,7 @@ const LoginScreen = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <ScrollView keyboardShouldPersistTaps='handled'>
+    <ScrollView keyboardShouldPersistTaps="handled">
       <SafeAreaView style={styles.appContainer}>
         <WelcomeSvg width={250} height={220} />
         <Text style={styles.headerText}>{translate('login.welcomeBack')}</Text>
@@ -35,20 +33,17 @@ const LoginScreen = () => {
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonAuthGoogleTitleStyle}
         />
-        <View
-          style={{ flexDirection: 'row', alignItems: 'center', margin: 20 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', margin: 20 }}>
           <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
           <View>
-            <Text style={{ width: 50, textAlign: 'center' }}>
-              {translate('login.or')}
-            </Text>
+            <Text style={{ width: 50, textAlign: 'center' }}>{translate('login.or')}</Text>
           </View>
           <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
         </View>
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={LoginSchema}
-          onSubmit={async (values) => {
+          onSubmit={async values => {
             try {
               dispatch(signInAction(values));
             } catch (e) {
@@ -60,34 +55,26 @@ const LoginScreen = () => {
               <View style={styles.inputField}>
                 <Input
                   style={styles.inputField}
-                  underlineColorAndroid='transparent'
-                  leftIcon={<Icon name='email' size={30} color='black' />}
+                  underlineColorAndroid="transparent"
+                  leftIcon={<Icon name="email" size={30} color="black" />}
                   placeholder={translate('login.button.placeholder.email')}
-                  keyboardType='email-address'
+                  keyboardType="email-address"
                   onChangeText={handleChange('email')}
                   value={values.email}
                 />
-                <ErrorMessage
-                  className='errorText'
-                  component={Text}
-                  name='email'
-                />
+                <ErrorMessage className="errorText" component={Text} name="email" />
               </View>
 
               <View style={styles.inputField}>
                 <Input
                   style={styles.inputField}
-                  leftIcon={<Icon name='lock' size={30} color='black' />}
+                  leftIcon={<Icon name="lock" size={30} color="black" />}
                   secureTextEntry={true}
                   placeholder={translate('login.button.placeholder.password')}
                   onChangeText={handleChange('password')}
                   value={values.password}
                 />
-                <ErrorMessage
-                  className='errorText'
-                  component={Text}
-                  name='password'
-                />
+                <ErrorMessage className="errorText" component={Text} name="password" />
               </View>
               <Button
                 title={translate('login.button.submit')}

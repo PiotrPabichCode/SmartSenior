@@ -12,28 +12,24 @@ interface DaysProps {
 
 const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
   const renderDaysLabel = () => {
-    const activeDays = days.filter((day) => day.active);
+    const activeDays = days.filter(day => day.active);
     return (
       activeDays.length > 0 && (
         <Text style={styles.label}>
           {translate('dayFields.repeat') +
-            activeDays
-              .map((day) =>
-                day.active ? renderDayValue(day.value, false) : ''
-              )
-              .join(', ')}
+            activeDays.map(day => renderDayValue(day.value, false)).join(', ')}
         </Text>
       )
     );
   };
 
-  const [_, update] = useReducer((x) => x + 1, 0);
+  const [_, update] = useReducer(x => x + 1, 0);
 
   const toggleDay = (day: any) => {
     const date = new Date(startDate);
     day.active = !day.active;
     if (date.getDay() === day.value) {
-      days = days.map((day) => ({ ...day, active: false }));
+      days = days.map(day => ({ ...day, active: false }));
       setFieldValue('date', 0);
     }
     setFieldValue('days', days);

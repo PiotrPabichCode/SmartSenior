@@ -14,49 +14,38 @@ import { translate } from '@src/localization/Localization';
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
 const BottomBarNavigator = () => {
-  const events = useAppSelector((state) => state.events.events);
+  const events = useAppSelector(state => state.events.events);
   return (
     <>
       <Tab.Navigator>
         <Tab.Screen
-          name='Home'
+          name="Home"
           component={HomeScreen}
           options={{
             tabBarLabel: translate('bottomNav.home'),
-            tabBarIcon: ({ focused }) =>
-              renderIcon({ name: 'home-bottom-nav', focused: focused }),
-            header: () => (
-              <CustomHeader title={translate('bottomNav.home')} more={true} />
-            ),
+            tabBarIcon: ({ focused }) => renderIcon({ name: 'home-bottom-nav', focused: focused }),
+            header: () => <CustomHeader title={translate('bottomNav.home')} more={true} />,
           }}
         />
         <Tab.Screen
-          name='Calendar'
+          name="Calendar"
           component={AgendaScreen} // TODO
           options={{
             tabBarLabel: translate('bottomNav.calendar'),
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'calendar-bottom-nav', focused: focused }),
             tabBarBadge: Object.values(events).length,
-            header: () => (
-              <CustomHeader
-                title={translate('bottomNav.calendar')}
-                more={true}
-              />
-            ),
+            header: () => <CustomHeader title={translate('bottomNav.calendar')} more={true} />,
           }}
         />
         <Tab.Screen
-          name='Events'
+          name="Events"
           component={EventsScreen}
           options={{
             tabBarLabel: translate('bottomNav.events'),
-            tabBarIcon: ({ focused }) =>
-              renderIcon({ name: 'home-bottom-nav', focused: focused }),
+            tabBarIcon: ({ focused }) => renderIcon({ name: 'home-bottom-nav', focused: focused }),
             tabBarBadge: Object.values(events).length,
-            header: () => (
-              <CustomHeader title={translate('bottomNav.events')} more={true} />
-            ),
+            header: () => <CustomHeader title={translate('bottomNav.events')} more={true} />,
           }}
         />
         {/* <Tab.Screen
@@ -70,18 +59,13 @@ const BottomBarNavigator = () => {
         }}
       /> */}
         <Tab.Screen
-          name='Account'
+          name="Account"
           component={AccountScreen}
           options={{
             tabBarLabel: translate('bottomNav.profile'),
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'account-bottom-nav', focused: focused }),
-            header: () => (
-              <CustomHeader
-                title={translate('bottomNav.profile')}
-                more={true}
-              />
-            ),
+            header: () => <CustomHeader title={translate('bottomNav.profile')} more={true} />,
           }}
         />
       </Tab.Navigator>

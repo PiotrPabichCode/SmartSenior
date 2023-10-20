@@ -200,9 +200,7 @@
       "registryNumber": "23327",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Voxel S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Voxel S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Voxel S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -339,9 +337,7 @@
       "registryNumber": "24756",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Bausch Health Ireland Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "EMO-FARM Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "EMO-FARM Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -479,9 +475,7 @@
       "registryNumber": "23541",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Accord Healthcare Polska Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Remedica Ltd", "countryName": "Cypr" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Remedica Ltd", "countryName": "Cypr" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -698,12 +692,8 @@
       "registryNumber": "24404",
       "expirationDateString": "2020-11-10",
       "subjectMedicinalProductName": "Zentiva, k.s.",
-      "manufacturersDtos": [
-        { "subjectName": "Zentiva, a.s.", "countryName": "Czechy" }
-      ],
-      "importersDtos": [
-        { "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Zentiva, a.s.", "countryName": "Czechy" }],
+      "importersDtos": [{ "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Abacaviri sulfas + Lamivudinum",
@@ -745,12 +735,8 @@
       "registryNumber": "26073",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Accord Healthcare Polska Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Pharmadox Healthcare Ltd.", "countryName": "Malta" }
-      ],
-      "importersDtos": [
-        { "subjectName": "Pharmadox Healthcare Ltd.", "countryName": "Malta" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Pharmadox Healthcare Ltd.", "countryName": "Malta" }],
+      "importersDtos": [{ "subjectName": "Pharmadox Healthcare Ltd.", "countryName": "Malta" }],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Abacavirum",
@@ -1417,9 +1403,7 @@
       "expirationDateString": "2023-05-10",
       "subjectMedicinalProductName": "Artespharm Sp. z o.o.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Mako Pharma Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "importersDtos": [{ "subjectName": "Mako Pharma Sp. z o.o.", "countryName": "Polska" }],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Azithromycinum",
@@ -2523,9 +2507,7 @@
       "registryNumber": "27133",
       "expirationDateString": "2027-06-17",
       "subjectMedicinalProductName": "ARITI S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -3046,9 +3028,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Mylan Ireland Limited",
-      "manufacturersDtos": [
-        { "subjectName": "Remedica Ltd", "countryName": "Cypr" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Remedica Ltd", "countryName": "Cypr" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -3090,9 +3070,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Mylan Ireland Limited",
-      "manufacturersDtos": [
-        { "subjectName": "Remedica Ltd", "countryName": "Cypr" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Remedica Ltd", "countryName": "Cypr" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -3833,9 +3811,7 @@
       "registryNumber": "27619",
       "expirationDateString": "2028-01-17",
       "subjectMedicinalProductName": "Krka, d.d., Novo mesto d.o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -3880,9 +3856,7 @@
       "registryNumber": "27618",
       "expirationDateString": "2028-01-17",
       "subjectMedicinalProductName": "Krka, d.d., Novo mesto d.o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -4160,9 +4134,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4204,9 +4176,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4248,9 +4218,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4292,9 +4260,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4336,9 +4302,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4380,9 +4344,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4424,9 +4386,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4468,9 +4428,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4512,9 +4470,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4556,9 +4512,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4600,9 +4554,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4644,9 +4596,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -4688,9 +4638,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Medice Arzneimittel Puetter GmbH & Co. KG",
-      "manufacturersDtos": [
-        { "subjectName": "Sandoz GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sandoz GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -5203,9 +5151,7 @@
       "registryNumber": "22945",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Alk-Abello A/S",
-      "manufacturersDtos": [
-        { "subjectName": "ALK-Abello S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "ALK-Abello S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -5249,9 +5195,7 @@
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "importersDtos": [{ "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Phenylephrini hydrochloridum",
@@ -5292,9 +5236,7 @@
       "registryNumber": "11149",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -5388,9 +5330,7 @@
       "registryNumber": "26270",
       "expirationDateString": "2026-03-05",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Lomapharm GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Lomapharm GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -5435,9 +5375,7 @@
       "registryNumber": "26269",
       "expirationDateString": "2026-03-05",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Lomapharm GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Lomapharm GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -5483,9 +5421,7 @@
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "importersDtos": [{ "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Oxymetazolini hydrochloridum",
@@ -5526,9 +5462,7 @@
       "registryNumber": "11339",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -5570,9 +5504,7 @@
       "registryNumber": "21608",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -5616,9 +5548,7 @@
       "registryNumber": "03316",
       "expirationDateString": "2020-11-18",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -6058,9 +5988,7 @@
       "registryNumber": "09226",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -6190,9 +6118,7 @@
       "registryNumber": "21343",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -6234,9 +6160,7 @@
       "registryNumber": "08921",
       "expirationDateString": "2022-01-04",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -6366,9 +6290,7 @@
       "registryNumber": "03315",
       "expirationDateString": "2022-12-14",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -7122,9 +7044,7 @@
       "registryNumber": "08922",
       "expirationDateString": "2022-12-14",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -7822,9 +7742,7 @@
       "registryNumber": "12260",
       "expirationDateString": "2022-09-02",
       "subjectMedicinalProductName": "Nikkiso Belgium",
-      "manufacturersDtos": [
-        { "subjectName": "Serumwerk Bernburg AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Serumwerk Bernburg AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -7866,9 +7784,7 @@
       "registryNumber": "12261",
       "expirationDateString": "2022-09-02",
       "subjectMedicinalProductName": "Nikkiso Belgium",
-      "manufacturersDtos": [
-        { "subjectName": "Serumwerk Bernburg AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Serumwerk Bernburg AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -7910,9 +7826,7 @@
       "registryNumber": "12262",
       "expirationDateString": "2022-09-02",
       "subjectMedicinalProductName": "Nikkiso Belgium",
-      "manufacturersDtos": [
-        { "subjectName": "Serumwerk Bernburg AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Serumwerk Bernburg AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -7954,9 +7868,7 @@
       "registryNumber": "27402",
       "expirationDateString": "2027-10-17",
       "subjectMedicinalProductName": "Bausch Health Ireland Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -7999,9 +7911,7 @@
       "registryNumber": "27401",
       "expirationDateString": "2027-10-17",
       "subjectMedicinalProductName": "Bausch Health Ireland Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -8044,9 +7954,7 @@
       "registryNumber": "27400",
       "expirationDateString": "2027-10-17",
       "subjectMedicinalProductName": "Bausch Health Ireland Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -8089,9 +7997,7 @@
       "registryNumber": "27397",
       "expirationDateString": "2027-10-17",
       "subjectMedicinalProductName": "Bausch Health Ireland Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -8134,9 +8040,7 @@
       "registryNumber": "27398",
       "expirationDateString": "2027-10-17",
       "subjectMedicinalProductName": "Bausch Health Ireland Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -8179,9 +8083,7 @@
       "registryNumber": "27399",
       "expirationDateString": "2027-10-17",
       "subjectMedicinalProductName": "Bausch Health Ireland Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -8777,9 +8679,7 @@
       "registryNumber": "00325",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sun-Farm Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "mibe GmbH Arzneimittel", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "mibe GmbH Arzneimittel", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -8821,9 +8721,7 @@
       "registryNumber": "00327",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sun-Farm Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "mibe GmbH Arzneimittel", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "mibe GmbH Arzneimittel", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -8909,9 +8807,7 @@
       "registryNumber": "25397",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Teva B.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Merckle GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Merckle GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -8954,9 +8850,7 @@
       "registryNumber": "25396",
       "expirationDateString": "2021-08-17",
       "subjectMedicinalProductName": "Teva B.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Merckle GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Merckle GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -9596,9 +9490,7 @@
       "registryNumber": "27927",
       "expirationDateString": "2028-07-11",
       "subjectMedicinalProductName": "Noridem Enterprises Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Demo SA", "countryName": "Grecja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Demo SA", "countryName": "Grecja" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -9643,9 +9535,7 @@
       "registryNumber": "27926",
       "expirationDateString": "2028-07-11",
       "subjectMedicinalProductName": "Noridem Enterprises Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Demo SA", "countryName": "Grecja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Demo SA", "countryName": "Grecja" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -10017,9 +9907,7 @@
       "registryNumber": "16362",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Biofarm Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Biofarm Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Biofarm Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -10154,9 +10042,7 @@
       "registryNumber": "08680",
       "expirationDateString": "2020-12-16",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -10198,9 +10084,7 @@
       "registryNumber": "08681",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -10242,9 +10126,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Novartis Europharm Limited",
-      "manufacturersDtos": [
-        { "subjectName": "Novartis Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Novartis Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -10803,9 +10685,7 @@
       "registryNumber": "24549",
       "expirationDateString": "2023-02-13",
       "subjectMedicinalProductName": "Wooller Limited Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Medicofarma S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Medicofarma S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -10893,9 +10773,7 @@
       "registryNumber": "27087",
       "expirationDateString": "2027-06-08",
       "subjectMedicinalProductName": "Stallergenes",
-      "manufacturersDtos": [
-        { "subjectName": "Stallergenes S.A.S.", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Stallergenes S.A.S.", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -10938,9 +10816,7 @@
       "registryNumber": "27086",
       "expirationDateString": "2027-06-08",
       "subjectMedicinalProductName": "Stallergenes",
-      "manufacturersDtos": [
-        { "subjectName": "Stallergenes S.A.S.", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Stallergenes S.A.S.", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -10983,9 +10859,7 @@
       "registryNumber": "27088",
       "expirationDateString": "2027-06-08",
       "subjectMedicinalProductName": "Stallergenes",
-      "manufacturersDtos": [
-        { "subjectName": "Stallergenes S.A.S.", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Stallergenes S.A.S.", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -11118,9 +10992,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Actavis Group PTC ehf.",
-      "manufacturersDtos": [
-        { "subjectName": "Actavis Ltd.", "countryName": "Malta" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Actavis Ltd.", "countryName": "Malta" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -11162,9 +11034,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Actavis Group PTC ehf.",
-      "manufacturersDtos": [
-        { "subjectName": "Actavis Ltd.", "countryName": "Malta" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Actavis Ltd.", "countryName": "Malta" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -11206,9 +11076,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Actavis Group PTC ehf.",
-      "manufacturersDtos": [
-        { "subjectName": "Actavis Ltd.", "countryName": "Malta" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Actavis Ltd.", "countryName": "Malta" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -11250,9 +11118,7 @@
       "registryNumber": "03468",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sanofi Pasteur",
-      "manufacturersDtos": [
-        { "subjectName": "Sanofi Pasteur", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sanofi Pasteur", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -11294,9 +11160,7 @@
       "registryNumber": "04862",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "McNeil Healthcare (Ireland) Limited",
-      "manufacturersDtos": [
-        { "subjectName": "Delpharm Orleans", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Delpharm Orleans", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -11441,9 +11305,7 @@
       "registryNumber": "20254",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Almirall Hermal GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -11791,9 +11653,7 @@
       "registryNumber": "04512",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Novo Nordisk A/S",
-      "manufacturersDtos": [
-        { "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -12114,9 +11974,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Novo Nordisk A/S",
-      "manufacturersDtos": [
-        { "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -12206,9 +12064,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Novo Nordisk A/S",
-      "manufacturersDtos": [
-        { "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -12250,9 +12106,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Novo Nordisk A/S",
-      "manufacturersDtos": [
-        { "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -12438,9 +12292,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Novo Nordisk A/S",
-      "manufacturersDtos": [
-        { "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Novo Nordisk A/S", "countryName": "Dania" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -12531,9 +12383,7 @@
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Dr. Max Pharma s.r.o.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Medis International a.s.", "countryName": "Czechy" }
-      ],
+      "importersDtos": [{ "subjectName": "Medis International a.s.", "countryName": "Czechy" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Benzydamini hydrochloridum",
@@ -12815,9 +12665,7 @@
       "registryNumber": "27522",
       "expirationDateString": "2027-12-06",
       "subjectMedicinalProductName": "Biofarm Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Biofarm Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Biofarm Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -13354,9 +13202,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Novartis Europharm Limited",
-      "manufacturersDtos": [
-        { "subjectName": "Novartis Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Novartis Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -13596,9 +13442,7 @@
       "registryNumber": "09361",
       "expirationDateString": "2022-01-13",
       "subjectMedicinalProductName": "Mylan Healthcare Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Temmler Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Temmler Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -13640,9 +13484,7 @@
       "registryNumber": "09362",
       "expirationDateString": "2022-01-13",
       "subjectMedicinalProductName": "Mylan Healthcare Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Temmler Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Temmler Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -13684,9 +13526,7 @@
       "registryNumber": "09363",
       "expirationDateString": "2022-01-13",
       "subjectMedicinalProductName": "Mylan Healthcare Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Temmler Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Temmler Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -13728,9 +13568,7 @@
       "registryNumber": "09360",
       "expirationDateString": "2022-01-13",
       "subjectMedicinalProductName": "Mylan Healthcare Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Temmler Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Temmler Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -13872,9 +13710,7 @@
       "registryNumber": "12426",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "GlaxoSmithKline (Ireland) Limited",
-      "manufacturersDtos": [
-        { "subjectName": "Glaxo Wellcome S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Glaxo Wellcome S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -13917,9 +13753,7 @@
       "registryNumber": "12423",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "GlaxoSmithKline (Ireland) Limited",
-      "manufacturersDtos": [
-        { "subjectName": "Glaxo Wellcome S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Glaxo Wellcome S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -13962,9 +13796,7 @@
       "registryNumber": "12424",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "GlaxoSmithKline (Ireland) Limited",
-      "manufacturersDtos": [
-        { "subjectName": "Glaxo Wellcome S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Glaxo Wellcome S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -14294,9 +14126,7 @@
       "registryNumber": "26182",
       "expirationDateString": "2025-12-29",
       "subjectMedicinalProductName": "Adamed Pharma S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Adamed Pharma S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -14339,9 +14169,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Takeda Pharma A/S",
-      "manufacturersDtos": [
-        { "subjectName": "Takeda Austria GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Takeda Austria GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -14383,9 +14211,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Eli Lilly Nederland B.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Lilly S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Lilly S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -14779,9 +14605,7 @@
       "registryNumber": "18537",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Polfarmex S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Polfarmex S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Polfarmex S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -14823,9 +14647,7 @@
       "registryNumber": "18538",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Polfarmex S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Polfarmex S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Polfarmex S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -14867,9 +14689,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Bayer AG",
-      "manufacturersDtos": [
-        { "subjectName": "Bayer AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bayer AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -14911,9 +14731,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Bayer AG",
-      "manufacturersDtos": [
-        { "subjectName": "Bayer AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bayer AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -14955,9 +14773,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Bayer AG",
-      "manufacturersDtos": [
-        { "subjectName": "Bayer AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bayer AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -14999,9 +14815,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Bayer AG",
-      "manufacturersDtos": [
-        { "subjectName": "Bayer AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bayer AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -15043,9 +14857,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Bayer AG",
-      "manufacturersDtos": [
-        { "subjectName": "Bayer AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bayer AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -15970,9 +15782,7 @@
       "registryNumber": "22650",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Ferring Lečiva a.s.",
-      "manufacturersDtos": [
-        { "subjectName": "Ferring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Ferring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -16015,9 +15825,7 @@
       "registryNumber": "22649",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Ferring Lečiva a.s.",
-      "manufacturersDtos": [
-        { "subjectName": "Ferring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Ferring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -16060,9 +15868,7 @@
       "registryNumber": "22651",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Ferring Lečiva a.s.",
-      "manufacturersDtos": [
-        { "subjectName": "Ferring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Ferring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -16528,9 +16334,7 @@
       "registryNumber": "23296",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Laboratoire Aguettant",
-      "manufacturersDtos": [
-        { "subjectName": "Laboratoire Aguettant", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Laboratoire Aguettant", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -16677,9 +16481,7 @@
           "countryName": "Australia"
         }
       ],
-      "importersDtos": [
-        { "subjectName": "Pfizer Service Company BV", "countryName": "Belgia" }
-      ],
+      "importersDtos": [{ "subjectName": "Pfizer Service Company BV", "countryName": "Belgia" }],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Doxorubicini hydrochloridum",
@@ -16721,9 +16523,7 @@
       "expirationDateString": "2026-01-29",
       "subjectMedicinalProductName": "Zakłady Farmaceutyczne POLPHARMA S.A.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Pharmadox Healthcare Ltd.", "countryName": "Malta" }
-      ],
+      "importersDtos": [{ "subjectName": "Pharmadox Healthcare Ltd.", "countryName": "Malta" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Levodropropizinum",
@@ -16855,9 +16655,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "LEO Pharma A/S",
-      "manufacturersDtos": [
-        { "subjectName": "LEO Pharma A/S", "countryName": "Dania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "LEO Pharma A/S", "countryName": "Dania" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -18504,9 +18302,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "N.V. Organon",
-      "manufacturersDtos": [
-        { "subjectName": "SP Labo N.V.", "countryName": "Belgia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "SP Labo N.V.", "countryName": "Belgia" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -18548,9 +18344,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "N.V. Organon",
-      "manufacturersDtos": [
-        { "subjectName": "SP Labo N.V.", "countryName": "Belgia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "SP Labo N.V.", "countryName": "Belgia" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -18592,9 +18386,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "N.V. Organon",
-      "manufacturersDtos": [
-        { "subjectName": "SP Labo N.V.", "countryName": "Belgia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "SP Labo N.V.", "countryName": "Belgia" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -18636,9 +18428,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "N.V. Organon",
-      "manufacturersDtos": [
-        { "subjectName": "SP Labo N.V.", "countryName": "Belgia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "SP Labo N.V.", "countryName": "Belgia" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -18680,9 +18470,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "N.V. Organon",
-      "manufacturersDtos": [
-        { "subjectName": "SP Labo N.V.", "countryName": "Belgia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "SP Labo N.V.", "countryName": "Belgia" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -18724,9 +18512,7 @@
       "registryNumber": "09616",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Baxter Polska Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Baxter S.A.", "countryName": "Belgia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Baxter S.A.", "countryName": "Belgia" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -18768,9 +18554,7 @@
       "registryNumber": "01260",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Teva Pharmaceuticals Polska Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Nobilus Ent", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Nobilus Ent", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -19748,9 +19532,7 @@
       "registryNumber": "24895",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Polfarmex S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Polfarmex S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Polfarmex S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -21703,9 +21485,7 @@
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Bayer Sp. z o.o.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Berlimed S.A.", "countryName": "Hiszpania" }
-      ],
+      "importersDtos": [{ "subjectName": "Berlimed S.A.", "countryName": "Hiszpania" }],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Oxymetazolini hydrochloridum",
@@ -21749,9 +21529,7 @@
       "manufacturersDtos": [
         { "subjectName": "Schering-Plough Labo N.V.", "countryName": "Belgia" }
       ],
-      "importersDtos": [
-        { "subjectName": "Berlimed S.A.", "countryName": "Hiszpania" }
-      ],
+      "importersDtos": [{ "subjectName": "Berlimed S.A.", "countryName": "Hiszpania" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Oxymetazolini hydrochloridum",
@@ -21795,9 +21573,7 @@
       "manufacturersDtos": [
         { "subjectName": "Schering-Plough Labo N.V.", "countryName": "Belgia" }
       ],
-      "importersDtos": [
-        { "subjectName": "Berlimed S.A.", "countryName": "Hiszpania" }
-      ],
+      "importersDtos": [{ "subjectName": "Berlimed S.A.", "countryName": "Hiszpania" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Oxymetholonum",
@@ -21841,9 +21617,7 @@
       "manufacturersDtos": [
         { "subjectName": "Schering-Plough Labo N.V.", "countryName": "Belgia" }
       ],
-      "importersDtos": [
-        { "subjectName": "Berlimed S.A.", "countryName": "Hiszpania" }
-      ],
+      "importersDtos": [{ "subjectName": "Berlimed S.A.", "countryName": "Hiszpania" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Oxymetazolini hydrochloridum",
@@ -21928,9 +21702,7 @@
       "registryNumber": "00065",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Elanda Pharma Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Elanda Pharma Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Elanda Pharma Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -21972,9 +21744,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "CSL Behring GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -22016,9 +21786,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "CSL Behring GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -22060,9 +21828,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "CSL Behring GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -22104,9 +21870,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "CSL Behring GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -22148,9 +21912,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "CSL Behring GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -22192,9 +21954,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "CSL Behring GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -22236,9 +21996,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "CSL Behring GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -23547,9 +23305,7 @@
       "registryNumber": "10990",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Zentiva, k.s.",
-      "manufacturersDtos": [
-        { "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -23591,9 +23347,7 @@
       "registryNumber": "10989",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Zentiva, k.s.",
-      "manufacturersDtos": [
-        { "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -23767,9 +23521,7 @@
       "registryNumber": "03700",
       "expirationDateString": "2020-11-23",
       "subjectMedicinalProductName": "Mylan Healthcare Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Madaus GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Madaus GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -23811,9 +23563,7 @@
       "registryNumber": "15960",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Zentiva, k.s.",
-      "manufacturersDtos": [
-        { "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -23855,9 +23605,7 @@
       "registryNumber": "11705",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Zentiva, k.s.",
-      "manufacturersDtos": [
-        { "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Zentiva, k.s.", "countryName": "Czechy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -23899,9 +23647,7 @@
       "registryNumber": "25817",
       "expirationDateString": "2020-10-07",
       "subjectMedicinalProductName": "Bionorica SE",
-      "manufacturersDtos": [
-        { "subjectName": "Bionorica SE", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bionorica SE", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -24668,9 +24414,7 @@
       "registryNumber": "16316",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Actavis Group PTC ehf.",
-      "manufacturersDtos": [
-        { "subjectName": "Actavis Ltd.", "countryName": "Malta" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Actavis Ltd.", "countryName": "Malta" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -24896,9 +24640,7 @@
       "registryNumber": "22153",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Tarchomińskie Zakłady Farmaceutyczne \"Polfa\" S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Polfarmex S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Polfarmex S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -25031,9 +24773,7 @@
       "registryNumber": "20542",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Symphar Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Cyndea Pharma S.L.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Cyndea Pharma S.L.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -25487,12 +25227,8 @@
       "registryNumber": "24116",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
-      "importersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
+      "importersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Salmeterolu ksynafonian + Fluticasoni propionas",
@@ -25534,12 +25270,8 @@
       "registryNumber": "24115",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
-      "importersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
+      "importersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Salmeterolu ksynafonian + Fluticasoni propionas",
@@ -25581,9 +25313,7 @@
       "registryNumber": "23169",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Aeropharm GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Aeropharm GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -25714,9 +25444,7 @@
       "registryNumber": "23170",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Aeropharm GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Aeropharm GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -25855,9 +25583,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Janssen-Cilag International N.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Janssen-Cilag S.p.A.", "countryName": "Włochy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Janssen-Cilag S.p.A.", "countryName": "Włochy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -25899,9 +25625,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Janssen-Cilag International N.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Janssen-Cilag S.p.A.", "countryName": "Włochy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Janssen-Cilag S.p.A.", "countryName": "Włochy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -26937,9 +26661,7 @@
       "registryNumber": "25839",
       "expirationDateString": "2025-04-29",
       "subjectMedicinalProductName": "Galderma Polska Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Laboratoires Galderma", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Laboratoires Galderma", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -27246,9 +26968,7 @@
       "registryNumber": "02120",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Almirall Hermal GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -27290,9 +27010,7 @@
       "registryNumber": "02121",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Almirall Hermal GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -27642,9 +27360,7 @@
       "registryNumber": "08155",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Almirall Hermal GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -27774,9 +27490,7 @@
       "registryNumber": "11427",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Almirall Hermal GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -27818,9 +27532,7 @@
       "registryNumber": "11426",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Almirall Hermal GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -27862,9 +27574,7 @@
       "registryNumber": "06645",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Almirall Hermal GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -27906,9 +27616,7 @@
       "registryNumber": "06646",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Almirall Hermal GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Almirall Hermal GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -28094,9 +27802,7 @@
       "registryNumber": "26540",
       "expirationDateString": "2026-07-21",
       "subjectMedicinalProductName": "Polfarmex S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Polfarmex S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Polfarmex S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -28812,9 +28518,7 @@
       "registryNumber": "15638",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Biotest Pharma GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Biotest Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Biotest Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -28856,9 +28560,7 @@
       "registryNumber": "01797",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Orifarm Healthcare A/S",
-      "manufacturersDtos": [
-        { "subjectName": "Takeda GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Takeda GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -29006,9 +28708,7 @@
       "registryNumber": "17231",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "CSL Behring GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -29050,9 +28750,7 @@
       "registryNumber": "17230",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "CSL Behring GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "CSL Behring GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -29324,9 +29022,7 @@
       "expirationDateString": "2025-05-28",
       "subjectMedicinalProductName": "Artespharm Sp. z o.o.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Mako Pharma Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "importersDtos": [{ "subjectName": "Mako Pharma Sp. z o.o.", "countryName": "Polska" }],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Levocetirizini dihydrochloridum",
@@ -29935,9 +29631,7 @@
       "registryNumber": "10087",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Polfarmex S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Polfarmex S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Polfarmex S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -29979,9 +29673,7 @@
       "registryNumber": "10086",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Polfarmex S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "Polfarmex S.A.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Polfarmex S.A.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -30588,9 +30280,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Genzyme Europe B.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Genzyme Ireland Ltd.", "countryName": "Irlandia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Genzyme Ireland Ltd.", "countryName": "Irlandia" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -30632,9 +30322,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Roche Registration GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Roche Pharma AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Roche Pharma AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -31017,9 +30705,7 @@
       "registryNumber": "15031",
       "expirationDateString": "2022-07-29",
       "subjectMedicinalProductName": "Synoptis Pharma Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Teva Pharma, S.L.U.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Teva Pharma, S.L.U.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -31061,9 +30747,7 @@
       "registryNumber": "23197",
       "expirationDateString": "2023-03-14",
       "subjectMedicinalProductName": "G.L. Pharma GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "G.L. Pharma GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "G.L. Pharma GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -31106,9 +30790,7 @@
       "registryNumber": "23199",
       "expirationDateString": "2023-03-14",
       "subjectMedicinalProductName": "G.L. Pharma GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "G.L. Pharma GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "G.L. Pharma GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -31151,9 +30833,7 @@
       "registryNumber": "23198",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Biofarm Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "G.L. Pharma GmbH", "countryName": "Austria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "G.L. Pharma GmbH", "countryName": "Austria" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -31293,9 +30973,7 @@
       "registryNumber": "22440",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Teva Pharmaceuticals Polska Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Actavis Ltd.", "countryName": "Malta" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Actavis Ltd.", "countryName": "Malta" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -31338,9 +31016,7 @@
       "registryNumber": "20563",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Genepharm S.A.", "countryName": "Grecja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Genepharm S.A.", "countryName": "Grecja" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -31523,9 +31199,7 @@
       "registryNumber": "23631",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Genepharm S.A.", "countryName": "Grecja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Genepharm S.A.", "countryName": "Grecja" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -31568,9 +31242,7 @@
       "registryNumber": "23632",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Genepharm S.A.", "countryName": "Grecja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Genepharm S.A.", "countryName": "Grecja" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -31613,9 +31285,7 @@
       "registryNumber": "08808",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "US Pharmacia Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "US Pharmacia Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -31753,9 +31423,7 @@
       "registryNumber": "21874",
       "expirationDateString": "2021-05-25",
       "subjectMedicinalProductName": "Bausch Health Ireland Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "UAB Santonika", "countryName": "Litwa" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "UAB Santonika", "countryName": "Litwa" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -32045,9 +31713,7 @@
       "registryNumber": "07756",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Bayer Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Bayer Bitterfeld GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bayer Bitterfeld GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -32761,9 +32427,7 @@
         { "subjectName": "Orion Corporation", "countryName": "Finlandia" },
         { "subjectName": "Orion Corporation", "countryName": "Finlandia" }
       ],
-      "importersDtos": [
-        { "subjectName": "Orion Corporation", "countryName": "Finlandia" }
-      ],
+      "importersDtos": [{ "subjectName": "Orion Corporation", "countryName": "Finlandia" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Alfuzosini hydrochloridum",
@@ -33137,9 +32801,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Eli Lilly Nederland B.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Lilly France S.A.S.", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Lilly France S.A.S.", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -33181,9 +32843,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Eli Lilly Nederland B.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Lilly France S.A.S.", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Lilly France S.A.S.", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -34189,9 +33849,7 @@
       "registryNumber": "22656",
       "expirationDateString": "2021-11-30",
       "subjectMedicinalProductName": "Sanofi-Aventis Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Laboratoire UNICHTER", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Laboratoire UNICHTER", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -34415,9 +34073,7 @@
       "registryNumber": "27800",
       "expirationDateString": "2028-04-20",
       "subjectMedicinalProductName": "Mylan Healthcare Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "MADAUS GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "MADAUS GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -34914,9 +34570,7 @@
       "registryNumber": "",
       "expirationDateString": "2021-07-01",
       "subjectMedicinalProductName": "GlaxoSmithKline Dungarvan Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Famar S.A.", "countryName": "Grecja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Famar S.A.", "countryName": "Grecja" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -34958,9 +34612,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "GlaxoSmithKline Dungarvan Ltd.",
-      "manufacturersDtos": [
-        { "subjectName": "Famar S.A.", "countryName": "Grecja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Famar S.A.", "countryName": "Grecja" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -35725,9 +35377,7 @@
       "registryNumber": "21245",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Krka, d.d., Novo mesto",
-      "manufacturersDtos": [
-        { "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -35769,9 +35419,7 @@
       "registryNumber": "21246",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Krka, d.d., Novo mesto",
-      "manufacturersDtos": [
-        { "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -38195,9 +37843,7 @@
       "expirationDateString": "2028-04-11",
       "subjectMedicinalProductName": "Biofarm Sp. z o.o.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Alkaloid - INT d.o.o.", "countryName": "Słowenia" }
-      ],
+      "importersDtos": [{ "subjectName": "Alkaloid - INT d.o.o.", "countryName": "Słowenia" }],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Alprazolamum",
@@ -38242,9 +37888,7 @@
       "expirationDateString": "2028-04-11",
       "subjectMedicinalProductName": "Biofarm Sp. z o.o.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Alkaloid - INT d.o.o.", "countryName": "Słowenia" }
-      ],
+      "importersDtos": [{ "subjectName": "Alkaloid - INT d.o.o.", "countryName": "Słowenia" }],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Alprazolamum",
@@ -38289,9 +37933,7 @@
       "expirationDateString": "2028-04-11",
       "subjectMedicinalProductName": "Biofarm Sp. z o.o.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Alkaloid - INT d.o.o.", "countryName": "Słowenia" }
-      ],
+      "importersDtos": [{ "subjectName": "Alkaloid - INT d.o.o.", "countryName": "Słowenia" }],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Alprazolamum",
@@ -39019,9 +38661,7 @@
       "registryNumber": "18822",
       "expirationDateString": "2022-03-08",
       "subjectMedicinalProductName": "LEK S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "EMO-FARM Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "EMO-FARM Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -39063,9 +38703,7 @@
       "registryNumber": "10000",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "LEK S.A.",
-      "manufacturersDtos": [
-        { "subjectName": "EMO-FARM Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "EMO-FARM Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -39199,9 +38837,7 @@
       "registryNumber": "23348",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "OCEANIC Spółka Akcyjna",
-      "manufacturersDtos": [
-        { "subjectName": "Oceanic Spółka Akcyjna", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Oceanic Spółka Akcyjna", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -40303,9 +39939,7 @@
       "registryNumber": "03595",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Alk-Abello A/S",
-      "manufacturersDtos": [
-        { "subjectName": "ALK-Abello S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "ALK-Abello S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -40347,9 +39981,7 @@
       "registryNumber": "03596",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Alk-Abello A/S",
-      "manufacturersDtos": [
-        { "subjectName": "ALK-Abello S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "ALK-Abello S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -40611,9 +40243,7 @@
       "registryNumber": "12897",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Krka, d.d., Novo mesto",
-      "manufacturersDtos": [
-        { "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -40699,9 +40329,7 @@
       "registryNumber": "12898",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Krka, d.d., Novo mesto",
-      "manufacturersDtos": [
-        { "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -40831,9 +40459,7 @@
       "registryNumber": "12899",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Krka, d.d., Novo mesto",
-      "manufacturersDtos": [
-        { "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -40964,9 +40590,7 @@
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Covis Pharma Europe B.V.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Covis Pharma Europe B.V.", "countryName": "Holandia" }
-      ],
+      "importersDtos": [{ "subjectName": "Covis Pharma Europe B.V.", "countryName": "Holandia" }],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Ciclesonidum",
@@ -41008,9 +40632,7 @@
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Covis Pharma Europe B.V.",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Covis Pharma Europe B.V.", "countryName": "Holandia" }
-      ],
+      "importersDtos": [{ "subjectName": "Covis Pharma Europe B.V.", "countryName": "Holandia" }],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Ciclesonidum",
@@ -41051,9 +40673,7 @@
       "registryNumber": "15674",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Zakład Farmaceutyczny \"Amara\" Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "ICN Polfa Rzeszów", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "ICN Polfa Rzeszów", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -41095,9 +40715,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Mabxience Research SL",
-      "manufacturersDtos": [
-        { "subjectName": "GH GENHELIX S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "GH GENHELIX S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -41139,9 +40757,7 @@
       "registryNumber": "04960",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Stallergenes",
-      "manufacturersDtos": [
-        { "subjectName": "Stallergenes", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Stallergenes", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -41541,9 +41157,7 @@
       "registryNumber": "27064",
       "expirationDateString": "2022-08-29",
       "subjectMedicinalProductName": "Swyssi AG",
-      "manufacturersDtos": [
-        { "subjectName": "Swyssi AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Swyssi AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -41586,9 +41200,7 @@
       "registryNumber": "27063",
       "expirationDateString": "2022-08-29",
       "subjectMedicinalProductName": "Swyssi AG",
-      "manufacturersDtos": [
-        { "subjectName": "Swyssi AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Swyssi AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -42460,9 +42072,7 @@
       "registryNumber": "03418",
       "expirationDateString": "2022-01-04",
       "subjectMedicinalProductName": "Sandoz GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Salutas Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -42743,9 +42353,7 @@
       "registryNumber": "18087",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Synoptis Pharma Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Sopharma PLC", "countryName": "Bułgaria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sopharma PLC", "countryName": "Bułgaria" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -42787,9 +42395,7 @@
       "registryNumber": "26910",
       "expirationDateString": "2027-02-10",
       "subjectMedicinalProductName": "Sopharma Warszawa Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Sopharma AD", "countryName": "Bułgaria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sopharma AD", "countryName": "Bułgaria" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -42834,9 +42440,7 @@
       "registryNumber": "26445",
       "expirationDateString": "2026-06-09",
       "subjectMedicinalProductName": "Synoptis Pharma Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Sopharma AD", "countryName": "Bułgaria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Sopharma AD", "countryName": "Bułgaria" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -42879,9 +42483,7 @@
       "registryNumber": "09604",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "PRO.MED.CS Praha a.s.",
-      "manufacturersDtos": [
-        { "subjectName": "PRO.MED.CS. Praha a.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "PRO.MED.CS. Praha a.s.", "countryName": "Czechy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -42923,9 +42525,7 @@
       "registryNumber": "27745",
       "expirationDateString": "2028-03-30",
       "subjectMedicinalProductName": "Boiron SA",
-      "manufacturersDtos": [
-        { "subjectName": "Boiron SA", "countryName": "Francja" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Boiron SA", "countryName": "Francja" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -43212,9 +42812,7 @@
       "registryNumber": "23612",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Dr. Max Pharma s.r.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Balkanpharma-Troyan AD", "countryName": "Bułgaria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Balkanpharma-Troyan AD", "countryName": "Bułgaria" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -43257,9 +42855,7 @@
       "registryNumber": "23611",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Dr. Max Pharma s.r.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Balkanpharma-Troyan AD", "countryName": "Bułgaria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Balkanpharma-Troyan AD", "countryName": "Bułgaria" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -43302,9 +42898,7 @@
       "registryNumber": "22670",
       "expirationDateString": "2022-08-24",
       "subjectMedicinalProductName": "Rivopharm Limited ",
-      "manufacturersDtos": [
-        { "subjectName": "Balkanpharma-Troyan AD", "countryName": "Bułgaria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Balkanpharma-Troyan AD", "countryName": "Bułgaria" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -43347,9 +42941,7 @@
       "registryNumber": "22671",
       "expirationDateString": "2022-08-24",
       "subjectMedicinalProductName": "Rivopharm Limited ",
-      "manufacturersDtos": [
-        { "subjectName": "Balkanpharma-Troyan AD", "countryName": "Bułgaria" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Balkanpharma-Troyan AD", "countryName": "Bułgaria" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -43393,9 +42985,7 @@
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Berlin-Chemie AG",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Berlin-Chemie AG", "countryName": "Niemcy" }
-      ],
+      "importersDtos": [{ "subjectName": "Berlin-Chemie AG", "countryName": "Niemcy" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Ambroxoli hydrochloridum",
@@ -43436,9 +43026,7 @@
       "registryNumber": "",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Biofrontera Bioscience GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Biofrontera Pharma GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Biofrontera Pharma GmbH", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "CEN",
       "specimenType": "Ludzki",
@@ -43480,9 +43068,7 @@
       "registryNumber": "04107",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Biofarm Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Biofarm Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Biofarm Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -43524,9 +43110,7 @@
       "registryNumber": "11031",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Biofarm Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Biofarm Sp. z o.o.", "countryName": "Polska" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Biofarm Sp. z o.o.", "countryName": "Polska" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -43865,9 +43449,7 @@
       "registryNumber": "18757",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "B. Braun Melsungen AG",
-      "manufacturersDtos": [
-        { "subjectName": "B. Braun Medical S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "B. Braun Medical S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -43909,9 +43491,7 @@
       "registryNumber": "18756",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "B. Braun Melsungen AG",
-      "manufacturersDtos": [
-        { "subjectName": "B. Braun Medical S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "B. Braun Medical S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -43953,9 +43533,7 @@
       "registryNumber": "18755",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "B. Braun Melsungen AG",
-      "manufacturersDtos": [
-        { "subjectName": "B. Braun Medical S.A.", "countryName": "Hiszpania" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "B. Braun Medical S.A.", "countryName": "Hiszpania" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -44045,9 +43623,7 @@
       "registryNumber": "02618",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Baxter Polska Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Bieffe Medital S.p.A.", "countryName": "Włochy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bieffe Medital S.p.A.", "countryName": "Włochy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -44089,9 +43665,7 @@
       "registryNumber": "02619",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Baxter Polska Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Bieffe Medital S.p.A.", "countryName": "Włochy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bieffe Medital S.p.A.", "countryName": "Włochy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -44133,9 +43707,7 @@
       "registryNumber": "02617",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Baxter Polska Sp. z o.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Bieffe Medital S.p.A.", "countryName": "Włochy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Bieffe Medital S.p.A.", "countryName": "Włochy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -44224,9 +43796,7 @@
       "registryNumber": "22141",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "B. Braun Melsungen AG",
-      "manufacturersDtos": [
-        { "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -44269,9 +43839,7 @@
       "registryNumber": "22232",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "B. Braun Melsungen AG",
-      "manufacturersDtos": [
-        { "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -44313,9 +43881,7 @@
       "registryNumber": "12391",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "B. Braun Melsungen AG",
-      "manufacturersDtos": [
-        { "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -44357,9 +43923,7 @@
       "registryNumber": "03082",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "B. Braun Melsungen AG",
-      "manufacturersDtos": [
-        { "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -44401,9 +43965,7 @@
       "registryNumber": "21477",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "B. Braun Melsungen AG",
-      "manufacturersDtos": [
-        { "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "B. Braun Melsungen AG", "countryName": "Niemcy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -44609,9 +44171,7 @@
         { "subjectName": "hameln rds s.r.o.", "countryName": "Słowacja" },
         { "subjectName": "HBM Pharma s.r.o.", "countryName": "Słowacja" }
       ],
-      "importersDtos": [
-        { "subjectName": "hameln rds s.r.o.", "countryName": "Słowacja" }
-      ],
+      "importersDtos": [{ "subjectName": "hameln rds s.r.o.", "countryName": "Słowacja" }],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Amiodaroni hydrochloridum",
@@ -44656,9 +44216,7 @@
       "registryNumber": "02726",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Krka, d.d., Novo mesto",
-      "manufacturersDtos": [
-        { "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Krka, d.d., Novo mesto", "countryName": "Słowenia" }],
       "importersDtos": [],
       "procedureTypeName": "NAR",
       "specimenType": "Ludzki",
@@ -44850,9 +44408,7 @@
       "registryNumber": "16388",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "PRO.MED.CS Praha a.s.",
-      "manufacturersDtos": [
-        { "subjectName": "PRO.MED.CS Praha a.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "PRO.MED.CS Praha a.s.", "countryName": "Czechy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -44894,9 +44450,7 @@
       "registryNumber": "16390",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "PRO.MED.CS Praha a.s.",
-      "manufacturersDtos": [
-        { "subjectName": "PRO.MED.CS Praha a.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "PRO.MED.CS Praha a.s.", "countryName": "Czechy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -44938,9 +44492,7 @@
       "registryNumber": "16391",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "PRO.MED.CS Praha a.s.",
-      "manufacturersDtos": [
-        { "subjectName": "PRO.MED.CS Praha a.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "PRO.MED.CS Praha a.s.", "countryName": "Czechy" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -44983,9 +44535,7 @@
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Holsten Pharma GmbH",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Apotex Nederland B.V.", "countryName": "Holandia" }
-      ],
+      "importersDtos": [{ "subjectName": "Apotex Nederland B.V.", "countryName": "Holandia" }],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Amisulpridum",
@@ -45027,9 +44577,7 @@
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Holsten Pharma GmbH",
       "manufacturersDtos": [],
-      "importersDtos": [
-        { "subjectName": "Apotex Nederland B.V.", "countryName": "Holandia" }
-      ],
+      "importersDtos": [{ "subjectName": "Apotex Nederland B.V.", "countryName": "Holandia" }],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Amisulpridum",
@@ -45937,9 +45485,7 @@
       "registryNumber": "12011",
       "expirationDateString": "2022-03-08",
       "subjectMedicinalProductName": "Apotex Europe B.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Apotex Nederland B.V.", "countryName": "Holandia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Apotex Nederland B.V.", "countryName": "Holandia" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -45981,9 +45527,7 @@
       "registryNumber": "12012",
       "expirationDateString": "2022-03-08",
       "subjectMedicinalProductName": "Apotex Europe B.V.",
-      "manufacturersDtos": [
-        { "subjectName": "Apotex Nederland B.V.", "countryName": "Holandia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Apotex Nederland B.V.", "countryName": "Holandia" }],
       "importersDtos": [],
       "procedureTypeName": "MRP",
       "specimenType": "Ludzki",
@@ -46119,12 +45663,8 @@
       "registryNumber": "21916",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Fairmed Healthcare GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Fairmed Healthcare GmbH", "countryName": "Niemcy" }
-      ],
-      "importersDtos": [
-        { "subjectName": "Fair-Med Healthcare GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Fairmed Healthcare GmbH", "countryName": "Niemcy" }],
+      "importersDtos": [{ "subjectName": "Fair-Med Healthcare GmbH", "countryName": "Niemcy" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Amlodipini besilas",
@@ -46165,12 +45705,8 @@
       "registryNumber": "21915",
       "expirationDateString": "",
       "subjectMedicinalProductName": "Fairmed Healthcare GmbH",
-      "manufacturersDtos": [
-        { "subjectName": "Fairmed Healthcare GmbH", "countryName": "Niemcy" }
-      ],
-      "importersDtos": [
-        { "subjectName": "Fair-Med Healthcare GmbH", "countryName": "Niemcy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Fairmed Healthcare GmbH", "countryName": "Niemcy" }],
+      "importersDtos": [{ "subjectName": "Fair-Med Healthcare GmbH", "countryName": "Niemcy" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Amlodipini maleas",
@@ -46211,12 +45747,8 @@
       "registryNumber": "26967",
       "expirationDateString": "2027-03-24",
       "subjectMedicinalProductName": "Medreg s.r.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Medis International a.s.", "countryName": "Czechy" }
-      ],
-      "importersDtos": [
-        { "subjectName": "Medis International a.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Medis International a.s.", "countryName": "Czechy" }],
+      "importersDtos": [{ "subjectName": "Medis International a.s.", "countryName": "Czechy" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Amlodipini besilas",
@@ -46258,12 +45790,8 @@
       "registryNumber": "26966",
       "expirationDateString": "2027-03-24",
       "subjectMedicinalProductName": "Medreg s.r.o.",
-      "manufacturersDtos": [
-        { "subjectName": "Medis International a.s.", "countryName": "Czechy" }
-      ],
-      "importersDtos": [
-        { "subjectName": "Medis International a.s.", "countryName": "Czechy" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Medis International a.s.", "countryName": "Czechy" }],
+      "importersDtos": [{ "subjectName": "Medis International a.s.", "countryName": "Czechy" }],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
       "activeSubstanceName": "Amlodipini besilas",
@@ -46419,9 +45947,7 @@
       "registryNumber": "19675",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Vitabalans Oy",
-      "manufacturersDtos": [
-        { "subjectName": "Vitabalans Oy", "countryName": "Finlandia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Vitabalans Oy", "countryName": "Finlandia" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",
@@ -46463,9 +45989,7 @@
       "registryNumber": "19676",
       "expirationDateString": "Bezterminowe",
       "subjectMedicinalProductName": "Vitabalans Oy",
-      "manufacturersDtos": [
-        { "subjectName": "Vitabalans Oy", "countryName": "Finlandia" }
-      ],
+      "manufacturersDtos": [{ "subjectName": "Vitabalans Oy", "countryName": "Finlandia" }],
       "importersDtos": [],
       "procedureTypeName": "DCP",
       "specimenType": "Ludzki",

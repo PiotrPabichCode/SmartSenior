@@ -7,15 +7,12 @@ class Calendar {
     ENGLISH: 'en',
   };
 
-  private static getSupportedTranslation: { [language: string]: () => object } =
-    {
-      [Calendar.supportedLanguages.POLISH]: () => require('./constants/pl'),
-      [Calendar.supportedLanguages.ENGLISH]: () => require('./constants/en'),
-    };
+  private static getSupportedTranslation: { [language: string]: () => object } = {
+    [Calendar.supportedLanguages.POLISH]: () => require('./constants/pl'),
+    [Calendar.supportedLanguages.ENGLISH]: () => require('./constants/en'),
+  };
 
-  private static findSupportedLanguage = (
-    locale: string
-  ): string | undefined => {
+  private static findSupportedLanguage = (locale: string): string | undefined => {
     for (const language of Object.values(Calendar.supportedLanguages)) {
       if (language === locale.split('-')[0]) {
         return language;
@@ -32,9 +29,7 @@ class Calendar {
     LocaleConfig.defaultLocale = language;
   };
 
-  public static changeLanguage = (
-    language: string = Calendar.supportedLanguages.POLISH
-  ): void => {
+  public static changeLanguage = (language: string = Calendar.supportedLanguages.POLISH): void => {
     Calendar.getSupportedTranslation[language]();
     LocaleConfig.defaultLocale = language;
   };

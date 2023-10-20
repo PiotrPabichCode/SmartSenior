@@ -1,69 +1,76 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { DrawerActions } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import type { PropsWithChildren } from 'react';
 import Icons from '@src/components/Icons';
+import { goBack, navigationRef } from '@src/navigation/navigationUtils';
 
-type HeaderProps = PropsWithChildren<{
+type HeaderProps = {
   title: string;
   nested?: boolean;
   more?: boolean;
-}>;
+};
 
 const CustomHeader = ({ title, nested, more }: HeaderProps) => {
-  const navigation = useNavigation();
-
-  const handleBackClick = () => {
-    navigation.goBack();
-  };
   return (
     <SafeAreaView style={styles.container}>
-      {nested && (
-        <TouchableOpacity onPress={handleBackClick} style={styles.back}>
-          <Icons name='arrow-left' />
-        </TouchableOpacity>
-      )}
-      <Text style={styles.title}>{title}</Text>
-      {more && (
-        <View style={styles.more}>
-          <Icons name='more' />
+      <View style={styles.itemsView}>
+        {nested ? (
+          <TouchableOpacity onPress={goBack} style={styles.back}>
+            <Icons name="arrow-left" />
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.back} />
+        )}
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{title}</Text>
         </View>
-      )}
+        {more && (
+          <View style={styles.moreContainer}>
+            <Icons
+              name="more"
+              onPress={() => {
+                navigationRef.dispatch(DrawerActions.openDrawer());
+              }}
+            />
+          </View>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 70,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'white',
+    paddingVertical: 10,
+  },
+  itemsView: {
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   back: {
-    position: 'absolute',
-    left: 0,
-    paddingStart: 10,
-    paddingBottom: 10,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleContainer: {
+    flex: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
-    paddingBottom: 10,
     fontSize: 18,
     fontWeight: '500',
-    color: 'blue',
   },
-  more: {
-    paddingBottom: 10,
-    position: 'absolute',
-    right: 0,
-    paddingEnd: 10,
+  moreContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

@@ -6,6 +6,12 @@ import { useAppDispatch } from '@redux/store';
 import { logoutAction } from '@src/redux/actions/authActions';
 import { navigate } from '@src/navigation/navigationUtils';
 import { translate } from '@src/localization/Localization';
+import { clearEventsAction } from '@src/redux/actions/eventsActions';
+
+const handleLogout = (dispatch = useAppDispatch()) => {
+  dispatch(clearEventsAction());
+  dispatch(logoutAction());
+};
 
 const AccountScreen = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +20,7 @@ const AccountScreen = () => {
     <View style={styles.viewStyle}>
       <AccountProfileHint />
       <AccountItem
-        icon='user-account'
+        icon="user-account"
         title={translate('account.button.title.user')}
         onPress={() =>
           navigate('AccountItemDetails', {
@@ -25,14 +31,14 @@ const AccountScreen = () => {
       />
       <Divider style={styles.dividerStyle} />
       <AccountItem
-        icon='theme-account'
+        icon="theme-account"
         title={translate('account.button.title.theme')}
-        type='theme'
+        type="theme"
       />
       <AccountItem
-        icon='language-account'
+        icon="language-account"
         title={translate('account.button.title.language')}
-        type='language'
+        type="language"
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'language',
@@ -41,7 +47,7 @@ const AccountScreen = () => {
         }
       />
       <AccountItem
-        icon='notification-account'
+        icon="notification-account"
         title={translate('account.button.title.notification')}
         onPress={() =>
           navigate('AccountItemDetails', {
@@ -51,7 +57,7 @@ const AccountScreen = () => {
         }
       />
       <AccountItem
-        icon='share-account'
+        icon="share-account"
         title={translate('account.button.title.share')}
         onPress={() =>
           navigate('AccountItemDetails', {
@@ -61,7 +67,7 @@ const AccountScreen = () => {
         }
       />
       <AccountItem
-        icon='connected-users'
+        icon="connected-users"
         title={translate('account.button.title.connected-users')}
         onPress={() =>
           navigate('AccountItemDetails', {
@@ -72,9 +78,9 @@ const AccountScreen = () => {
       />
       <Divider style={styles.dividerStyle} />
       <AccountItem
-        icon='logout-account'
+        icon="logout-account"
         title={translate('account.button.title.logout')}
-        onPress={() => dispatch(logoutAction())}
+        onPress={() => handleLogout(dispatch)}
       />
     </View>
   );

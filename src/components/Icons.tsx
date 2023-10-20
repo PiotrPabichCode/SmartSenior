@@ -1,5 +1,6 @@
 import {
   AntDesign,
+  Feather,
   Fontisto,
   Foundation,
   Ionicons,
@@ -17,14 +18,7 @@ type IconProps = {
   focused?: boolean;
 };
 
-export const renderIcon = ({
-  name,
-  size,
-  color,
-  style,
-  focused,
-  onPress,
-}: IconProps) => {
+export const renderIcon = ({ name, size, color, style, focused, onPress }: IconProps) => {
   const iconName = name + (focused ? '-active' : '');
   return <Icons name={iconName} onPress={onPress} size={size} color={color} />;
 };
@@ -34,7 +28,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'home-bottom-nav':
       return (
         <Ionicons
-          name='home-outline'
+          name="home-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -44,7 +38,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'home-bottom-nav-active':
       return (
         <Ionicons
-          name='home'
+          name="home"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -54,7 +48,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'calendar-bottom-nav':
       return (
         <Ionicons
-          name='calendar-outline'
+          name="calendar-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -64,7 +58,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'calendar-bottom-nav-active':
       return (
         <Ionicons
-          name='calendar'
+          name="calendar"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -74,7 +68,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'events-bottom-nav':
       return (
         <Ionicons
-          name='calendar-outline'
+          name="calendar-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -84,7 +78,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'events-bottom-nav-active':
       return (
         <Ionicons
-          name='calendar'
+          name="calendar"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -94,7 +88,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'chat-bottom-nav':
       return (
         <Ionicons
-          name='chatbox-outline'
+          name="chatbox-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -104,7 +98,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'chat-bottom-nav-active':
       return (
         <Ionicons
-          name='chatbox'
+          name="chatbox"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -114,7 +108,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'account-bottom-nav':
       return (
         <Ionicons
-          name='person-circle-outline'
+          name="person-circle-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -124,7 +118,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'account-bottom-nav-active':
       return (
         <Ionicons
-          name='person-circle'
+          name="person-circle"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -134,7 +128,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'user-account':
       return (
         <Ionicons
-          name='person-outline'
+          name="person-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -144,7 +138,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'theme-account':
       return (
         <Ionicons
-          name='partly-sunny-outline'
+          name="partly-sunny-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -154,7 +148,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'theme-light':
       return (
         <Ionicons
-          name='sunny-outline'
+          name="sunny-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -164,7 +158,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'theme-light-active':
       return (
         <Ionicons
-          name='sunny'
+          name="sunny"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color || '#d4d700'}
@@ -174,7 +168,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'theme-dark':
       return (
         <Ionicons
-          name='moon-outline'
+          name="moon-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -184,7 +178,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'theme-dark-active':
       return (
         <Ionicons
-          name='moon'
+          name="moon"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color || 'darkblue'}
@@ -194,7 +188,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'language-account':
       return (
         <Ionicons
-          name='language-outline'
+          name="language-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -204,7 +198,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'notification-account':
       return (
         <Ionicons
-          name='notifications-outline'
+          name="notifications-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -214,7 +208,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'share-account':
       return (
         <Ionicons
-          name='share-social-outline'
+          name="share-social-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -224,7 +218,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'logout-wizard':
       return (
         <Ionicons
-          name='exit-outline'
+          name="exit-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color || 'white'}
@@ -234,7 +228,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'logout-account':
       return (
         <Ionicons
-          name='exit-outline'
+          name="exit-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -244,7 +238,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'pills':
       return (
         <Fontisto
-          name='pills'
+          name="pills"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -254,7 +248,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'doctor':
       return (
         <Fontisto
-          name='doctor'
+          name="doctor"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -264,7 +258,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'pharmacy':
       return (
         <MaterialIcons
-          name='local-pharmacy'
+          name="local-pharmacy"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -274,7 +268,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'notes':
       return (
         <MaterialCommunityIcons
-          name='note'
+          name="note"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -284,7 +278,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'arrow-right':
       return (
         <Ionicons
-          name='arrow-forward'
+          name="arrow-forward"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}
@@ -294,7 +288,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'arrow-left':
       return (
         <Ionicons
-          name='arrow-back'
+          name="arrow-back"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}
@@ -304,7 +298,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'edit':
       return (
         <AntDesign
-          name='edit'
+          name="edit"
           size={size || constants.iconSizeS}
           onPress={onPress}
           color={color}
@@ -314,7 +308,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'more':
       return (
         <Foundation
-          name='indent-more'
+          name="indent-more"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color || 'black'}
@@ -324,10 +318,21 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'delete': {
       return (
         <MaterialIcons
-          name='delete'
+          name="delete"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color='red'
+          color="red"
+          style={style}
+        />
+      );
+    }
+    case 'connected-users': {
+      return (
+        <Feather
+          name="users"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color="black"
           style={style}
         />
       );
@@ -335,7 +340,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     default:
       return (
         <Ionicons
-          name='search'
+          name="search"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={color}

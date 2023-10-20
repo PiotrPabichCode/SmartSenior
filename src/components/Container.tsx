@@ -7,14 +7,6 @@ type ContainerProps = {
   backgroundColor?: string;
 };
 
-export const Container = ({
-  children,
-  style,
-  backgroundColor,
-}: ContainerProps) => {
-  return (
-    <View style={[Styles.container, { backgroundColor }, style]}>
-      {children}
-    </View>
-  );
+export const Container = ({ children, style, backgroundColor }: ContainerProps) => {
+  return <View style={[Styles.container, { backgroundColor }, style]}>{children}</View>;
 };

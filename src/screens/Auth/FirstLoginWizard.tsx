@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useEffect, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { Formik } from 'formik';
@@ -26,6 +20,8 @@ import { navigate } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { loadActiveEventsAction } from '@src/redux/actions/eventsActions';
 import { translate } from '@src/localization/Localization';
+import I18n from 'i18n-js';
+import { fixConstData } from '@src/utils/utils';
 
 const FirstLoginSchema = Yup.object().shape({
   firstName: Yup.string().min(1).required(),
@@ -38,7 +34,8 @@ const FirstLoginWizard = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-  const userData = useAppSelector((state) => state.auth.userDetails);
+  const userData = useAppSelector(state => state.auth.userDetails);
+  const [updatedGenders, setUpdatedGenders] = useState(genders);
 
   useEffect(() => {
     const loadUserDetails = async () => {
@@ -46,6 +43,10 @@ const FirstLoginWizard = () => {
         dispatch(verifyUserDetailsAction());
       } catch (error) {
         console.log(error);
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
       }
     };
     loadUserDetails();
@@ -57,9 +58,6 @@ const FirstLoginWizard = () => {
       navigate('BottomBar', {
         screen: 'Home',
       });
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
     }
   }, [userData]);
 
@@ -69,18 +67,14 @@ const FirstLoginWizard = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.logout}
-        onPress={() => dispatch(logoutAction())}>
-        <Text style={styles.logoutTitle}>
-          {translate('firstLoginWizard.button.title.logout')}
-        </Text>
-        <Icons name='logout-wizard' />
+      <TouchableOpacity style={styles.logout} onPress={() => dispatch(logoutAction())}>
+        <Text style={styles.logoutTitle}>{translate('firstLoginWizard.button.title.logout')}</Text>
+        <Icons name="logout-wizard" />
       </TouchableOpacity>
       <ScrollView
         contentContainerStyle={styles.view}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'>
+        keyboardShouldPersistTaps="handled">
         <View style={styles.innerContainer}>
           <Formik
             initialValues={{
@@ -90,14 +84,14 @@ const FirstLoginWizard = () => {
               gender: '',
               email: getAuth().currentUser?.email,
             }}
-            onSubmit={async (values) => {
+            onSubmit={async values => {
               try {
                 FirstLoginSchema.validate(values)
                   .then(() => {
                     dispatch(UserDetailsAction(values));
                     CustomToast('success', translate('success.saveChanges'));
                   })
-                  .catch((errors) => {
+                  .catch(errors => {
                     console.log(errors);
                     CustomToast('error', translate('error.missingData'));
                   });
@@ -107,22 +101,16 @@ const FirstLoginWizard = () => {
             }}>
             {({ values, handleChange, handleSubmit, setFieldValue }) => (
               <>
-                <Text style={styles.title}>
-                  {translate('firstLoginWizard.title')}
-                </Text>
+                <Text style={styles.title}>{translate('firstLoginWizard.title')}</Text>
                 <Input
                   value={values.firstName}
                   onChangeText={handleChange('firstName')}
-                  placeholder={translate(
-                    'firstLoginWizard.button.title.firstName'
-                  )}
+                  placeholder={translate('firstLoginWizard.button.title.firstName')}
                 />
                 <Input
                   value={values.lastName}
                   onChangeText={handleChange('lastName')}
-                  placeholder={translate(
-                    'firstLoginWizard.button.title.lastName'
-                  )}
+                  placeholder={translate('firstLoginWizard.button.title.lastName')}
                 />
                 <Button
                   onPress={() => setShowDatePicker(true)}
@@ -131,9 +119,7 @@ const FirstLoginWizard = () => {
                       ? translate('firstLoginWizard.button.title.birthDate', {
                           birthDate: values.birthDate,
                         })
-                      : translate(
-                          'firstLoginWizard.button.title.birthDateEmpty'
-                        )
+                      : translate('firstLoginWizard.button.title.birthDateEmpty')
                   }
                 />
                 {showDatePicker && (
@@ -145,27 +131,18 @@ const FirstLoginWizard = () => {
                       if (e.type === 'dismissed') {
                         return false;
                       }
-                      setFieldValue(
-                        'birthDate',
-                        moment(newDate).format('DD-MM-YYYY')
-                      );
+                      setFieldValue('birthDate', moment(newDate).format('DD-MM-YYYY'));
                     }}
                   />
                 )}
                 <CustomDropdown
-                  fieldName='gender'
-                  valueName='value'
                   data={genders}
-                  placeholder={translate(
-                    'firstLoginWizard.button.placeholder.gender'
-                  )}
+                  placeholder={translate('firstLoginWizard.button.placeholder.gender')}
                   value={values.gender}
                   handleChange={(e: any) => setFieldValue('gender', e.value)}
                 />
                 <TouchableOpacity onPress={() => handleSubmit()}>
-                  <Text style={styles.submit}>
-                    {translate('firstLoginWizard.button.submit')}
-                  </Text>
+                  <Text style={styles.submit}>{translate('firstLoginWizard.button.submit')}</Text>
                 </TouchableOpacity>
               </>
             )}

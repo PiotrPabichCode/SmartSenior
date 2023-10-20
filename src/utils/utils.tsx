@@ -2,13 +2,11 @@ import moment from 'moment-timezone';
 import isEqual from 'lodash.isequal';
 import Localization, { translate } from '@src/localization/Localization';
 import Calendar from '@src/components/Calendar/Calendar';
-import { store, useAppSelector } from '@src/redux/store';
+import { useAppSelector } from '@src/redux/store';
 import { DAYS } from '@src/redux/constants/eventsConstants';
 
 export const buildRequest = (baseUrl: string, params: any) => {
-  const entries = Object.entries(params).filter(
-    ([key, value]) => String(value).trim() !== ''
-  );
+  const entries = Object.entries(params).filter(([key, value]) => String(value).trim() !== '');
   return baseUrl + entries.map(([key, value]) => `${key}=${value}`).join('&');
 };
 
@@ -34,10 +32,7 @@ export const createDatetimeTimezone = (dateValue?: Date, timeValue?: Date) => {
   return new Date(`${year}-${month}-${day}T${hours}:${minutes}`);
 };
 
-export function getUpdatedFields<T>(
-  oldValue: T,
-  newValue: Partial<T>
-): Partial<T> {
+export function getUpdatedFields<T>(oldValue: T, newValue: Partial<T>): Partial<T> {
   const updatedFields: Partial<T> = {};
 
   for (const key in newValue) {
@@ -59,7 +54,7 @@ export const changeLanguage = (language: string) => {
 };
 
 export const createUserLabel = () => {
-  const userDetails = useAppSelector((state) => state.auth.userDetails);
+  const userDetails = useAppSelector(state => state.auth.userDetails);
   const label = `${userDetails.firstName[0]}${userDetails.lastName[0]}`;
   return label.toUpperCase();
 };

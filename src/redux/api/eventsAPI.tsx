@@ -1,21 +1,11 @@
-import {
-  equalTo,
-  get,
-  orderByChild,
-  push,
-  query,
-  ref,
-  update,
-} from 'firebase/database';
+import { equalTo, get, orderByChild, push, query, ref, update } from 'firebase/database';
 import { db } from 'firebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { handleApiError } from '../utils';
 import { EventDetails } from '../types/eventsTypes';
 import { ApiResponse } from '../types';
 
-export const createEvent = async (
-  newEventData: EventDetails
-): Promise<ApiResponse> => {
+export const createEvent = async (newEventData: EventDetails): Promise<ApiResponse> => {
   try {
     const eventsRef = ref(db, 'events/');
     const response = push(eventsRef, newEventData);
@@ -39,7 +29,7 @@ export const createEvent = async (
 
 export const updateEvent = async (
   eventKey: string,
-  changeEventData: EventDetails
+  changeEventData: EventDetails,
 ): Promise<ApiResponse> => {
   try {
     const eventRef = ref(db, 'events/' + eventKey);
@@ -60,7 +50,7 @@ export const loadActiveEvents = async (): Promise<ApiResponse> => {
     const eventsQuery = query(
       ref(db, 'events'),
       orderByChild('userUid'),
-      equalTo(userUID + '-deleted-false')
+      equalTo(userUID + '-deleted-false'),
     );
 
     const eventsSnapshot = await get(eventsQuery);
@@ -81,7 +71,7 @@ export const loadActiveEvents = async (): Promise<ApiResponse> => {
 };
 
 export const filterUpcomingEvents = (events: EventDetails[]) => {
-  return Object.values(events).filter((event) => {
+  return Object.values(events).filter(event => {
     return event.executionTime >= Date.now();
   });
 };

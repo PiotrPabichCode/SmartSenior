@@ -25,14 +25,12 @@ const MedicinesScreen = () => {
 
   return (
     <View style={styles.view}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollView}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
         <Text style={styles.title}>{translate('medicinesScreen.title')}</Text>
         <Divider style={styles.dividerStyle} />
         <Formik
           initialValues={{ name: '' }}
-          onSubmit={(params) => {
+          onSubmit={params => {
             try {
               const request = buildRequest(BASE_URL, params);
               loadData(request);
@@ -62,7 +60,7 @@ const MedicinesScreen = () => {
             <MedicineItem
               key={index}
               name={item['medicinalProductName']}
-              price='35,20zł'
+              price="35,20zł"
               onPress={() =>
                 navigate('MedicinesItemDetails', {
                   item: item,

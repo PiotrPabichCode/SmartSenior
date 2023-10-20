@@ -12,9 +12,7 @@ import { navigate } from '@src/navigation/navigationUtils';
 import { translate } from '@src/localization/Localization';
 
 const RegisterSchema = Yup.object().shape({
-  email: Yup.string()
-    .email(translate('login.yup.email'))
-    .required(translate('yup.required')),
+  email: Yup.string().email(translate('login.yup.email')).required(translate('yup.required')),
   password: Yup.string()
     .min(6, translate('login.yup.passwordLengthMin'))
     .max(30, translate('login.yup.passwordLengthMax'))
@@ -27,7 +25,7 @@ const RegisterSchema = Yup.object().shape({
 const RegisterScreen = () => {
   const dispatch = useAppDispatch();
   return (
-    <ScrollView keyboardShouldPersistTaps='handled'>
+    <ScrollView keyboardShouldPersistTaps="handled">
       <SafeAreaView style={styles.appContainer}>
         <WelcomeSvg width={230} height={170} />
         <View style={styles.formContainer}>
@@ -39,14 +37,11 @@ const RegisterScreen = () => {
               repeatPassword: '',
             }}
             validationSchema={RegisterSchema}
-            onSubmit={async (values) => {
+            onSubmit={async values => {
               try {
                 dispatch(signUpAction(values));
               } catch (e) {
-                CustomToast(
-                  'error',
-                  translate('register.message.error.signUp')
-                );
+                CustomToast('error', translate('register.message.error.signUp'));
               }
             }}>
             {({ values, handleChange, handleSubmit }) => (
@@ -54,53 +49,37 @@ const RegisterScreen = () => {
                 <View style={styles.inputField}>
                   <Input
                     style={styles.inputField}
-                    underlineColorAndroid='transparent'
-                    leftIcon={<Icon name='email' size={30} color='black' />}
+                    underlineColorAndroid="transparent"
+                    leftIcon={<Icon name="email" size={30} color="black" />}
                     placeholder={translate('register.button.placeholder.email')}
-                    keyboardType='email-address'
+                    keyboardType="email-address"
                     onChangeText={handleChange('email')}
                     value={values.email}
                   />
-                  <ErrorMessage
-                    className='errorText'
-                    component={Text}
-                    name='email'
-                  />
+                  <ErrorMessage className="errorText" component={Text} name="email" />
                 </View>
 
                 <View style={styles.inputField}>
                   <Input
                     style={styles.inputField}
-                    leftIcon={<Icon name='lock' size={30} color='black' />}
+                    leftIcon={<Icon name="lock" size={30} color="black" />}
                     secureTextEntry={true}
-                    placeholder={translate(
-                      'register.button.placeholder.password'
-                    )}
+                    placeholder={translate('register.button.placeholder.password')}
                     onChangeText={handleChange('password')}
                     value={values.password}
                   />
-                  <ErrorMessage
-                    className='errorText'
-                    component={Text}
-                    name='password'
-                  />
+                  <ErrorMessage className="errorText" component={Text} name="password" />
                 </View>
                 <View style={styles.inputField}>
                   <Input
                     style={styles.inputField}
-                    leftIcon={<Icon name='lock' size={30} color='black' />}
+                    leftIcon={<Icon name="lock" size={30} color="black" />}
                     secureTextEntry={true}
-                    placeholder={translate(
-                      'register.button.placeholder.repeatPassword'
-                    )}
+                    placeholder={translate('register.button.placeholder.repeatPassword')}
                     onChangeText={handleChange('repeatPassword')}
                     value={values.repeatPassword}
                   />
-                  <ErrorMessage
-                    className='errorText'
-                    component={Text}
-                    name='repeatPassword'
-                  />
+                  <ErrorMessage className="errorText" component={Text} name="repeatPassword" />
                 </View>
 
                 <Button
@@ -115,9 +94,7 @@ const RegisterScreen = () => {
           </Formik>
           <Text style={styles.textLinks}>
             {translate('register.question')}
-            <Text
-              style={styles.textRegister}
-              onPress={() => navigate('SignIn')}>
+            <Text style={styles.textRegister} onPress={() => navigate('SignIn')}>
               {translate('register.signIn')}
             </Text>
           </Text>

@@ -9,7 +9,5 @@ interface RowProps {
 }
 
 export const Row = ({ children, style, backgroundColor }: RowProps) => {
-  return (
-    <View style={[Styles.rowView, { backgroundColor }, style]}>{children}</View>
-  );
+  return <View style={[Styles.rowView, { backgroundColor }, style]}>{children}</View>;
 };

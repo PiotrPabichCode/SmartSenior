@@ -53,11 +53,11 @@ export const days = [
 ];
 
 export const cyclicValues = [
-  { label: translate('cyclicValues.everyday'), value: 1 },
-  { label: translate('cyclicValues.2days'), value: 2 },
-  { label: translate('cyclicValues.week'), value: 7 },
-  { label: translate('cyclicValues.month'), value: 30 },
-  { label: translate('cyclicValues.any'), value: -1 },
+  { label: 'cyclicValues.everyday', value: 1, multiLang: true },
+  { label: 'cyclicValues.2days', value: 2, multiLang: true },
+  { label: 'cyclicValues.week', value: 7, multiLang: true },
+  { label: 'cyclicValues.month', value: 30, multiLang: true },
+  { label: 'cyclicValues.any', value: -1, multiLang: true },
 ];
 
 export const priorities = [
@@ -70,33 +70,43 @@ export const priorities = [
 
 export const times = [
   {
-    label: translate('timeValues.min', {
+    label: 'timeValues.min',
+    values: {
       min: 5,
-    }),
+    },
     value: 5,
+    multiLang: true,
   },
   {
-    label: translate('timeValues.min', {
+    label: 'timeValues.min',
+    values: {
       min: 15,
-    }),
+    },
     value: 15,
+    multiLang: true,
   },
   {
-    label: translate('timeValues.min', {
+    label: 'timeValues.min',
+    values: {
       min: 30,
-    }),
+    },
     value: 30,
+    multiLang: true,
   },
   {
-    label: translate('timeValues.hour', {
+    label: 'timeValues.hour',
+    values: {
       hour: 1,
-    }),
+    },
     value: 60,
+    multiLang: true,
   },
   {
-    label: translate('timeValues.hour', {
+    label: 'timeValues.hour',
+    values: {
       hour: 3,
-    }),
-    value: 60 * 3,
+    },
+    value: 3 * 60,
+    multiLang: true,
   },
 ];

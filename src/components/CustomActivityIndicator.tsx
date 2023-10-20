@@ -3,7 +3,7 @@ import { View, StyleSheet, ActivityIndicator } from 'react-native';
 const CustomActivityIndicator = () => {
   return (
     <View style={styles.activityIndicator}>
-      <ActivityIndicator size='large' />
+      <ActivityIndicator size="large" />
     </View>
   );
 };

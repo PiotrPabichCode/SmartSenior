@@ -1,22 +1,16 @@
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { FIREBASE_AUTH, db } from 'firebaseConfig';
 import { handleApiError } from '../utils';
 import { get, ref, set } from 'firebase/database';
 import { ApiResponse } from '../types';
 import { AuthCredentials } from '../types/authTypes';
 
-export const signIn = async (
-  authData: AuthCredentials
-): Promise<ApiResponse> => {
+export const signIn = async (authData: AuthCredentials): Promise<ApiResponse> => {
   try {
     const response = await signInWithEmailAndPassword(
       FIREBASE_AUTH,
       authData.email,
-      authData.password
+      authData.password,
     );
     if (response.user) {
       return { error: null, data: response.user };
@@ -27,14 +21,12 @@ export const signIn = async (
   }
 };
 
-export const signUp = async (
-  authData: AuthCredentials
-): Promise<ApiResponse> => {
+export const signUp = async (authData: AuthCredentials): Promise<ApiResponse> => {
   try {
     const response = await createUserWithEmailAndPassword(
       FIREBASE_AUTH,
       authData.email,
-      authData.password
+      authData.password,
     );
 
     if (response.user) {

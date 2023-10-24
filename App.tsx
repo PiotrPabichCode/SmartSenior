@@ -7,7 +7,11 @@ import AppNavigator from './src/navigation/AppNavigator';
 import { Provider } from 'react-redux';
 import { store } from 'src/redux/store';
 import { FIREBASE_AUTH } from './firebaseConfig';
-import { logoutAction, verifyAuth } from './src/redux/actions/authActions';
+import {
+  loadConnectedUsersAction,
+  logoutAction,
+  verifyAuth,
+} from './src/redux/actions/authActions';
 import { navigationRef } from './src/navigation/navigationUtils';
 import { clearEventsAction, loadActiveEventsAction } from '@src/redux/actions/eventsActions';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -45,6 +49,7 @@ export default function App() {
       if (user) {
         store.dispatch(verifyAuth(user));
         store.dispatch(loadActiveEventsAction());
+        store.dispatch(loadConnectedUsersAction());
       } else {
         store.dispatch(clearEventsAction());
         store.dispatch(logoutAction());

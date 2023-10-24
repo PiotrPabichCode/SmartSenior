@@ -1,19 +1,49 @@
-import { ColorValue, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import {
+  ColorValue,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
 interface ButtonProps {
   icon: any;
   title: string;
+  titleStyle?: StyleProp<TextStyle>;
+  style?: StyleProp<ViewStyle>;
   color: ColorValue;
-  backgroundColor: ColorValue;
+  backgroundColor?: ColorValue;
   onPress?: () => void;
 }
 
-const CustomButton = ({ icon, title, color, backgroundColor, onPress }: ButtonProps) => {
+const CustomButton = ({
+  icon,
+  title,
+  titleStyle,
+  style,
+  color,
+  backgroundColor,
+  onPress,
+}: ButtonProps) => {
+  const renderDetails = () => {
+    return (
+      <>
+        <View style={styles.iconStyle}>{icon}</View>
+        <Text style={[styles.title, titleStyle, { color }]} numberOfLines={1}>
+          {title}
+        </Text>
+      </>
+    );
+  };
   const bg = backgroundColor;
-  return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, { backgroundColor }]}>
-      <View style={styles.iconStyle}>{icon}</View>
-      <Text style={[styles.title, { color }]}>{title}</Text>
+  return !onPress ? (
+    <View style={[styles.container, style, { backgroundColor }]}>{renderDetails()}</View>
+  ) : (
+    <TouchableOpacity onPress={onPress} style={[styles.container, style, { backgroundColor }]}>
+      {renderDetails()}
     </TouchableOpacity>
   );
 };
@@ -21,7 +51,7 @@ const CustomButton = ({ icon, title, color, backgroundColor, onPress }: ButtonPr
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    gap: 50,
+    gap: 40,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

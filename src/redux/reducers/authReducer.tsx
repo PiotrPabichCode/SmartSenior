@@ -7,6 +7,8 @@ const initialState = {
   error: null,
   language: Localization.getLocale(),
   theme: 'light',
+  role: null,
+  connectedUsers: [],
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -22,6 +24,10 @@ const authReducer = (state = initialState, action: any) => {
       };
     case types.SIGN_IN_FAIL:
     case types.SIGN_UP_FAIL:
+    case types.GET_USER_DETAILS_FAIL:
+    case types.GET_CONNECTED_USERS_FAIL:
+    case types.ADD_CONNECTED_USER_FAIL:
+    case types.DELETE_CONNECTED_USER_FAIL:
       return {
         ...state,
         error: payload,
@@ -31,15 +37,27 @@ const authReducer = (state = initialState, action: any) => {
         ...state,
         userDetails: payload,
       };
-    case types.GET_USER_DETAILS_FAIL:
+    case types.GET_CONNECTED_USERS_SUCCESS:
+    case types.DELETE_CONNECTED_USER_SUCCESS:
       return {
         ...state,
-        error: payload,
+        connectedUsers: payload,
+      };
+    case types.ADD_CONNECTED_USER_SUCCESS:
+      return {
+        ...state,
+        connectedUsers: [...state.connectedUsers, payload],
       };
     case types.CHANGE_LANGUAGE: {
       return {
         ...state,
         language: payload,
+      };
+    }
+    case types.CHANGE_ROLE: {
+      return {
+        ...state,
+        role: payload,
       };
     }
     case types.CHANGE_THEME: {

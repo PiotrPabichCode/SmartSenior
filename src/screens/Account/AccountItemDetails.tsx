@@ -1,5 +1,12 @@
 import { useEffect, useState, useRef } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  KeyboardTypeOptions,
+} from 'react-native';
 
 import type { PropsWithChildren } from 'react';
 import { CheckBox } from '@rneui/themed';
@@ -8,7 +15,7 @@ import Colors from '@src/constants/Colors';
 
 type AccountItemDetailsProps = PropsWithChildren<{
   type?: string;
-  keyboard?: string;
+  keyboard?: KeyboardTypeOptions;
   title: string;
   placeholder?: string;
   value?: string | number;
@@ -71,7 +78,6 @@ const AccountItemDetails = ({
 
 const styles = StyleSheet.create({
   viewStyle: {
-    display: 'flex',
     flexDirection: 'row',
     width: '95%',
     alignItems: 'center',
@@ -91,7 +97,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   rightPanel: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

@@ -11,7 +11,7 @@ export const constants = {
 };
 
 export enum ROLES {
-  USER,
   ADMIN,
+  SENIOR,
   KEEPER,
 }

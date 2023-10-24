@@ -15,7 +15,7 @@ import {
   logoutAction,
   verifyUserDetailsAction,
 } from '@src/redux/actions/authActions';
-import { GenderEnum, genders } from '@src/redux/constants/authConstants';
+import { GenderEnum, RolesEnum, genders, roles } from '@src/redux/constants/authConstants';
 import { navigate } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { loadActiveEventsAction } from '@src/redux/actions/eventsActions';
@@ -26,6 +26,7 @@ const FirstLoginSchema = Yup.object().shape({
   lastName: Yup.string().min(1).required(),
   birthDate: Yup.date().max(new Date()).required(),
   gender: Yup.string().oneOf(Object.values(GenderEnum)).required(),
+  role: Yup.string().oneOf(Object.values(RolesEnum)).required(),
 });
 
 const FirstLoginWizard = () => {
@@ -79,6 +80,7 @@ const FirstLoginWizard = () => {
               lastName: '',
               birthDate: null,
               gender: '',
+              role: '',
               email: getAuth().currentUser?.email,
             }}
             onSubmit={async values => {
@@ -137,6 +139,12 @@ const FirstLoginWizard = () => {
                   placeholder={translate('firstLoginWizard.button.placeholder.gender')}
                   value={values.gender}
                   handleChange={(e: any) => setFieldValue('gender', e.value)}
+                />
+                <CustomDropdown
+                  data={roles.filter(role => role.value !== RolesEnum.ADMIN)}
+                  placeholder={translate('firstLoginWizard.button.placeholder.role')}
+                  value={values.role}
+                  handleChange={(e: any) => setFieldValue('role', e.value)}
                 />
                 <TouchableOpacity onPress={() => handleSubmit()}>
                   <Text style={styles.submit}>{translate('firstLoginWizard.button.submit')}</Text>

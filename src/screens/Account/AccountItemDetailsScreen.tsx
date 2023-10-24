@@ -9,6 +9,7 @@ import { changeLanguageAction } from '@src/redux/actions/authActions';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
+import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersScreen';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();
@@ -101,6 +102,8 @@ const AccountItemDetailsScreen = ({ route }: any) => {
         return renderLanguageScreen();
       case 'notification':
         return renderNotificationScreen();
+      case 'connected-users':
+        return <AccountConnectedUsersScreen />;
       case 'share':
         return <></>;
       default:

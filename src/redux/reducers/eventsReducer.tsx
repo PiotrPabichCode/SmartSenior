@@ -43,7 +43,7 @@ const eventsReducer = (state = initialState, action: any) => {
     case types.CLEAR_EVENTS: {
       return {
         ...state,
-        initialState,
+        ...initialState,
       };
     }
     default:

@@ -91,7 +91,8 @@
         "birthDateEmpty": "Wybierz datę urodzenia"
       },
       "placeholder": {
-        "gender": "Wybierz płeć"
+        "gender": "Wybierz płeć",
+        "role": "Wybierz rolę"
       },
       "submit": "Zatwierdź zmiany"
     },
@@ -100,6 +101,11 @@
         "save": "Zapisano zmiany"
       }
     }
+  },
+  "connectedUsers": {
+    "title": "Połączone osoby",
+    "placeholder": "Wpisz adres e-mail seniora...",
+    "seniorTitle": "Dane opiekuna:"
   },
   "login": {
     "welcomeBack": "Witaj z powrotem!",
@@ -298,6 +304,11 @@
   "genders": {
     "man": "Mężczyzna",
     "woman": "Kobieta"
+  },
+  "roles": {
+    "admin": "Admin",
+    "senior": "Senior",
+    "keeper": "Opiekun"
   },
   "cyclicValues": {
     "everyday": "Codziennie",

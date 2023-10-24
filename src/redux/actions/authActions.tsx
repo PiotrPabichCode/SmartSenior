@@ -3,6 +3,9 @@ import * as types from '../constants/authConstants';
 import { useAppDispatch } from '../store';
 import { navigate } from '@navigation/navigationUtils';
 import { AuthCredentials, UserDetails } from '../types/authTypes';
+import { ROLES } from '@src/constants/Constants';
+import { Theme } from '../types';
+import CustomToast from '@src/components/CustomToast';
 
 export const signInAction =
   (userData: AuthCredentials) =>
@@ -146,4 +149,86 @@ export const changeLanguageAction =
       type: types.CHANGE_LANGUAGE,
       payload: language,
     });
+  };
+
+export const changeThemeAction =
+  (theme: Theme) =>
+  async (dispatch = useAppDispatch()) => {
+    dispatch({
+      type: types.CHANGE_THEME,
+      payload: theme,
+    });
+  };
+
+export const changeRoleAction =
+  (role: ROLES) =>
+  async (dispatch = useAppDispatch()) => {
+    dispatch({
+      type: types.CHANGE_ROLE,
+      payload: role,
+    });
+  };
+
+export const loadConnectedUsersAction =
+  () =>
+  async (dispatch = useAppDispatch()) => {
+    try {
+      const response = await api.loadConnectedUsers();
+      const { error, data } = response;
+      if (error) {
+        dispatch({
+          type: types.GET_CONNECTED_USERS_FAIL,
+          payload: error,
+        });
+      } else {
+        dispatch({
+          type: types.GET_CONNECTED_USERS_SUCCESS,
+          payload: data,
+        });
+      }
+    } catch (error) {
+      dispatch({ type: types.GET_CONNECTED_USERS_FAIL, error: error });
+    }
+  };
+
+export const addConnectedUserAction =
+  (email: string) =>
+  async (dispatch = useAppDispatch()) => {
+    try {
+      const response = await api.addConnectedUser(email);
+      const { error, data } = response;
+      if (error) {
+        dispatch({ type: types.ADD_CONNECTED_USER_FAIL, payload: error });
+        CustomToast('error', error.message);
+      } else {
+        dispatch({
+          type: types.ADD_CONNECTED_USER_SUCCESS,
+          payload: data,
+        });
+        CustomToast('success', 'Dodano nowego seniora');
+      }
+    } catch (error) {
+      dispatch({ type: types.ADD_CONNECTED_USER_FAIL, payload: error });
+    }
+  };
+
+export const deleteConnectedUserAction =
+  (email: string) =>
+  async (dispatch = useAppDispatch()) => {
+    try {
+      const response = await api.deleteConnectedUser(email);
+      const { error, data } = response;
+      if (error) {
+        dispatch({ type: types.DELETE_CONNECTED_USER_FAIL, payload: error });
+        CustomToast('error', error.message);
+      } else {
+        dispatch({
+          type: types.DELETE_CONNECTED_USER_SUCCESS,
+          payload: data,
+        });
+        CustomToast('success', 'Usunięto seniora');
+      }
+    } catch (error) {
+      dispatch({ type: types.DELETE_CONNECTED_USER_FAIL, payload: error });
+    }
   };

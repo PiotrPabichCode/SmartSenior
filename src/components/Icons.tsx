@@ -1,5 +1,6 @@
 import {
   AntDesign,
+  Entypo,
   Feather,
   Fontisto,
   Foundation,
@@ -315,13 +316,24 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           style={style}
         />
       );
+    case 'add': {
+      return (
+        <MaterialIcons
+          name="add"
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color || 'blue'}
+          style={style}
+        />
+      );
+    }
     case 'delete': {
       return (
         <MaterialIcons
           name="delete"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color="red"
+          color={color || 'red'}
           style={style}
         />
       );
@@ -332,7 +344,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="medicinebox"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color="black"
+          color={color || 'black'}
           style={style}
         />
       );
@@ -343,7 +355,51 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="users"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color="black"
+          color={color || 'black'}
+          style={style}
+        />
+      );
+    }
+    case 'chat': {
+      return (
+        <Entypo
+          name="chat"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color || 'black'}
+          style={style}
+        />
+      );
+    }
+    case 'phone': {
+      return (
+        <Entypo
+          name="phone"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color || 'black'}
+          style={style}
+        />
+      );
+    }
+    case 'email': {
+      return (
+        <Entypo
+          name="email"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color || 'black'}
+          style={style}
+        />
+      );
+    }
+    case 'user': {
+      return (
+        <Entypo
+          name="user"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color || 'black'}
           style={style}
         />
       );

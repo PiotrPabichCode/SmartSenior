@@ -17,7 +17,7 @@ export const createEvent = async (newEventData: EventDetails): Promise<ApiRespon
     }
     const key = response.key;
     const currentEventRef = ref(db, 'events/' + key);
-    update(currentEventRef, {
+    await update(currentEventRef, {
       key: key,
     });
     newEventData.key = key;

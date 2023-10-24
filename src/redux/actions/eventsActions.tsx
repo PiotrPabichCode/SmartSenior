@@ -3,7 +3,6 @@ import * as api from '../api/eventsAPI';
 import * as types from '../constants/eventsConstants';
 
 import { store, useAppDispatch, useAppSelector } from '../store';
-import { EventDetails } from '../types/eventsTypes';
 import { changeLanguageAction } from './authActions';
 
 export const useAuthStore = () => {
@@ -22,6 +21,15 @@ export const useAuthStore = () => {
     },
     getLanguage: () => {
       return store.getState().auth.language;
+    },
+    getTheme: () => {
+      return store.getState().auth.theme;
+    },
+    getRole: () => {
+      return store.getState().auth.role;
+    },
+    getConnectedUsers: () => {
+      return store.getState().auth.connectedUsers;
     },
     setLanguage: (language: string) => {
       store.dispatch(changeLanguageAction(language));

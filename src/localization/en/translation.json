@@ -62,7 +62,7 @@
         "language": "Language",
         "notification": "Notifications",
         "share": "Recommend our app",
-        "connected-users": "Connected People",
+        "connected-users": "Connected Users",
         "logout": "Logout"
       }
     },
@@ -71,7 +71,7 @@
       "language": "Profile - Language",
       "notification": "Profile - Notifications",
       "share": "Profile - Recommendations",
-      "connected-users": "Profile - Connected People"
+      "connected-users": "Profile - Connected Users"
     }
   },
   "welcome": {
@@ -91,7 +91,8 @@
         "birthDateEmpty": "Select date of birth"
       },
       "placeholder": {
-        "gender": "Select gender"
+        "gender": "Select gender",
+        "role": "Select role"
       },
       "submit": "Save Changes"
     },
@@ -100,6 +101,11 @@
         "save": "Changes Saved"
       }
     }
+  },
+  "connectedUsers": {
+    "keeperTitle": "Connected Users",
+    "placeholder": "Enter senior's email address...",
+    "seniorTitle": "Keeper's Information:"
   },
   "login": {
     "welcomeBack": "Welcome back!",
@@ -298,6 +304,11 @@
   "genders": {
     "man": "Man",
     "woman": "Woman"
+  },
+  "roles": {
+    "admin": "Admin",
+    "senior": "Senior",
+    "keeper": "Keeper"
   },
   "cyclicValues": {
     "everyday": "Everyday",

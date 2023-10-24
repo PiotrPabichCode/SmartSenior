@@ -4,50 +4,30 @@ import { useAppSelector } from '@src/redux/store';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 import { translate } from '@src/localization/Localization';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import { Theme } from '@src/redux/types';
+import Colors from '@src/constants/Colors';
 
 const EventsScreen = () => {
   const events: EventDetails[] = useAppSelector(state => state.events.events);
+  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const currentTheme = Colors[theme];
 
   return (
-    <View style={styles.view}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
-        <View style={styles.innerContainer}>
-          <Text style={styles.title}>{translate('eventsScreen.title')}</Text>
-          {Object.values(events).map((event, index) => {
-            return <EventItem key={index} eventKey={event.key} />;
-          })}
-        </View>
-      </ScrollView>
-    </View>
+    <CustomScrollContainer theme={currentTheme}>
+      <Text style={styles.title}>{translate('eventsScreen.title')}</Text>
+      {Object.values(events).map((event, index) => {
+        return <EventItem key={index} eventKey={event.key} />;
+      })}
+    </CustomScrollContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-  },
-  scrollView: {
-    flexGrow: 1,
-  },
-  innerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 25,
-    margin: 10,
-    padding: 10,
-    gap: 15,
-    elevation: 5,
-  },
   title: {
     fontSize: 36,
     fontWeight: 'bold',
     padding: 10,
-  },
-  dividerStyle: {
-    backgroundColor: '#000000',
-    width: 270,
-    height: 1,
   },
 });
 

@@ -24,7 +24,7 @@ const BottomBarNavigator = () => {
           options={{
             tabBarLabel: translate('bottomNav.home'),
             tabBarIcon: ({ focused }) => renderIcon({ name: 'home-bottom-nav', focused: focused }),
-            header: () => <CustomHeader title={translate('bottomNav.home')} more={true} />,
+            header: () => <CustomHeader title={translate('bottomNav.home')} />,
           }}
         />
         <Tab.Screen
@@ -35,7 +35,7 @@ const BottomBarNavigator = () => {
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'calendar-bottom-nav', focused: focused }),
             tabBarBadge: Object.values(events).length,
-            header: () => <CustomHeader title={translate('bottomNav.calendar')} more={true} />,
+            header: () => <CustomHeader title={translate('bottomNav.calendar')} />,
           }}
         />
         <Tab.Screen
@@ -65,7 +65,7 @@ const BottomBarNavigator = () => {
             tabBarLabel: translate('bottomNav.profile'),
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'account-bottom-nav', focused: focused }),
-            header: () => <CustomHeader title={translate('bottomNav.profile')} more={true} />,
+            header: () => <CustomHeader title={translate('bottomNav.profile')} />,
           }}
         />
       </Tab.Navigator>

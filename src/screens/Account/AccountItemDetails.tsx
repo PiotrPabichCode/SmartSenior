@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Text, TextInput, View, StyleSheet } from 'react-native';
+import { useEffect, useState, useRef } from 'react';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import type { PropsWithChildren } from 'react';
 import { CheckBox } from '@rneui/themed';
 import { renderIcon } from '@src/components/Icons';
+import Colors from '@src/constants/Colors';
 
 type AccountItemDetailsProps = PropsWithChildren<{
   type?: string;
@@ -23,6 +24,7 @@ const AccountItemDetails = ({
 }: AccountItemDetailsProps) => {
   const [checked, setChecked] = useState(false);
   const [input, setInput] = useState('');
+  const inputRef = useRef<TextInput | null>(null);
 
   useEffect(() => {
     typeof value === 'boolean' && setChecked(value);
@@ -32,25 +34,34 @@ const AccountItemDetails = ({
   switch (type) {
     case 'input':
       return (
-        <View style={styles.viewStyle}>
+        <TouchableOpacity style={styles.viewStyle} onPress={() => inputRef.current?.focus()}>
           <Text style={styles.title}>{title}</Text>
           <View style={styles.rightPanel}>
             <TextInput
+              ref={inputRef}
+              pointerEvents="none"
+              cursorColor={'black'}
               placeholder={placeholder}
               value={input}
+              style={styles.title}
               underlineColorAndroid="transparent"
               onChangeText={setInput}
               keyboardType={keyboard || 'default'}
             />
             {renderIcon({ name: 'edit' })}
           </View>
-        </View>
+        </TouchableOpacity>
       );
     case 'checkbox':
       return (
         <View style={styles.viewStyle}>
           <Text style={styles.title}>{title}</Text>
-          <CheckBox checked={checked} onPress={() => setChecked(!checked)} checkedColor="blue" />
+          <CheckBox
+            checked={checked}
+            style={{ backgroundColor: 'white' }}
+            onPress={() => setChecked(!checked)}
+            checkedColor="blue"
+          />
         </View>
       );
     default:
@@ -67,12 +78,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 20,
     margin: 10,
-    backgroundColor: 'lightblue',
+    backgroundColor: Colors.primary,
     borderRadius: 20,
+    elevation: 5,
   },
   title: {
     fontWeight: '500',
     flex: 3,
+    color: 'black',
+  },
+  icon: {
+    backgroundColor: 'white',
   },
   rightPanel: {
     display: 'flex',

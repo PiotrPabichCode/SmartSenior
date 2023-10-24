@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { Button } from '@rneui/themed';
 import WelcomeSvg from '@assets/welcome-image.svg';
 import { navigate, navigationRef } from '@src/navigation/navigationUtils';
-import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { translate } from '@src/localization/Localization';
 
 const WelcomeScreen = () => {
@@ -16,7 +15,7 @@ const WelcomeScreen = () => {
   }, []);
 
   if (isLoading) {
-    return <CustomActivityIndicator />;
+    return null;
   }
   return (
     <SafeAreaView style={styles.viewStyle}>

@@ -28,7 +28,7 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        Calendar.setupCalendar();
+        await Calendar.setupCalendar();
         await Localization.setupI18nConfig();
         useLocalStorage('THEME_KEY').setItem(theme);
         setIsAppReady(true);

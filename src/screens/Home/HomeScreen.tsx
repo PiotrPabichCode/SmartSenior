@@ -11,54 +11,39 @@ import { UserDetails } from '@src/redux/types/authTypes';
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import Colors from '@src/constants/Colors';
 import HomeButtons from './HomeButtons';
+import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import { Theme } from '@src/redux/types';
 
 const HomeScreen = () => {
-  let events: EventDetails[] = useAppSelector(state => state.events.events);
+  const events: EventDetails[] = useAppSelector(state => state.events.events);
   const userDetails: UserDetails = useAppSelector(state => state.auth.userDetails);
+  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const currentTheme = Colors[theme];
 
   if (!userDetails) {
     return <CustomActivityIndicator />;
   }
 
   return (
-    <View style={styles.view}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
-        <View style={styles.innerContainer}>
-          <Text style={styles.welcomeText}>
-            {translate('homeScreen.welcome', {
-              name: userDetails.firstName,
-            })}
-          </Text>
-          <UpcomingEvents events={events} />
-          <HomeButtons />
-        </View>
-      </ScrollView>
-    </View>
+    <CustomScrollContainer theme={currentTheme}>
+      <Text style={styles.welcomeText}>
+        {translate('homeScreen.welcome', {
+          name: userDetails.firstName,
+        })}
+      </Text>
+      <UpcomingEvents events={events} />
+      <HomeButtons />
+    </CustomScrollContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-  },
-  scrollView: {
-    flexGrow: 1,
-  },
-  innerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: Colors.primary,
-    borderRadius: 25,
-    margin: 10,
-    padding: 10,
-    gap: 15,
-    elevation: 5,
-  },
   welcomeText: {
     fontSize: 36,
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
+    color: Colors.black,
   },
 });
 

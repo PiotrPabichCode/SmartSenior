@@ -6,6 +6,7 @@ const initialState = {
   userDetails: null,
   error: null,
   language: Localization.getLocale(),
+  theme: 'light',
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -39,6 +40,12 @@ const authReducer = (state = initialState, action: any) => {
       return {
         ...state,
         language: payload,
+      };
+    }
+    case types.CHANGE_THEME: {
+      return {
+        ...state,
+        theme: payload,
       };
     }
     case types.LOGOUT:

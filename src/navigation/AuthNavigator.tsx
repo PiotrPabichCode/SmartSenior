@@ -34,7 +34,7 @@ const AuthNavigator = () => {
         name="AccountItemDetails"
         component={AccountItemDetailsScreen}
         options={({ route }) => ({
-          header: () => <CustomHeader title={route.params.title} nested={true} more={true} />,
+          header: () => <CustomHeader title={route.params.title} nested={true} />,
         })}
       />
       <Stack.Screen
@@ -51,7 +51,7 @@ const AuthNavigator = () => {
         component={MedicineItemDetails}
         options={{
           header: () => (
-            <CustomHeader title={translate('nav.medicinesItemDetails')} nested={true} more={true} />
+            <CustomHeader title={translate('nav.medicinesItemDetails')} nested={true} />
           ),
         }}
       />
@@ -69,11 +69,7 @@ const AuthNavigator = () => {
         component={PharmacyItemDetails}
         options={{
           header: () => (
-            <CustomHeader
-              title={translate('nav.pharmaciesItemDetails')}
-              nested={true}
-              more={true}
-            />
+            <CustomHeader title={translate('nav.pharmaciesItemDetails')} nested={true} />
           ),
         }}
       />
@@ -81,18 +77,14 @@ const AuthNavigator = () => {
         name="CreateEvent"
         component={CreateEventScreen}
         options={{
-          header: () => (
-            <CustomHeader title={translate('nav.createEvent')} nested={true} more={true} />
-          ),
+          header: () => <CustomHeader title={translate('nav.createEvent')} nested={true} />,
         }}
       />
       <Stack.Screen
         name="EventItem"
         component={EventItemScreen}
         options={{
-          header: () => (
-            <CustomHeader title={translate('nav.eventItem')} nested={true} more={true} />
-          ),
+          header: () => <CustomHeader title={translate('nav.eventItem')} nested={true} />,
         }}
       />
     </Stack.Navigator>

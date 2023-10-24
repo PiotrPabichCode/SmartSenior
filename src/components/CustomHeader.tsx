@@ -25,15 +25,17 @@ const CustomHeader = ({ title, nested, more }: HeaderProps) => {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{title}</Text>
         </View>
-        {more && (
-          <View style={styles.moreContainer}>
+        {more ? (
+          <TouchableOpacity style={styles.more}>
             <Icons
               name="more"
               onPress={() => {
                 navigationRef.dispatch(DrawerActions.openDrawer());
               }}
             />
-          </View>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.more} />
         )}
       </View>
     </SafeAreaView>
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
   },
-  moreContainer: {
+  more: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

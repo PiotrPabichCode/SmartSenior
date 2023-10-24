@@ -7,8 +7,14 @@ import CustomDropdown from '@components/CustomDropdown';
 import { navigate } from '@src/navigation/navigationUtils';
 import { translate } from '@src/localization/Localization';
 import { buildRequest } from '@src/utils/utils';
+import { Theme } from '@src/redux/types';
+import { useAppSelector } from '@src/redux/store';
+import Colors from '@src/constants/Colors';
+import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 
 const PharmaciesScreen = () => {
+  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const currentTheme = Colors[theme];
   const [pharmacies, setPharmacies] = useState([]);
   const BASE_URL =
     'https://rejestrymedyczne.ezdrowie.gov.pl/api/pharmacies/search?page=0&size=10&sortField=dateOfChanged&sortDirection=DESC&statusCode=AKTYWNA&';
@@ -46,75 +52,64 @@ const PharmaciesScreen = () => {
   ];
 
   return (
-    <View style={styles.view}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
-        <Text style={styles.title}>{translate('pharmaciesScreen.title')}</Text>
-        <Divider style={styles.dividerStyle} />
-        <Formik
-          initialValues={{ name: '', companyCity: '', companyProvince: '' }}
-          onSubmit={params => {
-            try {
-              const request = buildRequest(BASE_URL, params);
-              loadData(request);
-            } catch (e) {
-              console.log(e);
-            }
-          }}>
-          {({ values, handleChange, handleSubmit, setFieldValue }) => (
-            <>
-              <Input
-                placeholder={translate('pharmaciesScreen.placeholder.name')}
-                onChangeText={handleChange('name')}
-                value={values.name}
-              />
-              <Input
-                placeholder={translate('pharmaciesScreen.placeholder.city')}
-                onChangeText={handleChange('companyCity')}
-                value={values.companyCity}
-              />
-              <CustomDropdown
-                data={provinces}
-                placeholder={translate('pharmaciesScreen.placeholder.province')}
-                value={values.companyProvince}
-                handleChange={(e: any) => setFieldValue('companyProvince', e.value)}
-              />
-              <Button
-                title={translate('button.search')}
-                containerStyle={styles.buttonSearchContainer}
-                buttonStyle={styles.buttonSearchStyle}
-                onPress={() => handleSubmit()}
-              />
-            </>
-          )}
-        </Formik>
-
-        {pharmacies &&
-          pharmacies.map((item, index) => (
-            <PharmacyItem
-              key={index}
-              name={item['name']}
-              onPress={() =>
-                navigate('PharmaciesItemDetails', {
-                  item: item,
-                })
-              }
+    <CustomScrollContainer theme={currentTheme}>
+      <Text style={styles.title}>{translate('pharmaciesScreen.title')}</Text>
+      <Divider style={styles.dividerStyle} />
+      <Formik
+        initialValues={{ name: '', companyCity: '', companyProvince: '' }}
+        onSubmit={params => {
+          try {
+            const request = buildRequest(BASE_URL, params);
+            loadData(request);
+          } catch (e) {
+            console.log(e);
+          }
+        }}>
+        {({ values, handleChange, handleSubmit, setFieldValue }) => (
+          <>
+            <Input
+              placeholder={translate('pharmaciesScreen.placeholder.name')}
+              onChangeText={handleChange('name')}
+              value={values.name}
             />
-          ))}
-      </ScrollView>
-    </View>
+            <Input
+              placeholder={translate('pharmaciesScreen.placeholder.city')}
+              onChangeText={handleChange('companyCity')}
+              value={values.companyCity}
+            />
+            <CustomDropdown
+              data={provinces}
+              placeholder={translate('pharmaciesScreen.placeholder.province')}
+              value={values.companyProvince}
+              handleChange={(e: any) => setFieldValue('companyProvince', e.value)}
+            />
+            <Button
+              title={translate('button.search')}
+              containerStyle={styles.buttonSearchContainer}
+              buttonStyle={styles.buttonSearchStyle}
+              onPress={() => handleSubmit()}
+            />
+          </>
+        )}
+      </Formik>
+
+      {pharmacies &&
+        pharmacies.map((item, index) => (
+          <PharmacyItem
+            key={index}
+            name={item['name']}
+            onPress={() =>
+              navigate('PharmaciesItemDetails', {
+                item: item,
+              })
+            }
+          />
+        ))}
+    </CustomScrollContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  view: {
-    backgroundColor: 'white',
-    height: '100%',
-  },
-  scrollView: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   buttonSearchContainer: {
     width: '90%',
     borderRadius: 25,

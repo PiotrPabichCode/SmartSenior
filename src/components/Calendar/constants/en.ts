@@ -33,3 +33,5 @@ LocaleConfig.locales['en'] = {
   dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   today: 'today',
 };
+
+export default LocaleConfig;

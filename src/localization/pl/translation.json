@@ -37,7 +37,7 @@
       "email": "Adres e-mail:",
       "firstName": "Imię:",
       "lastName": "Nazwisko:",
-      "birthDate": "Data urodzenia",
+      "birthDate": "Data urodzenia:",
       "password": "Hasło:"
     },
     "placeholder": {

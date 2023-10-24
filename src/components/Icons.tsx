@@ -326,6 +326,17 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
         />
       );
     }
+    case 'pharmacy': {
+      return (
+        <AntDesign
+          name="medicinebox"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color="black"
+          style={style}
+        />
+      );
+    }
     case 'connected-users': {
       return (
         <Feather

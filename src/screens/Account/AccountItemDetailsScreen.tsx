@@ -1,32 +1,28 @@
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { changeLanguage } from '@src/utils/utils';
 import Localization, { translate } from '@src/localization/Localization';
 import { changeLanguageAction } from '@src/redux/actions/authActions';
+import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import { Theme } from '@src/redux/types';
+import Colors from '@src/constants/Colors';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
-  const userDetails = useAppSelector(state => state.auth.userDetails);
   const dispatch = useAppDispatch();
+  const userDetails = useAppSelector(state => state.auth.userDetails);
+  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const currentTheme = Colors[theme];
 
   if (!userDetails) {
     return <CustomActivityIndicator />;
   }
 
   const { screenType } = route.params;
-  const [language, setLanguage] = useState(translate('languageName'));
-
   const handleLanguageChange = (language: string) => {
     changeLanguage(language);
-
-    if (language === Localization.supportedLanguages.POLISH) {
-      setLanguage(translate('account.language.polish'));
-    }
-    if (language === Localization.supportedLanguages.ENGLISH) {
-      setLanguage(translate('account.language.english'));
-    }
     dispatch(changeLanguageAction(language));
   };
 
@@ -71,7 +67,7 @@ const AccountItemDetailsScreen = ({ route }: any) => {
     return (
       <>
         <Text style={styles.languageTitle}>{translate('account.language.title')}</Text>
-        <Text style={styles.language}>{language}</Text>
+        <Text style={styles.language}>{translate('languageName')}</Text>
         <Text
           style={styles.pickLanguage}
           onPress={() => handleLanguageChange(Localization.supportedLanguages.POLISH)}>
@@ -88,14 +84,12 @@ const AccountItemDetailsScreen = ({ route }: any) => {
 
   const renderNotificationScreen = () => {
     return (
-      <>
-        <AccountItemDetails
-          type="input"
-          keyboard="numeric"
-          title={translate('account.notification.title')}
-          value="0"
-        />
-      </>
+      <AccountItemDetails
+        type="input"
+        keyboard="numeric"
+        title={translate('account.notification.title')}
+        value="0"
+      />
     );
   };
 
@@ -115,31 +109,13 @@ const AccountItemDetailsScreen = ({ route }: any) => {
   };
 
   return (
-    <View style={styles.view}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
-        <View style={styles.innerContainer}>{renderScreenByType(screenType)}</View>
-      </ScrollView>
-    </View>
+    <CustomScrollContainer theme={currentTheme}>
+      {renderScreenByType(screenType)}
+    </CustomScrollContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-  },
-  scrollView: {
-    flexGrow: 1,
-  },
-  innerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 25,
-    margin: 10,
-    padding: 10,
-    gap: 15,
-    elevation: 5,
-  },
   languageTitle: {
     fontSize: 26,
     fontWeight: 'bold',
@@ -152,7 +128,8 @@ const styles = StyleSheet.create({
   pickLanguage: {
     width: '100%',
     height: 40,
-    backgroundColor: 'lightblue',
+    backgroundColor: 'blue',
+    color: 'white',
     textAlign: 'center',
     borderRadius: 10,
     marginVertical: 10,

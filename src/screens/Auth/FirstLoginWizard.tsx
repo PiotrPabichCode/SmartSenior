@@ -20,8 +20,6 @@ import { navigate } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { loadActiveEventsAction } from '@src/redux/actions/eventsActions';
 import { translate } from '@src/localization/Localization';
-import I18n from 'i18n-js';
-import { fixConstData } from '@src/utils/utils';
 
 const FirstLoginSchema = Yup.object().shape({
   firstName: Yup.string().min(1).required(),
@@ -35,7 +33,6 @@ const FirstLoginWizard = () => {
   const dispatch = useAppDispatch();
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const userData = useAppSelector(state => state.auth.userDetails);
-  const [updatedGenders, setUpdatedGenders] = useState(genders);
 
   useEffect(() => {
     const loadUserDetails = async () => {

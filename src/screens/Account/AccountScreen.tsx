@@ -2,11 +2,14 @@ import { StyleSheet, View } from 'react-native';
 import AccountItem from './AccountItem';
 import { Divider } from '@rneui/themed';
 import AccountProfileHint from './AccountProfileHint';
-import { useAppDispatch } from '@redux/store';
+import { useAppDispatch, useAppSelector } from '@redux/store';
 import { logoutAction } from '@src/redux/actions/authActions';
 import { navigate } from '@src/navigation/navigationUtils';
 import { translate } from '@src/localization/Localization';
 import { clearEventsAction } from '@src/redux/actions/eventsActions';
+import { Theme } from '@src/redux/types';
+import Colors from '@src/constants/Colors';
+import CustomDivider from '@src/components/CustomDivider';
 
 const handleLogout = (dispatch = useAppDispatch()) => {
   dispatch(clearEventsAction());
@@ -15,6 +18,9 @@ const handleLogout = (dispatch = useAppDispatch()) => {
 
 const AccountScreen = () => {
   const dispatch = useAppDispatch();
+  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const currentTheme = Colors[theme];
+  const styles = useStyles(currentTheme);
 
   return (
     <View style={styles.viewStyle}>
@@ -29,7 +35,7 @@ const AccountScreen = () => {
           })
         }
       />
-      <Divider style={styles.dividerStyle} />
+      <CustomDivider />
       <AccountItem
         icon="theme-account"
         title={translate('account.button.title.theme')}
@@ -76,7 +82,7 @@ const AccountScreen = () => {
           })
         }
       />
-      <Divider style={styles.dividerStyle} />
+      <CustomDivider />
       <AccountItem
         icon="logout-account"
         title={translate('account.button.title.logout')}
@@ -86,28 +92,12 @@ const AccountScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  viewStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#FFFAFA',
-  },
-  profileViewStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  backgroundImage: {
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-  },
-  dividerStyle: {
-    backgroundColor: '#000000',
-    width: 400,
-    height: 1,
-  },
-});
+const useStyles = (theme: any) =>
+  StyleSheet.create({
+    viewStyle: {
+      height: '100%',
+      backgroundColor: theme.mainBackground,
+    },
+  });
 
 export default AccountScreen;

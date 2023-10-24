@@ -1,3 +1,4 @@
+import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import * as Localization from 'expo-localization';
 import { LocaleConfig } from 'react-native-calendars';
 
@@ -20,12 +21,13 @@ class Calendar {
     }
   };
 
-  public static setupCalendar = (): void => {
+  public static setupCalendar = async (): Promise<void> => {
     const fallback = Calendar.supportedLanguages.POLISH;
     const locale = Calendar.findSupportedLanguage(Localization.locale);
-    const language = locale || fallback;
+    const localStorage = await useLocalStorage('language').getItem();
+    const language = localStorage || locale || fallback;
 
-    const values = Calendar.getSupportedTranslation[language]();
+    Calendar.getSupportedTranslation[language]();
     LocaleConfig.defaultLocale = language;
   };
 

@@ -3,8 +3,14 @@ import { Button, Divider } from '@rneui/themed';
 import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
 import { translate } from '@src/localization/Localization';
+import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import { useAppSelector } from '@src/redux/store';
+import Colors from '@src/constants/Colors';
+import { Theme } from '@src/redux/types';
 
 const MedicineItemDetails = ({ route }: any) => {
+  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const currentTheme = Colors[theme];
   const renderDetail = (title: string, detail: string) => {
     return (
       <>
@@ -51,7 +57,7 @@ const MedicineItemDetails = ({ route }: any) => {
 
   const { item } = route.params;
   return (
-    <ScrollView contentContainerStyle={styles.viewStyle}>
+    <CustomScrollContainer theme={currentTheme}>
       <Text style={styles.title}>{item['medicinalProductName']}</Text>
       {renderDetail(translate('medicineItem.commonName'), item['commonName'])}
       {renderDetail(translate('medicineItem.power'), item['medicinalProductPower'])}
@@ -92,18 +98,11 @@ const MedicineItemDetails = ({ route }: any) => {
           }
         />
       </View>
-    </ScrollView>
+    </CustomScrollContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  viewStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#FFFAFA',
-  },
   title: {
     fontSize: 26,
     fontWeight: '600',

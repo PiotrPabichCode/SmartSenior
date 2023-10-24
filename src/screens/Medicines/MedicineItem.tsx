@@ -7,11 +7,10 @@ import { translate } from '@src/localization/Localization';
 
 type MedicineItemProps = PropsWithChildren<{
   name: string;
-  price: string;
   onPress?: () => void;
 }>;
 
-const MedicineItem = ({ name, price, onPress }: MedicineItemProps) => {
+const MedicineItem = ({ name, onPress }: MedicineItemProps) => {
   return (
     <View style={styles.viewStyle}>
       {renderIcon({ name: 'pills' })}
@@ -23,7 +22,7 @@ const MedicineItem = ({ name, price, onPress }: MedicineItemProps) => {
         onPress={onPress}
         buttonStyle={{
           backgroundColor: 'rgba(78, 116, 289, 1)',
-          borderRadius: 3,
+          borderRadius: 25,
         }}
         containerStyle={{
           width: 100,

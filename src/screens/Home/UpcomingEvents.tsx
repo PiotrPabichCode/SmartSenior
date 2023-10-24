@@ -4,12 +4,19 @@ import { navigate } from '@navigation/navigationUtils';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 import { renderLocalDateWithTime } from '@src/utils/utils';
 import { translate } from '@src/localization/Localization';
+import Colors from '@src/constants/Colors';
+import { useAppSelector } from '@src/redux/store';
+import { Theme } from '@src/redux/types';
 
 interface UpcomingEventsProps {
   events: EventDetails[];
 }
 
 const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
+  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const currentTheme = Colors[theme];
+  const styles = useStyles(currentTheme);
+
   const MAX_DISPLAYED_EVENTS = 3;
   const moreButton = (
     <Button
@@ -23,8 +30,9 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
   );
   const actionButton = (eventKey: string) => (
     <Button
+      key={'execute-button-event'}
       title={translate('button.execute')}
-      containerStyle={styles.actionButtonStyle}
+      containerStyle={styles.actionButtonContainerStyle}
       buttonStyle={styles.actionButtonStyle}
       titleStyle={styles.actionButtonTitle}
       onPress={() =>
@@ -46,11 +54,11 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
     return (
       <View style={styles.eventView} key={index}>
         <View style={styles.eventTimeView}>
-          <Icon name="arrow-right" size={30} />
-          <Text style={styles.eventText} numberOfLines={1}>
+          <Icon name="arrow-right" size={30} color={currentTheme.icon} />
+          <Text style={styles.date} numberOfLines={1}>
             {renderLocalDateWithTime(event.executionTime)}
           </Text>
-          <Icon name="arrow-left" size={30} />
+          <Icon name="arrow-left" size={30} color={currentTheme.icon} />
         </View>
         <Text style={styles.eventTitle} numberOfLines={1}>
           {event.description}
@@ -61,94 +69,79 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
     );
   });
 
-  const renderTitleAction = () => {
-    if (events.length > 0) {
-      return (
-        <Text style={styles.titleStyle} numberOfLines={1}>
-          {translate('upcomingEvents.title')}
-        </Text>
-      );
-    }
-  };
-
-  return (
-    <View style={styles.viewStyle}>
-      {renderTitleAction()}
-      {mapEventItems}
-    </View>
-  );
+  return <View style={styles.viewStyle}>{mapEventItems}</View>;
 };
 
-const styles = StyleSheet.create({
-  viewStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FB6D6C',
-    width: '95%',
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-  titleStyle: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: 'white',
-    textAlign: 'center',
-  },
-  actionButtonStyle: {
-    backgroundColor: '#FFB909',
-    width: 200,
-    borderRadius: 25,
-  },
-  actionButtonTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  moreButtonContainerStyle: {
-    borderRadius: 25,
-    marginBottom: 10,
-    width: 200,
-  },
-  moreButtonStyle: {
-    backgroundColor: '#0940FF',
-  },
-  moreButtonTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  eventView: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 5,
-  },
-  eventTitle: {
-    color: 'white',
-    fontWeight: '500',
-    fontSize: 16,
-    marginVertical: 7,
-  },
-  eventTimeView: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  eventText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  dividerStyle: {
-    backgroundColor: 'white',
-    color: 'white',
-    width: 300,
-    marginVertical: 5,
-  },
-});
+const useStyles = (theme: any) =>
+  StyleSheet.create({
+    viewStyle: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: theme.upcomingEventsBackground,
+      width: '95%',
+      borderRadius: 20,
+      overflow: 'hidden',
+      elevation: 5,
+    },
+    actionButtonStyle: {
+      backgroundColor: theme.upcomingEventsActionBtn,
+    },
+    actionButtonContainerStyle: {
+      minWidth: '90%',
+      borderRadius: 25,
+      marginBottom: 10,
+      elevation: 5,
+    },
+    actionButtonTitle: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: Colors.black,
+    },
+    moreButtonContainerStyle: {
+      borderRadius: 25,
+      marginBottom: 10,
+      minWidth: '90%',
+      elevation: 5,
+    },
+    moreButtonStyle: {
+      backgroundColor: theme.upcomingEventsMoreBtn,
+    },
+    moreButtonTitle: {
+      fontSize: 16,
+      fontWeight: '400',
+      color: Colors.white,
+    },
+    eventView: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginVertical: 5,
+    },
+    eventTitle: {
+      color: theme.upcomingEventsTitle,
+      fontWeight: '500',
+      fontSize: 17,
+      marginVertical: 7,
+    },
+    eventTimeView: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    },
+    date: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: theme.upcomingEventsDate,
+    },
+    dividerStyle: {
+      backgroundColor: theme.divider,
+      height: 1.7,
+      minWidth: '90%',
+      marginVertical: 5,
+    },
+  });
 
 export default UpcomingEvents;

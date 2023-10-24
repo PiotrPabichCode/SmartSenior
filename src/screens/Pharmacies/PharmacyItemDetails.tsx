@@ -1,8 +1,14 @@
 import { StyleSheet, Text, ScrollView } from 'react-native';
 import { Divider } from '@rneui/themed';
 import { translate } from '@src/localization/Localization';
+import { Theme } from '@src/redux/types';
+import { useAppSelector } from '@src/redux/store';
+import Colors from '@src/constants/Colors';
+import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 
 const PharmacyItemDetails = ({ route }: any) => {
+  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const currentTheme = Colors[theme];
   const renderDetail = (title: string, detail: string) => {
     return (
       <>
@@ -31,9 +37,8 @@ const PharmacyItemDetails = ({ route }: any) => {
     );
   };
 
-  // TODO
   return (
-    <ScrollView contentContainerStyle={styles.viewStyle}>
+    <CustomScrollContainer theme={currentTheme}>
       {renderDetail(translate('pharmacyItem.name'), item.name)}
       {renderDetail(translate('pharmacyItem.status'), item.pharmacyStatus.displayName)}
       {renderDetail(translate('pharmacyItem.genre'), item.pharmacyGenre.displayName)}
@@ -46,19 +51,11 @@ const PharmacyItemDetails = ({ route }: any) => {
         item.openOnSundaysNonTrade ? translate('yes') : translate('no'),
       )}
       <Divider style={styles.dividerStyle} />
-    </ScrollView>
+    </CustomScrollContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  viewStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#FFFAFA',
-    height: '100%',
-  },
   title: {
     fontSize: 26,
     fontWeight: '600',

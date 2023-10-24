@@ -37,6 +37,7 @@ class AgendaScreen extends Component<State> {
         selected={moment().format('YYYY-MM-DD')}
         pastScrollRange={1}
         futureScrollRange={3}
+        displayLoadingIndicator={false}
         showOnlySelectedDayItems
       />
     );
@@ -107,7 +108,11 @@ class AgendaScreen extends Component<State> {
   };
 
   renderEmptyDate = () => {
-    return <View />;
+    return (
+      <View style={styles.emptyDate}>
+        <Text>This is empty date!</Text>
+      </View>
+    );
   };
 
   rowHasChanged = (r1: AgendaEntry, r2: AgendaEntry) => {

@@ -1,11 +1,15 @@
+import CustomButton from '@src/components/CustomButton';
 import CustomDivider from '@src/components/CustomDivider';
 import Icons from '@src/components/Icons';
+import * as Notifications from 'expo-notifications';
 import Colors from '@src/constants/Colors';
 import { translate } from '@src/localization/Localization';
 import { addConnectedUserAction } from '@src/redux/actions/authActions';
 import { useAppDispatch } from '@src/redux/store';
 import { useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { scheduleNotification } from '@src/components/Notifications/Notifications';
+import { now } from 'moment';
 
 type Props = {
   connectedUsers: [];
@@ -74,6 +78,15 @@ const KeeperView = ({ connectedUsers }: Props) => {
           />
         </View>
       </View>
+      <CustomButton
+        title={'Wyślij powiadomienie'}
+        titleStyle={{ fontSize: 16 }}
+        style={{ borderWidth: 2, borderColor: 'lightblue', gap: 20 }}
+        color={'black'}
+        backgroundColor={'white'}
+        icon={<Icons name="user" color={'black'} size={24} />}
+        onPress={() => console.log('test')}
+      />
       {connectedUsers.length > 0 && (
         <View style={[styles.container, styles.view]}>
           <Text style={styles.title}>{translate('connectedUsers.keeperTitle')}</Text>

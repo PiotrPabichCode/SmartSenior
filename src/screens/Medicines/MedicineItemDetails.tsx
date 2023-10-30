@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ScrollView, Platform } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Button, Divider } from '@rneui/themed';
 import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
@@ -7,6 +7,7 @@ import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { useAppSelector } from '@src/redux/store';
 import Colors from '@src/constants/Colors';
 import { Theme } from '@src/redux/types';
+import { IS_ANDROID } from '@src/utils/utils';
 
 const MedicineItemDetails = ({ route }: any) => {
   const theme: Theme = useAppSelector(state => state.auth.theme);
@@ -29,7 +30,7 @@ const MedicineItemDetails = ({ route }: any) => {
   };
 
   const save = async (uri: any, filename: any, mimetype: any) => {
-    if (Platform.OS === 'android') {
+    if (IS_ANDROID) {
       const permissions =
         await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
       if (permissions.granted) {

@@ -4,6 +4,9 @@ import Localization, { translate } from '@src/localization/Localization';
 import Calendar from '@src/components/Calendar/Calendar';
 import { useAppSelector } from '@src/redux/store';
 import { DAYS } from '@src/redux/constants/eventsConstants';
+import { Platform } from 'react-native';
+
+export const IS_ANDROID = Platform.OS === 'android';
 
 export const buildRequest = (baseUrl: string, params: any) => {
   const entries = Object.entries(params).filter(([key, value]) => String(value).trim() !== '');

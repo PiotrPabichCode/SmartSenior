@@ -1,5 +1,3 @@
-import { translate } from '@src/localization/Localization';
-
 export const EVENT_CREATION_SUCCESS = 'EVENT_CREATION_SUCCESS';
 export const EVENT_CREATION_FAIL = 'EVENT_CREATION_FAIL';
 

@@ -17,14 +17,13 @@ import { translate } from '@src/localization/Localization';
 import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import { saveNotification } from '@src/components/Notifications/Notifications';
+import { EventDetails } from '@src/redux/types/eventsTypes';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
   const theme: Theme = useAppSelector(state => state.auth.theme);
   const currentTheme = Colors[theme];
-
-  const [updatedTimes, setUpdatedTimes] = useState(times);
-  const [updatedCyclicValues, setUpdatedCyclicValues] = useState(cyclicValues);
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
@@ -47,11 +46,6 @@ const CreateEventScreen = () => {
     updatedAt: Yup.number().min(Date.now()).required(),
     deleted: Yup.boolean().required(),
   });
-
-  // useEffect(() => {
-  //   setUpdatedTimes(fixConstData(times));
-  //   setUpdatedCyclicValues(fixConstData(cyclicValues));
-  // }, [I18n.translations]);
 
   return (
     <CustomScrollContainer theme={currentTheme}>
@@ -79,6 +73,23 @@ const CreateEventScreen = () => {
             NewEventSchema.validate(values)
               .then(() => {
                 dispatch(createEventAction(values));
+                setTimeout(() => {
+                  if (values.isNotification) {
+                    const events: EventDetails[] = useAppSelector(state => state.events.events);
+                    saveNotification({
+                      id: '123',
+                      title: values.title,
+                      body: values.description,
+                      data: {
+                        screen: 'eventItem',
+                        eventKey: events[events.length - 1].key,
+                      },
+                      displayBefore: 0,
+                      datetimeNotification: new Date(values.executionTime),
+                    });
+                  }
+                }, 1000);
+
                 CustomToast('success', translate('createEvent.message.success.add'));
               })
               .catch(error => {
@@ -154,6 +165,7 @@ const CreateEventScreen = () => {
                   }
                   setTimeValue(newTime);
                   const datetime = createDatetimeTimezone(dateValue, timeValue);
+                  console.log(datetime);
                   if (!datetime) {
                     return false;
                   }

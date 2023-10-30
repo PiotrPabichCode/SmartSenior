@@ -2,8 +2,29 @@ import CustomButton from '@src/components/CustomButton';
 import Icons from '@src/components/Icons';
 import { translate } from '@src/localization/Localization';
 import { View, Text, StyleSheet } from 'react-native';
+import * as Notifications from 'expo-notifications';
 
 const mainColor = '#FFFAF0';
+
+interface PushNotification {
+  title: string;
+  body: string;
+  time: number;
+  data?: object;
+}
+
+const schedulePushNotification = async ({ title, body, time, data }: PushNotification) => {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: title,
+      body: body,
+      data: {
+        data: data,
+      },
+    },
+    trigger: { seconds: time },
+  });
+};
 
 const SeniorView = () => {
   return (
@@ -31,7 +52,13 @@ const SeniorView = () => {
       </View>
       <View style={styles.buttons}>
         <CustomButton
-          onPress={() => console.log('call keeper')}
+          onPress={() => {
+            schedulePushNotification({
+              title: 'Testowe powiadomienie',
+              body: 'To jest testowe powiadomienia. Opis zadania',
+              time: 20,
+            });
+          }}
           title={'Zadzwoń do opiekuna'}
           titleStyle={{ fontSize: 20 }}
           color={mainColor}

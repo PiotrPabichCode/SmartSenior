@@ -19,12 +19,14 @@ import * as SplashScreen from 'expo-splash-screen';
 import Calendar from '@src/components/Calendar/Calendar';
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import Localization from '@src/localization/Localization';
+import { usePushNotifications } from '@src/hooks/usePushNotifications';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  usePushNotifications();
   const [isAppReady, setIsAppReady] = useState<boolean>(false);
   const [isNavigationReady, setIsNavigationReady] = useState<boolean>(false);
   const theme = useColorScheme();

@@ -1,6 +1,6 @@
 import CustomButton from '@src/components/CustomButton';
 import Icons from '@src/components/Icons';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { View, Text, StyleSheet } from 'react-native';
 
 const mainColor = '#FFFAF0';
@@ -9,7 +9,7 @@ const SeniorView = () => {
   return (
     <View style={styles.view}>
       <View style={styles.details}>
-        <Text style={styles.title}>{translate('connectedUsers.seniorTitle')}</Text>
+        <Text style={styles.title}>{t('connectedUsers.seniorTitle')}</Text>
         <View style={styles.detailsButtons}>
           <CustomButton
             title={'Natalia Pabich'}

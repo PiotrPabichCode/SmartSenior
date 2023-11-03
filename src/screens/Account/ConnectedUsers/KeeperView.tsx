@@ -1,14 +1,15 @@
 import CustomDivider from '@src/components/CustomDivider';
 import Icons from '@src/components/Icons';
 import Colors from '@src/constants/Colors';
-import { translate } from '@src/localization/Localization';
-import { addConnectedUserAction } from '@src/redux/actions/authActions';
+import { t } from '@src/localization/Localization';
+import { addConnectedUser } from '@src/redux/auth/auth.actions';
+import { ConnectedUser } from '@src/redux/auth/auth.types';
 import { useAppDispatch } from '@src/redux/store';
 import { useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
 type Props = {
-  connectedUsers: [];
+  connectedUsers: ConnectedUser[];
 };
 
 type User = {
@@ -27,21 +28,24 @@ const KeeperView = ({ connectedUsers }: Props) => {
     return label.toUpperCase();
   };
 
-  const mapConnectedUsers = connectedUsers.map((user: User, index: number) => {
+  const mapConnectedUsers = connectedUsers.map((user: ConnectedUser, index: number) => {
+    const userDetails = user.userDetails;
     return (
       <TouchableOpacity style={styles.mainContainer} key={index}>
         <View style={styles.avatar}>
-          <Text style={styles.avatarLabel}>{createUserLabel(user.firstName, user.lastName)}</Text>
+          <Text style={styles.avatarLabel}>
+            {createUserLabel(userDetails.firstName, userDetails.lastName)}
+          </Text>
         </View>
         <View style={styles.keeperContainer}>
           <View style={styles.userContainer}>
             <Text
               style={styles.keeperText}
-              numberOfLines={1}>{`${user.firstName} ${user.lastName}`}</Text>
+              numberOfLines={1}>{`${userDetails.firstName} ${userDetails.lastName}`}</Text>
           </View>
 
           <Text style={styles.keeperText} numberOfLines={1}>
-            E-mail: {user.email}
+            E-mail: {userDetails.email}
           </Text>
         </View>
       </TouchableOpacity>
@@ -49,7 +53,7 @@ const KeeperView = ({ connectedUsers }: Props) => {
   });
 
   const handleAddUser = () => {
-    dispatch(addConnectedUserAction(email));
+    dispatch(addConnectedUser(email));
   };
 
   return (
@@ -59,7 +63,7 @@ const KeeperView = ({ connectedUsers }: Props) => {
           <TextInput
             ref={emailRef}
             cursorColor={'black'}
-            placeholder={translate('connectedUsers.placeholder')}
+            placeholder={t('connectedUsers.placeholder')}
             value={email}
             style={[styles.inputTitle]}
             underlineColorAndroid="transparent"
@@ -76,7 +80,7 @@ const KeeperView = ({ connectedUsers }: Props) => {
       </View>
       {connectedUsers.length > 0 && (
         <View style={[styles.container, styles.view]}>
-          <Text style={styles.title}>{translate('connectedUsers.keeperTitle')}</Text>
+          <Text style={styles.title}>{t('connectedUsers.keeperTitle')}</Text>
           <View style={[styles.container, styles.view]}>{mapConnectedUsers}</View>
         </View>
       )}

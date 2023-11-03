@@ -1,16 +1,3 @@
-import { translate } from '@src/localization/Localization';
-
-export const EVENT_CREATION_SUCCESS = 'EVENT_CREATION_SUCCESS';
-export const EVENT_CREATION_FAIL = 'EVENT_CREATION_FAIL';
-
-export const LOAD_ACTIVE_EVENTS_SUCCESS = 'LOAD_ACTIVE_EVENTS_SUCCESS';
-export const LOAD_ACTIVE_EVENTS_FAIL = 'LOAD_ACTIVE_EVENTS_FAIL';
-
-export const UPDATE_EVENT_SUCCESS = 'UPDATE_EVENT_SUCCESS';
-export const UPDATE_EVENT_FAIL = 'UPDATE_EVENT_FAIL';
-
-export const CLEAR_EVENTS = 'CLEAR_EVENTS';
-
 export enum DAYS {
   MONDAY = 1,
   TUESDAY = 2,

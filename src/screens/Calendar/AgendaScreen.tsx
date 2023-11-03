@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { Agenda, AgendaEntry, AgendaSchedule, DateData } from 'react-native-calendars';
 import { navigate } from '@src/navigation/navigationUtils';
 import moment from 'moment';
-import { EventDetails } from '@src/redux/types/eventsTypes';
+import { EventDetails } from '@src/redux/events/events.types';
 import { connect } from 'react-redux';
 import { renderLocalDateWithTime } from '@src/utils/utils';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 
 interface State {
   items?: AgendaSchedule;
@@ -99,7 +99,7 @@ class AgendaScreen extends Component<State> {
           {event.description}
         </Text>
         <Text>
-          {translate('agenda.priority', {
+          {t('agenda.priority', {
             priority: event.priority,
           })}
         </Text>

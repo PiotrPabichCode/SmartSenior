@@ -7,15 +7,15 @@ import { renderDayValue, renderLocalDateWithTime } from '@src/utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
 import Icons from '@src/components/Icons';
 import { useAppDispatch, useAppSelector } from '@src/redux/store';
-import { loadActiveEventsAction, updateEventAction } from '@src/redux/actions/eventsActions';
 import CustomToast from '@src/components/CustomToast';
 import { getAuth } from 'firebase/auth';
-import { EventDetails } from '@src/redux/types/eventsTypes';
-import { translate } from '@src/localization/Localization';
+import { EventDetails } from '@src/redux/events/events.types';
+import { t } from '@src/localization/Localization';
+import { updateEvent } from '@src/redux/events/events.actions';
 
-type EventItemProps = PropsWithChildren<{
+type EventItemProps = {
   eventKey: string;
-}>;
+};
 
 type DayProps = PropsWithChildren<{
   active: boolean;
@@ -43,26 +43,34 @@ const EventItem = ({ eventKey }: EventItemProps) => {
     });
   }
 
+  const onEventUpdate = async () => {
+    try {
+      dispatch(
+        updateEvent({
+          eventKey: eventKey,
+          data: {
+            deleted: true,
+            userUid: getAuth().currentUser?.uid + 'deleted-true',
+          },
+        }),
+      );
+      CustomToast('success', t('eventItem.alert.success'));
+    } catch (error) {
+      console.log('Nie udało się edytować wydarzenia');
+    }
+  };
+
   const handleDeleteEvent = () => {
-    Alert.alert(translate('eventItem.alert.title'), translate('eventItem.alert.message'), [
+    Alert.alert(t('eventItem.alert.title'), t('eventItem.alert.message'), [
       {
-        text: translate('eventItem.alert.no'),
+        text: t('eventItem.alert.no'),
         style: 'cancel',
         onPress: () => {},
       },
       {
-        text: translate('eventItem.alert.yes'),
+        text: t('eventItem.alert.yes'),
         style: 'destructive',
-        onPress: () => {
-          dispatch(
-            updateEventAction(eventKey, {
-              deleted: true,
-              userUid: getAuth().currentUser?.uid + 'deleted-true',
-            }),
-          );
-          CustomToast('success', translate('eventItem.alert.success'));
-          dispatch(loadActiveEventsAction());
-        },
+        onPress: onEventUpdate,
       },
     ]);
   };

@@ -9,22 +9,20 @@ import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomToast from '@src/components/CustomToast';
 import { getAuth } from 'firebase/auth';
 import { useAppDispatch, useAppSelector } from '@src/redux/store';
-import { createEventAction } from '@src/redux/actions/eventsActions';
 import { renderLocalDateWithTime } from '@src/utils/utils';
 import { createDatetimeTimezone } from '@src/utils/utils';
-import { days, priorities, times, cyclicValues } from '@src/redux/constants/eventsConstants';
-import { translate } from '@src/localization/Localization';
+import { days, priorities, times, cyclicValues } from '@src/redux/events/events.constants';
+import { t } from '@src/localization/Localization';
 import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import { createEvent } from '@src/redux/events/events.actions';
+import { EventDetails } from '@src/redux/events/events.types';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
   const theme: Theme = useAppSelector(state => state.auth.theme);
   const currentTheme = Colors[theme];
-
-  const [updatedTimes, setUpdatedTimes] = useState(times);
-  const [updatedCyclicValues, setUpdatedCyclicValues] = useState(cyclicValues);
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
@@ -48,14 +46,9 @@ const CreateEventScreen = () => {
     deleted: Yup.boolean().required(),
   });
 
-  // useEffect(() => {
-  //   setUpdatedTimes(fixConstData(times));
-  //   setUpdatedCyclicValues(fixConstData(cyclicValues));
-  // }, [I18n.translations]);
-
   return (
     <CustomScrollContainer theme={currentTheme}>
-      <Text style={styles.header}>{translate('createEvent.title')}</Text>
+      <Text style={styles.header}>{t('createEvent.title')}</Text>
       <Formik
         initialValues={{
           title: '',
@@ -77,28 +70,28 @@ const CreateEventScreen = () => {
             values.createdAt = Date.now();
             values.updatedAt = Date.now();
             NewEventSchema.validate(values)
-              .then(() => {
-                dispatch(createEventAction(values));
-                CustomToast('success', translate('createEvent.message.success.add'));
+              .then(async () => {
+                await dispatch(createEvent(values as EventDetails));
+                CustomToast('success', t('createEvent.message.success.add'));
               })
               .catch(error => {
                 console.log(error);
-                CustomToast('error', translate('error.missingData'));
+                CustomToast('error', t('error.missingData'));
               });
           } catch (error) {
             console.log(error);
-            CustomToast('error', translate('error.unknown'));
+            CustomToast('error', t('error.unknown'));
           }
         }}>
         {({ values, handleChange, setFieldValue, handleSubmit }) => (
           <>
             <Input
-              placeholder={translate('createEvent.button.placeholder.title')}
+              placeholder={t('createEvent.button.placeholder.title')}
               onChangeText={handleChange('title')}
               value={values.title}
             />
             <Input
-              placeholder={translate('createEvent.button.placeholder.description')}
+              placeholder={t('createEvent.button.placeholder.description')}
               multiline={true}
               onChangeText={handleChange('description')}
               value={values.description}
@@ -107,10 +100,10 @@ const CreateEventScreen = () => {
               onPress={() => setShowDatePicker(true)}
               title={
                 values.executionTime !== 0
-                  ? translate('createEvent.button.title.date', {
+                  ? t('createEvent.button.title.date', {
                       date: renderLocalDateWithTime(values.executionTime),
                     })
-                  : translate('createEvent.button.title.emptyDate')
+                  : t('createEvent.button.title.emptyDate')
               }
             />
             {values.executionTime !== 0 && (
@@ -164,12 +157,12 @@ const CreateEventScreen = () => {
             )}
             <View style={styles.inlineView}>
               <CheckBox
-                title={translate('createEvent.button.title.notification')}
+                title={t('createEvent.button.title.notification')}
                 checked={values.isNotification}
                 onPress={() => setFieldValue('isNotification', !values.isNotification)}
               />
               <CheckBox
-                title={translate('createEvent.button.title.cyclic')}
+                title={t('createEvent.button.title.cyclic')}
                 checked={values.isCyclic}
                 onPress={() => setFieldValue('isCyclic', !values.isCyclic)}
               />
@@ -177,7 +170,7 @@ const CreateEventScreen = () => {
             {values.isNotification && (
               <CustomDropdown
                 data={times}
-                placeholder={translate('createEvent.button.placeholder.notificationTime')}
+                placeholder={t('createEvent.button.placeholder.notificationTime')}
                 value={values.notificationTime}
                 handleChange={(e: any) => setFieldValue('notificationTime', e.value)}
               />
@@ -185,19 +178,19 @@ const CreateEventScreen = () => {
             {values.isCyclic && (
               <CustomDropdown
                 data={cyclicValues}
-                placeholder={translate('createEvent.button.placeholder.cyclicTime')}
+                placeholder={t('createEvent.button.placeholder.cyclicTime')}
                 value={values.cyclicTime}
                 handleChange={(e: any) => setFieldValue('cyclicTime', e.value)}
               />
             )}
             <CustomDropdown
               data={priorities}
-              placeholder={translate('createEvent.button.placeholder.priority')}
+              placeholder={t('createEvent.button.placeholder.priority')}
               value={values.priority}
               handleChange={(e: any) => setFieldValue('priority', e.value)}
             />
             <Button
-              title={translate('createEvent.button.submit')}
+              title={t('createEvent.button.submit')}
               buttonStyle={styles.buttonSubmit}
               containerStyle={styles.buttonSubmitContainer}
               titleStyle={styles.buttonSubmitTitle}

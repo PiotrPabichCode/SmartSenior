@@ -1,4 +1,4 @@
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { useEffect } from 'react';
 import { Alert } from 'react-native';
 
@@ -14,22 +14,18 @@ const DiscardChangesAlert = ({ navigation, isUpdate }: Props) => {
         return;
       }
       e.preventDefault();
-      Alert.alert(
-        translate('alert.discardChanges.title'),
-        translate('alert.discardChanges.message'),
-        [
-          {
-            text: translate('alert.discardChanges.no'),
-            style: 'cancel',
-            onPress: () => {},
-          },
-          {
-            text: translate('alert.discardChanges.yes'),
-            style: 'destructive',
-            onPress: () => navigation.dispatch(e.data.action),
-          },
-        ],
-      );
+      Alert.alert(t('alert.discardChanges.title'), t('alert.discardChanges.message'), [
+        {
+          text: t('alert.discardChanges.no'),
+          style: 'cancel',
+          onPress: () => {},
+        },
+        {
+          text: t('alert.discardChanges.yes'),
+          style: 'destructive',
+          onPress: () => navigation.dispatch(e.data.action),
+        },
+      ]);
     });
   }, [navigation, isUpdate]);
 

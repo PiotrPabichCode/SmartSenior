@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import DayField, { Day } from './DayField';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { renderDayValue } from '@src/utils/utils';
 
 interface DaysProps {
@@ -16,7 +16,7 @@ const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
     return (
       activeDays.length > 0 && (
         <Text style={styles.label}>
-          {translate('dayFields.repeat') +
+          {t('dayFields.repeat') +
             activeDays.map(day => renderDayValue(day.value, false)).join(', ')}
         </Text>
       )

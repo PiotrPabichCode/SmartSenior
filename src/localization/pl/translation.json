@@ -121,6 +121,9 @@
     "question": "Nie masz konta? ",
     "signUp": "Zarejestruj się",
     "message": {
+      "success": {
+        "signIn": "Zalogowano pomyślnie"
+      },
       "error": {
         "signIn": "Nie udało się zalogować"
       }

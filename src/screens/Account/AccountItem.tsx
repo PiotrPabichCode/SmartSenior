@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import type { PropsWithChildren } from 'react';
 import { renderIcon } from '@src/components/Icons';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 
 type AccountItemProps = PropsWithChildren<{
   type?: string;
@@ -20,7 +20,7 @@ const renderRightItems = (type?: string) => {
     case 'language': {
       return (
         <View style={styles.rightItemsStacked}>
-          <Text style={styles.languageName}>{translate('languageName')}</Text>
+          <Text style={styles.languageName}>{t('languageName')}</Text>
           {renderIcon({ name: 'arrow-right' })}
         </View>
       );

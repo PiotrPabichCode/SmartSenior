@@ -1,8 +1,6 @@
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import * as LocalizationExpo from 'expo-localization';
-import I18n from 'i18n-js';
 import i18n, { Scope, TranslateOptions } from 'i18n-js';
-import memoize from 'lodash.memoize';
 
 class Localization {
   public static supportedLanguages = {
@@ -63,5 +61,5 @@ class Localization {
   };
 }
 
-export const translate = Localization.translate;
+export const t = Localization.translate;
 export default Localization;

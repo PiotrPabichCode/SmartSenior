@@ -1,6 +1,6 @@
 import { StyleSheet, Text, ScrollView } from 'react-native';
 import { Divider } from '@rneui/themed';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { Theme } from '@src/redux/types';
 import { useAppSelector } from '@src/redux/store';
 import Colors from '@src/constants/Colors';
@@ -39,16 +39,16 @@ const PharmacyItemDetails = ({ route }: any) => {
 
   return (
     <CustomScrollContainer theme={currentTheme}>
-      {renderDetail(translate('pharmacyItem.name'), item.name)}
-      {renderDetail(translate('pharmacyItem.status'), item.pharmacyStatus.displayName)}
-      {renderDetail(translate('pharmacyItem.genre'), item.pharmacyGenre.displayName)}
-      {renderAddress(translate('pharmacyItem.address'), item.address)}
-      {renderDetail(translate('pharmacyItem.phone'), item.phoneNumber)}
-      {renderDetail(translate('pharmacyItem.email'), item.email)}
-      {renderDetail(translate('pharmacyItem.owners'), item.owners[0].name)}
+      {renderDetail(t('pharmacyItem.name'), item.name)}
+      {renderDetail(t('pharmacyItem.status'), item.pharmacyStatus.displayName)}
+      {renderDetail(t('pharmacyItem.genre'), item.pharmacyGenre.displayName)}
+      {renderAddress(t('pharmacyItem.address'), item.address)}
+      {renderDetail(t('pharmacyItem.phone'), item.phoneNumber)}
+      {renderDetail(t('pharmacyItem.email'), item.email)}
+      {renderDetail(t('pharmacyItem.owners'), item.owners[0].name)}
       {renderDetail(
-        translate('pharmacyItem.openOnSundays'),
-        item.openOnSundaysNonTrade ? translate('yes') : translate('no'),
+        t('pharmacyItem.openOnSundays'),
+        item.openOnSundaysNonTrade ? t('yes') : t('no'),
       )}
       <Divider style={styles.dividerStyle} />
     </CustomScrollContainer>

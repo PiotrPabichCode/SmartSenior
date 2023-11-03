@@ -1,46 +1,42 @@
-import { equalTo, get, orderByChild, push, query, ref, update } from 'firebase/database';
+import { equalTo, get, orderByChild, push, query, ref, update, onValue } from 'firebase/database';
 import { db } from 'firebaseConfig';
 import { getAuth } from 'firebase/auth';
-import { handleApiError } from '../utils';
-import { EventDetails } from '../types/eventsTypes';
-import { ApiResponse } from '../types';
+import { EventDetails } from './events.types';
+import { useAppSelector } from '../store';
 
-export const createEvent = async (newEventData: EventDetails): Promise<ApiResponse> => {
+export const createEvent = async (newEventData: EventDetails) => {
   try {
     const eventsRef = ref(db, 'events/');
-    const response = push(eventsRef, newEventData);
+    const response = await push(eventsRef, newEventData);
     if (!response || !response.key) {
-      return {
-        error: new Error('Error: add event'),
-        data: null,
-      };
+      throw new Error('Unable to add new event.');
     }
     const key = response.key;
     const currentEventRef = ref(db, 'events/' + key);
-    await update(currentEventRef, {
+    update(currentEventRef, {
       key: key,
     });
     newEventData.key = key;
-    return { error: null, data: newEventData };
+    return newEventData;
   } catch (error) {
-    return handleApiError(error);
+    throw error;
   }
 };
 
-export const updateEvent = async (
-  eventKey: string,
-  changeEventData: EventDetails,
-): Promise<ApiResponse> => {
+export const updateEvent = async (eventKey: string, data: Partial<EventDetails>) => {
   try {
     const eventRef = ref(db, 'events/' + eventKey);
-    update(eventRef, changeEventData);
-    return { error: null, data: changeEventData };
+    await update(eventRef, data);
+    return {
+      key: eventKey,
+      data: data,
+    };
   } catch (error) {
-    return handleApiError(error);
+    throw error;
   }
 };
 
-export const loadActiveEvents = async (): Promise<ApiResponse> => {
+export const fetchActiveEvents = async () => {
   try {
     const userUID = getAuth().currentUser?.uid;
     if (!userUID) {
@@ -56,7 +52,7 @@ export const loadActiveEvents = async (): Promise<ApiResponse> => {
     const eventsSnapshot = await get(eventsQuery);
 
     if (!eventsSnapshot.exists()) {
-      return { error: new Error('Unable to load events'), data: null };
+      throw new Error('User does not have active events.');
     }
 
     let events = eventsSnapshot.val();
@@ -64,9 +60,9 @@ export const loadActiveEvents = async (): Promise<ApiResponse> => {
       events[key].key = key;
     }
 
-    return { error: null, data: events };
+    return events;
   } catch (error) {
-    return handleApiError(error);
+    throw error;
   }
 };
 

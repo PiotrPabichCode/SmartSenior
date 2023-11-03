@@ -5,7 +5,7 @@ import MedicineItem from './MedicineItem';
 import { Formik } from 'formik';
 import { buildRequest } from '@utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { Theme } from '@src/redux/types';
 import { useAppSelector } from '@src/redux/store';
@@ -33,7 +33,7 @@ const MedicinesScreen = () => {
 
   return (
     <CustomScrollContainer theme={currentTheme}>
-      <Text style={styles.title}>{translate('medicinesScreen.title')}</Text>
+      <Text style={styles.title}>{t('medicinesScreen.title')}</Text>
       <CustomDivider />
       <Formik
         initialValues={{ name: '' }}
@@ -48,12 +48,12 @@ const MedicinesScreen = () => {
         {({ values, handleChange, handleSubmit }) => (
           <>
             <Input
-              placeholder={translate('medicinesScreen.placeholder')}
+              placeholder={t('medicinesScreen.placeholder')}
               onChangeText={handleChange('name')}
               value={values.name}
             />
             <Button
-              title={translate('button.search')}
+              title={t('button.search')}
               containerStyle={styles.buttonSearchContainer}
               buttonStyle={styles.buttonSearchStyle}
               onPress={() => handleSubmit()}

@@ -6,29 +6,30 @@ import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomToast from '@src/components/CustomToast';
-import { signInAction } from '@src/redux/actions/authActions';
-import { useAppDispatch } from '@redux/store';
+import { useAppDispatch, useAppSelector } from '@redux/store';
 import { navigate } from '@src/navigation/navigationUtils';
-import { translate } from '@src/localization/Localization';
-
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email(translate('login.yup.email')).required(translate('yup.required')),
-  password: Yup.string()
-    .min(6, translate('login.yup.passwordLengthMin'))
-    .max(30, translate('login.yup.passwordLengthMax'))
-    .required(translate('yup.required')),
-});
+import { t } from '@src/localization/Localization';
+import { signIn, verifyUserDetails } from '@src/redux/auth/auth.actions';
+import { loadEvents } from '@src/redux/events/events.actions';
 
 const LoginScreen = () => {
   const dispatch = useAppDispatch();
+
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string().email(t('login.yup.email')).required(t('yup.required')),
+    password: Yup.string()
+      .min(6, t('login.yup.passwordLengthMin'))
+      .max(30, t('login.yup.passwordLengthMax'))
+      .required(t('yup.required')),
+  });
 
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
       <SafeAreaView style={styles.appContainer}>
         <WelcomeSvg width={250} height={220} />
-        <Text style={styles.headerText}>{translate('login.welcomeBack')}</Text>
+        <Text style={styles.headerText}>{t('login.welcomeBack')}</Text>
         <Button
-          title={translate('login.google')}
+          title={t('login.google')}
           buttonStyle={styles.buttonAuthGoogleStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonAuthGoogleTitleStyle}
@@ -36,7 +37,7 @@ const LoginScreen = () => {
         <View style={{ flexDirection: 'row', alignItems: 'center', margin: 20 }}>
           <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
           <View>
-            <Text style={{ width: 50, textAlign: 'center' }}>{translate('login.or')}</Text>
+            <Text style={{ width: 50, textAlign: 'center' }}>{t('login.or')}</Text>
           </View>
           <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
         </View>
@@ -45,9 +46,19 @@ const LoginScreen = () => {
           validationSchema={LoginSchema}
           onSubmit={async values => {
             try {
-              dispatch(signInAction(values));
+              await dispatch(signIn(values));
+              const userDetails = await dispatch(verifyUserDetails());
+              if (userDetails) {
+                await dispatch(loadEvents());
+                navigate('BottomBar', {
+                  screen: 'Home',
+                });
+              } else {
+                navigate('FirstLoginWizard');
+              }
+              CustomToast('success', t('login.message.success.signIn'));
             } catch (e) {
-              CustomToast('error', translate('login.message.error.signIn'));
+              CustomToast('error', t('login.message.error.signIn'));
             }
           }}>
           {({ values, handleChange, handleSubmit }) => (
@@ -57,7 +68,7 @@ const LoginScreen = () => {
                   style={styles.inputField}
                   underlineColorAndroid="transparent"
                   leftIcon={<Icon name="email" size={30} color="black" />}
-                  placeholder={translate('login.button.placeholder.email')}
+                  placeholder={t('login.button.placeholder.email')}
                   keyboardType="email-address"
                   onChangeText={handleChange('email')}
                   value={values.email}
@@ -70,14 +81,14 @@ const LoginScreen = () => {
                   style={styles.inputField}
                   leftIcon={<Icon name="lock" size={30} color="black" />}
                   secureTextEntry={true}
-                  placeholder={translate('login.button.placeholder.password')}
+                  placeholder={t('login.button.placeholder.password')}
                   onChangeText={handleChange('password')}
                   value={values.password}
                 />
                 <ErrorMessage className="errorText" component={Text} name="password" />
               </View>
               <Button
-                title={translate('login.button.submit')}
+                title={t('login.button.submit')}
                 buttonStyle={styles.buttonSignInStyle}
                 containerStyle={styles.buttonContainerStyle}
                 titleStyle={styles.buttonSignInTitleStyle}
@@ -87,9 +98,9 @@ const LoginScreen = () => {
           )}
         </Formik>
         <Text style={styles.textLinks}>
-          {translate('login.question')}
+          {t('login.question')}
           <Text style={styles.textRegister} onPress={() => navigate('SignUp')}>
-            {translate('login.signUp')}
+            {t('login.signUp')}
           </Text>
         </Text>
       </SafeAreaView>

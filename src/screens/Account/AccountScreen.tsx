@@ -1,19 +1,19 @@
 import { StyleSheet, View } from 'react-native';
 import AccountItem from './AccountItem';
-import { Divider } from '@rneui/themed';
 import AccountProfileHint from './AccountProfileHint';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import { logoutAction } from '@src/redux/actions/authActions';
 import { navigate } from '@src/navigation/navigationUtils';
-import { translate } from '@src/localization/Localization';
-import { clearEventsAction } from '@src/redux/actions/eventsActions';
+import { t } from '@src/localization/Localization';
 import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import CustomDivider from '@src/components/CustomDivider';
+import { logout } from '@src/redux/auth/auth.actions';
+import { clearEvents } from '@src/redux/events/events.slice';
 
-const handleLogout = (dispatch = useAppDispatch()) => {
-  dispatch(clearEventsAction());
-  dispatch(logoutAction());
+const handleLogout = async (dispatch = useAppDispatch()) => {
+  await dispatch(logout());
+  dispatch(clearEvents());
+  // await dispatch();
 };
 
 const AccountScreen = () => {
@@ -27,65 +27,61 @@ const AccountScreen = () => {
       <AccountProfileHint />
       <AccountItem
         icon="user-account"
-        title={translate('account.button.title.user')}
+        title={t('account.button.title.user')}
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'user',
-            title: translate('account.header.user'),
+            title: t('account.header.user'),
           })
         }
       />
       <CustomDivider />
-      <AccountItem
-        icon="theme-account"
-        title={translate('account.button.title.theme')}
-        type="theme"
-      />
+      <AccountItem icon="theme-account" title={t('account.button.title.theme')} type="theme" />
       <AccountItem
         icon="language-account"
-        title={translate('account.button.title.language')}
+        title={t('account.button.title.language')}
         type="language"
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'language',
-            title: translate('account.header.language'),
+            title: t('account.header.language'),
           })
         }
       />
       <AccountItem
         icon="notification-account"
-        title={translate('account.button.title.notification')}
+        title={t('account.button.title.notification')}
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'notification',
-            title: translate('account.header.notification'),
+            title: t('account.header.notification'),
           })
         }
       />
       <AccountItem
         icon="share-account"
-        title={translate('account.button.title.share')}
+        title={t('account.button.title.share')}
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'share',
-            title: translate('account.header.share'),
+            title: t('account.header.share'),
           })
         }
       />
       <AccountItem
         icon="connected-users"
-        title={translate('account.button.title.connected-users')}
+        title={t('account.button.title.connected-users')}
         onPress={() =>
           navigate('AccountItemDetails', {
             screenType: 'connected-users',
-            title: translate('account.header.connected-users'),
+            title: t('account.header.connected-users'),
           })
         }
       />
       <CustomDivider />
       <AccountItem
         icon="logout-account"
-        title={translate('account.button.title.logout')}
+        title={t('account.button.title.logout')}
         onPress={() => handleLogout(dispatch)}
       />
     </View>

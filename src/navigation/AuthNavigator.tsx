@@ -11,7 +11,7 @@ import FirstLoginWizard from '@screens/Auth/FirstLoginWizard';
 import BottomBarNavigator from './BottomBarNavigator';
 import CustomHeader from '@components/CustomHeader';
 import EventItemScreen from '@src/screens/Events/EventItemScreen';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -41,50 +41,42 @@ const AuthNavigator = () => {
         name="Medicines"
         component={MedicinesScreen}
         options={{
-          header: () => (
-            <CustomHeader title={translate('nav.medicines')} nested={true} more={true} />
-          ),
+          header: () => <CustomHeader title={t('nav.medicines')} nested={true} more={true} />,
         }}
       />
       <Stack.Screen
         name="MedicinesItemDetails"
         component={MedicineItemDetails}
         options={{
-          header: () => (
-            <CustomHeader title={translate('nav.medicinesItemDetails')} nested={true} />
-          ),
+          header: () => <CustomHeader title={t('nav.medicinesItemDetails')} nested={true} />,
         }}
       />
       <Stack.Screen
         name="Pharmacies"
         component={PharmaciesScreen}
         options={{
-          header: () => (
-            <CustomHeader title={translate('nav.pharmacies')} nested={true} more={true} />
-          ),
+          header: () => <CustomHeader title={t('nav.pharmacies')} nested={true} more={true} />,
         }}
       />
       <Stack.Screen
         name="PharmaciesItemDetails"
         component={PharmacyItemDetails}
         options={{
-          header: () => (
-            <CustomHeader title={translate('nav.pharmaciesItemDetails')} nested={true} />
-          ),
+          header: () => <CustomHeader title={t('nav.pharmaciesItemDetails')} nested={true} />,
         }}
       />
       <Stack.Screen
         name="CreateEvent"
         component={CreateEventScreen}
         options={{
-          header: () => <CustomHeader title={translate('nav.createEvent')} nested={true} />,
+          header: () => <CustomHeader title={t('nav.createEvent')} nested={true} />,
         }}
       />
       <Stack.Screen
         name="EventItem"
         component={EventItemScreen}
         options={{
-          header: () => <CustomHeader title={translate('nav.eventItem')} nested={true} />,
+          header: () => <CustomHeader title={t('nav.eventItem')} nested={true} />,
         }}
       />
     </Stack.Navigator>

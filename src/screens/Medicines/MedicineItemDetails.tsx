@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, ScrollView, Platform } from 'react-native';
 import { Button, Divider } from '@rneui/themed';
 import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { useAppSelector } from '@src/redux/store';
 import Colors from '@src/constants/Colors';
@@ -59,18 +59,18 @@ const MedicineItemDetails = ({ route }: any) => {
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Text style={styles.title}>{item['medicinalProductName']}</Text>
-      {renderDetail(translate('medicineItem.commonName'), item['commonName'])}
-      {renderDetail(translate('medicineItem.power'), item['medicinalProductPower'])}
-      {renderDetail(translate('medicineItem.pharmaceuticalForm'), item['pharmaceuticalFormName'])}
-      {renderDetail(translate('medicineItem.activeSubstance'), item['activeSubstanceName'])}
-      {renderDetail(translate('medicineItem.packaging'), item['packaging'].replaceAll('\\n', '\n'))}
-      {renderDetail(translate('medicineItem.expiration'), item['expirationDateString'])}
-      {renderDetail(translate('medicineItem.company'), item['subjectMedicinalProductName'])}
-      {renderDetail(translate('medicineItem.country'), item['manufacturersDtos'][0]['countryName'])}
+      {renderDetail(t('medicineItem.commonName'), item['commonName'])}
+      {renderDetail(t('medicineItem.power'), item['medicinalProductPower'])}
+      {renderDetail(t('medicineItem.pharmaceuticalForm'), item['pharmaceuticalFormName'])}
+      {renderDetail(t('medicineItem.activeSubstance'), item['activeSubstanceName'])}
+      {renderDetail(t('medicineItem.packaging'), item['packaging'].replaceAll('\\n', '\n'))}
+      {renderDetail(t('medicineItem.expiration'), item['expirationDateString'])}
+      {renderDetail(t('medicineItem.company'), item['subjectMedicinalProductName'])}
+      {renderDetail(t('medicineItem.country'), item['manufacturersDtos'][0]['countryName'])}
       <Divider style={styles.dividerStyle} />
       <View style={styles.buttons}>
         <Button
-          title={translate('medicineItem.leaflet')}
+          title={t('medicineItem.leaflet')}
           titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
           buttonStyle={styles.buttonStyle}
@@ -84,7 +84,7 @@ const MedicineItemDetails = ({ route }: any) => {
           }
         />
         <Button
-          title={translate('medicineItem.characteristic')}
+          title={t('medicineItem.characteristic')}
           titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
           buttonStyle={styles.buttonStyle}

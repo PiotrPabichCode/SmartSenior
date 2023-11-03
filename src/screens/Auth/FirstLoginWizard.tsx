@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -10,63 +10,42 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import Icons from '@src/components/Icons';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import {
-  UserDetailsAction,
-  logoutAction,
-  verifyUserDetailsAction,
-} from '@src/redux/actions/authActions';
-import { GenderEnum, RolesEnum, genders, roles } from '@src/redux/constants/authConstants';
+import { GenderEnum, RolesEnum, genders, roles } from '@src/redux/auth/auth.constants';
+import { t } from '@src/localization/Localization';
+import { _userDetails } from '@src/redux/auth/auth.slice';
+import { logout, setUserDetails } from '@src/redux/auth/auth.actions';
 import { navigate } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
-import { loadActiveEventsAction } from '@src/redux/actions/eventsActions';
-import { translate } from '@src/localization/Localization';
-
-const FirstLoginSchema = Yup.object().shape({
-  firstName: Yup.string().min(1).required(),
-  lastName: Yup.string().min(1).required(),
-  birthDate: Yup.date().max(new Date()).required(),
-  gender: Yup.string().oneOf(Object.values(GenderEnum)).required(),
-  role: Yup.string().oneOf(Object.values(RolesEnum)).required(),
-});
 
 const FirstLoginWizard = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useAppDispatch();
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-  const userData = useAppSelector(state => state.auth.userDetails);
+  const status = useAppSelector(state => state.auth.status);
+  const userDetails = useAppSelector(state => state.auth.userDetails);
 
-  useEffect(() => {
-    const loadUserDetails = async () => {
-      try {
-        dispatch(verifyUserDetailsAction());
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 2000);
-      }
-    };
-    loadUserDetails();
-  }, []);
-
-  useEffect(() => {
-    if (userData) {
-      dispatch(loadActiveEventsAction());
-      navigate('BottomBar', {
-        screen: 'Home',
-      });
-    }
-  }, [userData]);
-
-  if (isLoading) {
+  if (status === 'idle') {
     return <CustomActivityIndicator />;
   }
 
+  if (userDetails) {
+    navigate('BottomBar', {
+      screen: 'Home',
+    });
+    return null;
+  }
+
+  const FirstLoginSchema = Yup.object().shape({
+    firstName: Yup.string().min(1).required(),
+    lastName: Yup.string().min(1).required(),
+    birthDate: Yup.date().max(new Date()).required(),
+    gender: Yup.string().oneOf(Object.values(GenderEnum)).required(),
+    role: Yup.string().oneOf(Object.values(RolesEnum)).required(),
+  });
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.logout} onPress={() => dispatch(logoutAction())}>
-        <Text style={styles.logoutTitle}>{translate('firstLoginWizard.button.title.logout')}</Text>
+      <TouchableOpacity style={styles.logout} onPress={() => dispatch(logout())}>
+        <Text style={styles.logoutTitle}>{t('firstLoginWizard.button.title.logout')}</Text>
         <Icons name="logout-wizard" />
       </TouchableOpacity>
       <ScrollView
@@ -80,45 +59,45 @@ const FirstLoginWizard = () => {
               lastName: '',
               birthDate: null,
               gender: '',
-              role: '',
+              role: RolesEnum.SENIOR,
               email: getAuth().currentUser?.email,
             }}
             onSubmit={async values => {
               try {
                 FirstLoginSchema.validate(values)
-                  .then(() => {
-                    dispatch(UserDetailsAction(values));
-                    CustomToast('success', translate('success.saveChanges'));
+                  .then(async () => {
+                    await dispatch(setUserDetails(values));
+                    CustomToast('success', t('success.saveChanges'));
                   })
                   .catch(errors => {
                     console.log(errors);
-                    CustomToast('error', translate('error.missingData'));
+                    CustomToast('error', t('error.missingData'));
                   });
               } catch (e) {
-                CustomToast('error', translate('error.unknown'));
+                CustomToast('error', t('error.unknown'));
               }
             }}>
             {({ values, handleChange, handleSubmit, setFieldValue }) => (
               <>
-                <Text style={styles.title}>{translate('firstLoginWizard.title')}</Text>
+                <Text style={styles.title}>{t('firstLoginWizard.title')}</Text>
                 <Input
                   value={values.firstName}
                   onChangeText={handleChange('firstName')}
-                  placeholder={translate('firstLoginWizard.button.title.firstName')}
+                  placeholder={t('firstLoginWizard.button.title.firstName')}
                 />
                 <Input
                   value={values.lastName}
                   onChangeText={handleChange('lastName')}
-                  placeholder={translate('firstLoginWizard.button.title.lastName')}
+                  placeholder={t('firstLoginWizard.button.title.lastName')}
                 />
                 <Button
                   onPress={() => setShowDatePicker(true)}
                   title={
                     values.birthDate
-                      ? translate('firstLoginWizard.button.title.birthDate', {
+                      ? t('firstLoginWizard.button.title.birthDate', {
                           birthDate: values.birthDate,
                         })
-                      : translate('firstLoginWizard.button.title.birthDateEmpty')
+                      : t('firstLoginWizard.button.title.birthDateEmpty')
                   }
                 />
                 {showDatePicker && (
@@ -136,18 +115,18 @@ const FirstLoginWizard = () => {
                 )}
                 <CustomDropdown
                   data={genders}
-                  placeholder={translate('firstLoginWizard.button.placeholder.gender')}
+                  placeholder={t('firstLoginWizard.button.placeholder.gender')}
                   value={values.gender}
                   handleChange={(e: any) => setFieldValue('gender', e.value)}
                 />
                 <CustomDropdown
                   data={roles.filter(role => role.value !== RolesEnum.ADMIN)}
-                  placeholder={translate('firstLoginWizard.button.placeholder.role')}
+                  placeholder={t('firstLoginWizard.button.placeholder.role')}
                   value={values.role}
                   handleChange={(e: any) => setFieldValue('role', e.value)}
                 />
                 <TouchableOpacity onPress={() => handleSubmit()}>
-                  <Text style={styles.submit}>{translate('firstLoginWizard.button.submit')}</Text>
+                  <Text style={styles.submit}>{t('firstLoginWizard.button.submit')}</Text>
                 </TouchableOpacity>
               </>
             )}

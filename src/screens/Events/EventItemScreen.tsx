@@ -9,21 +9,22 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomDropdown from '@src/components/CustomDropdown';
 import { Button, CheckBox, Input } from '@rneui/themed';
-import { cyclicValues, days, priorities, times } from '@src/redux/constants/eventsConstants';
-import { useState, useEffect } from 'react';
-import { Formik, Form } from 'formik';
+import { days, cyclicValues, times, priorities } from '@src/redux/events/events.constants';
+import { useState } from 'react';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomToast from '@src/components/CustomToast';
 import { useAppDispatch, useAppSelector } from '@src/redux/store';
-import { updateEventAction } from '@src/redux/actions/eventsActions';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '@src/constants/Colors';
 import FormikObserver from '@src/utils/FormikObserver';
 import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
-import { EventDetails } from '@src/redux/types/eventsTypes';
-import Localization, { translate } from '@src/localization/Localization';
+import { EventDetails } from '@src/redux/events/events.types';
+import Localization, { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { Theme } from '@src/redux/types';
+import { updateEvent } from '@src/redux/events/events.actions';
+import { goBack } from '@src/navigation/navigationUtils';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 
@@ -35,8 +36,6 @@ const EventItemScreen = ({ route, navigation }: Props) => {
   const { eventKey } = route.params;
   const event: EventDetails = useAppSelector(state => state.events.events[eventKey]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
-  const [updatedTimes, setUpdatedTimes] = useState(times);
-  // const [updatedCyclicValues, setUpdatedCyclicValues] = useState(cyclicValues);
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
@@ -60,58 +59,59 @@ const EventItemScreen = ({ route, navigation }: Props) => {
     deleted: Yup.boolean().required(),
   });
 
-  // useEffect(() => {
-  //   setUpdatedTimes(fixConstData(times));
-  //   setUpdatedCyclicValues(fixConstData(cyclicValues));
-  // }, []);
+  const [initialValues, setInitialValues] = useState({
+    title: event.title,
+    description: event.description,
+    executionTime: event.executionTime,
+    days: Object.values(event.days).map(day => ({
+      ...day,
+    })),
+    priority: event.priority,
+    isCyclic: event.isCyclic,
+    cyclicTime: event.cyclicTime,
+    isNotification: event.isNotification,
+    notificationTime: event.notificationTime,
+    updatedAt: event.updatedAt,
+    deleted: event.deleted,
+    userUid: event.userUid,
+  });
 
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Formik
-        initialValues={{
-          title: event.title,
-          description: event.description,
-          executionTime: event.executionTime,
-          days: Object.values(event.days).map(day => ({
-            ...day,
-          })),
-          priority: event.priority,
-          isCyclic: event.isCyclic,
-          cyclicTime: event.cyclicTime,
-          isNotification: event.isNotification,
-          notificationTime: event.notificationTime,
-          updatedAt: event.updatedAt,
-          deleted: event.deleted,
-          userUid: event.userUid,
-        }}
+        initialValues={initialValues}
+        enableReinitialize
         onSubmit={values => {
           try {
             values.updatedAt = Date.now();
             const updatedFields = getUpdatedFields(event, values);
             ChangeEventSchema.validate(values)
-              .then(() => {
-                console.log('Zmienione pola: ', updatedFields);
-                dispatch(updateEventAction(eventKey, updatedFields));
-                CustomToast('success', translate('eventItemScreen.message.success.change'));
+              .then(async () => {
+                await dispatch(
+                  updateEvent({ eventKey: eventKey, data: updatedFields as EventDetails }),
+                );
+                setInitialValues(values);
+                CustomToast('success', t('eventItemScreen.message.success.change'));
+                goBack();
               })
               .catch(error => {
                 console.log(error);
-                CustomToast('error', translate('eventItemScreen.message.error.change'));
+                CustomToast('error', t('eventItemScreen.message.error.change'));
               });
           } catch (error) {
             console.log(error);
-            CustomToast('error', translate('error.unknown'));
+            CustomToast('error', t('error.unknown'));
           }
         }}>
         {({ values, handleChange, setFieldValue, handleSubmit }) => (
           <>
             <Input
-              placeholder={translate('eventItemScreen.button.placeholder.title')}
+              placeholder={t('eventItemScreen.button.placeholder.title')}
               onChangeText={handleChange('title')}
               value={values.title}
             />
             <Input
-              placeholder={translate('eventItemScreen.button.placeholder.description')}
+              placeholder={t('eventItemScreen.button.placeholder.description')}
               multiline={true}
               onChangeText={handleChange('description')}
               value={values.description}
@@ -120,10 +120,10 @@ const EventItemScreen = ({ route, navigation }: Props) => {
               onPress={() => setShowDatePicker(true)}
               title={
                 values.executionTime !== 0
-                  ? translate('eventItemScreen.button.title.date', {
+                  ? t('eventItemScreen.button.title.date', {
                       date: renderLocalDateWithTime(values.executionTime),
                     })
-                  : translate('eventItemScreen.button.title.emptyDate')
+                  : t('eventItemScreen.button.title.emptyDate')
               }
             />
             {values.executionTime !== 0 && (
@@ -177,12 +177,12 @@ const EventItemScreen = ({ route, navigation }: Props) => {
             )}
             <View style={styles.inlineView}>
               <CheckBox
-                title={translate('eventItemScreen.button.title.notification')}
+                title={t('eventItemScreen.button.title.notification')}
                 checked={values.isNotification}
                 onPress={() => setFieldValue('isNotification', !values.isNotification)}
               />
               <CheckBox
-                title={translate('eventItemScreen.button.title.cyclic')}
+                title={t('eventItemScreen.button.title.cyclic')}
                 checked={values.isCyclic}
                 onPress={() => setFieldValue('isCyclic', !values.isCyclic)}
               />
@@ -190,7 +190,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
             {values.isNotification && (
               <CustomDropdown
                 data={times}
-                placeholder={translate('eventItemScreen.button.placeholder.notificationTime')}
+                placeholder={t('eventItemScreen.button.placeholder.notificationTime')}
                 value={values.notificationTime}
                 handleChange={(e: any) => setFieldValue('notificationTime', e.value)}
               />
@@ -198,34 +198,34 @@ const EventItemScreen = ({ route, navigation }: Props) => {
             {values.isCyclic && Localization.localizationReady && (
               <CustomDropdown
                 data={cyclicValues}
-                placeholder={translate('eventItemScreen.button.placeholder.cyclicTime')}
+                placeholder={t('eventItemScreen.button.placeholder.cyclicTime')}
                 value={values.cyclicTime}
                 handleChange={(e: any) => setFieldValue('cyclicTime', e.value)}
               />
             )}
             <CustomDropdown
               data={priorities}
-              placeholder={translate('eventItemScreen.button.placeholder.priority')}
+              placeholder={t('eventItemScreen.button.placeholder.priority')}
               value={values.priority}
               handleChange={(e: any) => setFieldValue('priority', e.value)}
             />
             {isUpdate && (
               <Button
-                title={translate('eventItemScreen.button.title.update')}
+                title={t('eventItemScreen.button.title.update')}
                 buttonStyle={styles.buttonUpdate}
                 containerStyle={styles.buttonContainer}
                 onPress={() => handleSubmit()}
               />
             )}
             <Button
-              title={translate('eventItemScreen.button.title.execute')}
+              title={t('eventItemScreen.button.title.execute')}
               buttonStyle={styles.buttonSubmit}
               containerStyle={styles.buttonContainer}
               onPress={() => handleSubmit()}
             />
             <FormikObserver
-              onChange={(values: any) => {
-                const changedFields = getUpdatedFields(event, values.values);
+              onChange={(data: any) => {
+                const changedFields = getUpdatedFields(data.initialValues, data.values);
                 if (Object.keys(changedFields).length > 0) {
                   setIsUpdate(true);
                 } else {

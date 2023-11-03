@@ -1,43 +1,37 @@
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
-import { useState, useEffect } from 'react';
 import { Button } from '@rneui/themed';
 import WelcomeSvg from '@assets/welcome-image.svg';
 import { navigate, navigationRef } from '@src/navigation/navigationUtils';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
+import { useAppSelector } from '@src/redux/store';
 
 const WelcomeScreen = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const status = useAppSelector(state => state.auth.status);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
-
-  if (isLoading) {
+  if (status === 'idle') {
     return null;
   }
   return (
     <SafeAreaView style={styles.viewStyle}>
       {/* Image at the top */}
-      <Text style={styles.headerText}>{translate('appName')}</Text>
+      <Text style={styles.headerText}>{t('appName')}</Text>
       <WelcomeSvg width={300} height={300} />
 
       {/* Text under the Image */}
-      <Text style={styles.welcomeText}>{translate('welcome.message1')}</Text>
-      <Text style={styles.welcomeText2}>{translate('welcome.message2')}</Text>
+      <Text style={styles.welcomeText}>{t('welcome.message1')}</Text>
+      <Text style={styles.welcomeText2}>{t('welcome.message2')}</Text>
 
       <View style={styles.buttonsStyle}>
         {/* Buttons at the bottom */}
         <Button
-          title={translate('welcome.signUp')}
+          title={t('welcome.signUp')}
           buttonStyle={styles.buttonSignUpStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonSignUpTitleStyle}
           onPress={() => navigate('SignUp')}
         />
         <Button
-          title={translate('welcome.signIn')}
+          title={t('welcome.signIn')}
           buttonStyle={styles.buttonSignInStyle}
           containerStyle={styles.buttonContainerStyle}
           titleStyle={styles.buttonSignInTitleStyle}

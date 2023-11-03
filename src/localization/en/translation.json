@@ -121,6 +121,9 @@
     "question": "Don't have an account? ",
     "signUp": "Sign Up",
     "message": {
+      "success": {
+        "signIn": "Logged in successfully"
+      },
       "error": {
         "signIn": "Could not sign in"
       }

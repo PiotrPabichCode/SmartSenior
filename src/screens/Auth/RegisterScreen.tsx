@@ -7,29 +7,30 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native';
 import CustomToast from '@src/components/CustomToast';
 import { useAppDispatch } from '@redux/store';
-import { signUpAction } from '@src/redux/actions/authActions';
 import { navigate } from '@src/navigation/navigationUtils';
-import { translate } from '@src/localization/Localization';
-
-const RegisterSchema = Yup.object().shape({
-  email: Yup.string().email(translate('login.yup.email')).required(translate('yup.required')),
-  password: Yup.string()
-    .min(6, translate('login.yup.passwordLengthMin'))
-    .max(30, translate('login.yup.passwordLengthMax'))
-    .required(translate('yup.required')),
-  repeatPassword: Yup.string()
-    .oneOf([Yup.ref('password')], translate('login.yup.repeatPassword'))
-    .required(translate('yup.required')),
-});
+import { t } from '@src/localization/Localization';
+import { signUp } from '@src/redux/auth/auth.actions';
 
 const RegisterScreen = () => {
   const dispatch = useAppDispatch();
+
+  const RegisterSchema = Yup.object().shape({
+    email: Yup.string().email(t('login.yup.email')).required(t('yup.required')),
+    password: Yup.string()
+      .min(6, t('login.yup.passwordLengthMin'))
+      .max(30, t('login.yup.passwordLengthMax'))
+      .required(t('yup.required')),
+    repeatPassword: Yup.string()
+      .oneOf([Yup.ref('password')], t('login.yup.repeatPassword'))
+      .required(t('yup.required')),
+  });
+
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
       <SafeAreaView style={styles.appContainer}>
         <WelcomeSvg width={230} height={170} />
         <View style={styles.formContainer}>
-          <Text style={styles.headerText}>{translate('register.welcome')}</Text>
+          <Text style={styles.headerText}>{t('register.welcome')}</Text>
           <Formik
             initialValues={{
               email: '',
@@ -39,9 +40,10 @@ const RegisterScreen = () => {
             validationSchema={RegisterSchema}
             onSubmit={async values => {
               try {
-                dispatch(signUpAction(values));
+                await dispatch(signUp(values));
+                navigate('FirstLoginWizard');
               } catch (e) {
-                CustomToast('error', translate('register.message.error.signUp'));
+                CustomToast('error', t('register.message.error.signUp'));
               }
             }}>
             {({ values, handleChange, handleSubmit }) => (
@@ -51,7 +53,7 @@ const RegisterScreen = () => {
                     style={styles.inputField}
                     underlineColorAndroid="transparent"
                     leftIcon={<Icon name="email" size={30} color="black" />}
-                    placeholder={translate('register.button.placeholder.email')}
+                    placeholder={t('register.button.placeholder.email')}
                     keyboardType="email-address"
                     onChangeText={handleChange('email')}
                     value={values.email}
@@ -64,7 +66,7 @@ const RegisterScreen = () => {
                     style={styles.inputField}
                     leftIcon={<Icon name="lock" size={30} color="black" />}
                     secureTextEntry={true}
-                    placeholder={translate('register.button.placeholder.password')}
+                    placeholder={t('register.button.placeholder.password')}
                     onChangeText={handleChange('password')}
                     value={values.password}
                   />
@@ -75,7 +77,7 @@ const RegisterScreen = () => {
                     style={styles.inputField}
                     leftIcon={<Icon name="lock" size={30} color="black" />}
                     secureTextEntry={true}
-                    placeholder={translate('register.button.placeholder.repeatPassword')}
+                    placeholder={t('register.button.placeholder.repeatPassword')}
                     onChangeText={handleChange('repeatPassword')}
                     value={values.repeatPassword}
                   />
@@ -83,7 +85,7 @@ const RegisterScreen = () => {
                 </View>
 
                 <Button
-                  title={translate('register.button.submit')}
+                  title={t('register.button.submit')}
                   buttonStyle={styles.buttonSignUpStyle}
                   containerStyle={styles.buttonContainerStyle}
                   titleStyle={styles.buttonSignUpTitleStyle}
@@ -93,9 +95,9 @@ const RegisterScreen = () => {
             )}
           </Formik>
           <Text style={styles.textLinks}>
-            {translate('register.question')}
+            {t('register.question')}
             <Text style={styles.textRegister} onPress={() => navigate('SignIn')}>
-              {translate('register.signIn')}
+              {t('register.signIn')}
             </Text>
           </Text>
         </View>

@@ -5,7 +5,7 @@ import { Button, Divider, Input } from '@rneui/themed';
 import PharmacyItem from './PharmacyItem';
 import CustomDropdown from '@components/CustomDropdown';
 import { navigate } from '@src/navigation/navigationUtils';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { buildRequest } from '@src/utils/utils';
 import { Theme } from '@src/redux/types';
 import { useAppSelector } from '@src/redux/store';
@@ -53,7 +53,7 @@ const PharmaciesScreen = () => {
 
   return (
     <CustomScrollContainer theme={currentTheme}>
-      <Text style={styles.title}>{translate('pharmaciesScreen.title')}</Text>
+      <Text style={styles.title}>{t('pharmaciesScreen.title')}</Text>
       <Divider style={styles.dividerStyle} />
       <Formik
         initialValues={{ name: '', companyCity: '', companyProvince: '' }}
@@ -68,23 +68,23 @@ const PharmaciesScreen = () => {
         {({ values, handleChange, handleSubmit, setFieldValue }) => (
           <>
             <Input
-              placeholder={translate('pharmaciesScreen.placeholder.name')}
+              placeholder={t('pharmaciesScreen.placeholder.name')}
               onChangeText={handleChange('name')}
               value={values.name}
             />
             <Input
-              placeholder={translate('pharmaciesScreen.placeholder.city')}
+              placeholder={t('pharmaciesScreen.placeholder.city')}
               onChangeText={handleChange('companyCity')}
               value={values.companyCity}
             />
             <CustomDropdown
               data={provinces}
-              placeholder={translate('pharmaciesScreen.placeholder.province')}
+              placeholder={t('pharmaciesScreen.placeholder.province')}
               value={values.companyProvince}
               handleChange={(e: any) => setFieldValue('companyProvince', e.value)}
             />
             <Button
-              title={translate('button.search')}
+              title={t('button.search')}
               containerStyle={styles.buttonSearchContainer}
               buttonStyle={styles.buttonSearchStyle}
               onPress={() => handleSubmit()}

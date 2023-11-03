@@ -6,7 +6,7 @@ import { useAppSelector } from '@redux/store';
 import { navigate } from '@src/navigation/navigationUtils';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 import { filterUpcomingEvents } from '@src/redux/api/eventsAPI';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { UserDetails } from '@src/redux/types/authTypes';
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import Colors from '@src/constants/Colors';
@@ -27,7 +27,7 @@ const HomeScreen = () => {
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Text style={styles.welcomeText}>
-        {translate('homeScreen.welcome', {
+        {t('homeScreen.welcome', {
           name: userDetails.firstName,
         })}
       </Text>

@@ -3,7 +3,7 @@ import { Button, Icon, Divider } from '@rneui/themed';
 import { navigate } from '@navigation/navigationUtils';
 import { EventDetails } from '@src/redux/types/eventsTypes';
 import { renderLocalDateWithTime } from '@src/utils/utils';
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import { useAppSelector } from '@src/redux/store';
 import { Theme } from '@src/redux/types';
@@ -21,7 +21,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
   const moreButton = (
     <Button
       key={'more-button-event'}
-      title={translate('button.more')}
+      title={t('button.more')}
       containerStyle={styles.moreButtonContainerStyle}
       buttonStyle={styles.moreButtonStyle}
       titleStyle={styles.moreButtonTitle}
@@ -31,7 +31,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
   const actionButton = (eventKey: string) => (
     <Button
       key={'execute-button-event'}
-      title={translate('button.execute')}
+      title={t('button.execute')}
       containerStyle={styles.actionButtonContainerStyle}
       buttonStyle={styles.actionButtonStyle}
       titleStyle={styles.actionButtonTitle}

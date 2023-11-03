@@ -1,4 +1,4 @@
-import { translate } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { StyleSheet, View, Text } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
@@ -13,7 +13,7 @@ const renderItem = (item: any) => {
 const CustomDropdown = (props: any) => {
   const updatedData = Object.values(props.data).map((item: any) => ({
     ...item,
-    label: !item.multiLang ? item.label : translate(item.label, item.values),
+    label: !item.multiLang ? item.label : t(item.label, item.values),
   }));
   return (
     <Dropdown

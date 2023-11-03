@@ -1,10 +1,12 @@
 import moment from 'moment-timezone';
 import isEqual from 'lodash.isequal';
-import Localization, { translate } from '@src/localization/Localization';
+import Localization, { t } from '@src/localization/Localization';
 import Calendar from '@src/components/Calendar/Calendar';
 import { useAppSelector } from '@src/redux/store';
-import { DAYS } from '@src/redux/constants/eventsConstants';
+import { DAYS } from '@src/redux/events/events.constants';
+import { Platform } from 'react-native';
 
+export const IS_ANDROID = Platform.OS === 'android';
 export const buildRequest = (baseUrl: string, params: any) => {
   const entries = Object.entries(params).filter(([key, value]) => String(value).trim() !== '');
   return baseUrl + entries.map(([key, value]) => `${key}=${value}`).join('&');
@@ -44,7 +46,7 @@ export function getUpdatedFields<T>(oldValue: T, newValue: Partial<T>): Partial<
   return updatedFields;
 }
 
-export const changeLanguage = (language: string) => {
+export const changeUserLanguage = (language: string) => {
   try {
     Localization.changeLanguage(language);
     Calendar.changeLanguage(language);
@@ -55,7 +57,7 @@ export const changeLanguage = (language: string) => {
 
 export const createUserLabel = () => {
   const userDetails = useAppSelector(state => state.auth.userDetails);
-  const label = `${userDetails.firstName[0]}${userDetails.lastName[0]}`;
+  const label = `${userDetails?.firstName[0]}${userDetails?.lastName[0]}`;
   return label.toUpperCase();
 };
 
@@ -64,18 +66,18 @@ export const renderDayValue = (value: number, shortTitle: boolean) => {
   const base = `dayValues.${type}`;
   switch (value) {
     case DAYS.MONDAY:
-      return translate(`${base}.monday`);
+      return t(`${base}.monday`);
     case DAYS.TUESDAY:
-      return translate(`${base}.tuesday`);
+      return t(`${base}.tuesday`);
     case DAYS.WEDNESDAY:
-      return translate(`${base}.wednesday`);
+      return t(`${base}.wednesday`);
     case DAYS.THURSDAY:
-      return translate(`${base}.thursday`);
+      return t(`${base}.thursday`);
     case DAYS.FRIDAY:
-      return translate(`${base}.friday`);
+      return t(`${base}.friday`);
     case DAYS.SATURDAY:
-      return translate(`${base}.saturday`);
+      return t(`${base}.saturday`);
     case DAYS.SUNDAY:
-      return translate(`${base}.sunday`);
+      return t(`${base}.sunday`);
   }
 };

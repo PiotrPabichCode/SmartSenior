@@ -3,7 +3,6 @@ import RootNavigator from './RootNavigator';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import { useAppSelector } from '../redux/store';
-import { useEffect } from 'react';
 
 const AppNavigator = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();

@@ -1,5 +1,5 @@
 import CustomToast from '@src/components/CustomToast';
-import { DAYS, cyclicValues, days, priorities, times } from '@src/redux/constants/eventsConstants';
+import { DAYS, cyclicValues, days, priorities, times } from '@src/redux/events/events.constants';
 import { getAuth } from 'firebase/auth';
 import { push, ref } from 'firebase/database';
 import { db } from 'firebaseConfig';

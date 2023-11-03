@@ -1,15 +1,14 @@
-import { useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import { changeLanguage } from '@src/utils/utils';
-import Localization, { translate } from '@src/localization/Localization';
-import { changeLanguageAction } from '@src/redux/actions/authActions';
+import { changeUserLanguage } from '@src/utils/utils';
+import Localization, { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersScreen';
+import { changeLanguage } from '@src/redux/auth/auth.slice';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();
@@ -22,9 +21,9 @@ const AccountItemDetailsScreen = ({ route }: any) => {
   }
 
   const { screenType } = route.params;
-  const handleLanguageChange = (language: string) => {
-    changeLanguage(language);
-    dispatch(changeLanguageAction(language));
+  const handleLanguageChange = async (language: string) => {
+    changeUserLanguage(language);
+    dispatch(changeLanguage(language));
   };
 
   const renderUserDetailsScreen = () => {
@@ -32,33 +31,33 @@ const AccountItemDetailsScreen = ({ route }: any) => {
       <>
         <AccountItemDetails
           type="input"
-          title={translate('account.title.email')}
-          placeholder={translate('account.placeholder.email')}
+          title={t('account.title.email')}
+          placeholder={t('account.placeholder.email')}
           value={userDetails.email || ''}
         />
         <AccountItemDetails
           type="input"
-          title={translate('account.title.firstName')}
-          placeholder={translate('account.placeholder.firstName')}
+          title={t('account.title.firstName')}
+          placeholder={t('account.placeholder.firstName')}
           value={userDetails.firstName || ''}
         />
         <AccountItemDetails
           type="input"
-          title={translate('account.title.lastName')}
-          placeholder={translate('account.placeholder.lastName')}
+          title={t('account.title.lastName')}
+          placeholder={t('account.placeholder.lastName')}
           value={userDetails.lastName || ''}
         />
         <AccountItemDetails
           type="input"
-          title={translate('account.title.birthDate')}
-          placeholder={translate('account.placeholder.birthDate')}
+          title={t('account.title.birthDate')}
+          placeholder={t('account.placeholder.birthDate')}
           value={userDetails.birthDate || ''}
         />
         <AccountItemDetails
           type="input"
-          title={translate('account.title.password')}
-          placeholder={translate('account.placeholder.password')}
-          value={translate('account.placeholder.password')}
+          title={t('account.title.password')}
+          placeholder={t('account.placeholder.password')}
+          value={t('account.placeholder.password')}
         />
       </>
     );
@@ -67,17 +66,17 @@ const AccountItemDetailsScreen = ({ route }: any) => {
   const renderLanguageScreen = () => {
     return (
       <>
-        <Text style={styles.languageTitle}>{translate('account.language.title')}</Text>
-        <Text style={styles.language}>{translate('languageName')}</Text>
+        <Text style={styles.languageTitle}>{t('account.language.title')}</Text>
+        <Text style={styles.language}>{t('languageName')}</Text>
         <Text
           style={styles.pickLanguage}
           onPress={() => handleLanguageChange(Localization.supportedLanguages.POLISH)}>
-          {translate('account.language.polish')}
+          {t('account.language.polish')}
         </Text>
         <Text
           style={styles.pickLanguage}
           onPress={() => handleLanguageChange(Localization.supportedLanguages.ENGLISH)}>
-          {translate('account.language.english')}
+          {t('account.language.english')}
         </Text>
       </>
     );
@@ -88,7 +87,7 @@ const AccountItemDetailsScreen = ({ route }: any) => {
       <AccountItemDetails
         type="input"
         keyboard="numeric"
-        title={translate('account.notification.title')}
+        title={t('account.notification.title')}
         value="0"
       />
     );

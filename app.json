@@ -23,10 +23,16 @@
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["WRITE_EXTERNAL_STORAGE"]
+      "permissions": ["WRITE_EXTERNAL_STORAGE"],
+      "package": "com.piteer23.SmartSenior"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a987a4ea-ab6e-44bc-84a1-87782563f990"
+      }
     }
   }
 }

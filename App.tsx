@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Provider } from 'react-redux';
 import { store } from 'src/redux/store';
-import { FIREBASE_AUTH } from './firebaseConfig';
+import { auth } from './firebaseConfig';
 import { navigationRef } from './src/navigation/navigationUtils';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
@@ -15,12 +15,14 @@ import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import Localization from '@src/localization/Localization';
 import { loadEvents } from '@src/redux/events/events.actions';
 import { verifyUser, verifyUserDetails } from '@src/redux/auth/auth.actions';
+import { usePushNotifications } from '@src/hooks/usePushNotifications';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  usePushNotifications();
   const [isAppReady, setIsAppReady] = useState<boolean>(false);
   const [isNavigationReady, setIsNavigationReady] = useState<boolean>(false);
   const theme = useColorScheme();
@@ -41,7 +43,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    onAuthStateChanged(FIREBASE_AUTH, async user => {
+    onAuthStateChanged(auth, async user => {
       await store.dispatch(verifyUser(user));
       if (user) {
         await store.dispatch(loadEvents());

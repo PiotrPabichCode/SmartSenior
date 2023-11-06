@@ -8,7 +8,7 @@ import { useAppSelector } from '@src/redux/store';
 const WelcomeScreen = () => {
   const status = useAppSelector(state => state.auth.status);
 
-  if (status === 'idle') {
+  if (status === 'pending') {
     return null;
   }
   return (

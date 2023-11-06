@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import * as action from './events.actions';
-import { EventDetails } from './events.types';
+import { EventDetails, Events } from './events.types';
 import { RootState } from '../store';
 
 export interface EventsState {
-  events: EventDetails[];
+  events: Events;
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string;
 }
@@ -27,7 +27,7 @@ export const eventsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(action.loadEvents.fulfilled, (state, action: PayloadAction<EventDetails[]>) => {
+      .addCase(action.loadEvents.fulfilled, (state, action: PayloadAction<Events>) => {
         state.status = 'succeeded';
         state.events = action.payload;
       })
@@ -40,6 +40,10 @@ export const eventsSlice = createSlice({
         const updatedEvent = { ...state.events[key], ...data };
         state.events[key] = updatedEvent;
         state.status = 'succeeded';
+      })
+      .addCase(action.deleteEvent.fulfilled, (state, action: PayloadAction<string>) => {
+        const key = action.payload;
+        state.events = state.events.filter(event => event.key !== key);
       });
   },
 });

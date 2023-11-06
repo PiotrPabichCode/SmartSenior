@@ -7,13 +7,12 @@ import { t } from '@src/localization/Localization';
 import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import CustomDivider from '@src/components/CustomDivider';
-import { logout } from '@src/redux/auth/auth.actions';
 import { clearEvents } from '@src/redux/events/events.slice';
+import { logout } from '@src/redux/auth/auth.actions';
 
 const handleLogout = async (dispatch = useAppDispatch()) => {
-  await dispatch(logout());
+  dispatch(logout());
   dispatch(clearEvents());
-  // await dispatch();
 };
 
 const AccountScreen = () => {

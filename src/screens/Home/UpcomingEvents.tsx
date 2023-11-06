@@ -1,15 +1,16 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Button, Icon, Divider } from '@rneui/themed';
 import { navigate } from '@navigation/navigationUtils';
-import { EventDetails } from '@src/redux/types/eventsTypes';
+import { EventDetails } from '@src/redux/events/events.types';
 import { renderLocalDateWithTime } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import { useAppSelector } from '@src/redux/store';
 import { Theme } from '@src/redux/types';
+import { Events } from '@src/redux/events/events.types';
 
 interface UpcomingEventsProps {
-  events: EventDetails[];
+  events: Events;
 }
 
 const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
@@ -56,7 +57,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
         <View style={styles.eventTimeView}>
           <Icon name="arrow-right" size={30} color={currentTheme.icon} />
           <Text style={styles.date} numberOfLines={1}>
-            {renderLocalDateWithTime(event.executionTime)}
+            {renderLocalDateWithTime(event.executionTime.seconds)}
           </Text>
           <Icon name="arrow-left" size={30} color={currentTheme.icon} />
         </View>

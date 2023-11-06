@@ -3,13 +3,13 @@ import Icons from '@src/components/Icons';
 import Colors from '@src/constants/Colors';
 import { t } from '@src/localization/Localization';
 import { addConnectedUser } from '@src/redux/auth/auth.actions';
-import { ConnectedUser } from '@src/redux/auth/auth.types';
+import { ConnectedUser, ConnectedUsers } from '@src/redux/auth/auth.types';
 import { useAppDispatch } from '@src/redux/store';
 import { useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
 type Props = {
-  connectedUsers: ConnectedUser[];
+  connectedUsers: ConnectedUsers;
 };
 
 type User = {

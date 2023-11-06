@@ -43,13 +43,15 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async user => {
+    const unsubscribe = onAuthStateChanged(auth, async user => {
       await store.dispatch(verifyUser(user));
       if (user) {
         await store.dispatch(loadEvents());
         await store.dispatch(verifyUserDetails());
       }
     });
+
+    return unsubscribe;
   }, []);
 
   const onLayoutRootView = useCallback(async () => {

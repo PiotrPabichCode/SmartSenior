@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import Localization from '@src/localization/Localization';
 import * as action from './auth.actions';
 import { RootState } from '../store';
-import { ConnectedUser, User, UserDetails } from './auth.types';
+import { ConnectedUser, ConnectedUsers, User, UserDetails } from './auth.types';
 import { Theme } from '../types';
 
 export interface AuthState {
@@ -11,7 +11,7 @@ export interface AuthState {
   error: string | null;
   language: string;
   theme: Theme;
-  connectedUsers: ConnectedUser[];
+  connectedUsers: ConnectedUsers;
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
@@ -22,7 +22,7 @@ const initialState: AuthState = {
   language: Localization.getLocale(),
   theme: 'light',
   connectedUsers: [],
-  status: 'idle',
+  status: 'pending',
 };
 
 export const authSlice = createSlice({
@@ -40,7 +40,12 @@ export const authSlice = createSlice({
     builder
       .addCase(action.signIn.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
-        state.status = 'succeeded';
+      })
+      .addCase(action.signIn.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.signIn.rejected, state => {
+        state.status = 'failed';
       })
       .addCase(action.signUp.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
@@ -49,20 +54,26 @@ export const authSlice = createSlice({
       .addCase(action.logout.fulfilled, state => {
         state.user = null;
         state.userDetails = null;
-        state.connectedUsers = [];
         state.error = null;
+        state.connectedUsers = [];
         state.status = 'idle';
       })
       .addCase(action.verifyUserDetails.fulfilled, (state, action: PayloadAction<UserDetails>) => {
         state.userDetails = action.payload;
         state.status = 'succeeded';
       })
+      .addCase(action.verifyUserDetails.rejected, state => {
+        state.status = 'failed';
+      })
       .addCase(action.verifyUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
       })
+      .addCase(action.verifyUser.rejected, state => {
+        state.status = 'failed';
+      })
       .addCase(
         action.loadConnectedUsers.fulfilled,
-        (state, action: PayloadAction<ConnectedUser[]>) => {
+        (state, action: PayloadAction<ConnectedUsers>) => {
           state.connectedUsers = action.payload;
         },
       )
@@ -78,7 +89,5 @@ export const authSlice = createSlice({
 });
 
 export const { changeLanguage, changeTheme } = authSlice.actions;
-
-export const _userDetails = (state: RootState) => state.auth.userDetails;
 
 export default authSlice.reducer;

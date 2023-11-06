@@ -12,17 +12,25 @@ import Icons from '@src/components/Icons';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { GenderEnum, RolesEnum, genders, roles } from '@src/redux/auth/auth.constants';
 import { t } from '@src/localization/Localization';
-import { _userDetails } from '@src/redux/auth/auth.slice';
 import { logout, setUserDetails } from '@src/redux/auth/auth.actions';
 import { navigate } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import { authUserEmail } from '@src/utils/utils';
 
 const FirstLoginWizard = () => {
   const dispatch = useAppDispatch();
   const status = useAppSelector(state => state.auth.status);
   const userDetails = useAppSelector(state => state.auth.userDetails);
+  const FirstLoginSchema = Yup.object().shape({
+    firstName: Yup.string().min(1).required(),
+    lastName: Yup.string().min(1).required(),
+    birthDate: Yup.date().max(new Date()).required(),
+    gender: Yup.string().oneOf(Object.values(GenderEnum)).required(),
+    role: Yup.string().oneOf(Object.values(RolesEnum)).required(),
+  });
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
-  if (status === 'idle') {
+  if (status === 'pending') {
     return <CustomActivityIndicator />;
   }
 
@@ -32,15 +40,6 @@ const FirstLoginWizard = () => {
     });
     return null;
   }
-
-  const FirstLoginSchema = Yup.object().shape({
-    firstName: Yup.string().min(1).required(),
-    lastName: Yup.string().min(1).required(),
-    birthDate: Yup.date().max(new Date()).required(),
-    gender: Yup.string().oneOf(Object.values(GenderEnum)).required(),
-    role: Yup.string().oneOf(Object.values(RolesEnum)).required(),
-  });
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
   return (
     <View style={styles.container}>
@@ -60,7 +59,7 @@ const FirstLoginWizard = () => {
               birthDate: null,
               gender: '',
               role: RolesEnum.SENIOR,
-              email: getAuth().currentUser?.email,
+              email: authUserEmail,
             }}
             onSubmit={async values => {
               try {

@@ -17,7 +17,6 @@
       "@screens/*": ["./src/screens/*"],
       "@utils/*": ["./src/utils/*"]
     },
-    "strictPropertyInitialization": false,
     "allowJs": true,
     "typeRoots": ["./node_modules/@types"]
   }

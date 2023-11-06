@@ -1,7 +1,7 @@
 import CustomToast from '@src/components/CustomToast';
 import { DAYS, cyclicValues, days, priorities, times } from '@src/redux/events/events.constants';
 import { getAuth } from 'firebase/auth';
-import { push, ref } from 'firebase/database';
+import { doc, setDoc } from 'firebase/firestore';
 import { db } from 'firebaseConfig';
 
 export const events = [
@@ -160,20 +160,18 @@ export const events = [
 
 export const generateEvents = () => {
   try {
-    const eventsRef = ref(db, 'events/');
+    const ref = doc(db, 'events');
     const eventsData = events;
     const now = new Date();
 
     eventsData.forEach((event, index) => {
-      const userUid = getAuth().currentUser?.uid + '-deleted-false';
+      const userUid = getAuth().currentUser?.uid;
       const createdAt = now.getTime();
       const updatedAt = now.getTime();
-      console.log(event.days);
       const updatedDays = event.days.map(day => ({
         value: day.value,
         active: day.value === now.getDay() ? true : day.active,
       }));
-      console.log(updatedDays);
       const executionTime = now.getTime() + index * 0.5 * 86400000;
 
       const modifiedEvent = {
@@ -185,7 +183,7 @@ export const generateEvents = () => {
         executionTime,
       };
 
-      push(eventsRef, modifiedEvent);
+      setDoc(ref, modifiedEvent);
     });
 
     CustomToast('success', 'Dodano testowe wydarzenia');

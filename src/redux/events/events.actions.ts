@@ -34,3 +34,15 @@ export const updateEvent = createAsyncThunk(
     }
   },
 );
+
+export const deleteEvent = createAsyncThunk(
+  'events/deleteEvent',
+  async (key: string, { rejectWithValue }) => {
+    try {
+      await api.deleteEvent(key);
+      return key;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);

@@ -57,9 +57,12 @@ export const setUserDetails = createAsyncThunk(
 );
 
 export const verifyUser = createAsyncThunk('auth/verifyUser', async (user: User | null) => {
+  if (!user) {
+    throw new Error('User not verified');
+  }
   return {
-    email: user?.email,
-    uid: user?.uid,
+    email: user.email,
+    uid: user.uid,
   };
 });
 

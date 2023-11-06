@@ -5,12 +5,16 @@ import Calendar from '@src/components/Calendar/Calendar';
 import { useAppSelector } from '@src/redux/store';
 import { DAYS } from '@src/redux/events/events.constants';
 import { Platform } from 'react-native';
+import { auth } from 'firebaseConfig';
 
 export const IS_ANDROID = Platform.OS === 'android';
 export const buildRequest = (baseUrl: string, params: any) => {
   const entries = Object.entries(params).filter(([key, value]) => String(value).trim() !== '');
   return baseUrl + entries.map(([key, value]) => `${key}=${value}`).join('&');
 };
+
+export const authUserID = auth.currentUser?.uid;
+export const authUserEmail = auth.currentUser?.email;
 
 export const renderLocalDateWithTime = (timestamp: number) => {
   const date = moment.tz(timestamp, 'Europe/Warsaw');

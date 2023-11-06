@@ -1,4 +1,3 @@
-import { ROLES } from '@src/constants/Constants';
 import { EventDetails } from '../events/events.types';
 
 export type AuthCredentials = {
@@ -7,8 +6,8 @@ export type AuthCredentials = {
 };
 
 export type User = {
-  email: string | null | undefined;
-  uid: string | null | undefined;
+  email: string | null;
+  uid: string | null;
 };
 
 export type UserDetails = {
@@ -21,6 +20,10 @@ export type UserDetails = {
 };
 
 export type ConnectedUser = {
+  id: string;
   userDetails: UserDetails;
   events: EventDetails[];
+  deleted: boolean;
 };
+
+export type ConnectedUsers = ConnectedUser[];

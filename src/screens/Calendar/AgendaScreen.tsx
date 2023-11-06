@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Agenda, AgendaEntry, AgendaSchedule, DateData } from 'react-native-calendars';
 import { navigate } from '@src/navigation/navigationUtils';
 import moment from 'moment';
-import { EventDetails } from '@src/redux/events/events.types';
+import { EventDetails, Events } from '@src/redux/events/events.types';
 import { connect } from 'react-redux';
 import { renderLocalDateWithTime } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
@@ -48,23 +48,23 @@ class AgendaScreen extends Component<State> {
     const items = this.state.items || {};
 
     setTimeout(() => {
-      let events: EventDetails[] = this.props.events;
+      let events: Events = this.props.events;
 
       events = Object.values(events).filter(event => {
-        const eventDate = new Date(event.executionTime);
+        const eventDate = new Date(event.executionTime.seconds);
         const eMonth = eventDate.getMonth() + 1;
         const eYear = eventDate.getFullYear();
         return eMonth === month && eYear === year;
       });
 
       Object.values(events).forEach(event => {
-        const key = moment(event.executionTime).format('YYYY-MM-DD');
+        const key = moment(event.executionTime.seconds).format('YYYY-MM-DD');
         if (!items[key]) {
           items[key] = [];
           items[key].push({
             key: event.key,
             description: event.description,
-            executionTime: event.executionTime,
+            executionTime: event.executionTime.seconds,
             priority: event.priority,
             name: event.title,
             height: Math.max(50, Math.floor(Math.random() * 150)),

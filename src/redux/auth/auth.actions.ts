@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from './auth.api';
 
-import { AuthCredentials, UserDetails } from './auth.types';
-import { User } from 'firebase/auth';
+import { User as FirebaseUser } from 'firebase/auth';
+import { AuthCredentials, User } from '@src/models';
 
 export const signIn = createAsyncThunk(
   'auth/signIn',
@@ -26,6 +26,17 @@ export const signUp = createAsyncThunk(
   },
 );
 
+export const updateUserData = createAsyncThunk(
+  'auth/updateUserData',
+  async ({ uid, values }: { uid: string; values: Partial<User> }, { rejectWithValue }) => {
+    try {
+      return await api.updateUserData(uid, values);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
     await api.logout();
@@ -34,37 +45,19 @@ export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValu
   }
 });
 
-export const verifyUserDetails = createAsyncThunk(
-  'auth/verifyUserDetails',
-  async (_, { rejectWithValue }) => {
+export const verifyUser = createAsyncThunk(
+  'auth/verifyUser',
+  async (user: FirebaseUser | null, { rejectWithValue }) => {
     try {
-      return await api.checkIfUserDataExists();
+      if (!user) {
+        throw new Error('User not verified');
+      }
+      return await api.loadUserDoc(user);
     } catch (error) {
       return rejectWithValue(error);
     }
   },
 );
-
-export const setUserDetails = createAsyncThunk(
-  'auth/setUserDetails',
-  async (userDetails: UserDetails, { rejectWithValue }) => {
-    try {
-      await api.setUserDetails(userDetails);
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  },
-);
-
-export const verifyUser = createAsyncThunk('auth/verifyUser', async (user: User | null) => {
-  if (!user) {
-    throw new Error('User not verified');
-  }
-  return {
-    email: user.email,
-    uid: user.uid,
-  };
-});
 
 export const loadConnectedUsers = createAsyncThunk(
   'auth/loadConnectedUsers',

@@ -1,14 +1,14 @@
 import { Avatar } from '@rneui/themed';
 import { StyleSheet, View, Text } from 'react-native';
-import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { useAppSelector } from '@redux/store';
 import { createUserLabel } from '@src/utils/utils';
+import { User } from '@src/models';
 
 const AccountProfileHint = () => {
-  const userDetails = useAppSelector(state => state.auth.userDetails);
+  const user: User | null = useAppSelector(state => state.auth.user);
 
-  if (!userDetails) {
-    return <CustomActivityIndicator />;
+  if (!user) {
+    return null;
   }
 
   return (
@@ -22,11 +22,12 @@ const AccountProfileHint = () => {
       />
       <View style={styles.detailsView}>
         <Text style={styles.name} numberOfLines={1}>
-          {`${userDetails?.firstName} ${userDetails?.lastName}`}
+          {`${user.firstName} ${user.lastName}`}
         </Text>
         <Text style={styles.email} numberOfLines={1}>
-          {userDetails?.email}
+          {user.email}
         </Text>
+        <Text style={styles.role}>{user.role}</Text>
       </View>
     </View>
   );
@@ -45,8 +46,10 @@ const styles = StyleSheet.create({
   detailsView: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
   },
   name: {
+    marginTop: 10,
     fontSize: 20,
     fontWeight: 'bold',
     maxWidth: 200,
@@ -55,6 +58,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     maxWidth: 200,
+  },
+  role: {
+    marginTop: 2,
+    fontWeight: '500',
+    fontSize: 15,
   },
 });
 

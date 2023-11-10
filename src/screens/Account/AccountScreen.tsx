@@ -9,14 +9,16 @@ import Colors from '@src/constants/Colors';
 import CustomDivider from '@src/components/CustomDivider';
 import { clearEvents } from '@src/redux/events/events.slice';
 import { logout } from '@src/redux/auth/auth.actions';
+import { batch } from 'react-redux';
 
 const handleLogout = async (dispatch = useAppDispatch()) => {
-  dispatch(logout());
-  dispatch(clearEvents());
+  batch(() => {
+    dispatch(logout());
+    dispatch(clearEvents());
+  });
 };
 
 const AccountScreen = () => {
-  const dispatch = useAppDispatch();
   const theme: Theme = useAppSelector(state => state.auth.theme);
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
@@ -81,7 +83,7 @@ const AccountScreen = () => {
       <AccountItem
         icon="logout-account"
         title={t('account.button.title.logout')}
-        onPress={() => handleLogout(dispatch)}
+        onPress={() => handleLogout()}
       />
     </View>
   );

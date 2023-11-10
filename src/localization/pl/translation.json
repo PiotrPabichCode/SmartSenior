@@ -14,6 +14,7 @@
     "home": "Strona główna",
     "calendar": "Kalendarz",
     "events": "Wydarzenia",
+    "chat": "Czat",
     "profile": "Profil"
   },
   "speedDial": {
@@ -105,7 +106,15 @@
   "connectedUsers": {
     "title": "Połączone osoby",
     "placeholder": "Wpisz adres e-mail seniora...",
-    "seniorTitle": "Dane opiekuna:"
+    "seniorTitle": "Dane opiekuna:",
+    "message": {
+      "success": {
+        "add": "Pomyślnie dodano nowego użytkownika"
+      },
+      "error": {
+        "add": "Nie udało się dodać użytkownika"
+      }
+    }
   },
   "login": {
     "welcomeBack": "Witaj z powrotem!",
@@ -191,7 +200,8 @@
       "message": "Czy na pewno chcesz usunąć to wydarzenie?",
       "yes": "Tak",
       "no": "Nie",
-      "success": "Usunięto wydarzenie"
+      "success": "Usunięto wydarzenie",
+      "error": "Nie udało się usunąć wydarzenia"
     }
   },
   "eventItemScreen": {

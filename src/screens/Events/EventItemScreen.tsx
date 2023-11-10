@@ -1,11 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@src/navigation/types';
-import {
-  createDatetimeTimezone,
-  getUpdatedFields,
-  renderLocalDateWithTime,
-} from '@src/utils/utils';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { convertTimestampToDate, createDatetimeTimezone, getUpdatedFields } from '@src/utils/utils';
+import { View, StyleSheet } from 'react-native';
 import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomDropdown from '@src/components/CustomDropdown';
 import { Button, CheckBox, Input } from '@rneui/themed';
@@ -19,12 +15,12 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '@src/constants/Colors';
 import FormikObserver from '@src/utils/FormikObserver';
 import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
-import { EventDetails } from '@src/redux/events/events.types';
 import Localization, { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { Theme } from '@src/redux/types';
 import { updateEvent } from '@src/redux/events/events.actions';
 import { goBack } from '@src/navigation/navigationUtils';
+import { Timestamp } from 'firebase/firestore';
+import { Event, Theme } from '@src/models';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 
@@ -34,19 +30,27 @@ const EventItemScreen = ({ route, navigation }: Props) => {
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
   const { eventKey } = route.params;
-  const event: EventDetails = useAppSelector(state => state.events.events[eventKey]);
+  const event: Event | null = useAppSelector(state => {
+    const foundEvent = state.events.events.find(event => event.key === eventKey);
+    return foundEvent || null;
+  });
+
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
 
   const [dateValue, setDateValue] = useState<Date | undefined>(undefined);
-  const [timeValue, setTimeValue] = useState<Date | undefined>(undefined);
+
+  if (!event) {
+    goBack();
+    return null;
+  }
 
   const ChangeEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
     description: Yup.string(),
-    executionTime: Yup.number().nonNullable().required(),
+    date: Yup.mixed<Timestamp>().nonNullable().required(),
     days: Yup.array().required(),
     priority: Yup.number().required(),
     isCyclic: Yup.boolean().required(),
@@ -54,15 +58,15 @@ const EventItemScreen = ({ route, navigation }: Props) => {
     isNotification: Yup.boolean().required(),
     notificationTime: Yup.number(),
     userUid: Yup.string().nonNullable().required(),
-    createdAt: Yup.number(),
-    updatedAt: Yup.number().required(),
+    createdAt: Yup.mixed<Timestamp>(),
+    updatedAt: Yup.mixed<Timestamp>().required(),
     deleted: Yup.boolean().required(),
   });
 
   const [initialValues, setInitialValues] = useState({
     title: event.title,
     description: event.description,
-    executionTime: event.executionTime,
+    date: event.date,
     days: Object.values(event.days).map(day => ({
       ...day,
     })),
@@ -83,13 +87,11 @@ const EventItemScreen = ({ route, navigation }: Props) => {
         enableReinitialize
         onSubmit={values => {
           try {
-            values.updatedAt = Date.now();
+            values.updatedAt = Timestamp.now();
             const updatedFields = getUpdatedFields(event, values);
             ChangeEventSchema.validate(values)
               .then(async () => {
-                await dispatch(
-                  updateEvent({ eventKey: eventKey, data: updatedFields as EventDetails }),
-                );
+                await dispatch(updateEvent({ eventKey: eventKey, data: updatedFields })).unwrap();
                 setInitialValues(values);
                 CustomToast('success', t('eventItemScreen.message.success.change'));
                 goBack();
@@ -119,59 +121,57 @@ const EventItemScreen = ({ route, navigation }: Props) => {
             <Button
               onPress={() => setShowDatePicker(true)}
               title={
-                values.executionTime !== 0
+                values.date
                   ? t('eventItemScreen.button.title.date', {
-                      date: renderLocalDateWithTime(values.executionTime),
+                      date: convertTimestampToDate(values.date, 'DD-MM-YYYY HH:mm'),
                     })
                   : t('eventItemScreen.button.title.emptyDate')
               }
             />
-            {values.executionTime !== 0 && (
+            {values.date && (
               <DayFieldsRenderer
                 days={values.days}
-                startDate={values.executionTime}
+                startDate={values.date}
                 setFieldValue={setFieldValue}
               />
             )}
 
             {showDatePicker && (
               <RNDateTimePicker
-                value={new Date()}
+                value={values.date ? new Date(values.date.seconds) : new Date()}
                 minimumDate={new Date()}
                 onChange={(e, newDate) => {
+                  setShowDatePicker(false);
+                  if (e.type !== 'set') {
+                    return false;
+                  }
+                  setDateValue(newDate);
+                  setShowTimePicker(true);
+                }}
+              />
+            )}
+            {showTimePicker && (
+              <RNDateTimePicker
+                value={values.date ? new Date(values.date.seconds) : new Date()}
+                mode="time"
+                onChange={(e, newTime) => {
+                  setShowTimePicker(false);
+                  if (e.type !== 'set') {
+                    return false;
+                  }
+                  const datetime = createDatetimeTimezone(dateValue, newTime);
+                  if (!datetime) {
+                    return false;
+                  }
                   setFieldValue(
                     'days',
                     days.map(day => ({
                       ...day,
                       active: false,
                     })),
-                  ).then(() => {
-                    setShowDatePicker(false);
-                    if (e.type === 'dismissed') {
-                      return false;
-                    }
-                    setDateValue(newDate);
-                    setShowTimePicker(true);
-                  });
-                }}
-              />
-            )}
-            {showTimePicker && (
-              <RNDateTimePicker
-                value={new Date()}
-                mode="time"
-                onChange={(e, newTime) => {
-                  setShowTimePicker(false);
-                  if (e.type === 'dismissed') {
-                    return false;
-                  }
-                  setTimeValue(newTime);
-                  const datetime = createDatetimeTimezone(dateValue, timeValue);
-                  if (!datetime) {
-                    return false;
-                  }
+                  );
                   setFieldValue(`days[${datetime.getDay() - 1}].active`, true);
-                  setFieldValue('executionTime', datetime.getTime());
+                  setFieldValue('executionTime', Timestamp.fromMillis(datetime.getTime()));
                 }}
               />
             )}

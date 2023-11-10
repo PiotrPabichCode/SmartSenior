@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { Agenda, AgendaEntry, AgendaSchedule, DateData } from 'react-native-calendars';
 import { navigate } from '@src/navigation/navigationUtils';
 import moment from 'moment';
-import { EventDetails, Events } from '@src/redux/events/events.types';
+import { Events } from '@src/redux/events/events.types';
 import { connect } from 'react-redux';
-import { renderLocalDateWithTime } from '@src/utils/utils';
+import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 
 interface State {
@@ -51,24 +51,27 @@ class AgendaScreen extends Component<State> {
       let events: Events = this.props.events;
 
       events = Object.values(events).filter(event => {
-        const eventDate = new Date(event.executionTime.seconds);
+        const eventDate = event.date?.toDate()!;
         const eMonth = eventDate.getMonth() + 1;
         const eYear = eventDate.getFullYear();
         return eMonth === month && eYear === year;
       });
 
-      Object.values(events).forEach(event => {
-        const key = moment(event.executionTime.seconds).format('YYYY-MM-DD');
-        if (!items[key]) {
-          items[key] = [];
-          items[key].push({
-            key: event.key,
+      Object.entries(events).forEach(([key, event]) => {
+        const formattedDate = convertTimestampToDate(event.date!, 'YYYY-MM-DD');
+        if (!items[formattedDate]) {
+          items[formattedDate] = [];
+        }
+        const existingItem = items[formattedDate].find(item => item.key === key);
+
+        if (!existingItem) {
+          items[formattedDate].push({
+            key: key,
             description: event.description,
-            executionTime: event.executionTime.seconds,
+            date: event.date!,
             priority: event.priority,
             name: event.title,
             height: Math.max(50, Math.floor(Math.random() * 150)),
-            day: key,
           });
         }
       });
@@ -93,7 +96,9 @@ class AgendaScreen extends Component<State> {
             eventKey: event.key,
           })
         }>
-        <Text style={{ fontSize, color }}>{renderLocalDateWithTime(event.executionTime)}</Text>
+        <Text style={{ fontSize, color }}>
+          {convertTimestampToDate(event.date, 'DD-MM-YYYY HH:mm')}
+        </Text>
         <Text style={[styles.name, { fontSize, color }]}>{event.name}</Text>
         <Text numberOfLines={1} style={{ fontSize, color }}>
           {event.description}

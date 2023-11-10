@@ -7,9 +7,9 @@ import { buildRequest } from '@utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { Theme } from '@src/redux/types';
 import { useAppSelector } from '@src/redux/store';
 import Colors from '@src/constants/Colors';
+import { Theme } from '@src/models';
 import CustomDivider from '@src/components/CustomDivider';
 
 const MedicinesScreen = () => {

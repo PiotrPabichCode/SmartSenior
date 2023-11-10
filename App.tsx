@@ -14,7 +14,7 @@ import Calendar from '@src/components/Calendar/Calendar';
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import Localization from '@src/localization/Localization';
 import { loadEvents } from '@src/redux/events/events.actions';
-import { verifyUser, verifyUserDetails } from '@src/redux/auth/auth.actions';
+import { verifyUser } from '@src/redux/auth/auth.actions';
 import { usePushNotifications } from '@src/hooks/usePushNotifications';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
@@ -45,9 +45,8 @@ export default function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async user => {
       await store.dispatch(verifyUser(user));
-      if (user) {
+      if (store.getState().auth.user) {
         await store.dispatch(loadEvents());
-        await store.dispatch(verifyUserDetails());
       }
     });
 

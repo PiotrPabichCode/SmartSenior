@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
 import { Button } from '@rneui/themed';
 import WelcomeSvg from '@assets/welcome-image.svg';
-import { navigate, navigationRef } from '@src/navigation/navigationUtils';
+import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/store';
 

@@ -1,11 +1,10 @@
 import type { FirestoreDataConverter, Timestamp } from 'firebase/firestore';
 
-export type EventDetails = {
+export interface Event {
   key: string;
   title: string;
   description: string;
-  executionTime: Timestamp;
-  date: Timestamp;
+  date: Timestamp | null;
   isCyclic: boolean;
   cyclicTime: number;
   isNotification: boolean;
@@ -17,17 +16,17 @@ export type EventDetails = {
   days: object;
   active: boolean;
   deleted: boolean;
-};
+}
 
-export type Events = EventDetails[];
+export type Events = Event[];
 
-export const EventConverter: FirestoreDataConverter<EventDetails> = {
+export const EventConverter: FirestoreDataConverter<Event> = {
   toFirestore(event) {
     return { ...event };
   },
   fromFirestore(snapshot, options) {
     const data = snapshot.data(options);
 
-    return { ...data } as EventDetails;
+    return { ...data } as Event;
   },
 };

@@ -3,19 +3,14 @@ import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { Switch } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';
-import { renderDayValue, renderLocalDateWithTime } from '@src/utils/utils';
-import { navigate } from '@src/navigation/navigationUtils';
+import { convertTimestampToDate, renderDayValue } from '@src/utils/utils';
+import { goBack, navigate } from '@src/navigation/navigationUtils';
 import Icons from '@src/components/Icons';
 import { useAppDispatch, useAppSelector } from '@src/redux/store';
 import CustomToast from '@src/components/CustomToast';
-import { getAuth } from 'firebase/auth';
-import { EventDetails } from '@src/redux/events/events.types';
 import { t } from '@src/localization/Localization';
-import { updateEvent } from '@src/redux/events/events.actions';
-
-type EventItemProps = {
-  eventKey: string;
-};
+import { deleteEvent } from '@src/redux/events/events.actions';
+import { Event } from '@src/models';
 
 type DayProps = PropsWithChildren<{
   active: boolean;
@@ -24,16 +19,24 @@ type DayProps = PropsWithChildren<{
   value: number;
 }>;
 
-const EventItem = ({ eventKey }: EventItemProps) => {
+const EventItem = ({ eventKey }: { eventKey: string }) => {
   const [checked, setChecked] = useState(false);
   const dispatch = useAppDispatch();
-  const event: EventDetails = useAppSelector(state => state.events.events[eventKey]);
+  const event: Event | null = useAppSelector(state => {
+    const foundEvent = state.events.events.find(event => event.key === eventKey);
+    return foundEvent || null;
+  });
+
+  if (!event) {
+    goBack();
+    return null;
+  }
 
   const toggleSwitch = () => {
     setChecked(!checked);
   };
 
-  function generateDayTags() {
+  function generateDayTags(event: Event) {
     return Object.values(event.days).map((day: DayProps, index: number) => {
       return (
         <Text style={day.active ? styles.activeDay : styles.inactiveDay} key={index}>
@@ -43,20 +46,13 @@ const EventItem = ({ eventKey }: EventItemProps) => {
     });
   }
 
-  const onEventUpdate = async () => {
+  const onEventDelete = async () => {
     try {
-      dispatch(
-        updateEvent({
-          eventKey: eventKey,
-          data: {
-            deleted: true,
-            userUid: getAuth().currentUser?.uid + 'deleted-true',
-          },
-        }),
-      );
+      await dispatch(deleteEvent(eventKey)).unwrap();
       CustomToast('success', t('eventItem.alert.success'));
     } catch (error) {
-      console.log('Nie udało się edytować wydarzenia');
+      console.log(error);
+      CustomToast('success', t('eventItem.alert.error'));
     }
   };
 
@@ -70,7 +66,7 @@ const EventItem = ({ eventKey }: EventItemProps) => {
       {
         text: t('eventItem.alert.yes'),
         style: 'destructive',
-        onPress: onEventUpdate,
+        onPress: onEventDelete,
       },
     ]);
   };
@@ -93,10 +89,10 @@ const EventItem = ({ eventKey }: EventItemProps) => {
         />
         <View style={styles.viewDetails}>
           <Text style={styles.time} numberOfLines={1}>
-            {renderLocalDateWithTime(event.executionTime)}
+            {convertTimestampToDate(event.date!, 'DD-MM-YYYY HH:mm')}
           </Text>
           <View style={styles.viewRightPanel}>
-            <Text style={styles.days}>{generateDayTags()}</Text>
+            <Text style={styles.days}>{generateDayTags(event)}</Text>
             <Switch value={event.active} onValueChange={value => setChecked(value)} />
           </View>
         </View>

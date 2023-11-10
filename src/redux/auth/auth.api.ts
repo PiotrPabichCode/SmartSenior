@@ -1,5 +1,9 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { AuthCredentials, ConnectedUser, ConnectedUsers, User, UserDetails } from './auth.types';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 import { auth, db } from 'firebaseConfig';
 import { fetchActiveEvents } from '../events/events.api';
 import {
@@ -14,35 +18,75 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { authUserID, authUserEmail } from '@src/utils/utils';
+import { User, ConnectedUser, ConnectedUsers, AuthCredentials, Genders, Roles } from '@src/models';
+import { User as FirebaseUser } from 'firebase/auth';
 
-export const signIn = async (authData: AuthCredentials) => {
+const getUserTemplate = (uid: string, email: string | null): User => {
+  const emptyUser: User = {
+    uid: uid,
+    email: email,
+    birthDate: null,
+    firstName: null,
+    lastName: null,
+    gender: Genders.MALE,
+    role: Roles.SENIOR,
+    connectedUsersIds: [],
+  };
+  return emptyUser;
+};
+
+export const signIn = async (authData: AuthCredentials): Promise<User> => {
   try {
     const response = await signInWithEmailAndPassword(auth, authData.email, authData.password);
-    const user = response.user;
-    if (user) {
-      return {
-        email: user.email,
-        uid: user.uid,
-      } as User;
+    const user: FirebaseUser = response.user;
+    if (!user) {
+      throw new Error('User not found');
     }
-    throw new Error('User not found');
+    return await loadUserDoc(user);
   } catch (error) {
     throw error;
   }
 };
 
-export const signUp = async (authData: AuthCredentials) => {
+export const signUp = async (authData: AuthCredentials): Promise<User> => {
   try {
     const response = await createUserWithEmailAndPassword(auth, authData.email, authData.password);
     const user = response.user;
-    if (user) {
-      return {
-        email: user.email,
-        uid: user.uid,
-      } as User;
+    if (!user) {
+      throw new Error('Unable to create new account');
     }
-    throw new Error('Unable to create new account');
+    const emptyUser = getUserTemplate(user.uid, user.email);
+    const userDoc = doc(db, 'users', user.uid);
+    await setDoc(userDoc, emptyUser);
+    return emptyUser;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const loadUserDoc = async (user: FirebaseUser): Promise<User> => {
+  try {
+    const userDoc = doc(db, 'users', user.uid);
+    const snapshot = await getDoc(userDoc);
+    if (!snapshot.exists()) {
+      const emptyUser = getUserTemplate(user.uid, user.email);
+      await setDoc(userDoc, emptyUser);
+      return emptyUser;
+    }
+    return snapshot.data() as User;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUserData = async (
+  uid: string,
+  values: Partial<User>,
+): Promise<Partial<User>> => {
+  try {
+    const userDoc = doc(db, 'users', uid);
+    await updateDoc(userDoc, values);
+    return values;
   } catch (error) {
     throw error;
   }
@@ -51,29 +95,6 @@ export const signUp = async (authData: AuthCredentials) => {
 export const logout = async () => {
   try {
     await signOut(auth);
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const checkIfUserDataExists = async () => {
-  try {
-    const userDoc = doc(db, `users/${authUserID}`);
-    const snapshot = await getDoc(userDoc);
-    if (!snapshot.exists()) {
-      throw new Error('User data not found');
-    }
-    return snapshot.data() as UserDetails;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const setUserDetails = async (values: any) => {
-  try {
-    const userDoc = doc(db, `users/${authUserID}`);
-    await setDoc(userDoc, values);
-    return values;
   } catch (error) {
     throw error;
   }
@@ -97,7 +118,8 @@ const findUserByEmail = async (email: string) => {
 
 export const loadConnectedUsers = async () => {
   try {
-    const _collection = collection(db, `users/${authUserID}/connectedUsers`);
+    const userID = getAuth().currentUser?.uid;
+    const _collection = collection(db, `users/${userID}/connectedUsers`);
     const _query = query(_collection, where('deleted', `==`, false));
     const snapshot = await getDocs(_query);
     if (snapshot.empty) {
@@ -115,10 +137,11 @@ export const loadConnectedUsers = async () => {
 
 export const addConnectedUser = async (email: string) => {
   try {
-    if (authUserEmail === email) {
+    const userID = getAuth().currentUser?.uid;
+    if (userID === email) {
       throw new Error('You cannot add yourself');
     }
-    const _collection = collection(db, `users/${authUserID}/connectedUsers`);
+    const _collection = collection(db, `users/${userID}/connectedUsers`);
     const _query = query(_collection, where('email', '==', email), limit(1));
     const snapshot = await getDocs(_query);
     if (!snapshot.empty) {
@@ -137,7 +160,8 @@ export const addConnectedUser = async (email: string) => {
 
 export const deleteConnectedUser = async (email: string) => {
   try {
-    const _collection = collection(db, `users/${authUserID}/connectedUsers`);
+    const userID = getAuth().currentUser?.uid;
+    const _collection = collection(db, `users/${userID}/connectedUsers`);
     const _query = query(_collection, where('email', '==', email), limit(1));
     const snapshot = await getDocs(_query);
     if (snapshot.empty) {

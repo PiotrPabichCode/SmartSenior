@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import * as action from './events.actions';
-import { EventDetails, Events } from './events.types';
 import { RootState } from '../store';
+import { Events, Event } from '@src/models';
 
 export interface EventsState {
   events: Events;
@@ -31,7 +31,7 @@ export const eventsSlice = createSlice({
         state.status = 'succeeded';
         state.events = action.payload;
       })
-      .addCase(action.createEvent.fulfilled, (state, action: PayloadAction<EventDetails>) => {
+      .addCase(action.createEvent.fulfilled, (state, action: PayloadAction<Event>) => {
         state.status = 'succeeded';
         state.events = [...state.events, action.payload];
       })

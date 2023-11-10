@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { Formik } from 'formik';
 import { Button, Divider, Input } from '@rneui/themed';
 import PharmacyItem from './PharmacyItem';
@@ -7,10 +7,10 @@ import CustomDropdown from '@components/CustomDropdown';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { buildRequest } from '@src/utils/utils';
-import { Theme } from '@src/redux/types';
 import { useAppSelector } from '@src/redux/store';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import { Theme } from '@src/models';
 
 const PharmaciesScreen = () => {
   const theme: Theme = useAppSelector(state => state.auth.theme);

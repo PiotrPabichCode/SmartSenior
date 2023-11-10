@@ -10,6 +10,7 @@ import { useAppSelector } from '@src/redux/store';
 import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import AgendaScreen from '@src/screens/Calendar/AgendaScreen';
 import { t } from '@src/localization/Localization';
+import ChatScreen from '@src/screens/Chat/ChatScreen';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
@@ -48,16 +49,16 @@ const BottomBarNavigator = () => {
             header: () => <CustomHeader title={t('bottomNav.events')} more={true} />,
           }}
         />
-        {/* <Tab.Screen
-        name='Chat'
-        component={ChatScreen}
-        options={{
-          tabBarLabel: 'Czat',
-          tabBarIcon: ({ focused }) => renderIcon('chat-bottom-nav', focused),
-          tabBarBadge: 3,
-          header: () => <CustomHeader title='Czat' more={true} />,
-        }}
-      /> */}
+        <Tab.Screen
+          name="Chat"
+          component={ChatScreen}
+          options={{
+            tabBarLabel: 'Czat',
+            tabBarIcon: ({ focused }) => renderIcon({ name: 'chat-bottom-nav', focused: focused }),
+            tabBarBadge: 3,
+            header: () => <CustomHeader title={t('bottomNav.chat')} more={true} />,
+          }}
+        />
         <Tab.Screen
           name="Account"
           component={AccountScreen}

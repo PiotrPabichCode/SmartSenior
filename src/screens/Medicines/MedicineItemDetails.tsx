@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ScrollView, Platform } from 'react-native';
+import { StyleSheet, View, Text, Platform } from 'react-native';
 import { Button, Divider } from '@rneui/themed';
 import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
@@ -6,7 +6,7 @@ import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { useAppSelector } from '@src/redux/store';
 import Colors from '@src/constants/Colors';
-import { Theme } from '@src/redux/types';
+import { Theme } from '@src/models';
 
 const MedicineItemDetails = ({ route }: any) => {
   const theme: Theme = useAppSelector(state => state.auth.theme);

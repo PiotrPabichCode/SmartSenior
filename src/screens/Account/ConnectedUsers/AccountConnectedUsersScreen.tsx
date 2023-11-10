@@ -1,12 +1,9 @@
-import { ROLES } from '@src/constants/Constants';
 import { useAppSelector } from '@src/redux/store';
 import SeniorView from './SeniorView';
-import KeeperView from './KeeperView';
-import AdminView from './AdminView';
-import { ConnectedUser, ConnectedUsers } from '@src/redux/auth/auth.types';
+import { ConnectedUsers } from '@src/models';
 
 const AccountConnectedUsersScreen = () => {
-  const role: string | undefined = useAppSelector(state => state.auth.userDetails?.role);
+  const role: string | undefined = useAppSelector(state => state.auth.user?.role);
   const connectedUsers: ConnectedUsers = useAppSelector(state => state.auth.connectedUsers);
   console.log(connectedUsers);
 

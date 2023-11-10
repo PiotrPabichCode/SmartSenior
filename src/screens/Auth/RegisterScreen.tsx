@@ -40,7 +40,7 @@ const RegisterScreen = () => {
             validationSchema={RegisterSchema}
             onSubmit={async values => {
               try {
-                await dispatch(signUp(values));
+                await dispatch(signUp(values)).unwrap();
                 navigate('FirstLoginWizard');
               } catch (e) {
                 CustomToast('error', t('register.message.error.signUp'));

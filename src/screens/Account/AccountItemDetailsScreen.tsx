@@ -1,23 +1,24 @@
 import { StyleSheet, Text } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
-import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import { changeUserLanguage } from '@src/utils/utils';
+import { changeUserLanguage, convertTimestampToDate } from '@src/utils/utils';
 import Localization, { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersScreen';
 import { changeLanguage } from '@src/redux/auth/auth.slice';
+import { User, Theme } from '@src/models';
+import { goBack } from '@src/navigation/navigationUtils';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();
-  const userDetails = useAppSelector(state => state.auth.userDetails);
+  const user: User | null = useAppSelector(state => state.auth.user);
   const theme: Theme = useAppSelector(state => state.auth.theme);
   const currentTheme = Colors[theme];
 
-  if (!userDetails) {
-    return <CustomActivityIndicator />;
+  if (!user) {
+    goBack();
+    return null;
   }
 
   const { screenType } = route.params;
@@ -33,25 +34,25 @@ const AccountItemDetailsScreen = ({ route }: any) => {
           type="input"
           title={t('account.title.email')}
           placeholder={t('account.placeholder.email')}
-          value={userDetails.email || ''}
+          value={user.email || ''}
         />
         <AccountItemDetails
           type="input"
           title={t('account.title.firstName')}
           placeholder={t('account.placeholder.firstName')}
-          value={userDetails.firstName || ''}
+          value={user.firstName || ''}
         />
         <AccountItemDetails
           type="input"
           title={t('account.title.lastName')}
           placeholder={t('account.placeholder.lastName')}
-          value={userDetails.lastName || ''}
+          value={user.lastName || ''}
         />
         <AccountItemDetails
           type="input"
           title={t('account.title.birthDate')}
           placeholder={t('account.placeholder.birthDate')}
-          value={userDetails.birthDate || ''}
+          value={convertTimestampToDate(user.birthDate!, 'DD-MM-YYYY') || ''}
         />
         <AccountItemDetails
           type="input"

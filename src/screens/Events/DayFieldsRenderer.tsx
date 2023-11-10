@@ -3,10 +3,11 @@ import { View, StyleSheet, Text } from 'react-native';
 import DayField, { Day } from './DayField';
 import { t } from '@src/localization/Localization';
 import { renderDayValue } from '@src/utils/utils';
+import { Timestamp } from 'firebase/firestore';
 
 interface DaysProps {
   days: Day[];
-  startDate: any;
+  startDate: Timestamp;
   setFieldValue: any;
 }
 
@@ -26,11 +27,11 @@ const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
   const [_, update] = useReducer(x => x + 1, 0);
 
   const toggleDay = (day: any) => {
-    const date = new Date(startDate);
+    const date = startDate.toDate();
     day.active = !day.active;
     if (date.getDay() === day.value) {
       days = days.map(day => ({ ...day, active: false }));
-      setFieldValue('date', 0);
+      setFieldValue('date', null);
     }
     setFieldValue('days', days);
     update();

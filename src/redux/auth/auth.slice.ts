@@ -1,13 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import Localization from '@src/localization/Localization';
 import * as action from './auth.actions';
-import { RootState } from '../store';
-import { ConnectedUser, ConnectedUsers, User, UserDetails } from './auth.types';
-import { Theme } from '../types';
+import { ConnectedUser, ConnectedUsers, User, Theme } from '@src/models';
 
 export interface AuthState {
   user: User | null;
-  userDetails: UserDetails | null;
   error: string | null;
   language: string;
   theme: Theme;
@@ -17,7 +14,6 @@ export interface AuthState {
 
 const initialState: AuthState = {
   user: null,
-  userDetails: null,
   error: null,
   language: Localization.getLocale(),
   theme: 'light',
@@ -53,23 +49,17 @@ export const authSlice = createSlice({
       })
       .addCase(action.logout.fulfilled, state => {
         state.user = null;
-        state.userDetails = null;
         state.error = null;
         state.connectedUsers = [];
         state.status = 'idle';
       })
-      .addCase(action.verifyUserDetails.fulfilled, (state, action: PayloadAction<UserDetails>) => {
-        state.userDetails = action.payload;
-        state.status = 'succeeded';
-      })
-      .addCase(action.verifyUserDetails.rejected, state => {
-        state.status = 'failed';
+      .addCase(action.updateUserData.fulfilled, (state, action: PayloadAction<Partial<User>>) => {
+        const data = action.payload;
+        const newData = { ...state.user, ...data };
+        state.user = newData as User;
       })
       .addCase(action.verifyUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
-      })
-      .addCase(action.verifyUser.rejected, state => {
-        state.status = 'failed';
       })
       .addCase(
         action.loadConnectedUsers.fulfilled,
@@ -82,7 +72,7 @@ export const authSlice = createSlice({
       })
       .addCase(action.deleteConnectedUser.fulfilled, (state, action: PayloadAction<string>) => {
         state.connectedUsers = state.connectedUsers.filter(
-          user => user.userDetails.email !== action.payload,
+          user => user.user.email !== action.payload,
         );
       });
   },

@@ -1,11 +1,10 @@
 import { StyleSheet, Text } from 'react-native';
 import EventItem from '@src/screens/Events/EventItem';
 import { useAppSelector } from '@src/redux/store';
-import { EventDetails, Events } from '@src/redux/events/events.types';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
+import { Events, Theme } from '@src/models';
 
 const EventsScreen = () => {
   const events: Events = useAppSelector(state => state.events.events);
@@ -15,8 +14,8 @@ const EventsScreen = () => {
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Text style={styles.title}>{t('eventsScreen.title')}</Text>
-      {Object.values(events).map((event, index) => {
-        return <EventItem key={index} eventKey={event.key} />;
+      {Object.entries(events).map(([key], index) => {
+        return <EventItem key={index} eventKey={key} />;
       })}
     </CustomScrollContainer>
   );

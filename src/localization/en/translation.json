@@ -14,6 +14,7 @@
     "home": "Home",
     "calendar": "Calendar",
     "events": "Events",
+    "chat": "Chat",
     "profile": "Profile"
   },
   "speedDial": {
@@ -105,7 +106,15 @@
   "connectedUsers": {
     "keeperTitle": "Connected Users",
     "placeholder": "Enter senior's email address...",
-    "seniorTitle": "Keeper's Information:"
+    "seniorTitle": "Keeper's Information:",
+    "message": {
+      "success": {
+        "add": "Successfully added a new user"
+      },
+      "error": {
+        "add": "Failed to add a user"
+      }
+    }
   },
   "login": {
     "welcomeBack": "Welcome back!",
@@ -191,7 +200,8 @@
       "message": "Are you sure you want to delete this event?",
       "yes": "Yes",
       "no": "No",
-      "success": "Event Deleted"
+      "success": "Event deleted",
+      "error": "Unable to delete event"
     }
   },
   "eventItemScreen": {

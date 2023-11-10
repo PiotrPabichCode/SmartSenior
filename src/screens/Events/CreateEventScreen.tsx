@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, CheckBox, Input } from '@rneui/themed';
@@ -9,15 +9,16 @@ import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomToast from '@src/components/CustomToast';
 import { getAuth } from 'firebase/auth';
 import { useAppDispatch, useAppSelector } from '@src/redux/store';
-import { renderLocalDateWithTime } from '@src/utils/utils';
+import { convertTimestampToDate } from '@src/utils/utils';
 import { createDatetimeTimezone } from '@src/utils/utils';
 import { days, priorities, times, cyclicValues } from '@src/redux/events/events.constants';
 import { t } from '@src/localization/Localization';
-import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { createEvent } from '@src/redux/events/events.actions';
-import { EventDetails } from '@src/redux/events/events.types';
+import { Timestamp } from 'firebase/firestore';
+import { goBack } from '@src/navigation/navigationUtils';
+import { Event, Theme } from '@src/models';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
@@ -28,12 +29,11 @@ const CreateEventScreen = () => {
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
 
   const [dateValue, setDateValue] = useState<Date | undefined>(undefined);
-  const [timeValue, setTimeValue] = useState<Date | undefined>(undefined);
 
   const NewEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
     description: Yup.string(),
-    executionTime: Yup.number().min(Date.now()).nonNullable().required(),
+    date: Yup.mixed<Timestamp>().nonNullable().required(),
     days: Yup.array().required(),
     priority: Yup.number().required(),
     isCyclic: Yup.boolean().required(),
@@ -41,9 +41,10 @@ const CreateEventScreen = () => {
     isNotification: Yup.boolean().required(),
     notificationTime: Yup.number(),
     userUid: Yup.string().nonNullable().required(),
-    createdAt: Yup.number().min(Date.now()).required(),
-    updatedAt: Yup.number().min(Date.now()).required(),
+    createdAt: Yup.mixed<Timestamp>().required(),
+    updatedAt: Yup.mixed<Timestamp>().required(),
     deleted: Yup.boolean().required(),
+    active: Yup.boolean().required(),
   });
 
   return (
@@ -53,26 +54,28 @@ const CreateEventScreen = () => {
         initialValues={{
           title: '',
           description: '',
-          executionTime: 0,
+          date: null,
           days: days.map(day => ({ ...day, active: false })),
           priority: 0,
           isCyclic: false,
           cyclicTime: 0,
           isNotification: true,
           notificationTime: 0,
-          createdAt: 0,
-          updatedAt: 0,
+          createdAt: Timestamp.now(),
+          updatedAt: Timestamp.now(),
           deleted: false,
-          userUid: getAuth().currentUser?.uid + '-deleted-false',
+          active: true,
+          userUid: getAuth().currentUser?.uid,
         }}
         onSubmit={values => {
           try {
-            values.createdAt = Date.now();
-            values.updatedAt = Date.now();
+            values.createdAt = Timestamp.now();
+            values.updatedAt = Timestamp.now();
             NewEventSchema.validate(values)
               .then(async () => {
-                await dispatch(createEvent(values as EventDetails));
+                await dispatch(createEvent(values as Event)).unwrap();
                 CustomToast('success', t('createEvent.message.success.add'));
+                goBack();
               })
               .catch(error => {
                 console.log(error);
@@ -96,62 +99,61 @@ const CreateEventScreen = () => {
               onChangeText={handleChange('description')}
               value={values.description}
             />
+            {console.log(values.date)}
             <Button
               onPress={() => setShowDatePicker(true)}
               title={
-                values.executionTime !== 0
+                values.date
                   ? t('createEvent.button.title.date', {
-                      date: renderLocalDateWithTime(values.executionTime),
+                      date: convertTimestampToDate(values.date, 'DD-MM-YYYY HH:mm'),
                     })
                   : t('createEvent.button.title.emptyDate')
               }
             />
-            {values.executionTime !== 0 && (
+            {values.date && (
               <DayFieldsRenderer
                 days={values.days}
-                startDate={values.executionTime}
+                startDate={values.date}
                 setFieldValue={setFieldValue}
               />
             )}
 
             {showDatePicker && (
               <RNDateTimePicker
-                value={new Date()}
+                value={values.date ? new Date((values.date as Timestamp).seconds) : new Date()}
                 minimumDate={new Date()}
                 onChange={(e, newDate) => {
+                  setShowDatePicker(false);
+                  if (e.type !== 'set') {
+                    return false;
+                  }
+                  setDateValue(newDate);
+                  setShowTimePicker(true);
+                }}
+              />
+            )}
+            {showTimePicker && (
+              <RNDateTimePicker
+                value={values.date ? new Date((values.date as Timestamp).seconds) : new Date()}
+                mode="time"
+                onChange={(e, newTime) => {
+                  setShowTimePicker(false);
+                  if (e.type !== 'set') {
+                    return false;
+                  }
+                  const datetime = createDatetimeTimezone(dateValue, newTime);
+                  if (!datetime) {
+                    return false;
+                  }
                   setFieldValue(
                     'days',
                     days.map(day => ({
                       ...day,
                       active: false,
                     })),
-                  ).then(() => {
-                    setShowDatePicker(false);
-                    if (e.type === 'dismissed') {
-                      return false;
-                    }
-                    setDateValue(newDate);
-                    setShowTimePicker(true);
-                  });
-                }}
-              />
-            )}
-            {showTimePicker && (
-              <RNDateTimePicker
-                value={new Date()}
-                mode="time"
-                onChange={(e, newTime) => {
-                  setShowTimePicker(false);
-                  if (e.type === 'dismissed') {
-                    return false;
-                  }
-                  setTimeValue(newTime);
-                  const datetime = createDatetimeTimezone(dateValue, timeValue);
-                  if (!datetime) {
-                    return false;
-                  }
+                  );
                   setFieldValue(`days[${datetime.getDay() - 1}].active`, true);
-                  setFieldValue('executionTime', datetime.getTime());
+                  setFieldValue('date', Timestamp.fromMillis(datetime.getTime()));
                 }}
               />
             )}

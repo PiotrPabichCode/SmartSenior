@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from './events.api';
-import { EventDetails } from './events.types';
+import { Event } from '@src/models';
 
 export const loadEvents = createAsyncThunk('events/loadEvents', async (_, { rejectWithValue }) => {
   try {
@@ -12,7 +12,7 @@ export const loadEvents = createAsyncThunk('events/loadEvents', async (_, { reje
 
 export const createEvent = createAsyncThunk(
   'events/createEvent',
-  async (data: EventDetails, { rejectWithValue }) => {
+  async (data: Event, { rejectWithValue }) => {
     try {
       return await api.createEvent(data);
     } catch (error) {
@@ -23,10 +23,7 @@ export const createEvent = createAsyncThunk(
 
 export const updateEvent = createAsyncThunk(
   'events/updateEvent',
-  async (
-    { eventKey, data }: { eventKey: string; data: Partial<EventDetails> },
-    { rejectWithValue },
-  ) => {
+  async ({ eventKey, data }: { eventKey: string; data: Partial<Event> }, { rejectWithValue }) => {
     try {
       return await api.updateEvent(eventKey, data);
     } catch (error) {

@@ -1,4 +1,4 @@
-import { View, Text, useColorScheme } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import CustomButton from '@src/components/CustomButton';
 import { navigate } from '@src/navigation/navigationUtils';
@@ -6,7 +6,7 @@ import { t } from '@src/localization/Localization';
 import Icons from '@src/components/Icons';
 import Colors from '@src/constants/Colors';
 import { useAppSelector } from '@src/redux/store';
-import { Theme } from '@src/redux/types';
+import { Theme } from '@src/models';
 
 const HomeButtons = () => {
   const theme: Theme = useAppSelector(state => state.auth.theme);

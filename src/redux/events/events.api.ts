@@ -1,10 +1,10 @@
 import { db } from 'firebaseConfig';
-import { authUserID } from '@src/utils/utils';
-import { EventDetails, Events } from './events.types';
 import { addDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { eventsCollection } from '../firebase/collections';
+import { getAuth } from 'firebase/auth';
+import { Event, Events } from '@src/models';
 
-export const createEvent = async (newEventData: EventDetails) => {
+export const createEvent = async (newEventData: Event) => {
   try {
     const response = await addDoc(eventsCollection, newEventData);
     if (!response || !response.id) {
@@ -22,7 +22,7 @@ export const createEvent = async (newEventData: EventDetails) => {
   }
 };
 
-export const updateEvent = async (eventKey: string, data: Partial<EventDetails>) => {
+export const updateEvent = async (eventKey: string, data: Partial<Event>) => {
   try {
     const ref = doc(db, 'events/' + eventKey);
     await updateDoc(ref, data);
@@ -47,9 +47,10 @@ export const deleteEvent = async (key: string) => {
   }
 };
 
-export const fetchActiveEvents = async () => {
+export const fetchActiveEvents = async (): Promise<Events> => {
   try {
-    if (!authUserID) {
+    const userID = getAuth().currentUser?.uid;
+    if (!userID) {
       throw new Error('User UID not found.');
     }
 
@@ -62,7 +63,7 @@ export const fetchActiveEvents = async () => {
     }
 
     const events = snapshot.docs.map(doc => doc.data());
-    return events;
+    return events as Events;
   } catch (error) {
     throw error;
   }
@@ -70,6 +71,6 @@ export const fetchActiveEvents = async () => {
 
 export const filterUpcomingEvents = (events: Events) => {
   return Object.values(events).filter(event => {
-    return event.executionTime.seconds >= Date.now();
+    return event.date!.seconds >= Date.now();
   });
 };

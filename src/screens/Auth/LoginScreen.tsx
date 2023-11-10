@@ -6,10 +6,10 @@ import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomToast from '@src/components/CustomToast';
-import { useAppDispatch, useAppSelector } from '@redux/store';
+import { useAppDispatch } from '@redux/store';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
-import { signIn, verifyUserDetails } from '@src/redux/auth/auth.actions';
+import { signIn } from '@src/redux/auth/auth.actions';
 import { loadEvents } from '@src/redux/events/events.actions';
 
 const LoginScreen = () => {
@@ -46,18 +46,23 @@ const LoginScreen = () => {
           validationSchema={LoginSchema}
           onSubmit={async values => {
             try {
-              await dispatch(signIn(values));
-              const userDetails = await dispatch(verifyUserDetails());
-              if (userDetails) {
-                await dispatch(loadEvents());
-                navigate('BottomBar', {
-                  screen: 'Home',
+              await dispatch(signIn(values))
+                .unwrap()
+                .then(() => {
+                  dispatch(loadEvents()).then(() => {
+                    navigate('BottomBar', {
+                      screen: 'Home',
+                    });
+                  });
+                })
+                .catch(() => {
+                  navigate('FirstLoginWizard');
+                })
+                .finally(() => {
+                  CustomToast('success', t('login.message.success.signIn'));
                 });
-              } else {
-                navigate('FirstLoginWizard');
-              }
-              CustomToast('success', t('login.message.success.signIn'));
             } catch (e) {
+              console.log(e);
               CustomToast('error', t('login.message.error.signIn'));
             }
           }}>

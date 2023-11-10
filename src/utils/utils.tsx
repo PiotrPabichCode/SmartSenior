@@ -5,7 +5,8 @@ import Calendar from '@src/components/Calendar/Calendar';
 import { useAppSelector } from '@src/redux/store';
 import { DAYS } from '@src/redux/events/events.constants';
 import { Platform } from 'react-native';
-import { auth } from 'firebaseConfig';
+import { Timestamp } from 'firebase/firestore';
+import { User } from '@src/models';
 
 export const IS_ANDROID = Platform.OS === 'android';
 export const buildRequest = (baseUrl: string, params: any) => {
@@ -13,17 +14,24 @@ export const buildRequest = (baseUrl: string, params: any) => {
   return baseUrl + entries.map(([key, value]) => `${key}=${value}`).join('&');
 };
 
-export const authUserID = auth.currentUser?.uid;
-export const authUserEmail = auth.currentUser?.email;
-
-export const renderLocalDateWithTime = (timestamp: number) => {
+export const renderLocalDateWithTime = (timestamp: Timestamp) => {
   const date = moment.tz(timestamp, 'Europe/Warsaw');
   return date.format('YYYY-MM-DD HH:mm');
 };
 
-export const renderLocalDate = (timestamp: number) => {
+export const convertTimestampToDate = (timestamp: Timestamp, format?: string) => {
+  const date = timestamp.toDate();
+  return moment(date).format(format);
+};
+
+export const renderLocalDate = (timestamp: Timestamp) => {
   const date = moment.tz(timestamp, 'Europe/Warsaw');
   return date.format('YYYY-MM-DD');
+};
+
+export const dateToEpoch = (date: Date) => {
+  const time = date.getTime();
+  return time - (time % 86400000);
 };
 
 export const createDatetimeTimezone = (dateValue?: Date, timeValue?: Date) => {
@@ -31,7 +39,7 @@ export const createDatetimeTimezone = (dateValue?: Date, timeValue?: Date) => {
     return false;
   }
   const year = dateValue.getFullYear();
-  const month = dateValue.getMonth();
+  const month = dateValue.getMonth() + 1;
   const day = dateValue.getDate();
   const hours = timeValue.getHours();
   const minutes = timeValue.getMinutes();
@@ -60,8 +68,11 @@ export const changeUserLanguage = (language: string) => {
 };
 
 export const createUserLabel = () => {
-  const userDetails = useAppSelector(state => state.auth.userDetails);
-  const label = `${userDetails?.firstName[0]}${userDetails?.lastName[0]}`;
+  const user: User | null = useAppSelector(state => state.auth.user);
+  if (!user) {
+    return 'UU';
+  }
+  const label = `${user.firstName![0]}${user.lastName![0]}`;
   return label.toUpperCase();
 };
 

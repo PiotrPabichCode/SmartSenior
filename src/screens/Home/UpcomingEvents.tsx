@@ -1,13 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Button, Icon, Divider } from '@rneui/themed';
 import { navigate } from '@navigation/navigationUtils';
-import { EventDetails } from '@src/redux/events/events.types';
-import { renderLocalDateWithTime } from '@src/utils/utils';
+import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import { useAppSelector } from '@src/redux/store';
-import { Theme } from '@src/redux/types';
-import { Events } from '@src/redux/events/events.types';
+import { Event, Events, Theme } from '@src/models';
 
 interface UpcomingEventsProps {
   events: Events;
@@ -44,31 +42,33 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
     />
   );
 
-  const mapEventItems = Object.values(events)?.map((event: EventDetails, index: number) => {
-    if (index === MAX_DISPLAYED_EVENTS) {
-      return moreButton;
-    }
-    if (index > MAX_DISPLAYED_EVENTS) {
-      return;
-    }
-    const isEnd = index !== events.length - 1;
-    return (
-      <View style={styles.eventView} key={index}>
-        <View style={styles.eventTimeView}>
-          <Icon name="arrow-right" size={30} color={currentTheme.icon} />
-          <Text style={styles.date} numberOfLines={1}>
-            {renderLocalDateWithTime(event.executionTime.seconds)}
+  const mapEventItems = Object.entries(events)?.map(
+    ([key, event]: [string, Event], index: number) => {
+      if (index === MAX_DISPLAYED_EVENTS) {
+        return moreButton;
+      }
+      if (index > MAX_DISPLAYED_EVENTS) {
+        return;
+      }
+      const isEnd = index !== events.length - 1;
+      return (
+        <View style={styles.eventView} key={index}>
+          <View style={styles.eventTimeView}>
+            <Icon name="arrow-right" size={30} color={currentTheme.icon} />
+            <Text style={styles.date} numberOfLines={1}>
+              {convertTimestampToDate(event.date!, 'DD-MM-YYYY HH:mm')}
+            </Text>
+            <Icon name="arrow-left" size={30} color={currentTheme.icon} />
+          </View>
+          <Text style={styles.eventTitle} numberOfLines={1}>
+            {event.description}
           </Text>
-          <Icon name="arrow-left" size={30} color={currentTheme.icon} />
+          {actionButton(key)}
+          {isEnd && <Divider style={styles.dividerStyle} />}
         </View>
-        <Text style={styles.eventTitle} numberOfLines={1}>
-          {event.description}
-        </Text>
-        {actionButton(event.key)}
-        {isEnd && <Divider style={styles.dividerStyle} />}
-      </View>
-    );
-  });
+      );
+    },
+  );
 
   return <View style={styles.viewStyle}>{mapEventItems}</View>;
 };

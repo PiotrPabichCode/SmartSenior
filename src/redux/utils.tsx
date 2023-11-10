@@ -1,3 +1,6 @@
+import { PayloadAction } from '@reduxjs/toolkit';
+import { useAppDispatch } from './store';
+
 export const BASE_GOV_MEDICINES =
   'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/search/public?specimenTypeEnum=L&';
 

@@ -1,59 +1,59 @@
-import CustomDivider from '@src/components/CustomDivider';
+import CustomToast from '@src/components/CustomToast';
 import Icons from '@src/components/Icons';
 import Colors from '@src/constants/Colors';
 import { t } from '@src/localization/Localization';
+import { ConnectedUser, ConnectedUsers } from '@src/models';
 import { addConnectedUser } from '@src/redux/auth/auth.actions';
-import { ConnectedUser, ConnectedUsers } from '@src/redux/auth/auth.types';
-import { useAppDispatch } from '@src/redux/store';
+import { useAppDispatch, useAppSelector } from '@src/redux/store';
 import { useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
-type Props = {
-  connectedUsers: ConnectedUsers;
-};
-
-type User = {
-  firstName: string;
-  lastName: string;
-  email: string;
-};
-
-const KeeperView = ({ connectedUsers }: Props) => {
+const KeeperView = () => {
   const dispatch = useAppDispatch();
+  const connectedUsers: ConnectedUsers = useAppSelector(state => state.auth.connectedUsers);
   const [email, setEmail] = useState<string>('');
   const emailRef = useRef<TextInput | null>(null);
 
-  const createUserLabel = (firstName: string, lastName: string) => {
+  const createUserLabel = (firstName: string | null, lastName: string | null) => {
+    if (!firstName || !lastName) {
+      return 'UU';
+    }
     const label = `${firstName[0]}${lastName[0]}`;
     return label.toUpperCase();
   };
 
   const mapConnectedUsers = connectedUsers.map((user: ConnectedUser, index: number) => {
-    const userDetails = user.userDetails;
+    const userData = user.user;
     return (
       <TouchableOpacity style={styles.mainContainer} key={index}>
         <View style={styles.avatar}>
           <Text style={styles.avatarLabel}>
-            {createUserLabel(userDetails.firstName, userDetails.lastName)}
+            {createUserLabel(userData.firstName, userData.lastName)}
           </Text>
         </View>
         <View style={styles.keeperContainer}>
           <View style={styles.userContainer}>
-            <Text
-              style={styles.keeperText}
-              numberOfLines={1}>{`${userDetails.firstName} ${userDetails.lastName}`}</Text>
+            <Text style={styles.keeperText} numberOfLines={1}>
+              {userData.firstName} {userData.lastName}
+            </Text>
           </View>
 
           <Text style={styles.keeperText} numberOfLines={1}>
-            E-mail: {userDetails.email}
+            E-mail: {userData.email}
           </Text>
         </View>
       </TouchableOpacity>
     );
   });
 
-  const handleAddUser = () => {
-    dispatch(addConnectedUser(email));
+  const handleAddUser = async () => {
+    try {
+      await dispatch(addConnectedUser(email)).unwrap();
+      CustomToast('success', 'connectedUsers.message.success.add');
+    } catch (e) {
+      console.log(e);
+      CustomToast('success', 'connectedUsers.message.error.add');
+    }
   };
 
   return (

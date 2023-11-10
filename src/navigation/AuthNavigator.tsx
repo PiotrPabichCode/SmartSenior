@@ -12,23 +12,25 @@ import BottomBarNavigator from './BottomBarNavigator';
 import CustomHeader from '@components/CustomHeader';
 import EventItemScreen from '@src/screens/Events/EventItemScreen';
 import { t } from '@src/localization/Localization';
+import { useAppSelector } from '@src/redux/store';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthNavigator = () => {
+  const status = useAppSelector(state => state.auth.status);
   return (
-    <Stack.Navigator initialRouteName="FirstLoginWizard">
+    <Stack.Navigator initialRouteName={status === 'pending' ? 'FirstLoginWizard' : 'BottomBar'}>
+      <Stack.Screen
+        name="BottomBar"
+        component={BottomBarNavigator}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="FirstLoginWizard"
         component={FirstLoginWizard}
         options={{
           headerShown: false,
         }}
-      />
-      <Stack.Screen
-        name="BottomBar"
-        component={BottomBarNavigator}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="AccountItemDetails"

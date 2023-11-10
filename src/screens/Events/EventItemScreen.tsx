@@ -30,10 +30,8 @@ const EventItemScreen = ({ route, navigation }: Props) => {
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
   const { eventKey } = route.params;
-  const event: Event | null = useAppSelector(state => {
-    const foundEvent = state.events.events.find(event => event.key === eventKey);
-    return foundEvent || null;
-  });
+  // @ts-ignore
+  const event: Event = useAppSelector(state => state.events.events[eventKey]);
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 

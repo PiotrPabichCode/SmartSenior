@@ -22,10 +22,8 @@ type DayProps = PropsWithChildren<{
 const EventItem = ({ eventKey }: { eventKey: string }) => {
   const [checked, setChecked] = useState(false);
   const dispatch = useAppDispatch();
-  const event: Event | null = useAppSelector(state => {
-    const foundEvent = state.events.events.find(event => event.key === eventKey);
-    return foundEvent || null;
-  });
+  // @ts-ignore
+  const event: Event = useAppSelector(state => state.events.events[eventKey]);
 
   if (!event) {
     goBack();

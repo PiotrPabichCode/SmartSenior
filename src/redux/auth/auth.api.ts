@@ -20,6 +20,7 @@ import {
 } from 'firebase/firestore';
 import { User, ConnectedUser, ConnectedUsers, AuthCredentials, Genders, Roles } from '@src/models';
 import { User as FirebaseUser } from 'firebase/auth';
+import { useAppSelector } from '../store';
 
 const getUserTemplate = (uid: string, email: string | null): User => {
   const emptyUser: User = {
@@ -98,6 +99,10 @@ export const logout = async () => {
   } catch (error) {
     throw error;
   }
+};
+
+export const validateUserData = (user: User) => {
+  return Object.values(user!).findIndex(val => !val) === -1;
 };
 
 const findUserByEmail = async (email: string) => {

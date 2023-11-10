@@ -36,6 +36,7 @@ export const authSlice = createSlice({
     builder
       .addCase(action.signIn.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
+        state.status = 'succeeded';
       })
       .addCase(action.signIn.pending, state => {
         state.status = 'pending';
@@ -60,6 +61,7 @@ export const authSlice = createSlice({
       })
       .addCase(action.verifyUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
+        state.status = 'succeeded';
       })
       .addCase(
         action.loadConnectedUsers.fulfilled,
@@ -67,6 +69,9 @@ export const authSlice = createSlice({
           state.connectedUsers = action.payload;
         },
       )
+      .addCase(action.loadConnectedUsers.rejected, state => {
+        state.status = 'failed';
+      })
       .addCase(action.addConnectedUser.fulfilled, (state, action: PayloadAction<ConnectedUser>) => {
         state.connectedUsers.push(action.payload);
       })

@@ -7,7 +7,7 @@ export interface User {
   firstName: string | null;
   lastName: string | null;
   birthDate: Timestamp | null;
-  gender: Genders;
+  gender: Genders | null;
   role: Roles;
   connectedUsersIds: Array<string>;
 }

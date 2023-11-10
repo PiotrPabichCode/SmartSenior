@@ -11,11 +11,12 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 import { genders, roles } from '@src/redux/auth/auth.constants';
 import { t } from '@src/localization/Localization';
 import { logout, updateUserData } from '@src/redux/auth/auth.actions';
-import { navigate } from '@src/navigation/navigationUtils';
+import { navigate, navigationRef } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { Timestamp } from 'firebase/firestore';
 import { convertTimestampToDate, dateToEpoch } from '@src/utils/utils';
 import { User, Roles, Genders } from '@src/models';
+import { validateUserData } from '@src/redux/auth/auth.api';
 
 const FirstLoginWizard = () => {
   const dispatch = useAppDispatch();
@@ -30,14 +31,11 @@ const FirstLoginWizard = () => {
   });
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
-  if (status === 'pending' || !user) {
+  if (status === 'pending') {
     return <CustomActivityIndicator />;
   }
 
-  if (Object.values(user).findIndex(val => !val) >= 0) {
-    navigate('BottomBar', {
-      screen: 'Home',
-    });
+  if (validateUserData(user!)) {
     return null;
   }
 
@@ -57,14 +55,14 @@ const FirstLoginWizard = () => {
               firstName: '',
               lastName: '',
               birthDate: null,
-              gender: Genders.MALE,
+              gender: null,
               role: Roles.SENIOR,
             }}
             onSubmit={async values => {
               FirstLoginSchema.validate(values)
                 .then(async () => {
                   try {
-                    await dispatch(updateUserData({ uid: user.uid, values: values })).unwrap();
+                    await dispatch(updateUserData({ uid: user?.uid!, values: values })).unwrap();
                     CustomToast('success', t('success.saveChanges'));
                     navigate('BottomBar', {
                       screen: 'Home',

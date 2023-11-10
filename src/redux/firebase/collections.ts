@@ -1,7 +1,6 @@
 import { CollectionReference, collection } from 'firebase/firestore';
 import { db } from 'firebaseConfig';
-import { EventConverter } from '../events/events.types';
-import { ConnectedUser } from '../auth/auth.types';
+import { EventConverter, ConnectedUser } from '@src/models';
 
 export const eventsCollection = collection(db, 'events').withConverter(EventConverter);
 

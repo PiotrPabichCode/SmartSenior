@@ -6,6 +6,8 @@ import { Theme } from './Theme';
 import { Roles } from './Roles';
 import { Genders } from './Genders';
 import { PharmacyItem } from './PharmacyItem';
+import { Chat, Chats } from './Chat';
+import { ChatMessage, ChatMessages } from './ChatMessage';
 
 export {
   User,
@@ -21,4 +23,8 @@ export {
   Roles,
   Genders,
   PharmacyItem,
+  Chat,
+  Chats,
+  ChatMessage,
+  ChatMessages,
 };

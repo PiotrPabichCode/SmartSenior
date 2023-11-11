@@ -4,6 +4,7 @@ import Colors from '@src/constants/Colors';
 import { t } from '@src/localization/Localization';
 import { ConnectedUser, ConnectedUsers } from '@src/models';
 import { addConnectedUser } from '@src/redux/auth/auth.actions';
+import { addChat } from '@src/redux/chats/chats.actions';
 import { useAppDispatch, useAppSelector } from '@src/redux/store';
 import { useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
@@ -48,7 +49,8 @@ const KeeperView = () => {
 
   const handleAddUser = async () => {
     try {
-      await dispatch(addConnectedUser(email)).unwrap();
+      const connectedUser: ConnectedUser = await dispatch(addConnectedUser(email)).unwrap();
+      await dispatch(addChat(connectedUser.user)).unwrap();
       CustomToast('success', 'connectedUsers.message.success.add');
     } catch (e) {
       console.log(e);

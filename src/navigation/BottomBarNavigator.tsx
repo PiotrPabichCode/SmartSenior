@@ -11,11 +11,22 @@ import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import AgendaScreen from '@src/screens/Calendar/AgendaScreen';
 import { t } from '@src/localization/Localization';
 import ChatScreen from '@src/screens/Chat/ChatScreen';
+import { navigationRef } from './navigationUtils';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
 const BottomBarNavigator = () => {
   const events = useAppSelector(state => state.events.events);
+  const chats = useAppSelector(state => state.chats.chats);
+  const unseenMessages = useAppSelector(state => state.chats.unseenMessages);
+
+  const renderSpeedDial = () => {
+    const route = navigationRef.getCurrentRoute()?.name;
+    if (route !== 'Chat') {
+      return <SpeedDialMenu style={{ position: 'absolute', right: 0, bottom: 50 }} />;
+    }
+  };
+
   return (
     <>
       <Tab.Navigator>
@@ -49,16 +60,19 @@ const BottomBarNavigator = () => {
             header: () => <CustomHeader title={t('bottomNav.events')} more={true} />,
           }}
         />
-        <Tab.Screen
-          name="Chat"
-          component={ChatScreen}
-          options={{
-            tabBarLabel: 'Czat',
-            tabBarIcon: ({ focused }) => renderIcon({ name: 'chat-bottom-nav', focused: focused }),
-            tabBarBadge: 3,
-            header: () => <CustomHeader title={t('bottomNav.chat')} more={true} />,
-          }}
-        />
+        {chats.length > 0 && (
+          <Tab.Screen
+            name="Chat"
+            component={ChatScreen}
+            options={{
+              tabBarLabel: t('bottomNav.chat'),
+              tabBarIcon: ({ focused }) =>
+                renderIcon({ name: 'chat-bottom-nav', focused: focused }),
+              tabBarBadge: unseenMessages ? unseenMessages : undefined,
+              header: () => <CustomHeader title={t('bottomNav.chat')} more={true} />,
+            }}
+          />
+        )}
         <Tab.Screen
           name="Account"
           component={AccountScreen}
@@ -70,7 +84,7 @@ const BottomBarNavigator = () => {
           }}
         />
       </Tab.Navigator>
-      <SpeedDialMenu style={{ position: 'absolute', right: 0, bottom: 50 }} />
+      {renderSpeedDial()}
     </>
   );
 };

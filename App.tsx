@@ -17,6 +17,9 @@ import { loadEvents } from '@src/redux/events/events.actions';
 import { loadConnectedUsers, verifyUser } from '@src/redux/auth/auth.actions';
 import { usePushNotifications } from '@src/hooks/usePushNotifications';
 import { loadChats } from '@src/redux/chats/chats.actions';
+import { logout } from '@src/redux/auth/auth.slice';
+import { clearEvents } from '@src/redux/events/events.slice';
+import { clearChats } from '@src/redux/chats/chats.slice';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
@@ -50,10 +53,16 @@ export default function App() {
         await store.dispatch(loadEvents());
         await store.dispatch(loadConnectedUsers());
         await store.dispatch(loadChats());
+      } else {
+        store.dispatch(logout());
+        store.dispatch(clearEvents());
+        store.dispatch(clearChats());
       }
     });
 
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const onLayoutRootView = useCallback(async () => {

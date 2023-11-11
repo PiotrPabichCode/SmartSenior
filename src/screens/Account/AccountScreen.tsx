@@ -7,18 +7,10 @@ import { t } from '@src/localization/Localization';
 import { Theme } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import CustomDivider from '@src/components/CustomDivider';
-import { clearEvents } from '@src/redux/events/events.slice';
-import { logout } from '@src/redux/auth/auth.actions';
-import { batch } from 'react-redux';
-
-const handleLogout = async (dispatch = useAppDispatch()) => {
-  batch(() => {
-    dispatch(logout());
-    dispatch(clearEvents());
-  });
-};
+import { logout } from '@src/redux/auth/auth.api';
 
 const AccountScreen = () => {
+  const connectedUsers = useAppSelector(state => state.auth.connectedUsers);
   const theme: Theme = useAppSelector(state => state.auth.theme);
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
@@ -69,21 +61,24 @@ const AccountScreen = () => {
           })
         }
       />
-      <AccountItem
-        icon="connected-users"
-        title={t('account.button.title.connected-users')}
-        onPress={() =>
-          navigate('AccountItemDetails', {
-            screenType: 'connected-users',
-            title: t('account.header.connected-users'),
-          })
-        }
-      />
+      {connectedUsers.length > 0 && (
+        <AccountItem
+          icon="connected-users"
+          title={t('account.button.title.connected-users')}
+          onPress={() =>
+            navigate('AccountItemDetails', {
+              screenType: 'connected-users',
+              title: t('account.header.connected-users'),
+            })
+          }
+        />
+      )}
+
       <CustomDivider />
       <AccountItem
         icon="logout-account"
         title={t('account.button.title.logout')}
-        onPress={() => handleLogout()}
+        onPress={() => logout()}
       />
     </View>
   );

@@ -37,13 +37,9 @@ export const updateUserData = createAsyncThunk(
   },
 );
 
-export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
-  try {
-    await api.logout();
-  } catch (error) {
-    return rejectWithValue(error);
-  }
-});
+export const logout = () => {
+  api.logout();
+};
 
 export const verifyUser = createAsyncThunk(
   'auth/verifyUser',

@@ -20,6 +20,10 @@ export const chatsSlice = createSlice({
       const user = action.payload;
       state.chats = [...state.chats, user];
     },
+    clearChats: state => {
+      state.chats = [];
+      state.unseenMessages = 0;
+    },
     changeActiveChat: (state, action: PayloadAction<string>) => {
       const userID = action.payload;
       state.chats = state.chats.map(user => ({
@@ -40,6 +44,6 @@ export const chatsSlice = createSlice({
   },
 });
 
-export const { updateMessages, changeActiveChat } = chatsSlice.actions;
+export const { updateMessages, changeActiveChat, clearChats } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

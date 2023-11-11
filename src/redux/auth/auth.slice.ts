@@ -31,6 +31,12 @@ export const authSlice = createSlice({
     changeTheme: (state, action: PayloadAction<Theme>) => {
       state.theme = action.payload;
     },
+    logout: state => {
+      state.connectedUsers = [];
+      state.error = '';
+      state.status = 'idle';
+      state.user = null;
+    },
   },
   extraReducers: builder => {
     builder
@@ -47,12 +53,6 @@ export const authSlice = createSlice({
       .addCase(action.signUp.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
         state.status = 'succeeded';
-      })
-      .addCase(action.logout.fulfilled, state => {
-        state.user = null;
-        state.error = null;
-        state.connectedUsers = [];
-        state.status = 'idle';
       })
       .addCase(action.updateUserData.fulfilled, (state, action: PayloadAction<Partial<User>>) => {
         const data = action.payload;
@@ -83,6 +83,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { changeLanguage, changeTheme } = authSlice.actions;
+export const { changeLanguage, changeTheme, logout } = authSlice.actions;
 
 export default authSlice.reducer;

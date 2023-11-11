@@ -93,9 +93,9 @@ export const updateUserData = async (
   }
 };
 
-export const logout = async () => {
+export const logout = () => {
   try {
-    await signOut(auth);
+    signOut(auth);
   } catch (error) {
     throw error;
   }

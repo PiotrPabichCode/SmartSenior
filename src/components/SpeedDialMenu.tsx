@@ -3,8 +3,11 @@ import { SpeedDial } from '@rneui/themed';
 import { navigate } from '@src/navigation/navigationUtils';
 import { generateEvents } from '@src/helpers/generateEvents';
 import { t } from '@src/localization/Localization';
+import { useAppSelector } from '@src/redux/store';
+import { Roles } from '@src/models';
 
 const SpeedDialMenu = (props: any) => {
+  const role = useAppSelector(state => state.auth.user?.role);
   const [open, setOpen] = useState(false);
 
   const onClickAction = (command: string) => {
@@ -16,7 +19,7 @@ const SpeedDialMenu = (props: any) => {
       case 'ADD_KEEPER':
         // navigate('AddKeeper'); // TODO
         setOpen(!open);
-        generateEvents();
+        // generateEvents();
         break;
     }
   };
@@ -34,11 +37,16 @@ const SpeedDialMenu = (props: any) => {
         title={t('speedDial.addEvent')}
         onPress={() => onClickAction('ADD_EVENT')}
       />
-      <SpeedDial.Action
-        icon={{ name: 'add', color: '#fff' }}
-        title={t('speedDial.addKeeper')}
-        onPress={() => onClickAction('ADD_KEEPER')}
-      />
+
+      {role !== Roles.SENIOR ? (
+        <SpeedDial.Action
+          icon={{ name: 'add', color: '#fff' }}
+          title={t('speedDial.addKeeper')}
+          onPress={() => onClickAction('ADD_KEEPER')}
+        />
+      ) : (
+        <></>
+      )}
     </SpeedDial>
   );
 };

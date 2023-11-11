@@ -1,18 +1,26 @@
 import CustomButton from '@src/components/CustomButton';
 import Icons from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
+import { goBack } from '@src/navigation/navigationUtils';
+import { useAppSelector } from '@src/redux/store';
 import { View, Text, StyleSheet } from 'react-native';
 
 const mainColor = '#FFFAF0';
 
 const SeniorView = () => {
+  const connectedUsers = useAppSelector(state => state.auth.connectedUsers);
+  if (connectedUsers.length === 0) {
+    goBack();
+    return null;
+  }
+  const keeper = connectedUsers[0].user;
   return (
     <View style={styles.view}>
       <View style={styles.details}>
         <Text style={styles.title}>{t('connectedUsers.seniorTitle')}</Text>
         <View style={styles.detailsButtons}>
           <CustomButton
-            title={'Natalia Pabich'}
+            title={keeper.firstName + ' ' + keeper.lastName}
             titleStyle={{ fontSize: 16 }}
             style={{ borderWidth: 2, borderColor: 'lightblue', gap: 20 }}
             color={'black'}
@@ -20,7 +28,7 @@ const SeniorView = () => {
             icon={<Icons name="user" color={'black'} size={24} />}
           />
           <CustomButton
-            title={'235944@edu.p.lodz.pl'}
+            title={'' + keeper.email}
             titleStyle={{ fontSize: 16 }}
             style={{ borderWidth: 2, borderColor: 'lightblue', gap: 20 }}
             color={'black'}

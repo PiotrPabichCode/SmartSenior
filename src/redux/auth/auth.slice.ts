@@ -26,9 +26,6 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    changeLanguage: (state, action: PayloadAction<string>) => {
-      state.language = action.payload;
-    },
     changeTheme: (state, action: PayloadAction<Theme>) => {
       state.theme = action.payload;
     },
@@ -81,11 +78,14 @@ export const authSlice = createSlice({
         state.connectedUsers = state.connectedUsers.filter(
           user => user.user.email !== action.payload,
         );
+      })
+      .addCase(action.changeLanguage.fulfilled, (state, action: PayloadAction<string>) => {
+        state.language = action.payload;
       });
   },
 });
 
-export const { changeLanguage, changeTheme, logout } = authSlice.actions;
+export const { changeTheme, logout } = authSlice.actions;
 
 export const selectAuthStore = (state: RootState) => state.auth;
 export const selectUser = (state: RootState) => state.auth.user;

@@ -19,10 +19,11 @@ import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Event, Theme } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const theme: Theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);

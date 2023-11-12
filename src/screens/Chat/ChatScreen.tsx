@@ -36,7 +36,7 @@ const ChatScreen = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [activeChat]);
 
   const onSend = useCallback((messages = []) => {
     if (!activeChat) {

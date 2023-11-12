@@ -3,20 +3,25 @@ import EventItem from '@src/screens/Events/EventItem';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
-import { Events, Theme } from '@src/models';
+import { Theme } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
+import { selectEvents } from '@src/redux/events/events.slice';
+import { selectTheme } from '@src/redux/auth/auth.slice';
+import NoEvents from './NoEvents';
 
 const EventsScreen = () => {
-  const events: Events = useAppSelector(state => state.events.events);
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const events = useAppSelector(state => selectEvents(state));
+  const theme: Theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
+
+  const mapEvents = Object.entries(events).map(([key], index) => {
+    return <EventItem key={index} eventKey={key} />;
+  });
 
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Text style={styles.title}>{t('eventsScreen.title')}</Text>
-      {Object.entries(events).map(([key], index) => {
-        return <EventItem key={index} eventKey={key} />;
-      })}
+      {events.length === 0 ? <NoEvents /> : mapEvents}
     </CustomScrollContainer>
   );
 };

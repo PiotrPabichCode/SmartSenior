@@ -251,7 +251,8 @@
     }
   },
   "eventsScreen": {
-    "title": "Events"
+    "title": "Events",
+    "noActiveEvents": "You have no active events"
   },
   "homeScreen": {
     "welcome": "Welcome {{name}}!",

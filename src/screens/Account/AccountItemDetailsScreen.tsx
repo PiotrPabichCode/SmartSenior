@@ -1,14 +1,14 @@
 import { StyleSheet, Text } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
-import { changeUserLanguage, convertTimestampToDate } from '@src/utils/utils';
+import { convertTimestampToDate } from '@src/utils/utils';
 import Localization, { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
 import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersScreen';
-import { changeLanguage } from '@src/redux/auth/auth.slice';
 import { User, Theme } from '@src/models';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
+import { changeLanguage } from '@src/redux/auth/auth.actions';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();
@@ -22,10 +22,6 @@ const AccountItemDetailsScreen = ({ route }: any) => {
   }
 
   const { screenType } = route.params;
-  const handleLanguageChange = async (language: string) => {
-    changeUserLanguage(language);
-    dispatch(changeLanguage(language));
-  };
 
   const renderUserDetailsScreen = () => {
     return (
@@ -71,12 +67,12 @@ const AccountItemDetailsScreen = ({ route }: any) => {
         <Text style={styles.language}>{t('languageName')}</Text>
         <Text
           style={styles.pickLanguage}
-          onPress={() => handleLanguageChange(Localization.supportedLanguages.POLISH)}>
+          onPress={() => dispatch(changeLanguage(Localization.supportedLanguages.POLISH))}>
           {t('account.language.polish')}
         </Text>
         <Text
           style={styles.pickLanguage}
-          onPress={() => handleLanguageChange(Localization.supportedLanguages.ENGLISH)}>
+          onPress={() => dispatch(changeLanguage(Localization.supportedLanguages.ENGLISH))}>
           {t('account.language.english')}
         </Text>
       </>

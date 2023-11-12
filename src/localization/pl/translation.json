@@ -251,7 +251,8 @@
     }
   },
   "eventsScreen": {
-    "title": "Wydarzenia"
+    "title": "Wydarzenia",
+    "noActiveEvents": "Nie masz aktywnych wydarzeń"
   },
   "homeScreen": {
     "welcome": "Hej {{name}}!",

@@ -6,8 +6,7 @@ import store from '@src/redux/store';
 import { DAYS } from '@src/redux/events/events.constants';
 import { Platform } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
-import { ConnectedUsers, User } from '@src/models';
-import { getConnectedUsers, getUser } from '@src/redux/selectors';
+import { getUser } from '@src/redux/selectors';
 import { selectConnectedUserById, selectUser } from '@src/redux/auth/auth.slice';
 
 export const IS_ANDROID = Platform.OS === 'android';

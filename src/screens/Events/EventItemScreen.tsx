@@ -21,12 +21,13 @@ import { goBack } from '@src/navigation/navigationUtils';
 import { Timestamp } from 'firebase/firestore';
 import { Event, Theme } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 
 const EventItemScreen = ({ route, navigation }: Props) => {
   const dispatch = useAppDispatch();
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const theme: Theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
   const { eventKey } = route.params;

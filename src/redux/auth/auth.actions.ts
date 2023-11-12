@@ -3,6 +3,8 @@ import * as api from './auth.api';
 
 import { User as FirebaseUser } from 'firebase/auth';
 import { AuthCredentials, User } from '@src/models';
+import Localization from '@src/localization/Localization';
+import Calendar from '@src/components/Calendar/Calendar';
 
 export const signIn = createAsyncThunk(
   'auth/signIn',
@@ -54,6 +56,12 @@ export const verifyUser = createAsyncThunk(
     }
   },
 );
+
+export const changeLanguage = createAsyncThunk('auth/language', async (language: string) => {
+  await Localization.changeLanguage(language);
+  Calendar.changeLanguage(language);
+  return language;
+});
 
 export const loadConnectedUsers = createAsyncThunk(
   'auth/loadConnectedUsers',

@@ -8,6 +8,7 @@ import { Genders } from './Genders';
 import { PharmacyItem } from './PharmacyItem';
 import { Chat, Chats } from './Chat';
 import { ChatMessage, ChatMessages } from './ChatMessage';
+import { ChatUser, ChatUsers } from './ChatUser';
 
 export {
   User,
@@ -27,4 +28,6 @@ export {
   Chats,
   ChatMessage,
   ChatMessages,
+  ChatUser,
+  ChatUsers,
 };

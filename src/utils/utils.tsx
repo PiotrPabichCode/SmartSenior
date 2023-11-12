@@ -2,11 +2,12 @@ import moment from 'moment-timezone';
 import isEqual from 'lodash.isequal';
 import Localization, { t } from '@src/localization/Localization';
 import Calendar from '@src/components/Calendar/Calendar';
-import { useAppSelector } from '@src/redux/store';
+import store from '@src/redux/store';
 import { DAYS } from '@src/redux/events/events.constants';
 import { Platform } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
-import { User } from '@src/models';
+import { ConnectedUsers, User } from '@src/models';
+import { getConnectedUsers, getUser } from '@src/redux/selectors';
 
 export const IS_ANDROID = Platform.OS === 'android';
 export const buildRequest = (baseUrl: string, params: any) => {
@@ -68,11 +69,11 @@ export const changeUserLanguage = (language: string) => {
 };
 
 export const createUserLabel = () => {
-  const user: User | null = useAppSelector(state => state.auth.user);
-  if (!user) {
+  const user = getUser(store.getState());
+  if (!user || !user.firstName || !user.lastName) {
     return 'UU';
   }
-  const label = `${user.firstName![0]}${user.lastName![0]}`;
+  const label = `${user.firstName[0]}${user.lastName[0]}`;
   return label.toUpperCase();
 };
 
@@ -95,4 +96,22 @@ export const renderDayValue = (value: number, shortTitle: boolean) => {
     case DAYS.SUNDAY:
       return t(`${base}.sunday`);
   }
+};
+
+export const createUsername = (userID: string) => {
+  const connectedUsers: ConnectedUsers = getConnectedUsers(store.getState());
+  const user = connectedUsers.find(user => user.user.uid === userID);
+  return user?.user.firstName ? user?.user.firstName : 'user';
+};
+
+export const getUserEmail = () => {
+  return store.getState().auth.user?.email!;
+};
+
+export const getUserID = () => {
+  return store.getState().auth.user?.uid!;
+};
+
+export const getConnectedUsersIds = () => {
+  return store.getState().auth.user?.connectedUsersIds!;
 };

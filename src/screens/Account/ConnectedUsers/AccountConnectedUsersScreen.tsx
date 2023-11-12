@@ -1,6 +1,7 @@
-import { useAppSelector } from '@src/redux/store';
-import { SeniorView, KeeperView } from './index';
+import SeniorView from './SeniorView';
+import KeeperView from './KeeperView';
 import { Roles } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 const AccountConnectedUsersScreen = () => {
   const role: string | undefined = useAppSelector(state => state.auth.user?.role);

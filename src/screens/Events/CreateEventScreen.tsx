@@ -8,7 +8,6 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomToast from '@src/components/CustomToast';
 import { getAuth } from 'firebase/auth';
-import { useAppDispatch, useAppSelector } from '@src/redux/store';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { createDatetimeTimezone } from '@src/utils/utils';
 import { days, priorities, times, cyclicValues } from '@src/redux/events/events.constants';
@@ -19,6 +18,7 @@ import { createEvent } from '@src/redux/events/events.actions';
 import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Event, Theme } from '@src/models';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();

@@ -1,54 +1,64 @@
-import { addDoc, collection, getDocs, or, orderBy, query, where } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  or,
+  orderBy,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { db } from 'firebaseConfig';
-import { User, Chat, Chats, ChatMessages, ChatMessage, ConnectedUser } from '@src/models';
-import { useAppSelector } from '../store';
+import { User, Chat, Chats, ChatMessages, ChatMessage, ChatUsers } from '@src/models';
+import { createUsername } from '@src/utils/utils';
+import { getConnectedUsersIds, getUserID } from '../selectors';
+import store from '../store';
 
-const createUsername = (userID: string) => {
-  const connectedUsers = useAppSelector(state => state.auth.connectedUsers);
-  const user = connectedUsers.find(user => user.user.uid === userID)?.user!;
-  return user.firstName ? user.firstName : 'user';
+const filterUnreadMessages = (chat: Chat) => {
+  return chat.messages.filter(message => !message.read).length;
 };
 
 export const loadChats = async () => {
   try {
-    const connectedUsersIds = useAppSelector(state => state.auth.user?.connectedUsersIds);
-    const q = query(
-      collection(db, 'chats'),
-      or(where('fromUserID', 'in', connectedUsersIds), where('toUserID', 'in', connectedUsersIds)),
-      orderBy('createdAt', 'desc'),
-    );
-    const snapshot = await getDocs(q);
-    if (snapshot.empty) {
-      return [];
-    }
-    const messages = snapshot.docs.map(doc => doc.data());
-
-    // Create an object to store messages based on user
-    const userMessages: { [userId: string]: ChatMessages } = {};
-
-    // Group messages based on user
-    messages.forEach(message => {
-      const userID = message.toUserID;
-      if (!userMessages[userID]) {
-        userMessages[userID] = [];
-      }
-      userMessages[userID].push(message as ChatMessage);
+    const connectedUsersIds = getConnectedUsersIds(store.getState())!;
+    const chatUsers: ChatUsers = connectedUsersIds.map(id => {
+      const username = createUsername(id);
+      return {
+        uid: id,
+        username: username,
+      };
     });
-
-    const chats: Chats = Object.keys(userMessages).map(userID => ({
-      userID: userID,
-      username: createUsername(userID),
-      messages: userMessages[userID],
-      active: false,
-    }));
-
-    if (chats.length > 0) {
-      chats[0].active = true;
+    console.log('CHAT', chatUsers);
+    const q = query(collection(db, 'chats'), where('users', 'array-contains-any', chatUsers));
+    const snapshot = await getDocs(q);
+    console.log(snapshot.docs);
+    if (snapshot.empty) {
+      return {
+        chats: [],
+        unseenMessages: 0,
+      };
     }
+    const chats: Chats = [];
+    snapshot.docs.forEach(doc => chats.push(doc.data() as Chat));
+
+    if (chats.length === 0) {
+      return {
+        chats: [],
+        unseenMessages: 0,
+      };
+    }
+
+    chats[0].active = true;
+
+    let unseenMessages = 0;
+    chats.forEach(chat => {
+      unseenMessages += filterUnreadMessages(chat);
+    });
 
     return {
       chats: chats,
-      unseenMessages: messages.filter(message => !message.received).length,
+      unseenMessages: unseenMessages,
     };
   } catch (error) {
     throw error;
@@ -57,16 +67,27 @@ export const loadChats = async () => {
 
 export const addChat = async (user: User) => {
   try {
-    const _collection = collection(db, 'chats', user.uid);
+    const uid = getUserID(store.getState())!;
+    const chatUsers: ChatUsers = [
+      { uid: user.uid, username: createUsername(user.uid) },
+      { uid: uid, username: createUsername(uid) },
+    ];
+    const _collection = collection(db, 'chats');
     const emptyChat: Chat = {
-      userID: user.uid,
-      username: createUsername(user.uid),
+      key: '',
+      users: chatUsers,
       messages: [],
       active: false,
     };
-    await addDoc(_collection, emptyChat);
+    const response = await addDoc(_collection, emptyChat);
+    await updateDoc(doc(db, response.path), {
+      key: response.id,
+    });
 
-    return emptyChat;
+    return {
+      ...emptyChat,
+      key: response.id,
+    };
   } catch (error) {
     throw error;
   }

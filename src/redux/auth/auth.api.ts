@@ -1,11 +1,5 @@
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-  signOut,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth, db } from 'firebaseConfig';
-import { fetchActiveEvents } from '../events/events.api';
 import {
   addDoc,
   collection,
@@ -18,9 +12,19 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { User, ConnectedUser, ConnectedUsers, AuthCredentials, Genders, Roles } from '@src/models';
+import {
+  User,
+  ConnectedUser,
+  ConnectedUsers,
+  AuthCredentials,
+  Genders,
+  Roles,
+  Users,
+} from '@src/models';
 import { User as FirebaseUser } from 'firebase/auth';
-import { useAppSelector } from '../store';
+import { fetchEventsByID } from '../events/events.api';
+import { getConnectedUsersIds, getEmail, getUserID } from '../selectors';
+import store from '../store';
 
 const getUserTemplate = (uid: string, email: string | null): User => {
   const emptyUser: User = {
@@ -58,7 +62,10 @@ export const signUp = async (authData: AuthCredentials): Promise<User> => {
     }
     const emptyUser = getUserTemplate(user.uid, user.email);
     const userDoc = doc(db, 'users', user.uid);
-    await setDoc(userDoc, emptyUser);
+    await setDoc(userDoc, {
+      ...emptyUser,
+      deleted: false,
+    });
     return emptyUser;
   } catch (error) {
     throw error;
@@ -71,10 +78,15 @@ export const loadUserDoc = async (user: FirebaseUser): Promise<User> => {
     const snapshot = await getDoc(userDoc);
     if (!snapshot.exists()) {
       const emptyUser = getUserTemplate(user.uid, user.email);
-      await setDoc(userDoc, emptyUser);
+      await setDoc(userDoc, {
+        ...emptyUser,
+        deleted: false,
+      });
       return emptyUser;
     }
-    return snapshot.data() as User;
+    const _user = snapshot.data();
+    delete _user.deleted;
+    return _user as User;
   } catch (error) {
     throw error;
   }
@@ -101,11 +113,14 @@ export const logout = () => {
   }
 };
 
-export const validateUserData = (user: User) => {
-  return Object.values(user!).findIndex(val => !val) === -1;
+export const validateUserData = (user: User | null) => {
+  if (!user) {
+    return false;
+  }
+  return Object.values(user).findIndex(val => !val) === -1;
 };
 
-const findUserByEmail = async (email: string) => {
+const findUserByEmail = async (email: string): Promise<User> => {
   try {
     const userCollection = collection(db, 'users');
     const _query = query(userCollection, where('email', '==', email), limit(1));
@@ -115,26 +130,71 @@ const findUserByEmail = async (email: string) => {
     }
 
     const doc = snapshot.docs[0];
-    return doc.data();
+    return doc.data() as User;
   } catch (error) {
     throw error;
   }
 };
 
-export const loadConnectedUsers = async () => {
+const loadUserByEmail = async (email: string): Promise<User> => {
   try {
-    const userID = getAuth().currentUser?.uid;
-    const _collection = collection(db, `users/${userID}/connectedUsers`);
-    const _query = query(_collection, where('deleted', `==`, false));
+    const _collection = collection(db, 'users');
+    const _query = query(
+      _collection,
+      where('deleted', '==', false),
+      where('email', '==', email),
+      limit(1),
+    );
     const snapshot = await getDocs(_query);
     if (snapshot.empty) {
-      throw new Error('Unable to fetch connected users');
+      throw new Error('User does not exists');
     }
-    const users: ConnectedUsers = [];
-    snapshot.forEach(doc => {
-      users.push(doc.data() as ConnectedUser);
+    const data = snapshot.docs[0].data();
+    delete data.deleted;
+    return data as User;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const loadConnectedUsers = async (uid: string) => {
+  try {
+    const connectedUsersIds = getConnectedUsersIds(store.getState());
+    const _collection = collection(db, `users`);
+
+    const _query = query(
+      _collection,
+      where('deleted', `==`, false),
+      where('uid', 'in', connectedUsersIds),
+    );
+    const snapshot = await getDocs(_query);
+    const users: Users = [];
+    snapshot.docs.forEach(doc => {
+      const data = doc.data();
+      delete data.deleted;
+      users.push(data as User);
     });
-    return users;
+
+    const connectedUsers: ConnectedUsers = await Promise.all(
+      users.map(async user => {
+        try {
+          const events = await fetchEventsByID(user.uid);
+          return {
+            user: user,
+            events: events,
+            deleted: false,
+          };
+        } catch (error) {
+          return {
+            user: user,
+            events: [],
+            deleted: false,
+          };
+        }
+      }),
+    );
+
+    return connectedUsers;
   } catch (error) {
     throw error;
   }
@@ -142,22 +202,38 @@ export const loadConnectedUsers = async () => {
 
 export const addConnectedUser = async (email: string) => {
   try {
-    const userID = getAuth().currentUser?.uid;
-    if (userID === email) {
+    const userEmail = getEmail(store.getState());
+
+    if (userEmail === email) {
       throw new Error('You cannot add yourself');
     }
-    const _collection = collection(db, `users/${userID}/connectedUsers`);
-    const _query = query(_collection, where('email', '==', email), limit(1));
-    const snapshot = await getDocs(_query);
-    if (!snapshot.empty) {
+
+    const newUser = await loadUserByEmail(email);
+    const newUserID = newUser.uid;
+
+    const connectedUsersIds = getConnectedUsersIds(store.getState())!;
+    if (connectedUsersIds.includes(newUserID)) {
       throw new Error('User already added');
     }
 
-    const newUser = await findUserByEmail(email);
-    newUser.events = await fetchActiveEvents();
-    newUser.deleted = false;
-    await addDoc(_collection, newUser);
-    return newUser as ConnectedUser;
+    const userID = getUserID(store.getState());
+    const _doc = doc(db, `users/${userID}`);
+
+    await updateDoc(_doc, {
+      connectedUsersIds: [...connectedUsersIds, newUserID],
+    });
+
+    const newUserDoc = doc(db, `users/${newUserID}`);
+    await updateDoc(newUserDoc, {
+      connectedUsersIds: [...newUser.connectedUsersIds, userID],
+    });
+
+    const connectedUser: ConnectedUser = {
+      user: newUser,
+      events: await fetchEventsByID(newUserID),
+    };
+
+    return connectedUser;
   } catch (error) {
     throw error;
   }
@@ -165,7 +241,7 @@ export const addConnectedUser = async (email: string) => {
 
 export const deleteConnectedUser = async (email: string) => {
   try {
-    const userID = getAuth().currentUser?.uid;
+    const userID = getUserID(store.getState());
     const _collection = collection(db, `users/${userID}/connectedUsers`);
     const _query = query(_collection, where('email', '==', email), limit(1));
     const snapshot = await getDocs(_query);

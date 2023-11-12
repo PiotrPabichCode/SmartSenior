@@ -6,10 +6,10 @@ import { ErrorMessage, Formik } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native';
 import CustomToast from '@src/components/CustomToast';
-import { useAppDispatch } from '@redux/store';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { signUp } from '@src/redux/auth/auth.actions';
+import { useAppDispatch } from '@src/redux/types';
 
 const RegisterScreen = () => {
   const dispatch = useAppDispatch();
@@ -41,7 +41,6 @@ const RegisterScreen = () => {
             onSubmit={async values => {
               try {
                 await dispatch(signUp(values)).unwrap();
-                navigate('FirstLoginWizard');
               } catch (e) {
                 CustomToast('error', t('register.message.error.signUp'));
               }

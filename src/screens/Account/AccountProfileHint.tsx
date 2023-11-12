@@ -1,8 +1,8 @@
 import { Avatar } from '@rneui/themed';
 import { StyleSheet, View, Text } from 'react-native';
-import { useAppSelector } from '@redux/store';
 import { createUserLabel } from '@src/utils/utils';
 import { User } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 const AccountProfileHint = () => {
   const user: User | null = useAppSelector(state => state.auth.user);

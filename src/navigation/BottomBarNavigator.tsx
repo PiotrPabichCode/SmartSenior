@@ -6,12 +6,12 @@ import HomeScreen from '@src/screens/Home/HomeScreen';
 import { BottomBarParamList } from './types';
 import { renderIcon } from '@src/components/Icons';
 import CustomHeader from '@components/CustomHeader';
-import { useAppSelector } from '@src/redux/store';
 import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import AgendaScreen from '@src/screens/Calendar/AgendaScreen';
 import { t } from '@src/localization/Localization';
 import ChatScreen from '@src/screens/Chat/ChatScreen';
 import { navigationRef } from './navigationUtils';
+import { useAppSelector } from '@src/redux/types';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
@@ -69,7 +69,7 @@ const BottomBarNavigator = () => {
               tabBarIcon: ({ focused }) =>
                 renderIcon({ name: 'chat-bottom-nav', focused: focused }),
               tabBarBadge: unseenMessages ? unseenMessages : undefined,
-              header: () => <CustomHeader title={t('bottomNav.chat')} more={true} />,
+              header: () => <CustomHeader title={t('bottomNav.chat')} />,
             }}
           />
         )}

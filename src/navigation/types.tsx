@@ -13,6 +13,7 @@ export type RootStackParamList = {
     screenType: string;
     title: string;
   };
+  AddConnectedUser: undefined;
   Medicines: undefined;
   MedicinesItemDetails: {
     item: any;

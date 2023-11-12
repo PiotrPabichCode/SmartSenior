@@ -1,10 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import AccountItem from './AccountItem';
 import AccountProfileHint from './AccountProfileHint';
-import { useAppDispatch, useAppSelector } from '@redux/store';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
-import { Theme } from '@src/redux/types';
+import { Theme, useAppSelector } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import CustomDivider from '@src/components/CustomDivider';
 import { logout } from '@src/redux/auth/auth.api';

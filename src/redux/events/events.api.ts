@@ -1,19 +1,30 @@
 import { db } from 'firebaseConfig';
-import { addDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
-import { eventsCollection } from '../firebase/collections';
-import { getAuth } from 'firebase/auth';
+import {
+  Timestamp,
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { Event, Events } from '@src/models';
+import { getUserID } from '../selectors';
+import store from '../store';
 
 export const createEvent = async (newEventData: Event) => {
   try {
-    const response = await addDoc(eventsCollection, newEventData);
+    const userID = getUserID(store.getState());
+    const _collection = collection(db, 'events', userID!);
+    const response = await addDoc(_collection, newEventData);
     if (!response || !response.id) {
       throw new Error('Unable to add new event.');
     }
     const key = response.id;
     const currentEventRef = doc(db, response.path);
     await updateDoc(currentEventRef, {
-      key: key,
+      key: `${userID}/${key}`,
     });
     newEventData.key = key;
     return newEventData;
@@ -24,7 +35,7 @@ export const createEvent = async (newEventData: Event) => {
 
 export const updateEvent = async (eventKey: string, data: Partial<Event>) => {
   try {
-    const ref = doc(db, 'events/' + eventKey);
+    const ref = doc(db, 'events', eventKey);
     await updateDoc(ref, data);
     return {
       key: eventKey,
@@ -37,7 +48,7 @@ export const updateEvent = async (eventKey: string, data: Partial<Event>) => {
 
 export const deleteEvent = async (key: string) => {
   try {
-    const ref = doc(db, `events/${key}`);
+    const ref = doc(db, 'events', key);
     await updateDoc(ref, {
       deleted: true,
     });
@@ -47,30 +58,20 @@ export const deleteEvent = async (key: string) => {
   }
 };
 
-export const fetchActiveEvents = async (): Promise<Events> => {
+export const fetchEventsByID = async (uid: string): Promise<Events> => {
   try {
-    const userID = getAuth().currentUser?.uid;
-    if (!userID) {
-      throw new Error('User UID not found.');
-    }
-
-    const eventsQuery = query(eventsCollection, where('deleted', '==', false));
-
-    const snapshot = await getDocs(eventsQuery);
-
-    if (snapshot.empty) {
-      throw new Error('User does not have active events.');
-    }
-
+    const _collection = collection(db, `events`);
+    const _q = query(
+      _collection,
+      where('deleted', '==', false),
+      where('date', '>=', Timestamp.now()),
+      where('userUid', '==', uid),
+    );
+    const snapshot = await getDocs(_q);
     const events = snapshot.docs.map(doc => doc.data());
     return events as Events;
   } catch (error) {
+    console.log('FETCHING');
     throw error;
   }
-};
-
-export const filterUpcomingEvents = (events: Events) => {
-  return Object.values(events).filter(event => {
-    return event.date!.seconds >= Date.now();
-  });
 };

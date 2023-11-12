@@ -10,7 +10,6 @@ import { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomToast from '@src/components/CustomToast';
-import { useAppDispatch, useAppSelector } from '@src/redux/store';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '@src/constants/Colors';
 import FormikObserver from '@src/utils/FormikObserver';
@@ -21,6 +20,7 @@ import { updateEvent } from '@src/redux/events/events.actions';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Timestamp } from 'firebase/firestore';
 import { Event, Theme } from '@src/models';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 

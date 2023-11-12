@@ -57,9 +57,9 @@ export const verifyUser = createAsyncThunk(
 
 export const loadConnectedUsers = createAsyncThunk(
   'auth/loadConnectedUsers',
-  async (_, { rejectWithValue }) => {
+  async (uid: string, { rejectWithValue }) => {
     try {
-      return await api.loadConnectedUsers();
+      return await api.loadConnectedUsers(uid);
     } catch (error) {
       return rejectWithValue(error);
     }

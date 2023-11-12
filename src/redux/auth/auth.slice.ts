@@ -73,7 +73,8 @@ export const authSlice = createSlice({
         state.status = 'failed';
       })
       .addCase(action.addConnectedUser.fulfilled, (state, action: PayloadAction<ConnectedUser>) => {
-        state.connectedUsers.push(action.payload);
+        const newUser = action.payload;
+        state.connectedUsers = [...state.connectedUsers, newUser];
       })
       .addCase(action.deleteConnectedUser.fulfilled, (state, action: PayloadAction<string>) => {
         state.connectedUsers = state.connectedUsers.filter(

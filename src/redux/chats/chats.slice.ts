@@ -26,15 +26,15 @@ export const chatsSlice = createSlice({
     },
     changeActiveChat: (state, action: PayloadAction<string>) => {
       const userID = action.payload;
-      state.chats = state.chats.map(user => ({
-        ...user,
-        active: user.userID === userID ? !user.active : false,
+      state.chats = state.chats.map(chat => ({
+        ...chat,
+        active: chat.users.findIndex(user => user.uid === userID) === -1 ? false : true,
       }));
     },
   },
   extraReducers: builder => {
     builder.addCase(action.loadChats.fulfilled, (state, action: PayloadAction<any>) => {
-      state.chats = action.payload.chatUsers;
+      state.chats = action.payload.chats;
       state.unseenMessages = action.payload.unseenMessages;
     });
     builder.addCase(action.addChat.fulfilled, (state, action: PayloadAction<Chat>) => {

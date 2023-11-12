@@ -5,7 +5,7 @@ import { t } from '@src/localization/Localization';
 import { ConnectedUser, ConnectedUsers } from '@src/models';
 import { addConnectedUser } from '@src/redux/auth/auth.actions';
 import { addChat } from '@src/redux/chats/chats.actions';
-import { useAppDispatch, useAppSelector } from '@src/redux/store';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 

@@ -4,8 +4,8 @@ import { navigate } from '@navigation/navigationUtils';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
-import { useAppSelector } from '@src/redux/store';
 import { Event, Events, Theme } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 interface UpcomingEventsProps {
   events: Events;

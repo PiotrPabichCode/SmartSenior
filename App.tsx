@@ -5,7 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Toast from 'react-native-toast-message';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Provider } from 'react-redux';
-import { store } from 'src/redux/store';
+import store from '@src/redux/store';
 import { auth } from './firebaseConfig';
 import { navigationRef } from './src/navigation/navigationUtils';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -50,8 +50,8 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, async user => {
       await store.dispatch(verifyUser(user));
       if (user) {
-        await store.dispatch(loadEvents());
-        await store.dispatch(loadConnectedUsers());
+        await store.dispatch(loadEvents(user.uid));
+        await store.dispatch(loadConnectedUsers(user.uid));
         await store.dispatch(loadChats());
       } else {
         store.dispatch(logout());

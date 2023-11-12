@@ -3,8 +3,8 @@ import { SpeedDial } from '@rneui/themed';
 import { navigate } from '@src/navigation/navigationUtils';
 import { generateEvents } from '@src/helpers/generateEvents';
 import { t } from '@src/localization/Localization';
-import { useAppSelector } from '@src/redux/store';
 import { Roles } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 const SpeedDialMenu = (props: any) => {
   const role = useAppSelector(state => state.auth.user?.role);
@@ -17,7 +17,7 @@ const SpeedDialMenu = (props: any) => {
         setOpen(!open);
         break;
       case 'ADD_KEEPER':
-        // navigate('AddKeeper'); // TODO
+        navigate('AddConnectedUser'); // TODO
         setOpen(!open);
         // generateEvents();
         break;

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Agenda, AgendaEntry, AgendaSchedule, DateData } from 'react-native-calendars';
 import { navigate } from '@src/navigation/navigationUtils';
 import moment from 'moment';
-import { Events } from '@src/redux/events/events.types';
+import { Events } from '@src/models';
 import { connect } from 'react-redux';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';

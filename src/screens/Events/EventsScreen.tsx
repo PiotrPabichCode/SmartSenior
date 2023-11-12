@@ -1,10 +1,10 @@
 import { StyleSheet, Text } from 'react-native';
 import EventItem from '@src/screens/Events/EventItem';
-import { useAppSelector } from '@src/redux/store';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
 import { Events, Theme } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 const EventsScreen = () => {
   const events: Events = useAppSelector(state => state.events.events);

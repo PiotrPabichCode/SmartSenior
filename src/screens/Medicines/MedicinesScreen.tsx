@@ -7,10 +7,10 @@ import { buildRequest } from '@utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { useAppSelector } from '@src/redux/store';
 import Colors from '@src/constants/Colors';
 import { Theme } from '@src/models';
 import CustomDivider from '@src/components/CustomDivider';
+import { useAppSelector } from '@src/redux/types';
 
 const MedicinesScreen = () => {
   const [items, setItems] = useState([]);

@@ -5,8 +5,8 @@ import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import Icons from '@src/components/Icons';
 import Colors from '@src/constants/Colors';
-import { useAppSelector } from '@src/redux/store';
 import { Theme } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 const HomeButtons = () => {
   const theme: Theme = useAppSelector(state => state.auth.theme);

@@ -2,7 +2,7 @@ import AuthNavigator from './AuthNavigator';
 import RootNavigator from './RootNavigator';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
-import { useAppSelector } from '../redux/store';
+import { useAppSelector } from '@src/redux/types';
 
 const AppNavigator = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();

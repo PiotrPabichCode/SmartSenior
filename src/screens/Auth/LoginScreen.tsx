@@ -6,11 +6,11 @@ import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomToast from '@src/components/CustomToast';
-import { useAppDispatch } from '@redux/store';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { signIn } from '@src/redux/auth/auth.actions';
 import { loadEvents } from '@src/redux/events/events.actions';
+import { useAppDispatch } from '@src/redux/types';
 
 const LoginScreen = () => {
   const dispatch = useAppDispatch();
@@ -46,21 +46,8 @@ const LoginScreen = () => {
           validationSchema={LoginSchema}
           onSubmit={async values => {
             try {
-              await dispatch(signIn(values))
-                .unwrap()
-                .then(() => {
-                  dispatch(loadEvents()).then(() => {
-                    navigate('BottomBar', {
-                      screen: 'Home',
-                    });
-                  });
-                })
-                .catch(() => {
-                  navigate('FirstLoginWizard');
-                })
-                .finally(() => {
-                  CustomToast('success', t('login.message.success.signIn'));
-                });
+              await dispatch(signIn(values)).unwrap();
+              CustomToast('success', t('login.message.success.signIn'));
             } catch (e) {
               console.log(e);
               CustomToast('error', t('login.message.error.signIn'));

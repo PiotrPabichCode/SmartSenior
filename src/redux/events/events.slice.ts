@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import * as action from './events.actions';
-import { RootState } from '../store';
+import type { RootState } from '../store';
 import { Events, Event } from '@src/models';
 
 export interface EventsState {

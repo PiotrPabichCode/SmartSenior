@@ -1,9 +1,9 @@
-import { User } from './User';
 import { ChatMessages } from './ChatMessage';
+import { ChatUsers } from './ChatUser';
 
 export interface Chat {
-  userID: string;
-  username: string;
+  key: string;
+  users: ChatUsers;
   messages: ChatMessages;
   active: boolean;
 }

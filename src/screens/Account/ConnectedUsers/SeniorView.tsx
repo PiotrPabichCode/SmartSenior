@@ -2,7 +2,7 @@ import CustomButton from '@src/components/CustomButton';
 import Icons from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
 import { goBack } from '@src/navigation/navigationUtils';
-import { useAppSelector } from '@src/redux/store';
+import { useAppSelector } from '@src/redux/types';
 import { View, Text, StyleSheet } from 'react-native';
 
 const mainColor = '#FFFAF0';

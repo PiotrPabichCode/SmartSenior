@@ -12,14 +12,17 @@ import BottomBarNavigator from './BottomBarNavigator';
 import CustomHeader from '@components/CustomHeader';
 import EventItemScreen from '@src/screens/Events/EventItemScreen';
 import { t } from '@src/localization/Localization';
-import { useAppSelector } from '@src/redux/store';
+import AddConnectedUser from '@src/screens/Account/ConnectedUsers/AddConnectedUser';
+import { validateUserData } from '@src/redux/auth/auth.api';
+import { User } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthNavigator = () => {
-  const status = useAppSelector(state => state.auth.status);
+  const user: User | null = useAppSelector(state => state.auth.user);
   return (
-    <Stack.Navigator initialRouteName={status === 'pending' ? 'FirstLoginWizard' : 'BottomBar'}>
+    <Stack.Navigator initialRouteName={validateUserData(user) ? 'BottomBar' : 'FirstLoginWizard'}>
       <Stack.Screen
         name="BottomBar"
         component={BottomBarNavigator}
@@ -30,6 +33,14 @@ const AuthNavigator = () => {
         component={FirstLoginWizard}
         options={{
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddConnectedUser"
+        component={AddConnectedUser}
+        options={{
+          headerShown: false,
+          presentation: 'transparentModal',
         }}
       />
       <Stack.Screen

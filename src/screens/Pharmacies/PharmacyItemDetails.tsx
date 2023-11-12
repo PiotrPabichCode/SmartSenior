@@ -1,8 +1,7 @@
 import { StyleSheet, Text, ScrollView } from 'react-native';
 import { Divider } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
-import { Theme } from '@src/redux/types';
-import { useAppSelector } from '@src/redux/store';
+import { Theme, useAppSelector } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 

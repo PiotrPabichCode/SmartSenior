@@ -3,7 +3,7 @@ import { Button } from '@rneui/themed';
 import WelcomeSvg from '@assets/welcome-image.svg';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
-import { useAppSelector } from '@src/redux/store';
+import { useAppSelector } from '@src/redux/types';
 
 const WelcomeScreen = () => {
   const status = useAppSelector(state => state.auth.status);

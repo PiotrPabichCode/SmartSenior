@@ -1,18 +1,11 @@
 import { Text } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { useAppDispatch } from '@src/redux/store';
 import { changeActiveChat } from '@src/redux/chats/chats.slice';
+import { useAppDispatch } from '@src/redux/types';
+import { ChatUser as User } from '@src/models';
 
-const ChatUser = ({
-  userID,
-  username,
-  active,
-}: {
-  userID: string;
-  username: string;
-  active: boolean;
-}) => {
+const ChatUser = ({ user, active }: { user: User; active: boolean }) => {
   const dispatch = useAppDispatch();
   return (
     <TouchableOpacity
@@ -26,8 +19,8 @@ const ChatUser = ({
         borderColor: 'blue',
         borderWidth: 1,
       }}
-      onPress={() => dispatch(changeActiveChat(userID))}>
-      <Text style={{ fontSize: 22, fontWeight: '500' }}>{username}</Text>
+      onPress={() => dispatch(changeActiveChat(user.uid))}>
+      <Text style={{ fontSize: 22, fontWeight: '500' }}>{user.username}</Text>
     </TouchableOpacity>
   );
 };

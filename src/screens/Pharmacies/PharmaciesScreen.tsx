@@ -7,10 +7,10 @@ import CustomDropdown from '@components/CustomDropdown';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { buildRequest } from '@src/utils/utils';
-import { useAppSelector } from '@src/redux/store';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { Theme } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 const PharmaciesScreen = () => {
   const theme: Theme = useAppSelector(state => state.auth.theme);

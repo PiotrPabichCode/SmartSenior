@@ -17,6 +17,20 @@
     "chat": "Chat",
     "profile": "Profile"
   },
+  "addConnectedUser": {
+    "title": "New Senior",
+    "add": "Add New Senior",
+    "exit": "Cancel"
+  },
+  "message": {
+    "success": {
+      "addConnectedUser": "Added a new user"
+    },
+    "error": {
+      "addConnectedUser": "Failed to add a new user",
+      "invalidEmail": "Invalid email address"
+    }
+  },
   "speedDial": {
     "addEvent": "Add Event",
     "addKeeper": "Add Caregiver"

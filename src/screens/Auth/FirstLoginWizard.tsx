@@ -7,16 +7,16 @@ import CustomDropdown from '@components/CustomDropdown';
 import CustomToast from '@src/components/CustomToast';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import Icons from '@src/components/Icons';
-import { useAppDispatch, useAppSelector } from '@redux/store';
 import { genders, roles } from '@src/redux/auth/auth.constants';
 import { t } from '@src/localization/Localization';
-import { logout, updateUserData } from '@src/redux/auth/auth.actions';
+import { updateUserData } from '@src/redux/auth/auth.actions';
 import { navigate, navigationRef } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { Timestamp } from 'firebase/firestore';
 import { convertTimestampToDate, dateToEpoch } from '@src/utils/utils';
 import { User, Roles, Genders } from '@src/models';
-import { validateUserData } from '@src/redux/auth/auth.api';
+import { validateUserData, logout } from '@src/redux/auth/auth.api';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 
 const FirstLoginWizard = () => {
   const dispatch = useAppDispatch();
@@ -35,13 +35,13 @@ const FirstLoginWizard = () => {
     return <CustomActivityIndicator />;
   }
 
-  if (validateUserData(user!)) {
+  if (validateUserData(user)) {
     return null;
   }
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.logout} onPress={() => dispatch(logout())}>
+      <TouchableOpacity style={styles.logout} onPress={() => logout()}>
         <Text style={styles.logoutTitle}>{t('firstLoginWizard.button.title.logout')}</Text>
         <Icons name="logout-wizard" />
       </TouchableOpacity>
@@ -63,10 +63,10 @@ const FirstLoginWizard = () => {
                 .then(async () => {
                   try {
                     await dispatch(updateUserData({ uid: user?.uid!, values: values })).unwrap();
-                    CustomToast('success', t('success.saveChanges'));
                     navigate('BottomBar', {
                       screen: 'Home',
                     });
+                    CustomToast('success', t('success.saveChanges'));
                   } catch (error) {
                     CustomToast('error', t('error.unknown'));
                   }

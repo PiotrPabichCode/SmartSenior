@@ -4,9 +4,9 @@ import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { useAppSelector } from '@src/redux/store';
 import Colors from '@src/constants/Colors';
 import { Theme } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 const MedicineItemDetails = ({ route }: any) => {
   const theme: Theme = useAppSelector(state => state.auth.theme);

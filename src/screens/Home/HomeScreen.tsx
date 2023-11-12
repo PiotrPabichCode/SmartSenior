@@ -1,12 +1,12 @@
 import { Text, StyleSheet } from 'react-native';
 import UpcomingEvents from '@src/screens/Home/UpcomingEvents';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
-import { useAppSelector } from '@redux/store';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import HomeButtons from './HomeButtons';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { Events, User, Theme } from '@src/models';
+import { useAppSelector } from '@src/redux/types';
 
 const HomeScreen = () => {
   const events: Events = useAppSelector(state => state.events.events);

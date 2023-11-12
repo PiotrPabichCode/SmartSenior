@@ -1,6 +1,5 @@
 import { StyleSheet, Text } from 'react-native';
 import AccountItemDetails from './AccountItemDetails';
-import { useAppDispatch, useAppSelector } from '@redux/store';
 import { changeUserLanguage, convertTimestampToDate } from '@src/utils/utils';
 import Localization, { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
@@ -9,6 +8,7 @@ import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersS
 import { changeLanguage } from '@src/redux/auth/auth.slice';
 import { User, Theme } from '@src/models';
 import { goBack } from '@src/navigation/navigationUtils';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();

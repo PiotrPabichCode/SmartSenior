@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import * as action from './chats.actions';
 import { Chat, Chats } from '@src/models';
+import type { RootState } from '../store';
 
 export interface ChatState {
   chats: Chats;
@@ -16,10 +17,6 @@ export const chatsSlice = createSlice({
   name: 'chats',
   initialState,
   reducers: {
-    updateMessages: (state, action: PayloadAction<Chat>) => {
-      const user = action.payload;
-      state.chats = [...state.chats, user];
-    },
     clearChats: state => {
       state.chats = [];
       state.unseenMessages = 0;
@@ -44,6 +41,14 @@ export const chatsSlice = createSlice({
   },
 });
 
-export const { updateMessages, changeActiveChat, clearChats } = chatsSlice.actions;
+export const { changeActiveChat, clearChats } = chatsSlice.actions;
+
+export const selectChatsStore = (state: RootState) => state.chats;
+export const selectChats = (state: RootState) => state.chats.chats;
+export const selectActiveChat = (state: RootState) => {
+  const chats = selectChats(state);
+  return chats.find(chat => chat.active);
+};
+export const selectChatsUnseenMessages = (state: RootState) => state.chats.unseenMessages;
 
 export default chatsSlice.reducer;

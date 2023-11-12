@@ -8,6 +8,7 @@ import { Platform } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
 import { ConnectedUsers, User } from '@src/models';
 import { getConnectedUsers, getUser } from '@src/redux/selectors';
+import { selectConnectedUserById, selectUser } from '@src/redux/auth/auth.slice';
 
 export const IS_ANDROID = Platform.OS === 'android';
 export const buildRequest = (baseUrl: string, params: any) => {
@@ -99,9 +100,12 @@ export const renderDayValue = (value: number, shortTitle: boolean) => {
 };
 
 export const createUsername = (userID: string) => {
-  const connectedUsers: ConnectedUsers = getConnectedUsers(store.getState());
-  const user = connectedUsers.find(user => user.user.uid === userID);
-  return user?.user.firstName ? user?.user.firstName : 'user';
+  const user = selectUser(store.getState());
+  if (user?.uid === userID) {
+    return user.firstName!;
+  }
+  const connectedUser = selectConnectedUserById(store.getState(), userID);
+  return connectedUser?.user.firstName ? connectedUser.user.firstName : 'user';
 };
 
 export const getUserEmail = () => {

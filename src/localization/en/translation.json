@@ -33,7 +33,7 @@
   },
   "speedDial": {
     "addEvent": "Add Event",
-    "addKeeper": "Add Caregiver"
+    "addSenior": "Add Senior"
   },
   "medicines": {
     "title": "Medicines",
@@ -117,10 +117,15 @@
       }
     }
   },
+  "chat": {
+    "noActiveChats": "You have no active chats"
+  },
   "connectedUsers": {
     "keeperTitle": "Connected Users",
     "placeholder": "Enter senior's email address...",
     "seniorTitle": "Keeper's Information:",
+    "callKeeper": "Call caretaker",
+    "messageKeeper": "Message caretaker",
     "message": {
       "success": {
         "add": "Successfully added a new user"

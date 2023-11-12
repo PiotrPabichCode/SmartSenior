@@ -14,13 +14,13 @@ import EventItemScreen from '@src/screens/Events/EventItemScreen';
 import { t } from '@src/localization/Localization';
 import AddConnectedUser from '@src/screens/Account/ConnectedUsers/AddConnectedUser';
 import { validateUserData } from '@src/redux/auth/auth.api';
-import { User } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
+import { selectUser } from '@src/redux/auth/auth.slice';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthNavigator = () => {
-  const user: User | null = useAppSelector(state => state.auth.user);
+  const user = useAppSelector(state => selectUser(state));
   return (
     <Stack.Navigator initialRouteName={validateUserData(user) ? 'BottomBar' : 'FirstLoginWizard'}>
       <Stack.Screen

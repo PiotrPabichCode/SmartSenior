@@ -1,7 +1,8 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 import Localization from '@src/localization/Localization';
 import * as action from './auth.actions';
 import { ConnectedUser, ConnectedUsers, User, Theme } from '@src/models';
+import type { RootState } from '../store';
 
 export interface AuthState {
   user: User | null;
@@ -85,5 +86,29 @@ export const authSlice = createSlice({
 });
 
 export const { changeLanguage, changeTheme, logout } = authSlice.actions;
+
+export const selectAuthStore = (state: RootState) => state.auth;
+export const selectUser = (state: RootState) => state.auth.user;
+export const selectUserID = (state: RootState) => {
+  const user = selectUser(state);
+  return user?.uid;
+};
+export const selectUserConnectedUsersIds = (state: RootState) => {
+  const user = selectUser(state);
+  return user?.connectedUsersIds;
+};
+export const selectUserConnectedUserIdById = (state: RootState, uid: string) => {
+  const connectedUsersIds = selectUserConnectedUsersIds(state);
+  return connectedUsersIds?.find(id => id === uid);
+};
+export const selectLanguage = (state: RootState) => state.auth.language;
+export const selectTheme = (state: RootState) => state.auth.theme;
+export const selectAuthStatus = (state: RootState) => state.auth.status;
+export const selectAuthError = (state: RootState) => state.auth.error;
+export const selectConnectedUsers = (state: RootState) => state.auth.connectedUsers;
+export const selectConnectedUserById = (state: RootState, uid: string) => {
+  const connectedUsers = selectConnectedUsers(state);
+  return connectedUsers.find(user => user.user.uid === uid);
+};
 
 export default authSlice.reducer;

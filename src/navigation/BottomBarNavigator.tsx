@@ -12,13 +12,14 @@ import { t } from '@src/localization/Localization';
 import ChatScreen from '@src/screens/Chat/ChatScreen';
 import { navigationRef } from './navigationUtils';
 import { useAppSelector } from '@src/redux/types';
+import { selectChatsUnseenMessages } from '@src/redux/chats/chats.slice';
+import { selectEvents } from '@src/redux/events/events.slice';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
 const BottomBarNavigator = () => {
-  const events = useAppSelector(state => state.events.events);
-  const chats = useAppSelector(state => state.chats.chats);
-  const unseenMessages = useAppSelector(state => state.chats.unseenMessages);
+  const events = useAppSelector(state => selectEvents(state));
+  const unseenMessages = useAppSelector(state => selectChatsUnseenMessages(state));
 
   const renderSpeedDial = () => {
     const route = navigationRef.getCurrentRoute()?.name;
@@ -60,19 +61,16 @@ const BottomBarNavigator = () => {
             header: () => <CustomHeader title={t('bottomNav.events')} more={true} />,
           }}
         />
-        {chats.length > 0 && (
-          <Tab.Screen
-            name="Chat"
-            component={ChatScreen}
-            options={{
-              tabBarLabel: t('bottomNav.chat'),
-              tabBarIcon: ({ focused }) =>
-                renderIcon({ name: 'chat-bottom-nav', focused: focused }),
-              tabBarBadge: unseenMessages ? unseenMessages : undefined,
-              header: () => <CustomHeader title={t('bottomNav.chat')} />,
-            }}
-          />
-        )}
+        <Tab.Screen
+          name="Chat"
+          component={ChatScreen}
+          options={{
+            tabBarLabel: t('bottomNav.chat'),
+            tabBarIcon: ({ focused }) => renderIcon({ name: 'chat-bottom-nav', focused: focused }),
+            tabBarBadge: unseenMessages ? unseenMessages : undefined,
+            header: () => <CustomHeader title={t('bottomNav.chat')} />,
+          }}
+        />
         <Tab.Screen
           name="Account"
           component={AccountScreen}

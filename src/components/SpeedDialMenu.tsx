@@ -16,7 +16,7 @@ const SpeedDialMenu = (props: any) => {
         navigate('CreateEvent');
         setOpen(!open);
         break;
-      case 'ADD_KEEPER':
+      case 'ADD_SENIOR':
         navigate('AddConnectedUser'); // TODO
         setOpen(!open);
         // generateEvents();
@@ -41,8 +41,8 @@ const SpeedDialMenu = (props: any) => {
       {role !== Roles.SENIOR ? (
         <SpeedDial.Action
           icon={{ name: 'add', color: '#fff' }}
-          title={t('speedDial.addKeeper')}
-          onPress={() => onClickAction('ADD_KEEPER')}
+          title={t('speedDial.addSenior')}
+          onPress={() => onClickAction('ADD_SENIOR')}
         />
       ) : (
         <></>

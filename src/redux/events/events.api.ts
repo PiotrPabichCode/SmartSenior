@@ -71,7 +71,6 @@ export const fetchEventsByID = async (uid: string): Promise<Events> => {
     const events = snapshot.docs.map(doc => doc.data());
     return events as Events;
   } catch (error) {
-    console.log('FETCHING');
     throw error;
   }
 };

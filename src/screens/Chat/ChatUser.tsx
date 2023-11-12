@@ -1,5 +1,4 @@
 import { Text } from 'react-native';
-import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { changeActiveChat } from '@src/redux/chats/chats.slice';
 import { useAppDispatch } from '@src/redux/types';
@@ -10,7 +9,7 @@ const ChatUser = ({ user, active }: { user: User; active: boolean }) => {
   return (
     <TouchableOpacity
       style={{
-        backgroundColor: active ? 'lightblue' : '',
+        backgroundColor: active ? 'lightblue' : undefined,
         flex: 1,
         height: '100%',
         alignItems: 'center',

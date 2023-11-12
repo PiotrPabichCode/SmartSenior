@@ -33,7 +33,7 @@
   },
   "speedDial": {
     "addEvent": "Dodaj wydarzenie",
-    "addKeeper": "Dodaj opiekuna"
+    "addSenior": "Dodaj seniora"
   },
   "medicines": {
     "title": "Lista leków",
@@ -117,10 +117,15 @@
       }
     }
   },
+  "chat": {
+    "noActiveChats": "Nie masz aktywnych czatów"
+  },
   "connectedUsers": {
     "title": "Połączone osoby",
     "placeholder": "Wpisz adres e-mail seniora...",
     "seniorTitle": "Dane opiekuna:",
+    "callKeeper": "Zadzwoń do opiekuna",
+    "messageKeeper": "Napisz do opiekuna",
     "message": {
       "success": {
         "add": "Pomyślnie dodano nowego użytkownika"

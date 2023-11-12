@@ -26,7 +26,6 @@ export type RootStackParamList = {
   EventItem: {
     eventKey: string;
   };
-  AddKeeper: undefined;
 };
 
 export type BottomBarParamList = {

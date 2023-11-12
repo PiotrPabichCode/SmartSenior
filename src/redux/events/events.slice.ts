@@ -50,6 +50,7 @@ export const eventsSlice = createSlice({
 
 export const { clearEvents } = eventsSlice.actions;
 
-export const getEvents = (state: RootState) => state.events.events;
+export const selectEventsStore = (state: RootState) => state.events;
+export const selectEvents = (state: RootState) => state.events.events;
 
 export default eventsSlice.reducer;

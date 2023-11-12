@@ -1,67 +1,58 @@
-import React, { useCallback, useState, useLayoutEffect } from 'react';
-import { auth, db } from 'firebaseConfig';
-import {
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  orderBy,
-  onSnapshot,
-  doc,
-  updateDoc,
-  arrayUnion,
-} from 'firebase/firestore';
+import { useCallback, useState, useLayoutEffect } from 'react';
+import { db } from 'firebaseConfig';
+import { collection, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { IMessage } from 'react-native-gifted-chat';
 import ChatList from './ChatList';
-import { getAuth } from 'firebase/auth';
-import { ChatMessage, Chats } from '@src/models';
-import { goBack } from '@src/navigation/navigationUtils';
 import { useAppSelector } from '@src/redux/types';
+import { selectActiveChat } from '@src/redux/chats/chats.slice';
+import { selectUser } from '@src/redux/auth/auth.slice';
+import EmptyChat from './EmptyChat';
 
 const ChatScreen = () => {
-  const chats: Chats = useAppSelector(state => state.chats.chats);
-  const currentChat = chats.length > 0 ? chats.find(chat => chat.active) : null;
+  const activeChat = useAppSelector(state => selectActiveChat(state));
+  const user = useAppSelector(state => selectUser(state));
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const [docRef, setDocRef] = useState('');
 
-  if (!currentChat) {
-    goBack();
-    return null;
+  if (!activeChat) {
+    return <EmptyChat />;
   }
 
   useLayoutEffect(() => {
-    setMessages(
-      currentChat.messages.map(message => ({
-        _id: message._id,
-        createdAt: message.createdAt.toDate(),
-        text: message.text,
-        user: message.user,
-      })) as IMessage[],
+    const q = query(
+      collection(db, 'chats', activeChat.key, 'messages'),
+      orderBy('createdAt', 'desc'),
     );
+
+    const unsubscribe = onSnapshot(q, querySnapshot => {
+      setMessages(
+        querySnapshot.docs.map(doc => ({
+          _id: doc.data()._id,
+          createdAt: doc.data().createdAt.toDate(),
+          text: doc.data().text,
+          user: doc.data().user,
+        })) as IMessage[],
+      );
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const onSend = useCallback((_messages = []) => {
-    const { _id, createdAt, text, user } = _messages[0];
-    const fromUserID = getAuth().currentUser?.uid!;
-    const toUserID = currentChat.users.find(user => user.uid !== fromUserID)?.uid!;
+  const onSend = useCallback((messages = []) => {
+    if (!activeChat) {
+      return;
+    }
+    const { _id, createdAt, text, user } = messages[0];
 
-    const chatMessage: ChatMessage = {
+    const chatMessage = {
       _id: _id,
       createdAt: createdAt,
       text: text,
       user: user,
-      toUserID: toUserID,
-      fromUserID: fromUserID,
       read: false,
     };
-    const _doc = doc(db, 'chats', currentChat.key);
-    updateDoc(_doc, {
-      messages: arrayUnion(chatMessage),
-    });
 
-    messages.push(_messages[0]);
-    setMessages(messages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+    addDoc(collection(db, 'chats', activeChat.key, 'messages'), chatMessage);
   }, []);
 
   return (
@@ -70,11 +61,10 @@ const ChatScreen = () => {
       <GiftedChat
         messages={messages}
         showAvatarForEveryMessage={true}
-        onSend={messages => onSend(messages)}
+        onSend={messages => onSend(messages as never)}
         user={{
-          _id: auth?.currentUser?.email!,
-          name: auth?.currentUser?.displayName!,
-          avatar: auth?.currentUser?.photoURL!,
+          _id: user?.email!,
+          name: user?.firstName!,
         }}
       />
     </>

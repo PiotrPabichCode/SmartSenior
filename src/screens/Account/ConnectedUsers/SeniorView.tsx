@@ -40,17 +40,19 @@ const SeniorView = () => {
       <View style={styles.buttons}>
         <CustomButton
           onPress={() => console.log('call keeper')}
-          title={'Zadzwoń do opiekuna'}
-          titleStyle={{ fontSize: 20 }}
+          title={t('connectedUsers.callKeeper')}
+          titleStyle={{ fontSize: 18 }}
           color={mainColor}
+          style={{ gap: 20 }}
           backgroundColor={'green'}
           icon={<Icons name="phone" color={mainColor} size={24} />}
         />
         <CustomButton
           onPress={() => console.log('message keeper')}
-          title={'Napisz do opiekuna'}
-          titleStyle={{ fontSize: 20 }}
+          title={t('connectedUsers.messageKeeper')}
+          titleStyle={{ fontSize: 18 }}
           color={mainColor}
+          style={{ gap: 20 }}
           backgroundColor={'black'}
           icon={<Icons name="chat" color={mainColor} size={24} />}
         />

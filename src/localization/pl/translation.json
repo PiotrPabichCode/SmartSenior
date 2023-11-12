@@ -121,7 +121,7 @@
     "noActiveChats": "Nie masz aktywnych czatów"
   },
   "connectedUsers": {
-    "title": "Połączone osoby",
+    "keeperTitle": "Połączone osoby",
     "placeholder": "Wpisz adres e-mail seniora...",
     "seniorTitle": "Dane opiekuna:",
     "callKeeper": "Zadzwoń do opiekuna",
@@ -264,6 +264,20 @@
         "notes": "Twoje notatki"
       }
     }
+  },
+  "seniorDashboard": {
+    "personal": "Dane osobowe",
+    "name": "Imię: ",
+    "surname": "Nazwisko: ",
+    "email": "E-mail: ",
+    "gender": "Płeć: ",
+    "age": "Wiek: ",
+    "availableActions": "Dostępne akcje",
+    "localization": "Wyświetl lokalizację użytkownika",
+    "upcomingEvents": "Nadchodzące wydarzenia",
+    "execute": "Wykonaj",
+    "remind": "Przypomnij",
+    "delete": "Usuń"
   },
   "medicineItem": {
     "commonName": "Nazwa powszechna",

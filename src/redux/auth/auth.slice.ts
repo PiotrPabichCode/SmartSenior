@@ -101,6 +101,7 @@ export const selectUserConnectedUserIdById = (state: RootState, uid: string) => 
   const connectedUsersIds = selectUserConnectedUsersIds(state);
   return connectedUsersIds?.find(id => id === uid);
 };
+export const selectRole = (state: RootState) => state.auth.user?.role;
 export const selectLanguage = (state: RootState) => state.auth.language;
 export const selectTheme = (state: RootState) => state.auth.theme;
 export const selectAuthStatus = (state: RootState) => state.auth.status;
@@ -108,6 +109,7 @@ export const selectAuthError = (state: RootState) => state.auth.error;
 export const selectConnectedUsers = (state: RootState) => state.auth.connectedUsers;
 export const selectConnectedUserById = (state: RootState, uid: string) => {
   const connectedUsers = selectConnectedUsers(state);
+  console.log(connectedUsers, uid);
   return connectedUsers.find(user => user.user.uid === uid);
 };
 

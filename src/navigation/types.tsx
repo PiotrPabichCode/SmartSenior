@@ -8,6 +8,10 @@ export type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
   FirstLoginWizard: undefined;
+  SeniorDashboard: {
+    uid: string;
+    title: string;
+  };
   BottomBar: NavigatorScreenParams<BottomBarParamList>;
   AccountItemDetails: {
     screenType: string;

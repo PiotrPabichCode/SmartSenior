@@ -1,27 +1,41 @@
-import { Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { changeActiveChat } from '@src/redux/chats/chats.slice';
 import { useAppDispatch } from '@src/redux/types';
 import { ChatUser as User } from '@src/models';
 
-const ChatUser = ({ user, active }: { user: User; active: boolean }) => {
+const ChatUser = ({ user, active, single }: { user: User; active: boolean; single?: boolean }) => {
   const dispatch = useAppDispatch();
+
+  if (single) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.label}>{user.username}</Text>
+      </View>
+    );
+  }
+
   return (
     <TouchableOpacity
-      style={{
-        backgroundColor: active ? 'lightblue' : undefined,
-        flex: 1,
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 25,
-        borderColor: 'blue',
-        borderWidth: 1,
-      }}
+      style={{ ...styles.container, backgroundColor: active ? 'lightblue' : undefined }}
       onPress={() => dispatch(changeActiveChat(user.uid))}>
-      <Text style={{ fontSize: 22, fontWeight: '500' }}>{user.username}</Text>
+      <Text style={styles.label}>{user.username}</Text>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  label: { fontSize: 22, fontWeight: '500' },
+  container: {
+    backgroundColor: 'lightblue',
+    flex: 1,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    borderColor: 'blue',
+    borderWidth: 1,
+  },
+});
 
 export default ChatUser;

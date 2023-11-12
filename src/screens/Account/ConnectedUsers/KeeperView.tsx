@@ -3,7 +3,9 @@ import Icons from '@src/components/Icons';
 import Colors from '@src/constants/Colors';
 import { t } from '@src/localization/Localization';
 import { ConnectedUser, ConnectedUsers } from '@src/models';
+import { navigate } from '@src/navigation/navigationUtils';
 import { addConnectedUser } from '@src/redux/auth/auth.actions';
+import { selectConnectedUsers } from '@src/redux/auth/auth.slice';
 import { addChat } from '@src/redux/chats/chats.actions';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { useRef, useState } from 'react';
@@ -11,7 +13,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 
 const KeeperView = () => {
   const dispatch = useAppDispatch();
-  const connectedUsers: ConnectedUsers = useAppSelector(state => state.auth.connectedUsers);
+  const connectedUsers: ConnectedUsers = useAppSelector(state => selectConnectedUsers(state));
   const [email, setEmail] = useState<string>('');
   const emailRef = useRef<TextInput | null>(null);
 
@@ -26,18 +28,24 @@ const KeeperView = () => {
   const mapConnectedUsers = connectedUsers.map((user: ConnectedUser, index: number) => {
     const userData = user.user;
     return (
-      <TouchableOpacity style={styles.mainContainer} key={index}>
+      <TouchableOpacity
+        style={styles.mainContainer}
+        key={index}
+        onPress={() =>
+          navigate('SeniorDashboard', {
+            uid: user.user.uid,
+            title: user.user.firstName + ' ' + user.user.lastName,
+          })
+        }>
         <View style={styles.avatar}>
           <Text style={styles.avatarLabel}>
             {createUserLabel(userData.firstName, userData.lastName)}
           </Text>
         </View>
         <View style={styles.keeperContainer}>
-          <View style={styles.userContainer}>
-            <Text style={styles.keeperText} numberOfLines={1}>
-              {userData.firstName} {userData.lastName}
-            </Text>
-          </View>
+          <Text style={styles.keeperText} numberOfLines={1}>
+            {userData.firstName} {userData.lastName}
+          </Text>
 
           <Text style={styles.keeperText} numberOfLines={1}>
             E-mail: {userData.email}
@@ -51,10 +59,10 @@ const KeeperView = () => {
     try {
       const connectedUser: ConnectedUser = await dispatch(addConnectedUser(email)).unwrap();
       await dispatch(addChat(connectedUser.user)).unwrap();
-      CustomToast('success', 'connectedUsers.message.success.add');
+      CustomToast('success', t('connectedUsers.message.success.add'));
     } catch (e) {
       console.log(e);
-      CustomToast('success', 'connectedUsers.message.error.add');
+      CustomToast('success', t('connectedUsers.message.error.add'));
     }
   };
 
@@ -81,7 +89,7 @@ const KeeperView = () => {
         </View>
       </View>
       {connectedUsers.length > 0 && (
-        <View style={[styles.container, styles.view]}>
+        <View style={styles.container}>
           <Text style={styles.title}>{t('connectedUsers.keeperTitle')}</Text>
           <View style={[styles.container, styles.view]}>{mapConnectedUsers}</View>
         </View>
@@ -92,9 +100,9 @@ const KeeperView = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {
+    minWidth: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
     borderWidth: 1,
     borderColor: 'lightblue',
     borderRadius: 25,
@@ -103,6 +111,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 50,
     height: 50,
+    marginRight: 20,
     backgroundColor: 'darkblue',
     borderRadius: 25,
     alignItems: 'center',
@@ -114,21 +123,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   keeperContainer: {
-    alignItems: 'center',
-    gap: 5,
-  },
-  userContainer: {
-    width: '100%',
-    flexDirection: 'row',
     gap: 10,
   },
   keeperText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
   },
   container: {
-    width: '100%',
-    padding: 10,
     gap: 20,
     alignItems: 'center',
   },

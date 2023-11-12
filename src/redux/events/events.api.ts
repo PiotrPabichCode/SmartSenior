@@ -10,13 +10,10 @@ import {
   where,
 } from 'firebase/firestore';
 import { Event, Events } from '@src/models';
-import { getUserID } from '../selectors';
-import store from '../store';
 
 export const createEvent = async (newEventData: Event) => {
   try {
-    const userID = getUserID(store.getState());
-    const _collection = collection(db, 'events', userID!);
+    const _collection = collection(db, 'events');
     const response = await addDoc(_collection, newEventData);
     if (!response || !response.id) {
       throw new Error('Unable to add new event.');
@@ -24,7 +21,7 @@ export const createEvent = async (newEventData: Event) => {
     const key = response.id;
     const currentEventRef = doc(db, response.path);
     await updateDoc(currentEventRef, {
-      key: `${userID}/${key}`,
+      key: key,
     });
     newEventData.key = key;
     return newEventData;

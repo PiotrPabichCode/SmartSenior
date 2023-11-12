@@ -265,6 +265,20 @@
       }
     }
   },
+  "seniorDashboard": {
+    "personal": "Personal Information",
+    "name": "Name: ",
+    "surname": "Surname: ",
+    "email": "Email: ",
+    "gender": "Gender: ",
+    "age": "Age: ",
+    "availableActions": "Available Actions",
+    "localization": "Display User's Location",
+    "upcomingEvents": "Upcoming Events",
+    "execute": "Execute",
+    "remind": "Remind",
+    "delete": "Delete"
+  },
   "medicineItem": {
     "commonName": "Common Name",
     "power": "Strength",

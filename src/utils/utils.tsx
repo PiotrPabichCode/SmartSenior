@@ -59,15 +59,6 @@ export function getUpdatedFields<T>(oldValue: T, newValue: Partial<T>): Partial<
   return updatedFields;
 }
 
-export const changeUserLanguage = (language: string) => {
-  try {
-    Localization.changeLanguage(language);
-    Calendar.changeLanguage(language);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const createUserLabel = () => {
   const user = getUser(store.getState());
   if (!user || !user.firstName || !user.lastName) {

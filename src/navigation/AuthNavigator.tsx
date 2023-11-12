@@ -16,6 +16,7 @@ import AddConnectedUser from '@src/screens/Account/ConnectedUsers/AddConnectedUs
 import { validateUserData } from '@src/redux/auth/auth.api';
 import { useAppSelector } from '@src/redux/types';
 import { selectUser } from '@src/redux/auth/auth.slice';
+import SeniorDashboard from '@src/screens/Account/ConnectedUsers/SeniorDashboard';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -42,6 +43,13 @@ const AuthNavigator = () => {
           headerShown: false,
           presentation: 'transparentModal',
         }}
+      />
+      <Stack.Screen
+        name="SeniorDashboard"
+        component={SeniorDashboard}
+        options={({ route }) => ({
+          header: () => <CustomHeader title={'Profil - ' + route.params.title} nested={true} />,
+        })}
       />
       <Stack.Screen
         name="AccountItemDetails"

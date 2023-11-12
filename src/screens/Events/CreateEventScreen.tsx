@@ -100,7 +100,6 @@ const CreateEventScreen = () => {
               onChangeText={handleChange('description')}
               value={values.description}
             />
-            {console.log(values.date)}
             <Button
               onPress={() => setShowDatePicker(true)}
               title={

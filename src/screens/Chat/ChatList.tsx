@@ -7,6 +7,17 @@ const ChatList = () => {
   const chats = useAppSelector(state => selectChats(state));
   const userID = useAppSelector(state => state.auth.user?.uid)!;
 
+  const renderUsers = () => {
+    if (chats.length === 1) {
+      const user = chats[0].users.find(user => user.uid !== userID);
+      return <ChatUser user={user!} active={true} single={true} />;
+    }
+    return chats.map((chat, index) => {
+      const user = chat.users.find(user => user.uid !== userID);
+      return <ChatUser key={index} user={user!} active={chat.active} />;
+    });
+  };
+
   return (
     <View style={{ borderBottomColor: 'black', borderBottomWidth: 0.8, paddingVertical: 10 }}>
       <ScrollView
@@ -18,10 +29,7 @@ const ChatList = () => {
         }}
         horizontal
         showsHorizontalScrollIndicator={false}>
-        {chats.map((chat, index) => {
-          const user = chat.users.find(user => user.uid !== userID);
-          return <ChatUser key={index} user={user!} active={chat.active} />;
-        })}
+        {renderUsers()}
       </ScrollView>
     </View>
   );

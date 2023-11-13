@@ -1,5 +1,4 @@
 import Colors from '@src/constants/Colors';
-import { Theme } from '@src/models';
 import { selectConnectedUserById, selectTheme } from '@src/redux/auth/auth.slice';
 import { useAppSelector } from '@src/redux/types';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
@@ -11,7 +10,7 @@ import { renderGender } from '@src/utils/utils';
 const SeniorDashboard = ({ route }: any) => {
   const { uid } = route.params;
   const user = useAppSelector(state => selectConnectedUserById(state, uid));
-  const theme: Theme = useAppSelector(state => selectTheme(state));
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
 

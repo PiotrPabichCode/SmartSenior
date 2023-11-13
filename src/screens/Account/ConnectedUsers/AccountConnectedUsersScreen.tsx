@@ -5,7 +5,7 @@ import { useAppSelector } from '@src/redux/types';
 import { selectRole } from '@src/redux/auth/auth.slice';
 
 const AccountConnectedUsersScreen = () => {
-  const role: string | undefined = useAppSelector(state => selectRole(state));
+  const role = useAppSelector(state => selectRole(state));
 
   switch (role) {
     case Roles.SENIOR:

@@ -24,11 +24,14 @@
   },
   "message": {
     "success": {
-      "addConnectedUser": "Added a new user"
+      "addConnectedUser": "Added a new senior",
+      "addTag": "Added a new tag"
     },
     "error": {
-      "addConnectedUser": "Failed to add a new user",
-      "invalidEmail": "Invalid email address"
+      "addConnectedUser": "Failed to add a new senior",
+      "invalidEmail": "Invalid email provided",
+      "duplicateTag": "A tag with the given name already exists",
+      "missingData": "Not all data provided"
     }
   },
   "speedDial": {
@@ -322,6 +325,18 @@
     "more": "See More",
     "execute": "Execute",
     "search": "Search"
+  },
+  "colorPickerAccept": "Accept the chosen color",
+  "tags": {
+    "title": "Your tags",
+    "new": "New tag",
+    "namePlaceholder": "Enter tag name",
+    "colorPlaceholder": "Select tag color",
+    "noAssignedTags": "No assigned tags.",
+    "description": "Tags provide the ability to filter events based on the tag. They enable effective categorization and organization, allowing users to easily find events that match specific interests, skills, or characteristics. Add a tag to enhance the filtering capabilities of your events!",
+    "addTitle": "Add a new tag",
+    "add": "Add",
+    "cancel": "Cancel"
   },
   "yes": "Yes",
   "no": "No",

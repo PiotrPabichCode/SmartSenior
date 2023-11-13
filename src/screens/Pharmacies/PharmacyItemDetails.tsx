@@ -1,12 +1,13 @@
 import { StyleSheet, Text, ScrollView } from 'react-native';
 import { Divider } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
-import { Theme, useAppSelector } from '@src/redux/types';
+import { useAppSelector } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 
 const PharmacyItemDetails = ({ route }: any) => {
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const renderDetail = (title: string, detail: string) => {
     return (

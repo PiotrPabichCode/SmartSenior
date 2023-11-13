@@ -10,18 +10,19 @@ import Icons from '@src/components/Icons';
 import { genders, roles } from '@src/redux/auth/auth.constants';
 import { t } from '@src/localization/Localization';
 import { updateUserData } from '@src/redux/auth/auth.actions';
-import { navigate, navigationRef } from '@src/navigation/navigationUtils';
+import { navigate } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { Timestamp } from 'firebase/firestore';
 import { convertTimestampToDate, dateToEpoch } from '@src/utils/utils';
-import { User, Roles, Genders } from '@src/models';
+import { Roles, Genders } from '@src/models';
 import { validateUserData, logout } from '@src/redux/auth/auth.api';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
+import { selectAuthStatus, selectUser } from '@src/redux/auth/auth.slice';
 
 const FirstLoginWizard = () => {
   const dispatch = useAppDispatch();
-  const status = useAppSelector(state => state.auth.status);
-  const user: User | null = useAppSelector(state => state.auth.user);
+  const status = useAppSelector(state => selectAuthStatus(state));
+  const user = useAppSelector(state => selectUser(state));
   const FirstLoginSchema = Yup.object().shape({
     firstName: Yup.string().min(1).required(),
     lastName: Yup.string().min(1).required(),

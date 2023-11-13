@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from './auth.api';
 
 import { User as FirebaseUser } from 'firebase/auth';
-import { AuthCredentials, User } from '@src/models';
+import { AuthCredentials, Tag, User } from '@src/models';
 import Localization from '@src/localization/Localization';
 import Calendar from '@src/components/Calendar/Calendar';
 
@@ -33,6 +33,39 @@ export const updateUserData = createAsyncThunk(
   async ({ uid, values }: { uid: string; values: Partial<User> }, { rejectWithValue }) => {
     try {
       return await api.updateUserData(uid, values);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const addUserTag = createAsyncThunk(
+  'auth/addUserTag',
+  async (tag: Tag, { rejectWithValue }) => {
+    try {
+      return await api.addUserTag(tag);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const deleteUserTag = createAsyncThunk(
+  'auth/deleteUserTag',
+  async (uid: string, { rejectWithValue }) => {
+    try {
+      return await api.deleteUserTag(uid);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const loadUserTags = createAsyncThunk(
+  'auth/loadUserTags',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await api.loadUserTags();
     } catch (error) {
       return rejectWithValue(error);
     }

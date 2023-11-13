@@ -5,11 +5,11 @@ import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import Icons from '@src/components/Icons';
 import Colors from '@src/constants/Colors';
-import { Theme } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 
 const HomeButtons = () => {
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   return (
     <View style={{ width: '100%', height: '100%' }}>

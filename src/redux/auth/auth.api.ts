@@ -3,6 +3,7 @@ import { auth, db } from 'firebaseConfig';
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -20,11 +21,13 @@ import {
   Genders,
   Roles,
   Users,
+  Tags,
+  Tag,
 } from '@src/models';
 import { User as FirebaseUser } from 'firebase/auth';
 import { fetchEventsByID } from '../events/events.api';
-import { getConnectedUsersIds, getEmail, getUserID } from '../selectors';
 import store from '../store';
+import { selectEmail, selectUserConnectedUsersIds, selectUserID } from './auth.slice';
 
 const getUserTemplate = (uid: string, email: string | null): User => {
   const emptyUser: User = {
@@ -48,7 +51,9 @@ export const signIn = async (authData: AuthCredentials): Promise<User> => {
     if (!user) {
       throw new Error('User not found');
     }
-    return await loadUserDoc(user);
+    const res = await loadUserDoc(user);
+    console.log('RES', res);
+    return res;
   } catch (error) {
     throw error;
   }
@@ -87,7 +92,57 @@ export const loadUserDoc = async (user: FirebaseUser): Promise<User> => {
     }
     const _user = snapshot.data();
     delete _user.deleted;
-    return _user as User;
+
+    const _collection = collection(userDoc, 'tags');
+    const tagsSnapshot = await getDocs(_collection);
+
+    const tags = tagsSnapshot.docs.map(doc => doc.data());
+    return {
+      ..._user,
+      tags: tags,
+    } as User;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const addUserTag = async (tag: Tag) => {
+  try {
+    const userID = selectUserID(store.getState())!;
+    const response = await addDoc(collection(db, 'users', userID, 'tags'), tag);
+    await updateDoc(doc(db, response.path), {
+      id: response.id,
+    });
+    return {
+      ...tag,
+      id: response.id,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteUserTag = async (id: string) => {
+  try {
+    const userID = selectUserID(store.getState())!;
+    await deleteDoc(doc(db, 'users', userID, id));
+    return id;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const loadUserTags = async (): Promise<Tags> => {
+  try {
+    const userID = selectUserID(store.getState())!;
+    const q = query(collection(db, 'users', userID, 'tags'));
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) {
+      throw new Error('No available tags');
+    }
+    const tags = snapshot.docs.map(doc => doc.data());
+
+    return tags as Tags;
   } catch (error) {
     throw error;
   }
@@ -144,7 +199,7 @@ const loadUserByEmail = async (email: string): Promise<User> => {
 
 export const loadConnectedUsers = async (uid: string) => {
   try {
-    const connectedUsersIds = getConnectedUsersIds(store.getState());
+    const connectedUsersIds = selectUserConnectedUsersIds(store.getState());
     const _collection = collection(db, `users`);
 
     const _query = query(
@@ -187,7 +242,7 @@ export const loadConnectedUsers = async (uid: string) => {
 
 export const addConnectedUser = async (email: string) => {
   try {
-    const userEmail = getEmail(store.getState());
+    const userEmail = selectEmail(store.getState());
 
     if (userEmail === email) {
       throw new Error('You cannot add yourself');
@@ -196,12 +251,12 @@ export const addConnectedUser = async (email: string) => {
     const newUser = await loadUserByEmail(email);
     const newUserID = newUser.uid;
 
-    const connectedUsersIds = getConnectedUsersIds(store.getState())!;
+    const connectedUsersIds = selectUserConnectedUsersIds(store.getState())!;
     if (connectedUsersIds.includes(newUserID)) {
       throw new Error('User already added');
     }
 
-    const userID = getUserID(store.getState());
+    const userID = selectUserID(store.getState());
     const _doc = doc(db, `users/${userID}`);
 
     await updateDoc(_doc, {
@@ -226,7 +281,7 @@ export const addConnectedUser = async (email: string) => {
 
 export const deleteConnectedUser = async (email: string) => {
   try {
-    const userID = getUserID(store.getState());
+    const userID = selectUserID(store.getState());
     const _collection = collection(db, `users/${userID}/connectedUsers`);
     const _query = query(_collection, where('email', '==', email), limit(1));
     const snapshot = await getDocs(_query);

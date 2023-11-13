@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import WheelColorPicker from 'react-native-wheel-color-picker';
 import { Button } from '@rneui/themed';
 import { useState } from 'react';
+import { t } from '@src/localization/Localization';
 
 const ColorPicker = ({
   onPress,
@@ -28,7 +29,7 @@ const ColorPicker = ({
         noSnap={true}
       />
       <Button
-        title={'Zaakceptuj wybrany kolor'}
+        title={t('colorPickerAccept')}
         color={swatch}
         containerStyle={{ marginVertical: 30 }}
         onPress={() => {

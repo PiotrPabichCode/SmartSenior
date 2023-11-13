@@ -2,13 +2,14 @@ import CustomButton from '@src/components/CustomButton';
 import Icons from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
 import { goBack } from '@src/navigation/navigationUtils';
+import { selectConnectedUsers } from '@src/redux/auth/auth.slice';
 import { useAppSelector } from '@src/redux/types';
 import { View, Text, StyleSheet } from 'react-native';
 
 const mainColor = '#FFFAF0';
 
 const SeniorView = () => {
-  const connectedUsers = useAppSelector(state => state.auth.connectedUsers);
+  const connectedUsers = useAppSelector(state => selectConnectedUsers(state));
   if (connectedUsers.length === 0) {
     goBack();
     return null;

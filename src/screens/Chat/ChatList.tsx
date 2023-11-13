@@ -2,10 +2,11 @@ import { View, ScrollView } from 'react-native';
 import ChatUser from './ChatUser';
 import { useAppSelector } from '@src/redux/types';
 import { selectChats } from '@src/redux/chats/chats.slice';
+import { selectUserID } from '@src/redux/auth/auth.slice';
 
 const ChatList = () => {
   const chats = useAppSelector(state => selectChats(state));
-  const userID = useAppSelector(state => state.auth.user?.uid)!;
+  const userID = useAppSelector(state => selectUserID(state));
 
   const renderUsers = () => {
     if (chats.length === 1) {

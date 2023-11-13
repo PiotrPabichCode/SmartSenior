@@ -17,13 +17,13 @@ import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { createEvent } from '@src/redux/events/events.actions';
 import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
-import { Event, Theme } from '@src/models';
+import { Event } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
-  const theme: Theme = useAppSelector(state => selectTheme(state));
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);

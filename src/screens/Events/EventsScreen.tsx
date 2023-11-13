@@ -3,7 +3,6 @@ import EventItem from '@src/screens/Events/EventItem';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
-import { Theme } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
 import { selectEvents } from '@src/redux/events/events.slice';
 import { selectTheme } from '@src/redux/auth/auth.slice';
@@ -11,7 +10,7 @@ import NoEvents from './NoEvents';
 
 const EventsScreen = () => {
   const events = useAppSelector(state => selectEvents(state));
-  const theme: Theme = useAppSelector(state => selectTheme(state));
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
 
   const mapEvents = Object.entries(events).map(([key], index) => {

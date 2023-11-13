@@ -1,17 +1,39 @@
 import { Button, Input } from '@rneui/themed';
 import ColorPicker from '@src/components/ColorPicker';
+import CustomToast from '@src/components/CustomToast';
 import { renderIcon } from '@src/components/Icons';
+import { t } from '@src/localization/Localization';
+import { Tag } from '@src/models';
 import { goBack } from '@src/navigation/navigationUtils';
+import { addUserTag } from '@src/redux/auth/auth.actions';
+import { selectTags } from '@src/redux/auth/auth.slice';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 
 const AddTag = () => {
+  const dispatch = useAppDispatch();
+  const tags = useAppSelector(state => selectTags(state));
   const [activeColorPicker, setActiveColorPicker] = useState(false);
+  const [name, setName] = useState('');
   const [color, setColor] = useState('#555555');
-  console.log(color);
   const onSubmit = async () => {
     try {
-      console.log('Dodano nowy znacznik');
+      if (!name) {
+        return CustomToast('error', t('message.error.missingData'));
+      }
+      console.log(tags);
+      if (tags && tags.findIndex(tag => tag.name === name) !== -1) {
+        return CustomToast('error', t('message.error.duplicateTag'));
+      }
+      const tag: Tag = {
+        id: '',
+        name: name,
+        color: color,
+      };
+      await dispatch(addUserTag(tag)).unwrap();
+      goBack();
+      CustomToast('success', t('message.success.addTag'));
     } catch (error) {
       console.log(error);
     }
@@ -35,9 +57,10 @@ const AddTag = () => {
           padding: 20,
           borderRadius: 25,
         }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Nowy znacznik</Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{t('tags.new')}</Text>
         <Input
-          placeholder="Wpisz nazwę znacznika"
+          placeholder={t('tags.namePlaceholder')}
+          onChangeText={value => setName(value)}
           inputStyle={{ alignSelf: 'flex-end' }}
           leftIcon={renderIcon({
             name: 'tags-account',
@@ -55,7 +78,7 @@ const AddTag = () => {
           <Button
             color={color}
             onPress={() => setActiveColorPicker(true)}
-            title={'Wybierz kolor znacznika'}
+            title={t('tags.colorPlaceholder')}
             containerStyle={{ minWidth: '100%', borderRadius: 25 }}
           />
         )}
@@ -63,13 +86,13 @@ const AddTag = () => {
           <Button
             color={'green'}
             onPress={() => onSubmit()}
-            title="Dodaj"
+            title={t('tags.add')}
             containerStyle={{ flex: 1 }}
           />
           <Button
             color={'red'}
             onPress={() => goBack()}
-            title="Anuluj"
+            title={t('tags.cancel')}
             containerStyle={{ flex: 1 }}
           />
         </View>

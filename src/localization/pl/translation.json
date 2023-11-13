@@ -24,11 +24,14 @@
   },
   "message": {
     "success": {
-      "addConnectedUser": "Dodano nowego seniora"
+      "addConnectedUser": "Dodano nowego seniora",
+      "addTag": "Dodano nowy znacznik"
     },
     "error": {
       "addConnectedUser": "Nie udało się dodać nowego seniora",
-      "invalidEmail": "Podano nieprawidłowy e-mail"
+      "invalidEmail": "Podano nieprawidłowy e-mail",
+      "duplicateTag": "Znacznik o podanej nazwie już istnieje",
+      "missingData": "Nie podano wszystkich danych"
     }
   },
   "speedDial": {
@@ -322,6 +325,18 @@
     "more": "Zobacz więcej",
     "execute": "Wykonaj",
     "search": "Szukaj"
+  },
+  "colorPickerAccept": "Zaakceptuj wybrany kolor",
+  "tags": {
+    "title": "Twoje znaczniki",
+    "new": "Nowy znacznik",
+    "namePlaceholder": "Wpisz nazwę znacznika",
+    "colorPlaceholder": "Wybierz kolor znacznika",
+    "noAssignedTags": "Brak przypisanych znaczników.",
+    "description": "Znaczniki pozwalają na filtrowanie wydarzeń na podstawie danego znacznika. Umożliwiają skuteczną kategoryzację i organizację, umożliwiając użytkownikom łatwe znalezienie wydarzeń zgodnych z konkretnymi zainteresowaniami, umiejętnościami lub cechami. Dodaj znacznik, aby zwiększyć możliwości filtrowania swoich wydarzeń!",
+    "addTitle": "Dodaj nowy znacznik",
+    "add": "Dodaj",
+    "cancel": "Anuluj"
   },
   "yes": "Tak",
   "no": "Nie",

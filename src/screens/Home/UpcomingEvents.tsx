@@ -4,15 +4,16 @@ import { navigate } from '@navigation/navigationUtils';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
-import { Event, Events, Theme } from '@src/models';
+import { Event, Events } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 
 interface UpcomingEventsProps {
   events: Events;
 }
 
 const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
 

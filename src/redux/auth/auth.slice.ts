@@ -1,7 +1,7 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 import Localization from '@src/localization/Localization';
 import * as action from './auth.actions';
-import { ConnectedUser, ConnectedUsers, User, Theme } from '@src/models';
+import { ConnectedUser, ConnectedUsers, User, Theme, Tag, Tags } from '@src/models';
 import type { RootState } from '../store';
 
 export interface AuthState {
@@ -71,8 +71,7 @@ export const authSlice = createSlice({
         state.status = 'failed';
       })
       .addCase(action.addConnectedUser.fulfilled, (state, action: PayloadAction<ConnectedUser>) => {
-        const newUser = action.payload;
-        state.connectedUsers = [...state.connectedUsers, newUser];
+        state.connectedUsers = [...state.connectedUsers, action.payload];
       })
       .addCase(action.deleteConnectedUser.fulfilled, (state, action: PayloadAction<string>) => {
         state.connectedUsers = state.connectedUsers.filter(
@@ -81,6 +80,21 @@ export const authSlice = createSlice({
       })
       .addCase(action.changeLanguage.fulfilled, (state, action: PayloadAction<string>) => {
         state.language = action.payload;
+      })
+      .addCase(action.addUserTag.fulfilled, (state, action: PayloadAction<Tag>) => {
+        if (state.user) {
+          state.user.tags = [...state.user.tags, action.payload];
+        }
+      })
+      .addCase(action.loadUserTags.fulfilled, (state, action: PayloadAction<Tags>) => {
+        if (state.user) {
+          state.user.tags = action.payload;
+        }
+      })
+      .addCase(action.deleteUserTag.fulfilled, (state, action: PayloadAction<string>) => {
+        if (state.user) {
+          state.user.tags = state.user.tags.filter(tag => tag.id !== action.payload);
+        }
       });
   },
 });
@@ -92,6 +106,10 @@ export const selectUser = (state: RootState) => state.auth.user;
 export const selectUserID = (state: RootState) => {
   const user = selectUser(state);
   return user?.uid;
+};
+export const selectEmail = (state: RootState) => {
+  const user = selectUser(state);
+  return user?.email;
 };
 export const selectUserConnectedUsersIds = (state: RootState) => {
   const user = selectUser(state);

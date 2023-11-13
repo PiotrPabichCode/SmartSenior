@@ -5,13 +5,14 @@ import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import HomeButtons from './HomeButtons';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { Events, User, Theme } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
+import { selectEvents } from '@src/redux/events/events.slice';
+import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
 
 const HomeScreen = () => {
-  const events: Events = useAppSelector(state => state.events.events);
-  const user: User | null = useAppSelector(state => state.auth.user);
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const events = useAppSelector(state => selectEvents(state));
+  const user = useAppSelector(state => selectUser(state));
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
 
   if (!user) {

@@ -5,16 +5,16 @@ import Localization, { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
 import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersScreen';
-import { User, Theme } from '@src/models';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { changeLanguage } from '@src/redux/auth/auth.actions';
 import AccountTags from './AccountTags';
+import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();
-  const user: User | null = useAppSelector(state => state.auth.user);
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const user = useAppSelector(state => selectUser(state));
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
 
   if (!user) {

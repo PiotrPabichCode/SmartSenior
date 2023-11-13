@@ -11,6 +11,7 @@ import { t } from '@src/localization/Localization';
 import { deleteEvent } from '@src/redux/events/events.actions';
 import { Event } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
+import { selectEventByKey } from '@src/redux/events/events.slice';
 
 type DayProps = PropsWithChildren<{
   active: boolean;
@@ -22,8 +23,7 @@ type DayProps = PropsWithChildren<{
 const EventItem = ({ eventKey }: { eventKey: string }) => {
   const [checked, setChecked] = useState(false);
   const dispatch = useAppDispatch();
-  // @ts-ignore
-  const event: Event = useAppSelector(state => state.events.events[eventKey]);
+  const event = useAppSelector(state => selectEventByKey(state, eventKey));
 
   if (!event) {
     goBack();

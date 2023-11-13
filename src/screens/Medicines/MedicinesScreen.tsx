@@ -8,13 +8,13 @@ import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
-import { Theme } from '@src/models';
 import CustomDivider from '@src/components/CustomDivider';
 import { useAppSelector } from '@src/redux/types';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 
 const MedicinesScreen = () => {
   const [items, setItems] = useState([]);
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
 

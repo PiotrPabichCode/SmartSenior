@@ -9,11 +9,11 @@ import { t } from '@src/localization/Localization';
 import { buildRequest } from '@src/utils/utils';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { Theme } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 
 const PharmaciesScreen = () => {
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const [pharmacies, setPharmacies] = useState([]);
   const BASE_URL =
@@ -25,8 +25,8 @@ const PharmaciesScreen = () => {
       const response = await fetch(request);
       const json = await response.json();
       const key = Object.keys(json)[0];
-      const values = Object.values(json[key]).filter(item => item.name !== '');
-      setPharmacies(values);
+      const values = Object.values(json[key]).filter((item: any) => item.name !== '');
+      setPharmacies(values as any);
     } catch (e) {
       console.log(e);
     }

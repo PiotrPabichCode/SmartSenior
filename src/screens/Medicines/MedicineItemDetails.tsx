@@ -5,11 +5,11 @@ import { shareAsync } from 'expo-sharing';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
-import { Theme } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 
 const MedicineItemDetails = ({ route }: any) => {
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const renderDetail = (title: string, detail: string) => {
     return (

@@ -52,5 +52,9 @@ export const { clearEvents } = eventsSlice.actions;
 
 export const selectEventsStore = (state: RootState) => state.events;
 export const selectEvents = (state: RootState) => state.events.events;
+export const selectEventByKey = (state: RootState, key: string) => {
+  const events = selectEvents(state);
+  return events.find(event => event.key === key);
+};
 
 export default eventsSlice.reducer;

@@ -14,7 +14,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 
 const KeeperView = () => {
   const dispatch = useAppDispatch();
-  const connectedUsers: ConnectedUsers = useAppSelector(state => selectConnectedUsers(state));
+  const connectedUsers = useAppSelector(state => selectConnectedUsers(state));
   const [email, setEmail] = useState<string>('');
   const emailRef = useRef<TextInput | null>(null);
 

@@ -3,14 +3,15 @@ import AccountItem from './AccountItem';
 import AccountProfileHint from './AccountProfileHint';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
-import { Theme, useAppSelector } from '@src/redux/types';
+import { useAppSelector } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import CustomDivider from '@src/components/CustomDivider';
 import { logout } from '@src/redux/auth/auth.api';
+import { selectConnectedUsers, selectTheme } from '@src/redux/auth/auth.slice';
 
 const AccountScreen = () => {
-  const connectedUsers = useAppSelector(state => state.auth.connectedUsers);
-  const theme: Theme = useAppSelector(state => state.auth.theme);
+  const connectedUsers = useAppSelector(state => selectConnectedUsers(state));
+  const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
 

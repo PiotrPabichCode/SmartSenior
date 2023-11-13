@@ -21,7 +21,7 @@ type IconProps = {
 
 export const renderIcon = ({ name, size, color, style, focused, onPress }: IconProps) => {
   const iconName = name + (focused ? '-active' : '');
-  return <Icons name={iconName} onPress={onPress} size={size} color={color} />;
+  return <Icons name={iconName} onPress={onPress} size={size} color={color} style={style} />;
 };
 
 const Icons = ({ name, size, color, style, onPress }: IconProps) => {
@@ -190,6 +190,16 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
       return (
         <Ionicons
           name="language-outline"
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
+    case 'tags-account':
+      return (
+        <AntDesign
+          name="tagso"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color}

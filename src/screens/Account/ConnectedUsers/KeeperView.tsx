@@ -8,6 +8,7 @@ import { addConnectedUser } from '@src/redux/auth/auth.actions';
 import { selectConnectedUsers } from '@src/redux/auth/auth.slice';
 import { addChat } from '@src/redux/chats/chats.actions';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
+import { createUserLabel } from '@src/utils/utils';
 import { useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -16,14 +17,6 @@ const KeeperView = () => {
   const connectedUsers: ConnectedUsers = useAppSelector(state => selectConnectedUsers(state));
   const [email, setEmail] = useState<string>('');
   const emailRef = useRef<TextInput | null>(null);
-
-  const createUserLabel = (firstName: string | null, lastName: string | null) => {
-    if (!firstName || !lastName) {
-      return 'UU';
-    }
-    const label = `${firstName[0]}${lastName[0]}`;
-    return label.toUpperCase();
-  };
 
   const mapConnectedUsers = connectedUsers.map((user: ConnectedUser, index: number) => {
     const userData = user.user;

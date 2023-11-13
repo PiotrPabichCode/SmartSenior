@@ -6,6 +6,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import SeniorActions from './SeniorActions';
 import { goBack } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
+import { renderGender } from '@src/utils/utils';
 
 const SeniorDashboard = ({ route }: any) => {
   const { uid } = route.params;
@@ -28,22 +29,30 @@ const SeniorDashboard = ({ route }: any) => {
         <Text style={styles.title}>{t('seniorDashboard.personal')}</Text>
         <View style={styles.details}>
           <Text style={styles.detailText}>
-            {t('seniorDashboard.name')}
-            {userData.firstName}
+            {t('seniorDashboard.name', {
+              firstName: userData.firstName,
+            })}
           </Text>
           <Text style={styles.detailText}>
-            {t('seniorDashboard.surname')}
-            {userData.lastName}
+            {t('seniorDashboard.surname', {
+              lastName: userData.lastName,
+            })}
           </Text>
           <Text style={styles.detailText}>
-            {t('seniorDashboard.email')}
-            {userData.email}
+            {t('seniorDashboard.email', {
+              email: userData.email,
+            })}
           </Text>
           <Text style={styles.detailText}>
-            {t('seniorDashboard.gender')}
-            {userData.gender}
+            {t('seniorDashboard.gender', {
+              gender: renderGender(userData.gender),
+            })}
           </Text>
-          <Text style={styles.detailText}>{t('seniorDashboard.age')}50 lat</Text>
+          <Text style={styles.detailText}>
+            {t('seniorDashboard.age', {
+              age: 50,
+            })}
+          </Text>
         </View>
       </View>
       <View style={styles.container}>
@@ -57,6 +66,7 @@ const SeniorDashboard = ({ route }: any) => {
 const useStyles = (theme: any) =>
   StyleSheet.create({
     viewStyle: {
+      minHeight: '100%',
       alignItems: 'center',
       backgroundColor: theme.mainBackground,
     },

@@ -47,7 +47,7 @@ const BottomBarNavigator = () => {
             tabBarLabel: t('bottomNav.calendar'),
             tabBarIcon: ({ focused }) =>
               renderIcon({ name: 'calendar-bottom-nav', focused: focused }),
-            tabBarBadge: Object.values(events).length,
+            tabBarBadge: events.length ? events.length : undefined,
             header: () => <CustomHeader title={t('bottomNav.calendar')} />,
           }}
         />
@@ -57,7 +57,7 @@ const BottomBarNavigator = () => {
           options={{
             tabBarLabel: t('bottomNav.events'),
             tabBarIcon: ({ focused }) => renderIcon({ name: 'home-bottom-nav', focused: focused }),
-            tabBarBadge: Object.values(events).length,
+            tabBarBadge: events.length ? events.length : undefined,
             header: () => <CustomHeader title={t('bottomNav.events')} more={true} />,
           }}
         />

@@ -1,13 +1,12 @@
 import moment from 'moment-timezone';
 import isEqual from 'lodash.isequal';
-import Localization, { t } from '@src/localization/Localization';
-import Calendar from '@src/components/Calendar/Calendar';
+import { t } from '@src/localization/Localization';
 import store from '@src/redux/store';
 import { DAYS } from '@src/redux/events/events.constants';
 import { Platform } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
-import { getUser } from '@src/redux/selectors';
 import { selectConnectedUserById, selectUser } from '@src/redux/auth/auth.slice';
+import { Genders } from '@src/models';
 
 export const IS_ANDROID = Platform.OS === 'android';
 export const buildRequest = (baseUrl: string, params: any) => {
@@ -59,15 +58,6 @@ export function getUpdatedFields<T>(oldValue: T, newValue: Partial<T>): Partial<
   return updatedFields;
 }
 
-export const createUserLabel = () => {
-  const user = getUser(store.getState());
-  if (!user || !user.firstName || !user.lastName) {
-    return 'UU';
-  }
-  const label = `${user.firstName[0]}${user.lastName[0]}`;
-  return label.toUpperCase();
-};
-
 export const renderDayValue = (value: number, shortTitle: boolean) => {
   const type = shortTitle ? 'shortTitle' : 'title';
   const base = `dayValues.${type}`;
@@ -98,14 +88,21 @@ export const createUsername = (userID: string) => {
   return connectedUser?.user.firstName ? connectedUser.user.firstName : 'user';
 };
 
-export const getUserEmail = () => {
-  return store.getState().auth.user?.email!;
+export const renderGender = (gender: string | null) => {
+  switch (gender) {
+    case Genders.FEMALE:
+      return t('genders.female');
+    case Genders.MALE:
+      return t('genders.male');
+    default:
+      return t('genders.unknown');
+  }
 };
 
-export const getUserID = () => {
-  return store.getState().auth.user?.uid!;
-};
-
-export const getConnectedUsersIds = () => {
-  return store.getState().auth.user?.connectedUsersIds!;
+export const createUserLabel = (firstName: string | null, lastName: string | null) => {
+  if (!firstName || !lastName) {
+    return 'UU';
+  }
+  const label = `${firstName[0]}${lastName[0]}`;
+  return label.toUpperCase();
 };

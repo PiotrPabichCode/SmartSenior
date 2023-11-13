@@ -102,6 +102,7 @@ const CreateEventScreen = () => {
             />
             <Button
               onPress={() => setShowDatePicker(true)}
+              containerStyle={{ minWidth: '95%', borderRadius: 25 }}
               title={
                 values.date
                   ? t('createEvent.button.title.date', {

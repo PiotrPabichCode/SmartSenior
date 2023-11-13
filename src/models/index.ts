@@ -9,6 +9,7 @@ import { PharmacyItem } from './PharmacyItem';
 import { Chat, Chats } from './Chat';
 import { ChatMessage, ChatMessages } from './ChatMessage';
 import { ChatUser, ChatUsers } from './ChatUser';
+import { Tag, Tags } from './Tag';
 
 export {
   User,
@@ -30,4 +31,6 @@ export {
   ChatMessages,
   ChatUser,
   ChatUsers,
+  Tag,
+  Tags,
 };

@@ -9,6 +9,7 @@ import { User, Theme } from '@src/models';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { changeLanguage } from '@src/redux/auth/auth.actions';
+import AccountTags from './AccountTags';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();
@@ -94,12 +95,14 @@ const AccountItemDetailsScreen = ({ route }: any) => {
     switch (screenType) {
       case 'user':
         return renderUserDetailsScreen();
-      case 'language':
-        return renderLanguageScreen();
-      case 'notification':
-        return renderNotificationScreen();
       case 'connected-users':
         return <AccountConnectedUsersScreen />;
+      case 'tags':
+        return <AccountTags />;
+      case 'notification':
+        return renderNotificationScreen();
+      case 'language':
+        return renderLanguageScreen();
       case 'share':
         return <></>;
       default:

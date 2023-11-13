@@ -3,8 +3,8 @@ import { Genders, Roles } from '@src/models';
 export const SIGN_UP_SUCCESS_MESSAGE = 'Pomyślnie utworzono konto!';
 
 export const genders = [
-  { label: 'genders.woman', value: Genders.FEMALE, multiLang: true },
-  { label: 'genders.man', value: Genders.MALE, multiLang: true },
+  { label: 'genders.female', value: Genders.FEMALE, multiLang: true },
+  { label: 'genders.male', value: Genders.MALE, multiLang: true },
 ];
 
 export const roles = [

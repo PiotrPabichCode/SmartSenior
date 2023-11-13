@@ -28,15 +28,25 @@ const AccountScreen = () => {
         }
       />
       <CustomDivider />
-      <AccountItem icon="theme-account" title={t('account.button.title.theme')} type="theme" />
+      {connectedUsers.length > 0 && (
+        <AccountItem
+          icon="connected-users"
+          title={t('account.button.title.connected-users')}
+          onPress={() =>
+            navigate('AccountItemDetails', {
+              screenType: 'connected-users',
+              title: t('account.header.connected-users'),
+            })
+          }
+        />
+      )}
       <AccountItem
-        icon="language-account"
-        title={t('account.button.title.language')}
-        type="language"
+        icon="tags-account"
+        title={t('account.button.title.tags')}
         onPress={() =>
           navigate('AccountItemDetails', {
-            screenType: 'language',
-            title: t('account.header.language'),
+            screenType: 'tags',
+            title: t('account.header.tags'),
           })
         }
       />
@@ -50,7 +60,19 @@ const AccountScreen = () => {
           })
         }
       />
+      <AccountItem icon="theme-account" title={t('account.button.title.theme')} type="theme" />
       <AccountItem
+        icon="language-account"
+        title={t('account.button.title.language')}
+        type="language"
+        onPress={() =>
+          navigate('AccountItemDetails', {
+            screenType: 'language',
+            title: t('account.header.language'),
+          })
+        }
+      />
+      {/* <AccountItem
         icon="share-account"
         title={t('account.button.title.share')}
         onPress={() =>
@@ -59,19 +81,7 @@ const AccountScreen = () => {
             title: t('account.header.share'),
           })
         }
-      />
-      {connectedUsers.length > 0 && (
-        <AccountItem
-          icon="connected-users"
-          title={t('account.button.title.connected-users')}
-          onPress={() =>
-            navigate('AccountItemDetails', {
-              screenType: 'connected-users',
-              title: t('account.header.connected-users'),
-            })
-          }
-        />
-      )}
+      /> */}
 
       <CustomDivider />
       <AccountItem

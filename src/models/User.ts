@@ -1,5 +1,5 @@
 import type { FirestoreDataConverter, Timestamp } from 'firebase/firestore';
-import { Genders, Roles } from '@src/models';
+import { Genders, Roles, Tags } from '@src/models';
 
 export interface User {
   uid: string;
@@ -10,6 +10,7 @@ export interface User {
   gender: Genders | null;
   role: Roles;
   connectedUsersIds: Array<string>;
+  tags: Tags;
 }
 
 export type Users = User[];

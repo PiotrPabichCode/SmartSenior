@@ -75,6 +75,7 @@
         "user": "Account",
         "theme": "Theme",
         "language": "Language",
+        "tags": "Tags",
         "notification": "Notifications",
         "share": "Recommend our app",
         "connected-users": "Connected Users",
@@ -84,6 +85,7 @@
     "header": {
       "user": "Profile - Account",
       "language": "Profile - Language",
+      "tags": "Profile - Tags",
       "notification": "Profile - Notifications",
       "share": "Profile - Recommendations",
       "connected-users": "Profile - Connected Users"
@@ -267,11 +269,11 @@
   },
   "seniorDashboard": {
     "personal": "Personal Information",
-    "name": "Name: ",
-    "surname": "Surname: ",
-    "email": "Email: ",
-    "gender": "Gender: ",
-    "age": "Age: ",
+    "name": "Name: {{firstName}}",
+    "surname": "Surname: {{lastName}}",
+    "email": "Email: {{email}}",
+    "gender": "Gender: {{gender}}",
+    "age": "Age: {{age}} years old",
     "availableActions": "Available Actions",
     "localization": "Display User's Location",
     "upcomingEvents": "Upcoming Events",
@@ -349,8 +351,9 @@
   "notes": "Your Notes",
   "search": "Search",
   "genders": {
-    "man": "Man",
-    "woman": "Woman"
+    "male": "Male",
+    "female": "Female",
+    "unknown": "Unknown"
   },
   "roles": {
     "admin": "Admin",

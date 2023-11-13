@@ -36,6 +36,7 @@ const getUserTemplate = (uid: string, email: string | null): User => {
     gender: Genders.MALE,
     role: Roles.SENIOR,
     connectedUsersIds: [],
+    tags: [],
   };
   return emptyUser;
 };
@@ -118,22 +119,6 @@ export const validateUserData = (user: User | null) => {
     return false;
   }
   return Object.values(user).findIndex(val => !val) === -1;
-};
-
-const findUserByEmail = async (email: string): Promise<User> => {
-  try {
-    const userCollection = collection(db, 'users');
-    const _query = query(userCollection, where('email', '==', email), limit(1));
-    const snapshot = await getDocs(_query);
-    if (snapshot.empty) {
-      throw new Error('User not found');
-    }
-
-    const doc = snapshot.docs[0];
-    return doc.data() as User;
-  } catch (error) {
-    throw error;
-  }
 };
 
 const loadUserByEmail = async (email: string): Promise<User> => {

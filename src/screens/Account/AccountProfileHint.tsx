@@ -1,8 +1,8 @@
 import { Avatar } from '@rneui/themed';
 import { StyleSheet, View, Text } from 'react-native';
-import { createUserLabel } from '@src/utils/utils';
 import { User } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
+import { createUserLabel } from '@src/utils/utils';
 
 const AccountProfileHint = () => {
   const user: User | null = useAppSelector(state => state.auth.user);
@@ -16,7 +16,7 @@ const AccountProfileHint = () => {
       <Avatar
         size="large"
         rounded
-        title={createUserLabel()}
+        title={createUserLabel(user.firstName, user.lastName)}
         containerStyle={{ backgroundColor: '#C0C0C0' }}
         titleStyle={{ color: 'black', fontWeight: '500' }}
       />

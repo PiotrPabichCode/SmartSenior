@@ -1,4 +1,4 @@
-import { View, ScrollView, ColorValue } from 'react-native';
+import { View, ScrollView } from 'react-native';
 
 type CustomScrollContainerProps = {
   children?: React.ReactNode;

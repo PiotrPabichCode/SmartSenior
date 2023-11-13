@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { onAuthStateChanged } from 'firebase/auth';
 import Toast from 'react-native-toast-message';
 import AppNavigator from './src/navigation/AppNavigator';
-import { Provider } from 'react-redux';
+import { Provider, batch } from 'react-redux';
 import store from '@src/redux/store';
 import { auth } from './firebaseConfig';
 import { navigationRef } from './src/navigation/navigationUtils';
@@ -49,15 +49,17 @@ export default function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async user => {
       await store.dispatch(verifyUser(user));
-      if (user) {
-        await store.dispatch(loadEvents(user.uid));
-        await store.dispatch(loadConnectedUsers(user.uid));
-        await store.dispatch(loadChats());
-      } else {
-        store.dispatch(logout());
-        store.dispatch(clearEvents());
-        store.dispatch(clearChats());
-      }
+      batch(async () => {
+        if (user) {
+          await store.dispatch(loadEvents(user.uid));
+          await store.dispatch(loadConnectedUsers(user.uid));
+          await store.dispatch(loadChats());
+        } else {
+          store.dispatch(logout());
+          store.dispatch(clearEvents());
+          store.dispatch(clearChats());
+        }
+      });
     });
 
     return () => {

@@ -1,6 +1,6 @@
 import { useCallback, useState, useLayoutEffect } from 'react';
 import { db } from 'firebaseConfig';
-import { collection, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, onSnapshot, limit } from 'firebase/firestore';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { IMessage } from 'react-native-gifted-chat';
 import ChatList from './ChatList';
@@ -22,6 +22,7 @@ const ChatScreen = () => {
     const q = query(
       collection(db, 'chats', activeChat.key, 'messages'),
       orderBy('createdAt', 'desc'),
+      limit(25),
     );
 
     const unsubscribe = onSnapshot(q, querySnapshot => {

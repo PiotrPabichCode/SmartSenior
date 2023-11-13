@@ -18,6 +18,7 @@ export type RootStackParamList = {
     title: string;
   };
   AddConnectedUser: undefined;
+  AddTag: undefined;
   Medicines: undefined;
   MedicinesItemDetails: {
     item: any;

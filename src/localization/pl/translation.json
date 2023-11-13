@@ -75,6 +75,7 @@
         "user": "Konto",
         "theme": "Motyw",
         "language": "Język",
+        "tags": "Znaczniki",
         "notification": "Powiadomienia",
         "share": "Poleć naszą aplikację",
         "connected-users": "Połączone osoby",
@@ -84,6 +85,7 @@
     "header": {
       "user": "Profil - konto",
       "language": "Profil - język",
+      "tags": "Profil - znaczniki",
       "notification": "Profil - powiadomienia",
       "share": "Profil - polecenia",
       "connected-users": "Profil - połączone osoby"
@@ -267,11 +269,11 @@
   },
   "seniorDashboard": {
     "personal": "Dane osobowe",
-    "name": "Imię: ",
-    "surname": "Nazwisko: ",
-    "email": "E-mail: ",
-    "gender": "Płeć: ",
-    "age": "Wiek: ",
+    "name": "Imię: {{firstName}}",
+    "surname": "Nazwisko: {{lastName}}",
+    "email": "E-mail: {{email}}",
+    "gender": "Płeć: {{gender}}",
+    "age": "Wiek: {{age}} lat",
     "availableActions": "Dostępne akcje",
     "localization": "Wyświetl lokalizację użytkownika",
     "upcomingEvents": "Nadchodzące wydarzenia",
@@ -349,8 +351,9 @@
   "notes": "Twoje notatki",
   "search": "Szukaj",
   "genders": {
-    "man": "Mężczyzna",
-    "woman": "Kobieta"
+    "male": "Mężczyzna",
+    "female": "Kobieta",
+    "unknown": "Nieznana"
   },
   "roles": {
     "admin": "Admin",

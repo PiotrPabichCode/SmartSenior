@@ -101,6 +101,11 @@ export const selectUserConnectedUserIdById = (state: RootState, uid: string) => 
   const connectedUsersIds = selectUserConnectedUsersIds(state);
   return connectedUsersIds?.find(id => id === uid);
 };
+export const selectTags = (state: RootState) => {
+  const user = selectUser(state);
+  return user?.tags;
+};
+
 export const selectRole = (state: RootState) => state.auth.user?.role;
 export const selectLanguage = (state: RootState) => state.auth.language;
 export const selectTheme = (state: RootState) => state.auth.theme;

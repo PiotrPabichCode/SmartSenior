@@ -10,6 +10,7 @@ import { Chat, Chats } from './Chat';
 import { ChatMessage, ChatMessages } from './ChatMessage';
 import { ChatUser, ChatUsers } from './ChatUser';
 import { Tag, Tags } from './Tag';
+import { Medicine, Medicines } from './Medicine';
 
 export {
   User,
@@ -33,4 +34,6 @@ export {
   ChatUsers,
   Tag,
   Tags,
+  Medicine,
+  Medicines,
 };

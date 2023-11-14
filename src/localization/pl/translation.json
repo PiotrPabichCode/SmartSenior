@@ -79,6 +79,7 @@
         "theme": "Motyw",
         "language": "Język",
         "tags": "Znaczniki",
+        "medicines": "Ulubione leki",
         "notification": "Powiadomienia",
         "share": "Poleć naszą aplikację",
         "connected-users": "Połączone osoby",
@@ -89,6 +90,7 @@
       "user": "Profil - konto",
       "language": "Profil - język",
       "tags": "Profil - znaczniki",
+      "medicines": "Profil - ulubione leki",
       "notification": "Profil - powiadomienia",
       "share": "Profil - polecenia",
       "connected-users": "Profil - połączone osoby"
@@ -338,6 +340,10 @@
     "add": "Dodaj",
     "cancel": "Anuluj",
     "selected": "Wybrane znaczniki"
+  },
+  "favouriteMedicines": {
+    "description": "Hej! Wiem, że masz swoje ulubione leki, które sprawiają, że każdy dzień jest łatwiejszy. A co powiesz na to, żeby dodać je tutaj? To takie proste! Kliknij na serduszko obok nazwy leku, który Ci najbardziej pomaga, i zyskasz szybki dostęp do niego zawsze, kiedy będzie potrzebny. To taki mały skarb, który możesz mieć pod ręką! Spróbuj, to fajny trik!",
+    "add": "Dodaj nowy lek"
   },
   "yes": "Tak",
   "no": "Nie",

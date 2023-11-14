@@ -20,6 +20,7 @@ import { loadChats } from '@src/redux/chats/chats.actions';
 import { logout } from '@src/redux/auth/auth.slice';
 import { clearEvents } from '@src/redux/events/events.slice';
 import { clearChats } from '@src/redux/chats/chats.slice';
+import { loadMedicines } from '@src/redux/medicines/medicines.actions';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
@@ -54,6 +55,7 @@ export default function App() {
           await store.dispatch(loadEvents(user.uid));
           await store.dispatch(loadConnectedUsers(user.uid));
           await store.dispatch(loadChats());
+          await store.dispatch(loadMedicines());
         } else {
           store.dispatch(logout());
           store.dispatch(clearEvents());

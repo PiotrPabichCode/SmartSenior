@@ -7,6 +7,7 @@ import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
 import { useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
+import { Medicine } from '@src/models';
 
 const MedicineItemDetails = ({ route }: any) => {
   const theme = useAppSelector(state => selectTheme(state));
@@ -21,7 +22,10 @@ const MedicineItemDetails = ({ route }: any) => {
     );
   };
 
-  const downloadFromUrl = async (url: string, type: string) => {
+  const downloadFromUrl = async (url: string | null, type: string) => {
+    if (!url) {
+      return;
+    }
     const filename = type + '-' + new Date() + '.pdf';
     const result = await FileSystem.downloadAsync(url, FileSystem.documentDirectory + filename);
 
@@ -55,49 +59,38 @@ const MedicineItemDetails = ({ route }: any) => {
     }
   };
 
-  const { item } = route.params;
+  const { medicine }: { medicine: Medicine } = route.params;
+
   return (
     <CustomScrollContainer theme={currentTheme}>
-      <Text style={styles.title}>{item['medicinalProductName']}</Text>
-      {renderDetail(t('medicineItem.commonName'), item['commonName'])}
-      {renderDetail(t('medicineItem.power'), item['medicinalProductPower'])}
-      {renderDetail(t('medicineItem.pharmaceuticalForm'), item['pharmaceuticalFormName'])}
-      {renderDetail(t('medicineItem.activeSubstance'), item['activeSubstanceName'])}
-      {renderDetail(t('medicineItem.packaging'), item['packaging'].replaceAll('\\n', '\n'))}
-      {renderDetail(t('medicineItem.expiration'), item['expirationDateString'])}
-      {renderDetail(t('medicineItem.company'), item['subjectMedicinalProductName'])}
-      {renderDetail(t('medicineItem.country'), item['manufacturersDtos'][0]['countryName'])}
+      <Text style={styles.title}>{medicine.productName}</Text>
+      {renderDetail(t('medicineItem.commonName'), medicine.commonName)}
+      {renderDetail(t('medicineItem.power'), medicine.power)}
+      {renderDetail(t('medicineItem.pharmaceuticalForm'), medicine.pharmaceuticalForm)}
+      {renderDetail(t('medicineItem.activeSubstance'), medicine.activeSubstance)}
+      {renderDetail(t('medicineItem.packaging'), medicine.packaging)}
+      {renderDetail(t('medicineItem.expiration'), medicine.expiration)}
+      {renderDetail(t('medicineItem.company'), medicine.company)}
+      {renderDetail(t('medicineItem.country'), medicine.country)}
       <Divider style={styles.dividerStyle} />
-      <View style={styles.buttons}>
-        <Button
-          title={t('medicineItem.leaflet')}
-          titleStyle={styles.buttonTitle}
-          containerStyle={styles.buttonContainer}
-          buttonStyle={styles.buttonStyle}
-          onPress={() =>
-            downloadFromUrl(
-              'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/' +
-                item['id'] +
-                '/leaflet',
-              'ulotka',
-            )
-          }
-        />
-        <Button
-          title={t('medicineItem.characteristic')}
-          titleStyle={styles.buttonTitle}
-          containerStyle={styles.buttonContainer}
-          buttonStyle={styles.buttonStyle}
-          onPress={() =>
-            downloadFromUrl(
-              'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/' +
-                item['id'] +
-                '/characteristic',
-              'charakterystyka',
-            )
-          }
-        />
-      </View>
+      {medicine.leafletUrl && medicine.characteristicUrl && (
+        <View style={styles.buttons}>
+          <Button
+            title={t('medicineItem.leaflet')}
+            titleStyle={styles.buttonTitle}
+            containerStyle={styles.buttonContainer}
+            buttonStyle={styles.buttonStyle}
+            onPress={() => downloadFromUrl(medicine.leafletUrl, 'ulotka')}
+          />
+          <Button
+            title={t('medicineItem.characteristic')}
+            titleStyle={styles.buttonTitle}
+            containerStyle={styles.buttonContainer}
+            buttonStyle={styles.buttonStyle}
+            onPress={() => downloadFromUrl(medicine.characteristicUrl, 'charakterystyka')}
+          />
+        </View>
+      )}
     </CustomScrollContainer>
   );
 };

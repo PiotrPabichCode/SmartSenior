@@ -206,6 +206,16 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           style={style}
         />
       );
+    case 'medicines-account':
+      return (
+        <AntDesign
+          name="medicinebox"
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color || 'black'}
+          style={style}
+        />
+      );
     case 'notification-account':
       return (
         <Ionicons
@@ -399,6 +409,28 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           size={size || constants.iconSizeL}
           onPress={onPress}
           color={color || 'black'}
+          style={style}
+        />
+      );
+    }
+    case 'heart': {
+      return (
+        <AntDesign
+          name="heart"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color || 'red'}
+          style={style}
+        />
+      );
+    }
+    case 'heart-outline': {
+      return (
+        <AntDesign
+          name="hearto"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color}
           style={style}
         />
       );

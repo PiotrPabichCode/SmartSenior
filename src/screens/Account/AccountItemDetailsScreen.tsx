@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { changeLanguage } from '@src/redux/auth/auth.actions';
 import AccountTags from './AccountTags';
 import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
+import FavouriteMedicinesScreen from './FavouriteMedicines/FavouriteMedicinesScreen';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();
@@ -99,6 +100,8 @@ const AccountItemDetailsScreen = ({ route }: any) => {
         return <AccountConnectedUsersScreen />;
       case 'tags':
         return <AccountTags />;
+      case 'medicines':
+        return <FavouriteMedicinesScreen />;
       case 'notification':
         return renderNotificationScreen();
       case 'language':

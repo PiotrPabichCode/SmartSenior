@@ -73,6 +73,16 @@ const AccountScreen = () => {
           })
         }
       />
+      <AccountItem
+        icon="medicines-account"
+        title={t('account.button.title.medicines')}
+        onPress={() =>
+          navigate('AccountItemDetails', {
+            screenType: 'medicines',
+            title: t('account.header.medicines'),
+          })
+        }
+      />
       {/* <AccountItem
         icon="share-account"
         title={t('account.button.title.share')}

@@ -9,25 +9,56 @@ import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
 import CustomDivider from '@src/components/CustomDivider';
-import { useAppSelector } from '@src/redux/types';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
+import { Medicine, Medicines } from '@src/models';
+import { addMedicine } from '@src/redux/medicines/medicines.actions';
+import CustomToast from '@src/components/CustomToast';
+import { selectMedicines } from '@src/redux/medicines/medicines.slice';
 
 const MedicinesScreen = () => {
-  const [items, setItems] = useState([]);
+  const dispatch = useAppDispatch();
+  const [apiMedicines, setApiMedicines] = useState<Medicines>([]);
   const theme = useAppSelector(state => selectTheme(state));
+  const medicines = useAppSelector(state => selectMedicines(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
 
-  const BASE_URL =
-    'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/search/public?specimenTypeEnum=L&';
+  const BASE_URL = 'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/';
+  const BASE_SEARCH_URL = BASE_URL + 'search/public?specimenTypeEnum=L&';
 
   const loadData = async (request: string) => {
     try {
       const response = await fetch(request);
       const json = await response.json();
-      setItems(json.content);
+      const data: Array<any> = json.content;
+      const medicines: Medicines = data.map(item => ({
+        key: '',
+        productName: item['medicinalProductName'],
+        commonName: item['commonName'],
+        power: item['medicinalProductPower'],
+        pharmaceuticalForm: item['pharmaceuticalFormName'],
+        activeSubstance: item['activeSubstanceName'],
+        packaging: item['packaging'].replaceAll('\\n', '\n'),
+        expiration: item['expirationDateString'],
+        company: item['subjectMedicinalProductName'],
+        country: item['manufacturersDtos'][0]['countryName'],
+        leafletUrl: item['id'] ? BASE_URL + item['id'] + '/leaflet' : null,
+        characteristicUrl: item['id'] ? BASE_URL + item['id'] + '/characteristic' : null,
+      }));
+      setApiMedicines(medicines);
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const handleAddMedicine = async (medicine: Medicine) => {
+    try {
+      await dispatch(addMedicine(medicine)).unwrap();
+      CustomToast('success', 'Dodano lek do ulubionych');
+    } catch (error) {
+      CustomToast('error', 'Nie udało się dodać leku do ulubionych');
+      console.log(error);
     }
   };
 
@@ -39,7 +70,7 @@ const MedicinesScreen = () => {
         initialValues={{ name: '' }}
         onSubmit={params => {
           try {
-            const request = buildRequest(BASE_URL, params);
+            const request = buildRequest(BASE_SEARCH_URL, params);
             loadData(request);
           } catch (e) {
             console.log(e);
@@ -61,16 +92,20 @@ const MedicinesScreen = () => {
           </>
         )}
       </Formik>
-      {items &&
-        items.map((item, index) => (
+      {apiMedicines &&
+        apiMedicines.map((medicine, index) => (
           <MedicineItem
             key={index}
-            name={item['medicinalProductName']}
+            name={medicine.productName}
+            added={medicines.findIndex(m => m.productName === medicine.productName) !== -1}
             onPress={() =>
               navigate('MedicinesItemDetails', {
-                item: item,
+                medicine: medicine,
               })
             }
+            onPressAdd={async () => {
+              await handleAddMedicine(medicine);
+            }}
           />
         ))}
     </CustomScrollContainer>

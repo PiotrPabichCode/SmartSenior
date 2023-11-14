@@ -32,7 +32,10 @@ const CustomButton = ({
     return (
       <>
         <View style={styles.iconStyle}>{icon}</View>
-        <Text style={[styles.title, titleStyle, { color }]} numberOfLines={1}>
+        <Text
+          style={[styles.title, titleStyle, { color }]}
+          numberOfLines={1}
+          adjustsFontSizeToFit={true}>
           {title}
         </Text>
       </>

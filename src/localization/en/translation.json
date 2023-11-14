@@ -79,6 +79,7 @@
         "theme": "Theme",
         "language": "Language",
         "tags": "Tags",
+        "medicines": "Favourite medicines",
         "notification": "Notifications",
         "share": "Recommend our app",
         "connected-users": "Connected Users",
@@ -89,6 +90,7 @@
       "user": "Profile - Account",
       "language": "Profile - Language",
       "tags": "Profile - Tags",
+      "medicines": "Profile - Favourite Medicines",
       "notification": "Profile - Notifications",
       "share": "Profile - Recommendations",
       "connected-users": "Profile - Connected Users"
@@ -338,6 +340,10 @@
     "add": "Add",
     "cancel": "Cancel",
     "selected": "Selected tags"
+  },
+  "favouriteMedicines": {
+    "description": "Hey there! I know you have your favorite medicines that make every day easier. How about adding them here? It's so simple! Click on the heart next to the name of the medicine that helps you the most, and you'll have quick access to it whenever you need. It's like a little treasure you can have at your fingertips! Give it a try, it's a cool trick!",
+    "add": "Add a new medicine"
   },
   "yes": "Yes",
   "no": "No",

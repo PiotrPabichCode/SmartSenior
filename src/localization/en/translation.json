@@ -80,6 +80,7 @@
         "language": "Language",
         "tags": "Tags",
         "medicines": "Favourite medicines",
+        "pharmacies": "Favourite pharmacies",
         "notification": "Notifications",
         "share": "Recommend our app",
         "connected-users": "Connected Users",
@@ -91,6 +92,7 @@
       "language": "Profile - Language",
       "tags": "Profile - Tags",
       "medicines": "Profile - Favourite Medicines",
+      "pharmacies": "Profile - Favourite Pharmacies",
       "notification": "Profile - Notifications",
       "share": "Profile - Recommendations",
       "connected-users": "Profile - Connected Users"
@@ -343,7 +345,19 @@
   },
   "favouriteMedicines": {
     "description": "Hey there! I know you have your favorite medicines that make every day easier. How about adding them here? It's so simple! Click on the heart next to the name of the medicine that helps you the most, and you'll have quick access to it whenever you need. It's like a little treasure you can have at your fingertips! Give it a try, it's a cool trick!",
-    "add": "Add a new medicine"
+    "add": "Add a new medicine",
+    "alertTitle": "Remove from Favorites",
+    "alertQuestion": "Do you want to remove the medicine from favorites?",
+    "deleteSuccess": "Medicine removed from favorites",
+    "deleteError": "Failed to remove the medicine from favorites"
+  },
+  "favouritePharmacies": {
+    "description": "Finding the right pharmacy can be crucial for your health. Add several local pharmacies to your favorites list to ensure you always have convenience and essential health products within reach. No matter where you are, rest assured that the saved pharmacies will be ready to provide you with professional care and assistance in maintaining your health at the right level.",
+    "add": "Add a new pharmacy",
+    "alertTitle": "Remove from Favorites",
+    "alertQuestion": "Do you want to remove the pharmacy from favorites?",
+    "deleteSuccess": "Pharmacy removed from favorites",
+    "deleteError": "Failed to remove pharmacy from favorites"
   },
   "yes": "Yes",
   "no": "No",

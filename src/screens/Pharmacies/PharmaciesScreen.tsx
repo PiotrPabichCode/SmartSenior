@@ -9,15 +9,30 @@ import { t } from '@src/localization/Localization';
 import { buildRequest } from '@src/utils/utils';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { useAppSelector } from '@src/redux/types';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
+import { Pharmacies, Pharmacy } from '@src/models';
+import { selectPharmacies } from '@src/redux/pharmacies/pharmacies.slice';
+import { addPharmacy } from '@src/redux/pharmacies/pharmacies.actions';
+import CustomToast from '@src/components/CustomToast';
 
 const PharmaciesScreen = () => {
+  const dispatch = useAppDispatch();
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
-  const [pharmacies, setPharmacies] = useState([]);
-  const BASE_URL =
+  const [apiPharmacies, setApiPharmacies] = useState<Pharmacies>([]);
+  const pharmacies = useAppSelector(state => selectPharmacies(state));
+  const BASE_SEARCH_URL =
     'https://rejestrymedyczne.ezdrowie.gov.pl/api/pharmacies/search?page=0&size=10&sortField=dateOfChanged&sortDirection=DESC&statusCode=AKTYWNA&';
+
+  const generateAddress = (address: any) => {
+    const street = address['street'];
+    const homeNumber = address['homeNumber'];
+    const postCode = address['postcode'];
+    const province = address['province'];
+    const city = address['city'];
+    return `${street} ${homeNumber}, ${postCode} ${city}, ${province}`;
+  };
 
   const loadData = async (request: string) => {
     try {
@@ -25,8 +40,19 @@ const PharmaciesScreen = () => {
       const response = await fetch(request);
       const json = await response.json();
       const key = Object.keys(json)[0];
-      const values = Object.values(json[key]).filter((item: any) => item.name !== '');
-      setPharmacies(values as any);
+      const items: Array<any> = Object.values(json[key]).filter((item: any) => item.name !== '');
+      const pharmacies: Pharmacies = items.map(item => ({
+        key: '',
+        name: item['name'],
+        status: item['pharmacyStatus']['displayName'],
+        genre: item['pharmacyGenre']['displayName'],
+        address: generateAddress(item['address']),
+        phone: item['phoneNumber'],
+        email: item['email'],
+        owners: item['owners'][0]['name'],
+        openOnSundays: item['openOnSundaysNonTrade'],
+      }));
+      setApiPharmacies(pharmacies);
     } catch (e) {
       console.log(e);
     }
@@ -51,6 +77,16 @@ const PharmaciesScreen = () => {
     { label: 'Zachodniopomorskie', value: 'zachodniopomorskie' },
   ];
 
+  const handleAddPharmacy = async (pharmacy: Pharmacy) => {
+    try {
+      await dispatch(addPharmacy(pharmacy)).unwrap();
+      CustomToast('success', 'Dodano aptekę do ulubionych');
+    } catch (error) {
+      CustomToast('error', 'Nie udało się dodać apteki do ulubionych');
+      console.log(error);
+    }
+  };
+
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Text style={styles.title}>{t('pharmaciesScreen.title')}</Text>
@@ -59,7 +95,7 @@ const PharmaciesScreen = () => {
         initialValues={{ name: '', companyCity: '', companyProvince: '' }}
         onSubmit={params => {
           try {
-            const request = buildRequest(BASE_URL, params);
+            const request = buildRequest(BASE_SEARCH_URL, params);
             loadData(request);
           } catch (e) {
             console.log(e);
@@ -93,16 +129,20 @@ const PharmaciesScreen = () => {
         )}
       </Formik>
 
-      {pharmacies &&
-        pharmacies.map((item, index) => (
+      {apiPharmacies &&
+        apiPharmacies.map((pharmacy, index) => (
           <PharmacyItem
             key={index}
-            name={item['name']}
+            name={pharmacy.name}
+            added={pharmacies.findIndex(m => m.address === pharmacy.address) !== -1}
             onPress={() =>
               navigate('PharmaciesItemDetails', {
-                item: item,
+                pharmacy: pharmacy,
               })
             }
+            onPressAdd={async () => {
+              await handleAddPharmacy(pharmacy);
+            }}
           />
         ))}
     </CustomScrollContainer>

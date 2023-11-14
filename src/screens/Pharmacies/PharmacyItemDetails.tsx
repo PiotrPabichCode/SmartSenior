@@ -1,10 +1,11 @@
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { Divider } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { selectTheme } from '@src/redux/auth/auth.slice';
+import { Pharmacy } from '@src/models';
 
 const PharmacyItemDetails = ({ route }: any) => {
   const theme = useAppSelector(state => selectTheme(state));
@@ -19,37 +20,18 @@ const PharmacyItemDetails = ({ route }: any) => {
     );
   };
 
-  const { item } = route.params;
-
-  const renderAddress = (title: string, address: any) => {
-    const street = address['street'];
-    const homeNumber = address['homeNumber'];
-    const postCode = address['postcode'];
-    const province = address['province'];
-    const city = address['city'];
-    const outputString = `${street} ${homeNumber}, ${postCode} ${city}, ${province}`;
-    return (
-      <>
-        <Divider style={styles.dividerStyle} />
-        <Text style={styles.detailTitle}>{title}</Text>
-        <Text style={styles.details}>{outputString}</Text>
-      </>
-    );
-  };
+  const { pharmacy }: { pharmacy: Pharmacy } = route.params;
 
   return (
     <CustomScrollContainer theme={currentTheme}>
-      {renderDetail(t('pharmacyItem.name'), item.name)}
-      {renderDetail(t('pharmacyItem.status'), item.pharmacyStatus.displayName)}
-      {renderDetail(t('pharmacyItem.genre'), item.pharmacyGenre.displayName)}
-      {renderAddress(t('pharmacyItem.address'), item.address)}
-      {renderDetail(t('pharmacyItem.phone'), item.phoneNumber)}
-      {renderDetail(t('pharmacyItem.email'), item.email)}
-      {renderDetail(t('pharmacyItem.owners'), item.owners[0].name)}
-      {renderDetail(
-        t('pharmacyItem.openOnSundays'),
-        item.openOnSundaysNonTrade ? t('yes') : t('no'),
-      )}
+      {renderDetail(t('pharmacyItem.name'), pharmacy.name)}
+      {renderDetail(t('pharmacyItem.status'), pharmacy.status)}
+      {renderDetail(t('pharmacyItem.genre'), pharmacy.genre)}
+      {renderDetail(t('pharmacyItem.address'), pharmacy.address)}
+      {renderDetail(t('pharmacyItem.phone'), pharmacy.phone)}
+      {renderDetail(t('pharmacyItem.email'), pharmacy.email)}
+      {renderDetail(t('pharmacyItem.owners'), pharmacy.owners)}
+      {renderDetail(t('pharmacyItem.openOnSundays'), pharmacy.openOnSundays ? t('yes') : t('no'))}
       <Divider style={styles.dividerStyle} />
     </CustomScrollContainer>
   );

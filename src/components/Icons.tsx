@@ -2,6 +2,7 @@ import {
   AntDesign,
   Entypo,
   Feather,
+  FontAwesome5,
   Fontisto,
   Foundation,
   Ionicons,
@@ -210,6 +211,16 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
       return (
         <AntDesign
           name="medicinebox"
+          size={size || constants.iconSizeXL}
+          onPress={onPress}
+          color={color || 'black'}
+          style={style}
+        />
+      );
+    case 'pharmacies-account':
+      return (
+        <MaterialCommunityIcons
+          name="home-export-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color || 'black'}

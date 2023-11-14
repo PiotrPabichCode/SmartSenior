@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from 'react-native';
-import Icons from '@src/components/Icons';
+import Icons, { renderIcon } from '@src/components/Icons';
 import { Button } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';
@@ -7,14 +7,16 @@ import { t } from '@src/localization/Localization';
 
 type PharmacyItemProps = PropsWithChildren<{
   name: string;
+  added: boolean;
   onPress?: () => void;
+  onPressAdd: () => void;
 }>;
 
-const PharmacyItem = ({ name, onPress }: PharmacyItemProps) => {
+const PharmacyItem = ({ name, added, onPress, onPressAdd }: PharmacyItemProps) => {
   return (
     <View style={styles.viewStyle}>
-      <Icons name="pharmacy" />
-      <Text style={styles.name} numberOfLines={1}>
+      {renderIcon({ name: 'pharmacy', size: 24 })}
+      <Text style={styles.name} numberOfLines={2} adjustsFontSizeToFit={true}>
         {name}
       </Text>
       <Button
@@ -24,14 +26,11 @@ const PharmacyItem = ({ name, onPress }: PharmacyItemProps) => {
           backgroundColor: 'rgba(78, 116, 289, 1)',
           borderRadius: 25,
         }}
-        containerStyle={{
-          width: 100,
-        }}
         titleStyle={{
           fontSize: 10,
-          fontWeight: '400',
         }}
       />
+      <Icons name={added ? 'heart' : 'heart-outline'} size={20} onPress={onPressAdd} />
     </View>
   );
 };

@@ -2,17 +2,17 @@ import { Button } from '@rneui/themed';
 import CustomToast from '@src/components/CustomToast';
 import Icons, { renderIcon } from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
-import { Medicine } from '@src/models';
+import { Pharmacy } from '@src/models';
 import { navigate } from '@src/navigation/navigationUtils';
-import { deleteMedicine } from '@src/redux/medicines/medicines.actions';
+import { deletePharmacy } from '@src/redux/pharmacies/pharmacies.actions';
 import { useAppDispatch } from '@src/redux/types';
 import { View, Text, Alert } from 'react-native';
 
-const FavouriteMedicine = ({ medicine }: { medicine: Medicine }) => {
+const FavouritePharmacy = ({ pharmacy }: { pharmacy: Pharmacy }) => {
   const dispatch = useAppDispatch();
   const onPressDelete = async () => {
     try {
-      await dispatch(deleteMedicine(medicine.key)).unwrap();
+      await dispatch(deletePharmacy(pharmacy.key)).unwrap();
       CustomToast('success', t('favouritePharmacies.deleteSuccess'));
     } catch (error) {
       CustomToast('error', t('favouritePharmacies.deleteError'));
@@ -48,13 +48,13 @@ const FavouriteMedicine = ({ medicine }: { medicine: Medicine }) => {
       }}>
       {renderIcon({ name: 'pills', size: 24 })}
       <Text style={{ width: 150 }} numberOfLines={2} adjustsFontSizeToFit={true}>
-        {medicine.productName}
+        {pharmacy.name}
       </Text>
       <Button
         title={t('button.more')}
         onPress={() => {
-          navigate('MedicinesItemDetails', {
-            medicine: medicine,
+          navigate('PharmaciesItemDetails', {
+            pharmacy: pharmacy,
           });
         }}
         buttonStyle={{
@@ -70,4 +70,4 @@ const FavouriteMedicine = ({ medicine }: { medicine: Medicine }) => {
   );
 };
 
-export default FavouriteMedicine;
+export default FavouritePharmacy;

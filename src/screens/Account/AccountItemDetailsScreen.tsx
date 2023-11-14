@@ -11,6 +11,7 @@ import { changeLanguage } from '@src/redux/auth/auth.actions';
 import AccountTags from './AccountTags';
 import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
 import FavouriteMedicinesScreen from './FavouriteMedicines/FavouriteMedicinesScreen';
+import FavouritePharmaciesScreen from './FavouritePharmacies/FavouritePharmaciesScreen';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();
@@ -102,6 +103,8 @@ const AccountItemDetailsScreen = ({ route }: any) => {
         return <AccountTags />;
       case 'medicines':
         return <FavouriteMedicinesScreen />;
+      case 'pharmacies':
+        return <FavouritePharmaciesScreen />;
       case 'notification':
         return renderNotificationScreen();
       case 'language':

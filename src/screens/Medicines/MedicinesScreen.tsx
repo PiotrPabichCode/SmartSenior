@@ -1,6 +1,6 @@
 import { Button, Input } from '@rneui/themed';
 import { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Alert } from 'react-native';
 import MedicineItem from './MedicineItem';
 import { Formik } from 'formik';
 import { buildRequest } from '@utils/utils';
@@ -12,7 +12,7 @@ import CustomDivider from '@src/components/CustomDivider';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import { Medicine, Medicines } from '@src/models';
-import { addMedicine } from '@src/redux/medicines/medicines.actions';
+import { addMedicine, deleteMedicine } from '@src/redux/medicines/medicines.actions';
 import CustomToast from '@src/components/CustomToast';
 import { selectMedicines } from '@src/redux/medicines/medicines.slice';
 
@@ -55,11 +55,36 @@ const MedicinesScreen = () => {
   const handleAddMedicine = async (medicine: Medicine) => {
     try {
       await dispatch(addMedicine(medicine)).unwrap();
-      CustomToast('success', 'Dodano lek do ulubionych');
+      CustomToast('success', t('favouriteMedicines.addSuccess'));
     } catch (error) {
-      CustomToast('error', 'Nie udało się dodać leku do ulubionych');
+      CustomToast('error', t('favouriteMedicines.addError'));
       console.log(error);
     }
+  };
+
+  const onPressDelete = async (key: string) => {
+    try {
+      await dispatch(deleteMedicine(key)).unwrap();
+      CustomToast('success', t('favouritePharmacies.deleteSuccess'));
+    } catch (error) {
+      CustomToast('error', t('favouritePharmacies.deleteError'));
+      console.log(error);
+    }
+  };
+
+  const handleDeleteItem = (key: string) => {
+    Alert.alert(t('favouritePharmacies.alertTitle'), t('favouritePharmacies.alertQuestion'), [
+      {
+        text: t('no'),
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: t('yes'),
+        style: 'destructive',
+        onPress: async () => await onPressDelete(key),
+      },
+    ]);
   };
 
   return (
@@ -103,8 +128,13 @@ const MedicinesScreen = () => {
                 medicine: medicine,
               })
             }
-            onPressAdd={async () => {
-              await handleAddMedicine(medicine);
+            onPressFavourite={async () => {
+              const m = medicines.find(m => m.productName === medicine.productName);
+              if (m) {
+                handleDeleteItem(m.key);
+              } else {
+                await handleAddMedicine(medicine);
+              }
             }}
           />
         ))}

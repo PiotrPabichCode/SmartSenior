@@ -17,7 +17,7 @@ import { validateUserData } from '@src/redux/auth/auth.api';
 import { useAppSelector } from '@src/redux/types';
 import { selectUser } from '@src/redux/auth/auth.slice';
 import SeniorDashboard from '@src/screens/Account/ConnectedUsers/SeniorDashboard';
-import AddTag from '@src/screens/Account/AddTag';
+import AddTag from '@src/screens/Account/Tags/AddTag';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

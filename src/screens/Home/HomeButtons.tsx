@@ -20,12 +20,12 @@ const HomeButtons = () => {
         backgroundColor={currentTheme.customBtnBackground}
         icon={<Icons name="pills" color="black" />}
       />
-      <CustomButton
+      {/* <CustomButton
         title={t('homeScreen.button.title.doctors')}
         color={'black'}
         backgroundColor={currentTheme.customBtnBackground}
         icon={<Icons name="doctor" color="black" />}
-      />
+      /> */}
       <CustomButton
         onPress={() => navigate('Pharmacies')}
         title={t('homeScreen.button.title.pharmacies')}

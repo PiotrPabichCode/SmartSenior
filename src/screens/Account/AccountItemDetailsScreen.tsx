@@ -8,7 +8,7 @@ import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersS
 import { goBack } from '@src/navigation/navigationUtils';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { changeLanguage } from '@src/redux/auth/auth.actions';
-import AccountTags from './AccountTags';
+import AccountTags from './Tags/AccountTags';
 import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
 import FavouriteMedicinesScreen from './FavouriteMedicines/FavouriteMedicinesScreen';
 import FavouritePharmaciesScreen from './FavouritePharmacies/FavouritePharmaciesScreen';

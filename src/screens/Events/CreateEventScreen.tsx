@@ -7,7 +7,6 @@ import CustomDropdown from '@components/CustomDropdown';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomToast from '@src/components/CustomToast';
-import { getAuth } from 'firebase/auth';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { createDatetimeTimezone } from '@src/utils/utils';
 import { days, priorities, times, cyclicValues } from '@src/redux/events/events.constants';
@@ -20,7 +19,7 @@ import { goBack } from '@src/navigation/navigationUtils';
 import { Event, Tag, Tags } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme, selectUserID } from '@src/redux/auth/auth.slice';
-import TagView from '../Account/Tag';
+import TagView from '../Account/Tags/Tag';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();

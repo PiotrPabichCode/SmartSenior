@@ -7,6 +7,7 @@ import Colors from '@src/constants/Colors';
 import { Event, Events } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
+import NoActiveEvents from './NoActiveEvents';
 
 interface UpcomingEventsProps {
   events: Events;
@@ -69,7 +70,9 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
     );
   });
 
-  return <View style={styles.viewStyle}>{mapEventItems}</View>;
+  return (
+    <View style={styles.viewStyle}>{events.length > 0 ? mapEventItems : <NoActiveEvents />}</View>
+  );
 };
 
 const useStyles = (theme: any) =>

@@ -23,7 +23,7 @@ import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
 import { selectEventByKey } from '@src/redux/events/events.slice';
 import { Tag } from '@src/models';
-import TagView from '../Account/Tag';
+import TagView from '../Account/Tags/Tag';
 import { Days } from './DayField';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;

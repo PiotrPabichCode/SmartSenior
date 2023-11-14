@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Alert } from 'react-native';
 import { Formik } from 'formik';
 import { Button, Divider, Input } from '@rneui/themed';
 import PharmacyItem from './PharmacyItem';
@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import { Pharmacies, Pharmacy } from '@src/models';
 import { selectPharmacies } from '@src/redux/pharmacies/pharmacies.slice';
-import { addPharmacy } from '@src/redux/pharmacies/pharmacies.actions';
+import { addPharmacy, deletePharmacy } from '@src/redux/pharmacies/pharmacies.actions';
 import CustomToast from '@src/components/CustomToast';
 
 const PharmaciesScreen = () => {
@@ -77,12 +77,37 @@ const PharmaciesScreen = () => {
     { label: 'Zachodniopomorskie', value: 'zachodniopomorskie' },
   ];
 
+  const onPressDelete = async (key: string) => {
+    try {
+      await dispatch(deletePharmacy(key)).unwrap();
+      CustomToast('success', t('favouritePharmacies.deleteSuccess'));
+    } catch (error) {
+      CustomToast('error', t('favouritePharmacies.deleteError'));
+      console.log(error);
+    }
+  };
+
+  const handleDeleteItem = (key: string) => {
+    Alert.alert(t('favouritePharmacies.alertTitle'), t('favouritePharmacies.alertQuestion'), [
+      {
+        text: t('no'),
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: t('yes'),
+        style: 'destructive',
+        onPress: async () => await onPressDelete(key),
+      },
+    ]);
+  };
+
   const handleAddPharmacy = async (pharmacy: Pharmacy) => {
     try {
       await dispatch(addPharmacy(pharmacy)).unwrap();
-      CustomToast('success', 'Dodano aptekę do ulubionych');
+      CustomToast('success', t('favouritePharmacies.addSuccess'));
     } catch (error) {
-      CustomToast('error', 'Nie udało się dodać apteki do ulubionych');
+      CustomToast('error', t('favouritePharmacies.addError'));
       console.log(error);
     }
   };
@@ -140,8 +165,13 @@ const PharmaciesScreen = () => {
                 pharmacy: pharmacy,
               })
             }
-            onPressAdd={async () => {
-              await handleAddPharmacy(pharmacy);
+            onPressFavourite={async () => {
+              const p = pharmacies.find(p => p.address === pharmacy.address);
+              if (p) {
+                handleDeleteItem(p.key);
+              } else {
+                await handleAddPharmacy(pharmacy);
+              }
             }}
           />
         ))}

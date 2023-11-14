@@ -9,10 +9,10 @@ type PharmacyItemProps = PropsWithChildren<{
   name: string;
   added: boolean;
   onPress?: () => void;
-  onPressAdd: () => void;
+  onPressFavourite: () => void;
 }>;
 
-const PharmacyItem = ({ name, added, onPress, onPressAdd }: PharmacyItemProps) => {
+const PharmacyItem = ({ name, added, onPress, onPressFavourite }: PharmacyItemProps) => {
   return (
     <View style={styles.viewStyle}>
       {renderIcon({ name: 'pharmacy', size: 24 })}
@@ -30,7 +30,7 @@ const PharmacyItem = ({ name, added, onPress, onPressAdd }: PharmacyItemProps) =
           fontSize: 10,
         }}
       />
-      <Icons name={added ? 'heart' : 'heart-outline'} size={20} onPress={onPressAdd} />
+      <Icons name={added ? 'heart' : 'heart-outline'} size={20} onPress={onPressFavourite} />
     </View>
   );
 };

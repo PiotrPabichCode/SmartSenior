@@ -4,11 +4,10 @@ import { Switch } from '@rneui/themed';
 
 import type { PropsWithChildren } from 'react';
 import { convertTimestampToDate, renderDayValue } from '@src/utils/utils';
-import { goBack, navigate } from '@src/navigation/navigationUtils';
-import Icons from '@src/components/Icons';
+import { navigate } from '@src/navigation/navigationUtils';
 import CustomToast from '@src/components/CustomToast';
 import { t } from '@src/localization/Localization';
-import { deleteEvent, updateEvent } from '@src/redux/events/events.actions';
+import { updateEvent } from '@src/redux/events/events.actions';
 import { Event } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectEventByKey } from '@src/redux/events/events.slice';

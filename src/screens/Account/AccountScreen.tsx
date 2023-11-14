@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import AccountItem from './AccountItem';
 import AccountProfileHint from './AccountProfileHint';
 import { navigate } from '@src/navigation/navigationUtils';
@@ -16,7 +16,7 @@ const AccountScreen = () => {
   const styles = useStyles(currentTheme);
 
   return (
-    <View style={styles.viewStyle}>
+    <ScrollView contentContainerStyle={styles.viewStyle}>
       <AccountProfileHint />
       <AccountItem
         icon="user-account"
@@ -110,14 +110,14 @@ const AccountScreen = () => {
         title={t('account.button.title.logout')}
         onPress={() => logout()}
       />
-    </View>
+    </ScrollView>
   );
 };
 
 const useStyles = (theme: any) =>
   StyleSheet.create({
     viewStyle: {
-      height: '100%',
+      minHeight: '100%',
       backgroundColor: theme.mainBackground,
     },
   });

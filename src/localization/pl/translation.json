@@ -272,7 +272,8 @@
         "pharmacies": "Lista aptek",
         "notes": "Twoje notatki"
       }
-    }
+    },
+    "noActiveEvents": "Wygląda na to, że nie dodałeś żadnych wydarzeń. Dodaj swoje ważne daty i przypomnienia, a aplikacja będzie działać jak Twój osobisty asystent, pomagając nie zapominać o niczym istotnym."
   },
   "seniorDashboard": {
     "personal": "Dane osobowe",
@@ -349,7 +350,9 @@
     "alertTitle": "Usunięcie z ulubionych",
     "alertQuestion": "Czy chcesz usunąć lek z ulubionych?",
     "deleteSuccess": "Usunięto lek z ulubionych",
-    "deleteError": "Nie udało się usunąć leku z ulubionych"
+    "deleteError": "Nie udało się usunąć leku z ulubionych",
+    "addSuccess": "Dodano lek do ulubionych",
+    "addError": "Nie udało się dodać leku do ulubionych"
   },
   "favouritePharmacies": {
     "description": "Znalezienie właściwej apteki może być kluczowe dla Twojego zdrowia. Dodaj kilka lokalnych aptek do swojej listy ulubionych, by mieć pewność, że zawsze znajdziesz wygodę i niezbędne produkty zdrowotne w zasięgu ręki. Bez względu na to, gdzie się znajdujesz, możesz mieć pewność, że zapisane apteki będą gotowe, by służyć Ci profesjonalną opieką i pomocą w utrzymaniu Twojego zdrowia na właściwym poziomie.",
@@ -357,7 +360,9 @@
     "alertTitle": "Usunięcie z ulubionych",
     "alertQuestion": "Czy chcesz usunąć aptekę z ulubionych?",
     "deleteSuccess": "Usunięto aptekę z ulubionych",
-    "deleteError": "Nie udało się usunąć apteki z ulubionych"
+    "deleteError": "Nie udało się usunąć apteki z ulubionych",
+    "addSuccess": "Dodano aptekę do ulubionych",
+    "addError": "Nie udało się dodać apteki do ulubionych"
   },
   "yes": "Tak",
   "no": "Nie",

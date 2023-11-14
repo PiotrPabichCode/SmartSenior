@@ -272,7 +272,8 @@
         "pharmacies": "Pharmacies",
         "notes": "Your Notes"
       }
-    }
+    },
+    "noActiveEvents": "It looks like you haven't added any events yet. Add your important dates and reminders, and the app will work as your personal assistant, helping you remember everything important."
   },
   "seniorDashboard": {
     "personal": "Personal Information",
@@ -349,7 +350,9 @@
     "alertTitle": "Remove from Favorites",
     "alertQuestion": "Do you want to remove the medicine from favorites?",
     "deleteSuccess": "Medicine removed from favorites",
-    "deleteError": "Failed to remove the medicine from favorites"
+    "deleteError": "Failed to remove the medicine from favorites",
+    "addSuccess": "Medicine added to favorites",
+    "addError": "Failed to add medicine to favorites"
   },
   "favouritePharmacies": {
     "description": "Finding the right pharmacy can be crucial for your health. Add several local pharmacies to your favorites list to ensure you always have convenience and essential health products within reach. No matter where you are, rest assured that the saved pharmacies will be ready to provide you with professional care and assistance in maintaining your health at the right level.",
@@ -357,7 +360,9 @@
     "alertTitle": "Remove from Favorites",
     "alertQuestion": "Do you want to remove the pharmacy from favorites?",
     "deleteSuccess": "Pharmacy removed from favorites",
-    "deleteError": "Failed to remove pharmacy from favorites"
+    "deleteError": "Failed to remove pharmacy from favorites",
+    "addSuccess": "Pharmacy added to favorites",
+    "addError": "Failed to add pharmacy to favorites"
   },
   "yes": "Yes",
   "no": "No",

@@ -8,7 +8,7 @@ import { goBack, navigate } from '@src/navigation/navigationUtils';
 import Icons from '@src/components/Icons';
 import CustomToast from '@src/components/CustomToast';
 import { t } from '@src/localization/Localization';
-import { deleteEvent } from '@src/redux/events/events.actions';
+import { deleteEvent, updateEvent } from '@src/redux/events/events.actions';
 import { Event } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectEventByKey } from '@src/redux/events/events.slice';
@@ -26,7 +26,6 @@ const EventItem = ({ eventKey }: { eventKey: string }) => {
   const event = useAppSelector(state => selectEventByKey(state, eventKey));
 
   if (!event) {
-    goBack();
     return null;
   }
 
@@ -44,29 +43,46 @@ const EventItem = ({ eventKey }: { eventKey: string }) => {
     });
   }
 
-  const onEventDelete = async () => {
+  const onEventActivation = async (active: boolean) => {
     try {
-      await dispatch(deleteEvent(eventKey)).unwrap();
-      CustomToast('success', t('eventItem.alert.success'));
+      await dispatch(
+        updateEvent({
+          eventKey: eventKey,
+          data: {
+            active: !active,
+          },
+        }),
+      ).unwrap();
+      CustomToast(
+        'success',
+        active ? 'Wydarzenie zostało wyłączone' : 'Wydarzenie zostało włączone',
+      );
     } catch (error) {
       console.log(error);
-      CustomToast('success', t('eventItem.alert.error'));
+      CustomToast(
+        'error',
+        active ? 'Nie udało się wyłączyć wydarzenia' : 'Nie udało się włączyć wydarzenia',
+      );
     }
   };
 
-  const handleDeleteEvent = () => {
-    Alert.alert(t('eventItem.alert.title'), t('eventItem.alert.message'), [
-      {
-        text: t('eventItem.alert.no'),
-        style: 'cancel',
-        onPress: () => {},
-      },
-      {
-        text: t('eventItem.alert.yes'),
-        style: 'destructive',
-        onPress: onEventDelete,
-      },
-    ]);
+  const handleActivationEvent = async () => {
+    Alert.alert(
+      event.active ? 'Wyłączenie wydarzenia' : 'Włączenie wydarzenia',
+      event.active ? 'Czy chcesz wyłączyć wydarzenie?' : 'Czy chcesz włączyć wydarzenie?',
+      [
+        {
+          text: t('eventItem.alert.no'),
+          style: 'cancel',
+          onPress: () => {},
+        },
+        {
+          text: t('eventItem.alert.yes'),
+          style: 'destructive',
+          onPress: async () => await onEventActivation(event.active),
+        },
+      ],
+    );
   };
 
   return (
@@ -80,18 +96,13 @@ const EventItem = ({ eventKey }: { eventKey: string }) => {
           })
         }>
         <Text style={styles.title}>{event.title}</Text>
-        <Icons
-          name="delete"
-          style={{ position: 'absolute', right: 5, top: 5 }}
-          onPress={handleDeleteEvent}
-        />
         <View style={styles.viewDetails}>
           <Text style={styles.time} numberOfLines={1}>
             {convertTimestampToDate(event.date!, 'DD-MM-YYYY HH:mm')}
           </Text>
           <View style={styles.viewRightPanel}>
             <Text style={styles.days}>{generateDayTags(event)}</Text>
-            <Switch value={event.active} onValueChange={value => setChecked(value)} />
+            <Switch value={event.active} onValueChange={handleActivationEvent} />
           </View>
         </View>
       </TouchableOpacity>

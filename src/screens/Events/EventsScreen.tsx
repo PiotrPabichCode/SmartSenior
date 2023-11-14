@@ -13,8 +13,8 @@ const EventsScreen = () => {
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
 
-  const mapEvents = Object.entries(events).map(([key], index) => {
-    return <EventItem key={index} eventKey={key} />;
+  const mapEvents = events.map((event, index) => {
+    return <EventItem key={index} eventKey={event.key} />;
   });
 
   return (

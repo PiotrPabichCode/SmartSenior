@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@src/navigation/types';
 import { convertTimestampToDate, createDatetimeTimezone, getUpdatedFields } from '@src/utils/utils';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomDropdown from '@src/components/CustomDropdown';
 import { Button, CheckBox, Input } from '@rneui/themed';
@@ -19,16 +19,19 @@ import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { updateEvent } from '@src/redux/events/events.actions';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Timestamp } from 'firebase/firestore';
-import { Event } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
-import { selectTheme } from '@src/redux/auth/auth.slice';
+import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
 import { selectEventByKey } from '@src/redux/events/events.slice';
+import { Tag } from '@src/models';
+import TagView from '../Account/Tag';
+import { Days } from './DayField';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 
 const EventItemScreen = ({ route, navigation }: Props) => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector(state => selectTheme(state));
+  const tags = useAppSelector(state => selectTags(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
   const { eventKey } = route.params;
@@ -42,12 +45,12 @@ const EventItemScreen = ({ route, navigation }: Props) => {
   const [dateValue, setDateValue] = useState<Date | undefined>(undefined);
 
   if (!event) {
-    goBack();
     return null;
   }
 
   const ChangeEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
+    tags: Yup.mixed<Tag>(),
     description: Yup.string(),
     date: Yup.mixed<Timestamp>().nonNullable().required(),
     days: Yup.array().required(),
@@ -64,11 +67,10 @@ const EventItemScreen = ({ route, navigation }: Props) => {
 
   const [initialValues, setInitialValues] = useState({
     title: event.title,
+    tags: event.tags,
     description: event.description,
     date: event.date,
-    days: Object.values(event.days).map(day => ({
-      ...day,
-    })),
+    days: event.days as Days,
     priority: event.priority,
     isCyclic: event.isCyclic,
     cyclicTime: event.cyclicTime,
@@ -87,9 +89,9 @@ const EventItemScreen = ({ route, navigation }: Props) => {
         onSubmit={values => {
           try {
             values.updatedAt = Timestamp.now();
-            const updatedFields = getUpdatedFields(event, values);
             ChangeEventSchema.validate(values)
               .then(async () => {
+                const updatedFields = getUpdatedFields(event, values);
                 await dispatch(updateEvent({ eventKey: eventKey, data: updatedFields })).unwrap();
                 setInitialValues(values);
                 CustomToast('success', t('eventItemScreen.message.success.change'));
@@ -111,6 +113,45 @@ const EventItemScreen = ({ route, navigation }: Props) => {
               onChangeText={handleChange('title')}
               value={values.title}
             />
+            {values.tags.length > 0 && (
+              <View style={{ gap: 10 }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>
+                  {t('tags.selected')}
+                </Text>
+                {values.tags.map((tag, index) => {
+                  return (
+                    <TagView
+                      key={index}
+                      color={tag.color}
+                      name={tag.name}
+                      id={tag.id}
+                      onPress={() => {
+                        setFieldValue(
+                          'tags',
+                          values.tags.filter(t => t.id !== tag.id),
+                        );
+                      }}
+                    />
+                  );
+                })}
+              </View>
+            )}
+            {tags?.length !== values.tags.length && (
+              <CustomDropdown
+                data={
+                  tags
+                    ? tags.filter(tag => !values.tags.some(valueTag => valueTag.name === tag.name))
+                    : []
+                }
+                labelField={'name'}
+                valueField={'id'}
+                placeholder={'Wybierz znacznik wydarzenia...'}
+                value={values.tags}
+                handleChange={(e: any) => {
+                  setFieldValue('tags', [...values.tags, tags?.find(tag => tag.id === e.id)]);
+                }}
+              />
+            )}
             <Input
               placeholder={t('eventItemScreen.button.placeholder.description')}
               multiline={true}

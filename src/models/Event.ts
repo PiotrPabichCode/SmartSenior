@@ -1,8 +1,10 @@
 import type { FirestoreDataConverter, Timestamp } from 'firebase/firestore';
+import { Tags } from './Tag';
 
 export interface Event {
   key: string;
   title: string;
+  tags: Tags;
   description: string;
   date: Timestamp | null;
   isCyclic: boolean;

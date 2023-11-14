@@ -43,33 +43,31 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
     />
   );
 
-  const mapEventItems = Object.entries(events)?.map(
-    ([key, event]: [string, Event], index: number) => {
-      if (index === MAX_DISPLAYED_EVENTS) {
-        return moreButton;
-      }
-      if (index > MAX_DISPLAYED_EVENTS) {
-        return;
-      }
-      const isEnd = index !== events.length - 1;
-      return (
-        <View style={styles.eventView} key={index}>
-          <View style={styles.eventTimeView}>
-            <Icon name="arrow-right" size={30} color={currentTheme.icon} />
-            <Text style={styles.date} numberOfLines={1}>
-              {convertTimestampToDate(event.date!, 'DD-MM-YYYY HH:mm')}
-            </Text>
-            <Icon name="arrow-left" size={30} color={currentTheme.icon} />
-          </View>
-          <Text style={styles.eventTitle} numberOfLines={1}>
-            {event.description}
+  const mapEventItems = events.map((event, index: number) => {
+    if (index === MAX_DISPLAYED_EVENTS) {
+      return moreButton;
+    }
+    if (index > MAX_DISPLAYED_EVENTS) {
+      return;
+    }
+    const isEnd = index !== events.length - 1;
+    return (
+      <View style={styles.eventView} key={index}>
+        <View style={styles.eventTimeView}>
+          <Icon name="arrow-right" size={30} color={currentTheme.icon} />
+          <Text style={styles.date} numberOfLines={1}>
+            {convertTimestampToDate(event.date!, 'DD-MM-YYYY HH:mm')}
           </Text>
-          {actionButton(key)}
-          {isEnd && <Divider style={styles.dividerStyle} />}
+          <Icon name="arrow-left" size={30} color={currentTheme.icon} />
         </View>
-      );
-    },
-  );
+        <Text style={styles.eventTitle} numberOfLines={1}>
+          {event.description}
+        </Text>
+        {actionButton(event.key)}
+        {isEnd && <Divider style={styles.dividerStyle} />}
+      </View>
+    );
+  });
 
   return <View style={styles.viewStyle}>{mapEventItems}</View>;
 };

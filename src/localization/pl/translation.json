@@ -336,7 +336,8 @@
     "description": "Znaczniki pozwalają na filtrowanie wydarzeń na podstawie danego znacznika. Umożliwiają skuteczną kategoryzację i organizację, umożliwiając użytkownikom łatwe znalezienie wydarzeń zgodnych z konkretnymi zainteresowaniami, umiejętnościami lub cechami. Dodaj znacznik, aby zwiększyć możliwości filtrowania swoich wydarzeń!",
     "addTitle": "Dodaj nowy znacznik",
     "add": "Dodaj",
-    "cancel": "Anuluj"
+    "cancel": "Anuluj",
+    "selected": "Wybrane znaczniki"
   },
   "yes": "Tak",
   "no": "Nie",

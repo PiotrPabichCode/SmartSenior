@@ -5,6 +5,7 @@ import {
   collection,
   doc,
   getDocs,
+  orderBy,
   query,
   updateDoc,
   where,
@@ -58,13 +59,14 @@ export const deleteEvent = async (key: string) => {
 export const fetchEventsByID = async (uid: string): Promise<Events> => {
   try {
     const _collection = collection(db, `events`);
-    const _q = query(
+    const q = query(
       _collection,
       where('deleted', '==', false),
-      where('date', '>=', Timestamp.now()),
+      where('active', '==', true),
       where('userUid', '==', uid),
+      orderBy('date', 'asc'),
     );
-    const snapshot = await getDocs(_q);
+    const snapshot = await getDocs(q);
     const events = snapshot.docs.map(doc => doc.data());
     return events as Events;
   } catch (error) {

@@ -17,13 +17,16 @@ import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { createEvent } from '@src/redux/events/events.actions';
 import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
-import { Event } from '@src/models';
+import { Event, Tag, Tags } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
-import { selectTheme } from '@src/redux/auth/auth.slice';
+import { selectTags, selectTheme, selectUserID } from '@src/redux/auth/auth.slice';
+import TagView from '../Account/Tag';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector(state => selectTheme(state));
+  const userID = useAppSelector(state => selectUserID(state));
+  const tags = useAppSelector(state => selectTags(state));
   const currentTheme = Colors[theme];
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
@@ -33,6 +36,7 @@ const CreateEventScreen = () => {
 
   const NewEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
+    tags: Yup.mixed<Tag>(),
     description: Yup.string(),
     date: Yup.mixed<Timestamp>().nonNullable().required(),
     days: Yup.array().required(),
@@ -54,6 +58,7 @@ const CreateEventScreen = () => {
       <Formik
         initialValues={{
           title: '',
+          tags: [] as Tags,
           description: '',
           date: null,
           days: days.map(day => ({ ...day, active: false })),
@@ -66,7 +71,7 @@ const CreateEventScreen = () => {
           updatedAt: Timestamp.now(),
           deleted: false,
           active: true,
-          userUid: getAuth().currentUser?.uid,
+          userUid: userID,
         }}
         onSubmit={values => {
           try {
@@ -94,6 +99,45 @@ const CreateEventScreen = () => {
               onChangeText={handleChange('title')}
               value={values.title}
             />
+            {values.tags.length > 0 && (
+              <View style={{ gap: 10 }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>
+                  {t('tags.selected')}
+                </Text>
+                {values.tags.map((tag, index) => {
+                  return (
+                    <TagView
+                      key={index}
+                      color={tag.color}
+                      name={tag.name}
+                      id={tag.id}
+                      onPress={() => {
+                        setFieldValue(
+                          'tags',
+                          values.tags.filter(t => t.id !== tag.id),
+                        );
+                      }}
+                    />
+                  );
+                })}
+              </View>
+            )}
+            {tags?.length !== values.tags.length && (
+              <CustomDropdown
+                data={
+                  tags
+                    ? tags.filter(tag => !values.tags.some(valueTag => valueTag.name === tag.name))
+                    : []
+                }
+                labelField={'name'}
+                valueField={'id'}
+                placeholder={'Wybierz znacznik wydarzenia...'}
+                value={values.tags}
+                handleChange={(e: any) => {
+                  setFieldValue('tags', [...values.tags, tags?.find(tag => tag.id === e.id)]);
+                }}
+              />
+            )}
             <Input
               placeholder={t('createEvent.button.placeholder.description')}
               multiline={true}
@@ -182,7 +226,6 @@ const CreateEventScreen = () => {
               <CustomDropdown
                 data={cyclicValues}
                 placeholder={t('createEvent.button.placeholder.cyclicTime')}
-                value={values.cyclicTime}
                 handleChange={(e: any) => setFieldValue('cyclicTime', e.value)}
               />
             )}

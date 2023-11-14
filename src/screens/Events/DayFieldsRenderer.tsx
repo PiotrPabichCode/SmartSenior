@@ -1,4 +1,3 @@
-import { useReducer } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import DayField, { Day } from './DayField';
 import { t } from '@src/localization/Localization';
@@ -24,27 +23,34 @@ const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
     );
   };
 
-  const [_, update] = useReducer(x => x + 1, 0);
-
-  const toggleDay = (day: any) => {
-    const date = startDate.toDate();
-    day.active = !day.active;
-    if (date.getDay() === day.value) {
-      days = days.map(day => ({ ...day, active: false }));
+  const toggleDay = (day: Day) => {
+    if (day.value === startDate.toDate().getDay()) {
       setFieldValue('date', null);
+      setFieldValue(
+        'days',
+        days.map(d => ({
+          ...d,
+          active: false,
+        })),
+      );
+      return;
     }
-    setFieldValue('days', days);
-    update();
+
+    const updatedDays = days.map(d => ({
+      ...d,
+      active: d.value === day.value ? !d.active : d.active,
+    }));
+    setFieldValue('days', updatedDays);
   };
 
   return (
     <View>
       {renderDaysLabel()}
       <View style={styles.view}>
-        {days.map((day: any, key: any) => {
+        {days.map((day, index) => {
           return (
             <DayField
-              key={key + 'day'}
+              key={index + 'day'}
               value={day.value}
               active={day.active}
               onPress={() => toggleDay(day)}

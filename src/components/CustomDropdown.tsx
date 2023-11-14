@@ -2,19 +2,22 @@ import { t } from '@src/localization/Localization';
 import { StyleSheet, View, Text } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
-const renderItem = (item: any) => {
-  return (
-    <View style={styles.item}>
-      <Text style={styles.textItem}>{item.label}</Text>
-    </View>
-  );
-};
-
 const CustomDropdown = (props: any) => {
+  const labelField = props.labelField ? props.labelField : 'label';
+  const valueField = props.valueField ? props.valueField : 'value';
   const updatedData = Object.values(props.data).map((item: any) => ({
     ...item,
     label: !item.multiLang ? item.label : t(item.label, item.values),
   }));
+
+  const renderItem = (item: any) => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.textItem}>{item.label ? item.label : item[labelField]}</Text>
+      </View>
+    );
+  };
+
   return (
     <Dropdown
       style={styles.dropdown}
@@ -23,10 +26,10 @@ const CustomDropdown = (props: any) => {
       iconStyle={styles.iconStyle}
       data={updatedData}
       maxHeight={180}
-      labelField="label"
-      valueField="value"
+      labelField={labelField}
+      valueField={valueField}
       placeholder={props.placeholder}
-      value={props.value}
+      value={props[valueField] ? props[valueField] : props.value}
       onChange={props.handleChange}
       renderItem={renderItem}
     />

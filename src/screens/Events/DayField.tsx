@@ -4,9 +4,11 @@ import { StyleSheet } from 'react-native';
 
 export interface Day {
   value: number;
-  active: any;
+  active: boolean;
   onPress?: () => void;
 }
+
+export type Days = Day[];
 
 const DayField = ({ value, active, onPress }: Day) => {
   return (

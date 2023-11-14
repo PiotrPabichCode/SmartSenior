@@ -1,9 +1,19 @@
 import { Tag as TagModel } from '@src/models';
 import { Button } from '@rneui/themed';
 
-const Tag = ({ name, color, id }: TagModel) => {
+type Props = TagModel & {
+  onPress: () => void;
+};
+
+const Tag = ({ name, color, id, onPress }: Props) => {
   return (
-    <Button title={name} color={color} containerStyle={{ minWidth: '90%', borderRadius: 25 }} />
+    <Button
+      id={id}
+      title={name}
+      color={color}
+      containerStyle={{ minWidth: '90%', borderRadius: 25 }}
+      onPress={onPress}
+    />
   );
 };
 

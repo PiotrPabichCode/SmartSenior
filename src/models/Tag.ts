@@ -1,5 +1,3 @@
-import { ColorValue } from 'react-native';
-
 export interface Tag {
   id: string;
   name: string;

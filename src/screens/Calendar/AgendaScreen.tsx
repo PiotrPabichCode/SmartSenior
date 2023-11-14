@@ -50,23 +50,23 @@ class AgendaScreen extends Component<State> {
     setTimeout(() => {
       let events: Events = this.props.events;
 
-      events = Object.values(events).filter(event => {
+      events = events.filter(event => {
         const eventDate = event.date?.toDate()!;
         const eMonth = eventDate.getMonth() + 1;
         const eYear = eventDate.getFullYear();
         return eMonth === month && eYear === year;
       });
 
-      Object.entries(events).forEach(([key, event]) => {
+      events.forEach(event => {
         const formattedDate = convertTimestampToDate(event.date!, 'YYYY-MM-DD');
         if (!items[formattedDate]) {
           items[formattedDate] = [];
         }
-        const existingItem = items[formattedDate].find(item => item.key === key);
+        const existingItem = items[formattedDate].find(item => item.key === event.key);
 
         if (!existingItem) {
           items[formattedDate].push({
-            key: key,
+            key: event.key,
             description: event.description,
             date: event.date!,
             priority: event.priority,

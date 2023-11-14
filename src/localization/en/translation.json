@@ -336,7 +336,8 @@
     "description": "Tags provide the ability to filter events based on the tag. They enable effective categorization and organization, allowing users to easily find events that match specific interests, skills, or characteristics. Add a tag to enhance the filtering capabilities of your events!",
     "addTitle": "Add a new tag",
     "add": "Add",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "selected": "Selected tags"
   },
   "yes": "Yes",
   "no": "No",

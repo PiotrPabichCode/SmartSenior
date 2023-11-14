@@ -37,8 +37,9 @@ export const eventsSlice = createSlice({
       })
       .addCase(action.updateEvent.fulfilled, (state, action: PayloadAction<any>) => {
         const { key, data } = action.payload;
-        const updatedEvent = { ...state.events[key], ...data };
-        state.events[key] = updatedEvent;
+        const event = state.events.find(e => e.key === key);
+        const updatedEvent = { ...event, ...data };
+        state.events = state.events.map(e => (e.key === key ? updatedEvent : e));
         state.status = 'succeeded';
       })
       .addCase(action.deleteEvent.fulfilled, (state, action: PayloadAction<string>) => {

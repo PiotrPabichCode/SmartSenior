@@ -1,11 +1,70 @@
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native';
 import React from 'react';
 import { ConnectedUser } from '@src/models';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
+import { useAppDispatch } from '@src/redux/types';
+import { deleteEvent, updateEvent } from '@src/redux/events/events.actions';
+import CustomToast from '@src/components/CustomToast';
 
 const SeniorActions = ({ user }: { user: ConnectedUser }) => {
+  const dispatch = useAppDispatch();
   const events = user.events;
+
+  const onEventComplete = async (key: string) => {
+    try {
+      await dispatch(
+        updateEvent({
+          eventKey: key,
+          data: {},
+        }),
+      ).unwrap();
+      CustomToast('success', t('eventItem.alert.success'));
+    } catch (error) {
+      console.log(error);
+      CustomToast('error', t('eventItem.alert.error'));
+    }
+  };
+
+  const handleCompleteEvent = (key: string) => {
+    Alert.alert('Wykonanie zadania', 'Czy chcesz wykonać zadanie?', [
+      {
+        text: t('eventItem.alert.no'),
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: t('eventItem.alert.yes'),
+        style: 'destructive',
+        onPress: async () => await onEventComplete(key),
+      },
+    ]);
+  };
+
+  const onEventDelete = async (key: string) => {
+    try {
+      await dispatch(deleteEvent(key)).unwrap();
+      CustomToast('success', t('eventItem.alert.success'));
+    } catch (error) {
+      console.log(error);
+      CustomToast('error', t('eventItem.alert.error'));
+    }
+  };
+
+  const handleDeleteEvent = (key: string) => {
+    Alert.alert(t('eventItem.alert.title'), t('eventItem.alert.message'), [
+      {
+        text: t('eventItem.alert.no'),
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: t('eventItem.alert.yes'),
+        style: 'destructive',
+        onPress: async () => await onEventDelete(key),
+      },
+    ]);
+  };
 
   const mapEvents = events.map((event, index) => {
     return (
@@ -27,7 +86,7 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <Button
             color={'green'}
-            onPress={() => console.log('wykonaj zadanie')}
+            onPress={() => handleCompleteEvent(event.key)}
             title={t('seniorDashboard.execute')}
           />
           <Button
@@ -37,7 +96,7 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
           />
           <Button
             color={'red'}
-            onPress={() => console.log('usuń zadanie')}
+            onPress={() => handleDeleteEvent(event.key)}
             title={t('seniorDashboard.delete')}
           />
         </View>

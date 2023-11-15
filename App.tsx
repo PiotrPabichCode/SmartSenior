@@ -24,6 +24,7 @@ import { loadMedicines } from '@src/redux/medicines/medicines.actions';
 import { loadPharmacies } from '@src/redux/pharmacies/pharmacies.actions';
 import { clearMedicines } from '@src/redux/medicines/medicines.slice';
 import { clearPharmacies } from '@src/redux/pharmacies/pharmacies.slice';
+import LocationPermissionModal from '@src/components/LocationPermissionModal';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
@@ -90,6 +91,7 @@ export default function App() {
       <SafeAreaProvider onLayout={onLayoutRootView}>
         <NavigationContainer ref={navigationRef} onReady={() => setIsNavigationReady(true)}>
           <AppNavigator />
+          <LocationPermissionModal />
         </NavigationContainer>
         <Toast />
       </SafeAreaProvider>

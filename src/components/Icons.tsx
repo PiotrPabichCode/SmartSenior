@@ -219,8 +219,8 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
       );
     case 'pharmacies-account':
       return (
-        <MaterialCommunityIcons
-          name="home-export-outline"
+        <AntDesign
+          name="shoppingcart"
           size={size || constants.iconSizeXL}
           onPress={onPress}
           color={color || 'black'}

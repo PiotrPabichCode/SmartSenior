@@ -31,7 +31,9 @@ class Calendar {
     LocaleConfig.defaultLocale = language;
   };
 
-  public static changeLanguage = (language: string = Calendar.supportedLanguages.POLISH): void => {
+  public static changeLanguage = async (
+    language: string = Calendar.supportedLanguages.POLISH,
+  ): Promise<void> => {
     Calendar.getSupportedTranslation[language]();
     LocaleConfig.defaultLocale = language;
   };

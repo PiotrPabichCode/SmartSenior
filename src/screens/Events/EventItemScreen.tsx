@@ -145,7 +145,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
                 }
                 labelField={'name'}
                 valueField={'id'}
-                placeholder={'Wybierz znacznik wydarzenia...'}
+                placeholder={t('tags.selectPlaceholder')}
                 value={values.tags}
                 handleChange={(e: any) => {
                   setFieldValue('tags', [...values.tags, tags?.find(tag => tag.id === e.id)]);

@@ -18,6 +18,7 @@ import { useAppSelector } from '@src/redux/types';
 import { selectUser } from '@src/redux/auth/auth.slice';
 import SeniorDashboard from '@src/screens/Account/ConnectedUsers/SeniorDashboard';
 import AddTag from '@src/screens/Account/Tags/AddTag';
+import FilterPanel from '@src/components/FilterPanel';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -108,6 +109,18 @@ const AuthNavigator = () => {
         options={{
           header: () => <CustomHeader title={t('nav.eventItem')} nested={true} />,
         }}
+      />
+      <Stack.Screen
+        name="FilterPanel"
+        component={FilterPanel}
+        options={({ route }) => ({
+          header: () => (
+            <CustomHeader title={'Panel filtrów - ' + route.params.type} filter={true} />
+          ),
+          presentation: 'transparentModal',
+          animation: 'slide_from_right',
+          animationTypeForReplace: 'push',
+        })}
       />
     </Stack.Navigator>
   );

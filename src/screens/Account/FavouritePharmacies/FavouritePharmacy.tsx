@@ -46,7 +46,7 @@ const FavouritePharmacy = ({ pharmacy }: { pharmacy: Pharmacy }) => {
         height: 60,
         padding: 5,
       }}>
-      {renderIcon({ name: 'pills', size: 24 })}
+      {renderIcon({ name: 'pharmacy', size: 24 })}
       <Text style={{ width: 150 }} numberOfLines={2} adjustsFontSizeToFit={true}>
         {pharmacy.name}
       </Text>

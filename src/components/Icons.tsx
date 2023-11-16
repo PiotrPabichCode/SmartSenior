@@ -347,6 +347,16 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           style={style}
         />
       );
+    case 'less':
+      return (
+        <Foundation
+          name="indent-less"
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color || 'black'}
+          style={style}
+        />
+      );
     case 'add': {
       return (
         <MaterialIcons

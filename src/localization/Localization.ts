@@ -46,9 +46,7 @@ class Localization {
     this.localizationReady = true;
   };
 
-  public static changeLanguage = async (
-    language: string = Localization.supportedLanguages.POLISH,
-  ): Promise<void> => {
+  public static changeLanguage = async (language: string): Promise<void> => {
     i18n.translations = {
       [language]: Localization.getSupportedTranslation[language](),
     };

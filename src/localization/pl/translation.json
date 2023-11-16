@@ -336,6 +336,7 @@
     "title": "Twoje znaczniki",
     "new": "Nowy znacznik",
     "namePlaceholder": "Wpisz nazwę znacznika",
+    "selectPlaceholder": "Wybierz znacznik wydarzenia",
     "colorPlaceholder": "Wybierz kolor znacznika",
     "noAssignedTags": "Brak przypisanych znaczników.",
     "description": "Znaczniki pozwalają na filtrowanie wydarzeń na podstawie danego znacznika. Umożliwiają skuteczną kategoryzację i organizację, umożliwiając użytkownikom łatwe znalezienie wydarzeń zgodnych z konkretnymi zainteresowaniami, umiejętnościami lub cechami. Dodaj znacznik, aby zwiększyć możliwości filtrowania swoich wydarzeń!",
@@ -364,6 +365,8 @@
     "addSuccess": "Dodano aptekę do ulubionych",
     "addError": "Nie udało się dodać apteki do ulubionych"
   },
+  "locationPermissionMessage": "Aby aplikacja działała poprawnie, potrzebujemy konfiguracji ustawień dotyczących lokalizacji na urządzeniu. Proszę upewnić się, że uprawnienia związane z lokalizacją są ustawione prawidłowo. Dodatkowo, należy zapewnić, że działanie lokalizacji w tle jest zawsze dostępne.",
+  "locationPermissionButton": "Zezwól na dostęp",
   "yes": "Tak",
   "no": "Nie",
   "alert": {

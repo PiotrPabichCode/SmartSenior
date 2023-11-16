@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, View, Text, Button } from 'react-native';
 import * as Location from 'expo-location';
+import { t } from '@src/localization/Localization';
 
 const LocationPermissionModal = () => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -27,13 +28,10 @@ const LocationPermissionModal = () => {
         }}>
         <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
           <Text style={{ fontSize: 18, marginBottom: 10, textAlign: 'center' }}>
-            Aby aplikacja działała poprawnie, potrzebujemy konfiguracji ustawień dotyczących
-            lokalizacji na urządzeniu. Proszę upewnić się, że uprawnienia związane z lokalizacją są
-            ustawione prawidłowo. Dodatkowo, należy zapewnić, że działanie lokalizacji w tle jest
-            zawsze dostępne.
+            {t('locationPermissionMessage')}
           </Text>
           <Button
-            title="Zezwól na dostęp"
+            title={t('locationPermissionButton')}
             onPress={async () => {
               await Location.requestForegroundPermissionsAsync();
               await Location.requestBackgroundPermissionsAsync();

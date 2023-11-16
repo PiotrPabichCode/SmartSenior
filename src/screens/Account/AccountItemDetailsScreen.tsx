@@ -7,11 +7,11 @@ import Colors from '@src/constants/Colors';
 import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersScreen';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
-import { changeLanguage } from '@src/redux/auth/auth.actions';
 import AccountTags from './Tags/AccountTags';
 import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
 import FavouriteMedicinesScreen from './FavouriteMedicines/FavouriteMedicinesScreen';
 import FavouritePharmaciesScreen from './FavouritePharmacies/FavouritePharmaciesScreen';
+import { changeLanguage } from '@src/redux/auth/auth.actions';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const dispatch = useAppDispatch();
@@ -70,12 +70,16 @@ const AccountItemDetailsScreen = ({ route }: any) => {
         <Text style={styles.language}>{t('languageName')}</Text>
         <Text
           style={styles.pickLanguage}
-          onPress={() => dispatch(changeLanguage(Localization.supportedLanguages.POLISH))}>
+          onPress={async () =>
+            await dispatch(changeLanguage(Localization.supportedLanguages.POLISH))
+          }>
           {t('account.language.polish')}
         </Text>
         <Text
           style={styles.pickLanguage}
-          onPress={() => dispatch(changeLanguage(Localization.supportedLanguages.ENGLISH))}>
+          onPress={async () =>
+            await dispatch(changeLanguage(Localization.supportedLanguages.ENGLISH))
+          }>
           {t('account.language.english')}
         </Text>
       </>

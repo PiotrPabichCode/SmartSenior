@@ -61,7 +61,7 @@ const AccountScreen = () => {
           })
         }
       />
-      <AccountItem icon="theme-account" title={t('account.button.title.theme')} type="theme" />
+      {/* <AccountItem icon="theme-account" title={t('account.button.title.theme')} type="theme" /> */}
       <AccountItem
         icon="language-account"
         title={t('account.button.title.language')}

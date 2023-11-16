@@ -1,17 +1,17 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { DrawerActions } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Icons from '@src/components/Icons';
-import { goBack, navigationRef } from '@src/navigation/navigationUtils';
+import { goBack, navigate } from '@src/navigation/navigationUtils';
 
 type HeaderProps = {
   title: string;
   nested?: boolean;
   more?: boolean;
+  filter?: boolean;
 };
 
-const CustomHeader = ({ title, nested, more }: HeaderProps) => {
+const CustomHeader = ({ title, nested, more, filter }: HeaderProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.itemsView}>
@@ -25,12 +25,16 @@ const CustomHeader = ({ title, nested, more }: HeaderProps) => {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{title}</Text>
         </View>
-        {more ? (
+        {more || filter ? (
           <TouchableOpacity style={styles.more}>
             <Icons
-              name="more"
+              name={more ? 'more' : 'less'}
               onPress={() => {
-                navigationRef.dispatch(DrawerActions.openDrawer());
+                filter
+                  ? goBack()
+                  : navigate('FilterPanel', {
+                      type: 'events',
+                    });
               }}
             />
           </TouchableOpacity>

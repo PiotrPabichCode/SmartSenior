@@ -7,7 +7,7 @@ import type { RootState } from '../store';
 export interface AuthState {
   user: User | null;
   error: string | null;
-  language: string;
+  language: string | null;
   theme: Theme;
   connectedUsers: ConnectedUsers;
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
@@ -16,7 +16,7 @@ export interface AuthState {
 const initialState: AuthState = {
   user: null,
   error: null,
-  language: Localization.getLocale(),
+  language: null,
   theme: 'light',
   connectedUsers: [],
   status: 'pending',

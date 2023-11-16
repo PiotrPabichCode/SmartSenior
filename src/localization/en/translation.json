@@ -336,6 +336,7 @@
     "title": "Your tags",
     "new": "New tag",
     "namePlaceholder": "Enter tag name",
+    "selectPlaceholder": "Select event tag",
     "colorPlaceholder": "Select tag color",
     "noAssignedTags": "No assigned tags.",
     "description": "Tags provide the ability to filter events based on the tag. They enable effective categorization and organization, allowing users to easily find events that match specific interests, skills, or characteristics. Add a tag to enhance the filtering capabilities of your events!",
@@ -364,6 +365,8 @@
     "addSuccess": "Pharmacy added to favorites",
     "addError": "Failed to add pharmacy to favorites"
   },
+  "locationPermissionMessage": "For the application to function properly, we need configuration settings related to location on the device. Please ensure that location-related permissions are set correctly. Additionally, ensure that background location is always available.",
+  "locationPermissionButton": "Allow Access",
   "yes": "Yes",
   "no": "No",
   "alert": {

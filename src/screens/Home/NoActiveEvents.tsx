@@ -1,7 +1,5 @@
 import { Button } from '@rneui/themed';
-import CustomButton from '@src/components/CustomButton';
 import Icons from '@src/components/Icons';
-import Colors from '@src/constants/Colors';
 import { t } from '@src/localization/Localization';
 import { navigate } from '@src/navigation/navigationUtils';
 import { selectTheme } from '@src/redux/auth/auth.slice';
@@ -9,8 +7,6 @@ import { useAppSelector } from '@src/redux/types';
 import { View, Text } from 'react-native';
 
 const NoActiveEvents = () => {
-  const theme = useAppSelector(state => selectTheme(state));
-  const currentTheme = Colors[theme];
   return (
     <View>
       <Text
@@ -26,11 +22,10 @@ const NoActiveEvents = () => {
       <Button
         onPress={() => navigate('CreateEvent')}
         title={t('speedDial.addEvent')}
-        buttonStyle={{ backgroundColor: 'black', gap: 20 }}
+        buttonStyle={{ backgroundColor: 'black', gap: 20, padding: 10 }}
         icon={<Icons name="events-bottom-nav" color="white" />}
         iconPosition="left"
         containerStyle={{
-          padding: 10,
           borderRadius: 25,
           backgroundColor: 'black',
           elevation: 5,

@@ -90,11 +90,18 @@ export const verifyUser = createAsyncThunk(
   },
 );
 
-export const changeLanguage = createAsyncThunk('auth/language', async (language: string) => {
-  await Localization.changeLanguage(language);
-  Calendar.changeLanguage(language);
-  return language;
-});
+export const changeLanguage = createAsyncThunk(
+  'auth/language',
+  async (language: string, { rejectWithValue }) => {
+    try {
+      await Localization.changeLanguage(language);
+      Calendar.changeLanguage(language);
+      return language;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 export const loadConnectedUsers = createAsyncThunk(
   'auth/loadConnectedUsers',

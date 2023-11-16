@@ -31,6 +31,9 @@ export type RootStackParamList = {
   EventItem: {
     eventKey: string;
   };
+  FilterPanel: {
+    type: string;
+  };
 };
 
 export type BottomBarParamList = {

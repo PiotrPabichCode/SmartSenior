@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
 import isEqual from 'lodash.isequal';
 import { t } from '@src/localization/Localization';
-import store from '@src/redux/store';
+import { store } from '@src/redux/common';
 import { DAYS } from '@src/redux/events/events.constants';
 import { Platform } from 'react-native';
 import { Timestamp } from 'firebase/firestore';

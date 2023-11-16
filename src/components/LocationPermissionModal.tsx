@@ -8,7 +8,6 @@ const LocationPermissionModal = () => {
   useEffect(() => {
     const checkPermissions = async () => {
       const { granted } = await Location.getBackgroundPermissionsAsync();
-      console.log(granted);
       if (!granted) {
         setVisible(true);
       }
@@ -36,10 +35,8 @@ const LocationPermissionModal = () => {
           <Button
             title="Zezwól na dostęp"
             onPress={async () => {
-              const res = await Location.requestForegroundPermissionsAsync();
-              console.log(res);
-              const res1 = await Location.requestBackgroundPermissionsAsync();
-              console.log(res1);
+              await Location.requestForegroundPermissionsAsync();
+              await Location.requestBackgroundPermissionsAsync();
               setVisible(false);
             }}
           />

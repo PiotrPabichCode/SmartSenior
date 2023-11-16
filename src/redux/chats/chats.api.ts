@@ -2,7 +2,7 @@ import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'fireb
 import { db } from 'firebaseConfig';
 import { User, Chat, Chats } from '@src/models';
 import { createUsername } from '@src/utils/utils';
-import store from '../store';
+import { store } from '../common';
 import { selectUserID } from '../auth/auth.slice';
 
 const createChatUsers = (userIds: Array<string>) => {

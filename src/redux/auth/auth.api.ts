@@ -26,8 +26,11 @@ import {
 } from '@src/models';
 import { User as FirebaseUser } from 'firebase/auth';
 import { fetchEventsByID } from '../events/events.api';
-import store from '../store';
-import { selectEmail, selectUserConnectedUsersIds, selectUserID } from './auth.slice';
+import { store } from '../common';
+
+const selectUserID = (state: any) => state.auth.user?.uid;
+const selectEmail = (state: any) => state.auth.user?.email;
+const selectUserConnectedUsersIds = (state: any) => state.auth.user?.connectedUsersIds;
 
 const getUserTemplate = (uid: string, email: string | null): User => {
   const emptyUser: User = {

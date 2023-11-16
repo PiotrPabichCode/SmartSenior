@@ -1,6 +1,6 @@
 import { Medicine, Medicines } from '@src/models';
 import { selectUserID } from '../auth/auth.slice';
-import store from '../store';
+import { store } from '../common';
 import {
   CollectionReference,
   addDoc,

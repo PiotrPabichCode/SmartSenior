@@ -1,4 +1,4 @@
-import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import Localization from '@src/localization/Localization';
 import * as action from './auth.actions';
 import { ConnectedUser, ConnectedUsers, User, Theme, Tag, Tags } from '@src/models';
@@ -132,7 +132,6 @@ export const selectAuthError = (state: RootState) => state.auth.error;
 export const selectConnectedUsers = (state: RootState) => state.auth.connectedUsers;
 export const selectConnectedUserById = (state: RootState, uid: string) => {
   const connectedUsers = selectConnectedUsers(state);
-  console.log(connectedUsers, uid);
   return connectedUsers.find(user => user.user.uid === uid);
 };
 

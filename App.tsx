@@ -5,7 +5,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Toast from 'react-native-toast-message';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Provider, batch } from 'react-redux';
-import store from '@src/redux/store';
 import { auth } from './firebaseConfig';
 import { navigationRef } from './src/navigation/navigationUtils';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -25,6 +24,9 @@ import { loadPharmacies } from '@src/redux/pharmacies/pharmacies.actions';
 import { clearMedicines } from '@src/redux/medicines/medicines.slice';
 import { clearPharmacies } from '@src/redux/pharmacies/pharmacies.slice';
 import LocationPermissionModal from '@src/components/LocationPermissionModal';
+import store from '@src/redux/store';
+import { injectStore } from '@src/redux/common';
+injectStore(store);
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 

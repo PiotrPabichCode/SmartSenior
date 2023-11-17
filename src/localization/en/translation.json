@@ -367,6 +367,10 @@
   },
   "locationPermissionMessage": "For the application to function properly, we need configuration settings related to location on the device. Please ensure that location-related permissions are set correctly. Additionally, ensure that background location is always available.",
   "locationPermissionButton": "Allow Access",
+  "multipleImagePicker": {
+    "selectPhotos": "Select Photos",
+    "takePhoto": "Take a Photo"
+  },
   "yes": "Yes",
   "no": "No",
   "alert": {

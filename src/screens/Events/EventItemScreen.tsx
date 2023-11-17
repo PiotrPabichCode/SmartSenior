@@ -6,7 +6,7 @@ import DayFieldsRenderer from './DayFieldsRenderer';
 import CustomDropdown from '@src/components/CustomDropdown';
 import { Button, CheckBox, Input } from '@rneui/themed';
 import { days, cyclicValues, times, priorities } from '@src/redux/events/events.constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomToast from '@src/components/CustomToast';
@@ -22,9 +22,10 @@ import { Timestamp } from 'firebase/firestore';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
 import { selectEventByKey } from '@src/redux/events/events.slice';
-import { Tag } from '@src/models';
+import { Image, Images, Tag } from '@src/models';
 import TagView from '../Account/Tags/Tag';
 import { Days } from './DayField';
+import MultipleImagePicker from '@src/components/MultipleImagePicker';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 
@@ -51,6 +52,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
   const ChangeEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
     tags: Yup.mixed<Tag>(),
+    images: Yup.mixed<Image>(),
     description: Yup.string(),
     date: Yup.mixed<Timestamp>().nonNullable().required(),
     days: Yup.array().required(),
@@ -68,6 +70,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
   const [initialValues, setInitialValues] = useState({
     title: event.title,
     tags: event.tags,
+    images: event.images,
     description: event.description,
     date: event.date,
     days: event.days as Days,
@@ -158,6 +161,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
               onChangeText={handleChange('description')}
               value={values.description}
             />
+            <MultipleImagePicker onChange={setFieldValue} initialValues={values.images} />
             <Button
               onPress={() => setShowDatePicker(true)}
               title={

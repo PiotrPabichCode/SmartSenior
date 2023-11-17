@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from './events.api';
-import { Event } from '@src/models';
+import { Event, Images } from '@src/models';
 
 export const loadEvents = createAsyncThunk(
   'events/loadEvents',

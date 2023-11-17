@@ -12,6 +12,7 @@ import { ChatUser, ChatUsers } from './ChatUser';
 import { Tag, Tags } from './Tag';
 import { Medicine, Medicines } from './Medicine';
 import { Pharmacy, Pharmacies } from './Pharmacy';
+import { Image, Images } from './Image';
 
 export {
   User,
@@ -39,4 +40,6 @@ export {
   Medicines,
   Pharmacy,
   Pharmacies,
+  Image,
+  Images,
 };

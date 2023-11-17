@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, CheckBox, Input } from '@rneui/themed';
@@ -16,10 +16,11 @@ import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { createEvent } from '@src/redux/events/events.actions';
 import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
-import { Event, Tag, Tags } from '@src/models';
+import { Event, Image, Images, Tag, Tags } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme, selectUserID } from '@src/redux/auth/auth.slice';
 import TagView from '../Account/Tags/Tag';
+import MultipleImagePicker from '@src/components/MultipleImagePicker';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ const CreateEventScreen = () => {
   const NewEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
     tags: Yup.mixed<Tag>(),
+    images: Yup.mixed<Image>(),
     description: Yup.string(),
     date: Yup.mixed<Timestamp>().nonNullable().required(),
     days: Yup.array().required(),
@@ -58,6 +60,7 @@ const CreateEventScreen = () => {
         initialValues={{
           title: '',
           tags: [] as Tags,
+          images: [] as Images,
           description: '',
           date: null,
           days: days.map(day => ({ ...day, active: false })),
@@ -143,9 +146,12 @@ const CreateEventScreen = () => {
               onChangeText={handleChange('description')}
               value={values.description}
             />
+            <MultipleImagePicker onChange={setFieldValue} />
             <Button
+              size="lg"
               onPress={() => setShowDatePicker(true)}
-              containerStyle={{ minWidth: '95%', borderRadius: 25 }}
+              buttonStyle={{ backgroundColor: 'green' }}
+              containerStyle={{ minWidth: '90%', borderRadius: 25 }}
               title={
                 values.date
                   ? t('createEvent.button.title.date', {
@@ -235,10 +241,10 @@ const CreateEventScreen = () => {
               handleChange={(e: any) => setFieldValue('priority', e.value)}
             />
             <Button
+              size="lg"
               title={t('createEvent.button.submit')}
               buttonStyle={styles.buttonSubmit}
               containerStyle={styles.buttonSubmitContainer}
-              titleStyle={styles.buttonSubmitTitle}
               onPress={() => handleSubmit()}
             />
           </>
@@ -265,14 +271,10 @@ const styles = StyleSheet.create({
   },
   buttonSubmit: {
     backgroundColor: 'rgba(127, 220, 103, 1)',
-    borderRadius: 25,
-  },
-  buttonSubmitTitle: {
-    marginHorizontal: 20,
   },
   buttonSubmitContainer: {
-    alignSelf: 'stretch',
-    marginVertical: 10,
+    minWidth: '95%',
+    borderRadius: 25,
   },
 });
 

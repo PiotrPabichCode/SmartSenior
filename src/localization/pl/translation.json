@@ -369,7 +369,9 @@
   "locationPermissionButton": "Zezwól na dostęp",
   "multipleImagePicker": {
     "selectPhotos": "Wybierz zdjęcia",
-    "takePhoto": "Zrób zdjęcie"
+    "takePhoto": "Zrób zdjęcie",
+    "deleteTitle": "Usunięcie zdjęcia",
+    "deleteQuestion": "Czy chcesz usunąć wybrane zdjęcie z listy?"
   },
   "yes": "Tak",
   "no": "Nie",

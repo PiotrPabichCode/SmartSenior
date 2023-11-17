@@ -369,7 +369,9 @@
   "locationPermissionButton": "Allow Access",
   "multipleImagePicker": {
     "selectPhotos": "Select Photos",
-    "takePhoto": "Take a Photo"
+    "takePhoto": "Take a Photo",
+    "deleteTitle": "Deleting Photo",
+    "deleteQuestion": "Do you want to delete the selected photo from the list?"
   },
   "yes": "Yes",
   "no": "No",

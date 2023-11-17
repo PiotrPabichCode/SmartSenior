@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { View, ScrollView } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, ScrollView, Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Button, Image } from '@rneui/themed';
-import { ActivityIndicator } from 'react-native';
-import { Images } from '@src/models';
+import { ActivityIndicator, Alert } from 'react-native';
+import { Image as ImageModel, Images } from '@src/models';
 import { t } from '@src/localization/Localization';
+import Icons from './Icons';
 
 type Props = {
   onChange: any;
@@ -13,10 +14,16 @@ type Props = {
 
 const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
   const [selectedImages, setSelectedImages] = useState<Images>(initialValues ? initialValues : []);
+  const BASE_WIDTH = 100;
+  const BASE_HEIGHT = 100;
+  const [currentWidth, setCurrentWidth] = useState<number>(BASE_WIDTH);
+  const [currentHeight, setCurrentHeight] = useState<number>(BASE_HEIGHT);
+  const imageFullScreenHeight = Dimensions.get('window').height * 0.5;
+  const imageFullScreenWidth = Dimensions.get('window').width * 0.85;
+  const scrollViewRef = useRef<ScrollView>(null);
 
   useEffect(() => {
     onChange('images', selectedImages);
-    console.log(selectedImages);
   }, [selectedImages]);
 
   const pickImages = async () => {
@@ -40,8 +47,6 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
       base64: true,
     });
 
-    console.log(pickerResult);
-
     loadImages(pickerResult);
   };
 
@@ -58,6 +63,30 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
         setSelectedImages([...selectedImages, ...newImages]);
       }
     }
+  };
+
+  const handleImageResize = (index: number) => {
+    scrollViewRef.current?.scrollTo({
+      x: currentWidth === BASE_WIDTH ? (imageFullScreenWidth + 10) * index : 0,
+      animated: currentWidth === BASE_WIDTH ? true : false,
+    });
+    setCurrentHeight(currentHeight === BASE_HEIGHT ? imageFullScreenHeight : BASE_HEIGHT);
+    setCurrentWidth(currentWidth === BASE_WIDTH ? imageFullScreenWidth : BASE_WIDTH);
+  };
+
+  const handleImageDelete = (image: ImageModel) => {
+    Alert.alert(t('multipleImagePicker.deleteTitle'), t('multipleImagePicker.deleteQuestion'), [
+      {
+        text: t('eventItem.alert.no'),
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: t('eventItem.alert.yes'),
+        style: 'destructive',
+        onPress: () => setSelectedImages(selectedImages.filter(img => img.uri !== image.uri)),
+      },
+    ]);
   };
 
   return (
@@ -83,15 +112,24 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
         containerStyle={{ minWidth: '90%', borderRadius: 25 }}
         onPress={takePhoto}
       />
-      <ScrollView horizontal>
+      <ScrollView horizontal ref={scrollViewRef} scrollEventThrottle={16}>
         {selectedImages.map((image, index) => (
-          <Image
-            key={index}
-            source={{ uri: image.uri }}
-            containerStyle={{ width: 100, height: 100, margin: 5 }}
-            PlaceholderContent={<ActivityIndicator />}
-            onPress={() => setSelectedImages(selectedImages.filter(img => img.uri !== image.uri))}
-          />
+          <View style={{ position: 'relative' }}>
+            <Image
+              key={index}
+              source={{ uri: image.uri }}
+              containerStyle={{ width: currentWidth, height: currentHeight, margin: 5 }}
+              PlaceholderContent={<ActivityIndicator />}
+              onPress={() => handleImageResize(index)}
+            />
+            {currentWidth === BASE_WIDTH && (
+              <Icons
+                name="delete"
+                style={{ position: 'absolute', top: 5, right: 5 }}
+                onPress={() => handleImageDelete(image)}
+              />
+            )}
+          </View>
         ))}
       </ScrollView>
     </View>

@@ -33,6 +33,7 @@ export type RootStackParamList = {
   };
   FilterPanel: {
     type: string;
+    title: string;
   };
 };
 

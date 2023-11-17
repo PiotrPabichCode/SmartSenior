@@ -13,6 +13,8 @@ import { Tag, Tags } from './Tag';
 import { Medicine, Medicines } from './Medicine';
 import { Pharmacy, Pharmacies } from './Pharmacy';
 import { Image, Images } from './Image';
+import { Frequency } from './Frequency';
+import { Notifications } from './Notifications';
 
 export {
   User,
@@ -42,4 +44,6 @@ export {
   Pharmacies,
   Image,
   Images,
+  Frequency,
+  Notifications,
 };

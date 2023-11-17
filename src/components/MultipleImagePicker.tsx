@@ -14,11 +14,11 @@ type Props = {
 
 const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
   const [selectedImages, setSelectedImages] = useState<Images>(initialValues ? initialValues : []);
-  const BASE_WIDTH = 100;
-  const BASE_HEIGHT = 100;
+  const BASE_WIDTH = 200;
+  const BASE_HEIGHT = 200;
   const [currentWidth, setCurrentWidth] = useState<number>(BASE_WIDTH);
   const [currentHeight, setCurrentHeight] = useState<number>(BASE_HEIGHT);
-  const imageFullScreenHeight = Dimensions.get('window').height * 0.5;
+  const imageFullScreenHeight = Dimensions.get('window').height * 0.7;
   const imageFullScreenWidth = Dimensions.get('window').width * 0.85;
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -29,6 +29,7 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
   const pickImages = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
       allowsMultipleSelection: true,
       selectionLimit: 5,
       base64: true,
@@ -45,6 +46,7 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       base64: true,
+      quality: 1,
     });
 
     loadImages(pickerResult);
@@ -114,10 +116,10 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
       />
       <ScrollView horizontal ref={scrollViewRef} scrollEventThrottle={16}>
         {selectedImages.map((image, index) => (
-          <View style={{ position: 'relative' }}>
+          <View key={index} style={{ position: 'relative' }}>
             <Image
-              key={index}
               source={{ uri: image.uri }}
+              resizeMode={currentWidth === BASE_WIDTH ? 'cover' : 'center'}
               containerStyle={{ width: currentWidth, height: currentHeight, margin: 5 }}
               PlaceholderContent={<ActivityIndicator />}
               onPress={() => handleImageResize(index)}

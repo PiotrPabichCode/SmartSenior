@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Alert } from 'react-native';
 import DayField, { Day } from './DayField';
 import { t } from '@src/localization/Localization';
 import { renderDayValue } from '@src/utils/utils';
@@ -22,17 +22,39 @@ const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
       )
     );
   };
+  const handleDeleteDate = () => {
+    Alert.alert(t('alertEventDeleteDateTitle'), t('alertEventDeleteDateQuestion'), [
+      {
+        text: t('eventItem.alert.no'),
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: t('eventItem.alert.yes'),
+        style: 'destructive',
+        onPress: () => {
+          setFieldValue('date', null);
+          setFieldValue('frequency', {
+            recurring: false,
+            daysOfWeek: [],
+            interval: 1,
+            unit: 'day',
+          });
+          setFieldValue(
+            'days',
+            days.map(d => ({
+              ...d,
+              active: false,
+            })),
+          );
+        },
+      },
+    ]);
+  };
 
   const toggleDay = (day: Day) => {
     if (day.value === startDate.toDate().getDay()) {
-      setFieldValue('date', null);
-      setFieldValue(
-        'days',
-        days.map(d => ({
-          ...d,
-          active: false,
-        })),
-      );
+      handleDeleteDate();
       return;
     }
 
@@ -41,6 +63,11 @@ const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
       active: d.value === day.value ? !d.active : d.active,
     }));
     setFieldValue('days', updatedDays);
+    const activeDays = updatedDays.filter(day => day.active);
+    setFieldValue(
+      'frequency.daysOfWeek',
+      activeDays.map(day => day.value),
+    );
   };
 
   return (

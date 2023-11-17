@@ -58,7 +58,7 @@ const AuthNavigator = () => {
         name="SeniorDashboard"
         component={SeniorDashboard}
         options={({ route }) => ({
-          header: () => <CustomHeader title={'Profil - ' + route.params.title} nested={true} />,
+          header: () => <CustomHeader title={route.params.title} nested={true} />,
         })}
       />
       <Stack.Screen

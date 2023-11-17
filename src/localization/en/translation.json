@@ -91,6 +91,7 @@
       "user": "Profile - Account",
       "language": "Profile - Language",
       "tags": "Profile - Tags",
+      "seniorDashboard": "Profile - {{firstName}} {{lastName}}",
       "medicines": "Profile - Favourite Medicines",
       "pharmacies": "Profile - Favourite Pharmacies",
       "notification": "Profile - Notifications",
@@ -202,12 +203,15 @@
         "title": "Event Title",
         "description": "Event Description",
         "notificationTime": "Notification Time",
-        "cyclicTime": "Repetition",
+        "customRecurring": "Select event recurrence frequency",
+        "recurringType": "Select Event Recurrence Type",
         "priority": "Priority"
       },
       "title": {
         "emptyDate": "Select event date",
         "date": "Event Date {{date}}",
+        "endDate": "Event end date: {{endDate}}",
+        "endDateEmpty": "Select the end date for the recurring event",
         "notification": "Notifications",
         "cyclic": "Recurring Event"
       },
@@ -259,6 +263,8 @@
       }
     }
   },
+  "alertEventDeleteDateTitle": "Deleting Event Date",
+  "alertEventDeleteDateQuestion": "Disabling this day will result in deleting the event date. Do you want to set the event date again?",
   "eventsScreen": {
     "title": "Events",
     "noActiveEvents": "You have no active events"
@@ -336,7 +342,7 @@
     "title": "Your tags",
     "new": "New tag",
     "namePlaceholder": "Enter tag name",
-    "selectPlaceholder": "Select event tag",
+    "selectPlaceholder": "Select event tags",
     "colorPlaceholder": "Select tag color",
     "noAssignedTags": "No assigned tags.",
     "description": "Tags provide the ability to filter events based on the tag. They enable effective categorization and organization, allowing users to easily find events that match specific interests, skills, or characteristics. Add a tag to enhance the filtering capabilities of your events!",
@@ -410,16 +416,22 @@
     "senior": "Senior",
     "keeper": "Keeper"
   },
-  "cyclicValues": {
-    "everyday": "Everyday",
+  "recurringTimes": {
+    "day": "Everyday",
     "2days": "Every 2 days",
     "week": "Every week",
-    "month": "Every month - same day",
-    "any": "Enter value: (number = number of days)"
+    "month": "Every month",
+    "3months": "Every 3 months",
+    "6months": "Every 6 months",
+    "year": "Every year"
   },
   "timeValues": {
     "min": "{{min}} minutes",
     "hour": "{{hour}}h"
+  },
+  "recurringTypes": {
+    "specificDays": "Recurring - Specific days",
+    "custom": "Recurring - Available options"
   },
   "dayValues": {
     "shortTitle": {

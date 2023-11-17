@@ -1,5 +1,6 @@
 import { t } from '@src/localization/Localization';
-import { StyleSheet, View, Text } from 'react-native';
+import { useRef, useState } from 'react';
+import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 const CustomDropdown = (props: any) => {
@@ -9,6 +10,11 @@ const CustomDropdown = (props: any) => {
     ...item,
     label: !item.multiLang ? item.label : t(item.label, item.values),
   }));
+  const [dropdownPosition, setDropdownPosition] = useState<'auto' | 'bottom' | 'top' | undefined>(
+    'auto',
+  );
+  const dropdownRef = useRef<View>(null);
+  const [positionFixed, setPositionFixed] = useState<boolean>(false);
 
   const renderItem = (item: any) => {
     return (
@@ -18,27 +24,45 @@ const CustomDropdown = (props: any) => {
     );
   };
 
+  const onLayout = () => {
+    dropdownRef?.current?.measureInWindow((fx, fy, width, height) => {
+      if (fy + 250 >= Dimensions.get('window').height) {
+        setDropdownPosition('top');
+      } else {
+        setDropdownPosition('bottom');
+      }
+      setPositionFixed(true);
+    });
+  };
+
   return (
-    <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      iconStyle={styles.iconStyle}
-      data={updatedData}
-      maxHeight={180}
-      labelField={labelField}
-      valueField={valueField}
-      placeholder={props.placeholder}
-      value={props[valueField] ? props[valueField] : props.value}
-      onChange={props.handleChange}
-      renderItem={renderItem}
-    />
+    <View collapsable={false} ref={dropdownRef} style={{ width: '95%' }}>
+      <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        iconStyle={styles.iconStyle}
+        data={updatedData}
+        maxHeight={180}
+        containerStyle={{ display: positionFixed ? 'flex' : 'none' }}
+        labelField={labelField}
+        valueField={valueField}
+        placeholder={props.placeholder}
+        value={props[valueField] ? props[valueField] : props.value}
+        onChange={props.handleChange}
+        renderItem={renderItem}
+        dropdownPosition={dropdownPosition}
+        onBlur={() => {
+          setPositionFixed(false);
+        }}
+        onFocus={onLayout}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   dropdown: {
-    width: '95%',
     backgroundColor: 'white',
     borderRadius: 12,
     padding: 12,
@@ -56,6 +80,7 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    lineHeight: 18,
   },
   selectedTextStyle: {
     fontSize: 16,

@@ -91,6 +91,7 @@
       "user": "Profil - konto",
       "language": "Profil - język",
       "tags": "Profil - znaczniki",
+      "seniorDashboard": "Profil - {{firstName}} {{lastName}}",
       "medicines": "Profil - ulubione leki",
       "pharmacies": "Profil - ulubione apteki",
       "notification": "Profil - powiadomienia",
@@ -202,12 +203,15 @@
         "title": "Tytuł wydarzenia",
         "description": "Opis wydarzenia",
         "notificationTime": "Czas powiadomień",
-        "cyclicTime": "Powtarzalność",
+        "customRecurring": "Wybierz cykliczność wydarzenia",
+        "recurringType": "Wybierz rodzaj powtarzania wydarzenia",
         "priority": "Priorytet"
       },
       "title": {
         "emptyDate": "Wybierz datę wydarzenia",
         "date": "Data wydarzenia {{date}}",
+        "endDate": "Data zakończenia wydarzenia: {{endDate}}",
+        "endDateEmpty": "Wybierz datę zakończenia wydarzenia cyklicznego",
         "notification": "Powiadomienia",
         "cyclic": "Wydarzenie cykliczne"
       },
@@ -259,6 +263,8 @@
       }
     }
   },
+  "alertEventDeleteDateTitle": "Usunięcie daty wydarzenia",
+  "alertEventDeleteDateQuestion": "Wyłączenie tego dnia, spowoduje usunięcie daty wydarzenia. Czy chcesz ustawić datę wydarzenia od nowa?",
   "eventsScreen": {
     "title": "Wydarzenia",
     "noActiveEvents": "Nie masz aktywnych wydarzeń"
@@ -336,7 +342,7 @@
     "title": "Twoje znaczniki",
     "new": "Nowy znacznik",
     "namePlaceholder": "Wpisz nazwę znacznika",
-    "selectPlaceholder": "Wybierz znacznik wydarzenia",
+    "selectPlaceholder": "Wybierz znaczniki wydarzenia",
     "colorPlaceholder": "Wybierz kolor znacznika",
     "noAssignedTags": "Brak przypisanych znaczników.",
     "description": "Znaczniki pozwalają na filtrowanie wydarzeń na podstawie danego znacznika. Umożliwiają skuteczną kategoryzację i organizację, umożliwiając użytkownikom łatwe znalezienie wydarzeń zgodnych z konkretnymi zainteresowaniami, umiejętnościami lub cechami. Dodaj znacznik, aby zwiększyć możliwości filtrowania swoich wydarzeń!",
@@ -410,16 +416,28 @@
     "senior": "Senior",
     "keeper": "Opiekun"
   },
-  "cyclicValues": {
-    "everyday": "Codziennie",
+  "recurringTimes": {
+    "day": "Codziennie",
     "2days": "Co 2 dni",
     "week": "Co tydzień",
-    "month": "Co miesiąc - tego samego dnia",
-    "any": "Wpisz wartość: (liczba = ilość dni)"
+    "month": "Co miesiąc",
+    "3months": "Co 3 miesiące",
+    "6months": "Co 6 miesięcy",
+    "year": "Co rok"
+  },
+  "durationTimes": {
+    "week": "Tydzień",
+    "month": "Miesiąc",
+    "6months": "Pół roku",
+    "any": "Podaj liczbę dni:"
   },
   "timeValues": {
     "min": "{{min}} minut",
     "hour": "{{hour}}h"
+  },
+  "recurringTypes": {
+    "specificDays": "Powtarzanie - konkretne dni",
+    "custom": "Powtarzanie - dostępne opcje"
   },
   "dayValues": {
     "shortTitle": {

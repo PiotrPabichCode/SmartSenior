@@ -2,7 +2,7 @@ import CustomToast from '@src/components/CustomToast';
 import Icons from '@src/components/Icons';
 import Colors from '@src/constants/Colors';
 import { t } from '@src/localization/Localization';
-import { ConnectedUser, ConnectedUsers } from '@src/models';
+import { ConnectedUser } from '@src/models';
 import { navigate } from '@src/navigation/navigationUtils';
 import { addConnectedUser } from '@src/redux/auth/auth.actions';
 import { selectConnectedUsers } from '@src/redux/auth/auth.slice';
@@ -27,7 +27,10 @@ const KeeperView = () => {
         onPress={() =>
           navigate('SeniorDashboard', {
             uid: user.user.uid,
-            title: user.user.firstName + ' ' + user.user.lastName,
+            title: t('account.header.seniorDashboard', {
+              firstName: user.user.firstName,
+              lastName: user.user.lastName,
+            }),
           })
         }>
         <View style={styles.avatar}>

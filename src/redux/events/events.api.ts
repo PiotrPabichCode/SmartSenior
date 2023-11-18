@@ -80,22 +80,26 @@ function getAllDates(event: Event): Array<Date> {
 export const createRecurringEvents = async (event: Event) => {
   const dates = getAllDates(event);
   const events: Events = [];
-  let skipImages = false;
-  dates.forEach(async date => {
+  let images: Images = [];
+  let i = 0;
+  for (const date of dates) {
+    if (i === 0 && event.images) {
+      images = await uploadImages(event.images, event.groupKey);
+    }
     const newEvent: Event = {
       ...event,
       date: Timestamp.fromDate(date),
+      images: images,
     };
 
-    const _event = await createEvent(newEvent, skipImages);
-    skipImages = true;
+    const _event = await createEvent(newEvent);
     events.push(_event);
-  });
-
+    i++;
+  }
   return events;
 };
 
-export const createEvent = async (newEventData: Event, skipImages?: boolean, images?: Images) => {
+export const createEvent = async (newEventData: Event) => {
   try {
     const _collection = collection(db, 'events');
     const response = await addDoc(_collection, newEventData);
@@ -103,16 +107,9 @@ export const createEvent = async (newEventData: Event, skipImages?: boolean, ima
       throw new Error('Unable to add new event.');
     }
     const key = response.id;
-    let _images = {};
-    if (newEventData.images && !skipImages) {
-      _images = await uploadImages(newEventData.images, key);
-    } else {
-      _images = images ? _images : {};
-    }
     const currentEventRef = doc(db, response.path);
     await updateDoc(currentEventRef, {
       key: key,
-      images: _images,
     });
     newEventData.key = key;
     return newEventData;
@@ -129,15 +126,16 @@ export const updateEvent = async (eventKey: string, data: Partial<Event>) => {
       throw new Error('Event does not exists');
     }
     const _data = snapshot.data();
+    let images: Images = [];
     if (data.images) {
-      const newImages = await uploadImages(data.images, eventKey);
-      let images = _data.images;
+      const newImages = await uploadImages(data.images, `${_data.groupKey}/${eventKey}`);
+      images = _data.images;
       if (!images) {
         images = newImages;
       } else {
         images = [...images, ...newImages];
       }
-      data.images = newImages;
+      data.images = images;
     }
     await updateDoc(ref, data);
     return {

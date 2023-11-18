@@ -4,31 +4,12 @@ import { Images } from './Image';
 import { Frequency } from './Frequency';
 import { Notifications } from './Notifications';
 
-// export interface Event {
-//   key: string;
-//   title: string;
-//   tags: Tags;
-//   images: Images;
-//   description: string;
-//   date: Timestamp | null;
-//   isCyclic: boolean;
-//   cyclicTime: number;
-//   isNotification: boolean;
-//   notificationTime: number;
-//   priority: number;
-//   updatedAt: Timestamp;
-//   createdAt: Timestamp;
-//   userUid: string;
-//   days: object;
-//   active: boolean;
-//   deleted: boolean;
-// }
-
 export interface Event {
   key: string;
+  groupKey: string;
   title: string;
   tags: Tags;
-  images: Images;
+  images?: Images;
   description: string;
   date: Timestamp | null;
   frequency: Frequency;

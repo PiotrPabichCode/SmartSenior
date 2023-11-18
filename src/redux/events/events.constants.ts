@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export enum DAYS {
   SUNDAY = 0,
   MONDAY = 1,
@@ -8,7 +10,13 @@ export enum DAYS {
   SATURDAY = 6,
 }
 
-export const days = [
+type DaysType = {
+  value: DAYS;
+  active: boolean;
+  disabled?: boolean;
+};
+
+export const days: DaysType[] = [
   {
     value: DAYS.MONDAY,
     active: false,
@@ -49,14 +57,115 @@ export enum RecurringValues {
   EVERY_YEAR,
 }
 
-export const recurringTimes = [
-  { label: 'recurringTimes.day', value: RecurringValues.EVERYDAY, multiLang: true },
-  { label: 'recurringTimes.2days', value: RecurringValues.EVERY_2_DAYS, multiLang: true },
-  { label: 'recurringTimes.week', value: RecurringValues.EVERY_WEEK, multiLang: true },
-  { label: 'recurringTimes.month', value: RecurringValues.EVERY_MONTH, multiLang: true },
-  { label: 'recurringTimes.3months', value: RecurringValues.EVERY_3_MONTHS, multiLang: true },
-  { label: 'recurringTimes.6months', value: RecurringValues.EVERY_6_MONTHS, multiLang: true },
-  { label: 'recurringTimes.year', value: RecurringValues.EVERY_YEAR, multiLang: true },
+function createDate(startDate: Timestamp, unit: 'day' | 'week' | 'month', interval: number) {
+  let newDate = startDate.toDate();
+  if (unit === 'day') {
+    newDate.setDate(newDate.getDate() + interval);
+  } else if (unit === 'week') {
+    newDate.setDate(newDate.getDate() + interval * 7);
+  } else if (unit === 'month') {
+    newDate.setMonth(newDate.getMonth() + interval);
+  }
+  return newDate.getTime();
+}
+
+function isNewTimestampSmaller(
+  startDate: Timestamp,
+  unit: 'day' | 'week' | 'month',
+  interval: number,
+  endDate: Timestamp,
+): boolean {
+  const timestamp = createDate(startDate, unit, interval);
+  const endTimestamp = endDate.toDate().getTime();
+  return timestamp <= endTimestamp;
+}
+
+export const getReccuringTimes = (startDate: Timestamp, endDate: Timestamp) => {
+  return recurringTimes.filter(r => isNewTimestampSmaller(startDate, r.unit, r.interval, endDate));
+};
+
+export const filterPossibleDays = (
+  startDate: Timestamp,
+  endDate: Timestamp,
+  daysOfWeek: Array<number> | null,
+) => {
+  const currentDate = startDate.toDate();
+  const possibleDays: Array<number> = [];
+  for (let i = 0; i < 7; i++) {
+    if (currentDate.getTime() < endDate.toDate().getTime()) {
+      possibleDays.push(currentDate.getDay());
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return days.map(d => ({
+    ...d,
+    disabled: !possibleDays.includes(d.value),
+    active:
+      d.value === startDate.toDate().getDay() || (daysOfWeek && daysOfWeek.includes(d.value))
+        ? true
+        : d.active,
+  }));
+};
+
+type RecurringValuesType = {
+  unit: 'day' | 'week' | 'month';
+  interval: number;
+  label: string;
+  value: RecurringValues;
+  multiLang: boolean;
+};
+
+export const recurringTimes: RecurringValuesType[] = [
+  {
+    unit: 'day',
+    interval: 1,
+    label: 'recurringTimes.day',
+    value: RecurringValues.EVERYDAY,
+    multiLang: true,
+  },
+  {
+    unit: 'day',
+    interval: 2,
+    label: 'recurringTimes.2days',
+    value: RecurringValues.EVERY_2_DAYS,
+    multiLang: true,
+  },
+  {
+    unit: 'week',
+    interval: 1,
+    label: 'recurringTimes.week',
+    value: RecurringValues.EVERY_WEEK,
+    multiLang: true,
+  },
+  {
+    unit: 'month',
+    interval: 1,
+    label: 'recurringTimes.month',
+    value: RecurringValues.EVERY_MONTH,
+    multiLang: true,
+  },
+  {
+    unit: 'month',
+    interval: 3,
+    label: 'recurringTimes.3months',
+    value: RecurringValues.EVERY_3_MONTHS,
+    multiLang: true,
+  },
+  {
+    unit: 'month',
+    interval: 16,
+    label: 'recurringTimes.6months',
+    value: RecurringValues.EVERY_6_MONTHS,
+    multiLang: true,
+  },
+  {
+    unit: 'month',
+    interval: 12,
+    label: 'recurringTimes.year',
+    value: RecurringValues.EVERY_YEAR,
+    multiLang: true,
+  },
 ];
 
 export const durationTimes = [

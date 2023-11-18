@@ -1,20 +1,21 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@src/navigation/types';
-import { convertTimestampToDate, createDatetimeTimezone, getUpdatedFields } from '@src/utils/utils';
-import { View, StyleSheet, Text } from 'react-native';
-import DayFieldsRenderer from './DayFieldsRenderer';
-import CustomDropdown from '@src/components/CustomDropdown';
-import { Button, CheckBox, Input } from '@rneui/themed';
-import { days, cyclicValues, times, priorities } from '@src/redux/events/events.constants';
+import { getUpdatedFields } from '@src/utils/utils';
+import { View, StyleSheet } from 'react-native';
+import {
+  days,
+  priorities,
+  RecurringValues,
+  recurringTimes,
+} from '@src/redux/events/events.constants';
 import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomToast from '@src/components/CustomToast';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '@src/constants/Colors';
 import FormikObserver from '@src/utils/FormikObserver';
 import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
-import Localization, { t } from '@src/localization/Localization';
+import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { updateEvent } from '@src/redux/events/events.actions';
 import { goBack } from '@src/navigation/navigationUtils';
@@ -22,10 +23,28 @@ import { Timestamp } from 'firebase/firestore';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
 import { selectEventByKey } from '@src/redux/events/events.slice';
-import { Image, Images, Tag } from '@src/models';
-import TagView from '../Account/Tags/Tag';
-import { Days } from './DayField';
+import { Frequency, Image, Notifications, Tag } from '@src/models';
 import MultipleImagePicker from '@src/components/MultipleImagePicker';
+import {
+  CompleteButton,
+  CustomRecurring,
+  DateButton,
+  DatePicker,
+  Description,
+  EndDateButton,
+  EndDatePicker,
+  Notification,
+  NotificationsCheckbox,
+  Priority,
+  RecurringCheckbox,
+  RecurringType,
+  SpecificDaysRecurring,
+  TagsDisplay,
+  TagsPicker,
+  TimePicker,
+  Title,
+  UpdateButton,
+} from './components';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 
@@ -34,7 +53,6 @@ const EventItemScreen = ({ route, navigation }: Props) => {
   const theme = useAppSelector(state => selectTheme(state));
   const tags = useAppSelector(state => selectTags(state));
   const currentTheme = Colors[theme];
-  const styles = useStyles(currentTheme);
   const { eventKey } = route.params;
   const event = useAppSelector(state => selectEventByKey(state, eventKey));
 
@@ -42,12 +60,29 @@ const EventItemScreen = ({ route, navigation }: Props) => {
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
+  const [showEndDatePicker, setShowEndDatePicker] = useState<boolean>(false);
 
   const [dateValue, setDateValue] = useState<Date | undefined>(undefined);
+
+  const [recurringValue, setRecurringValue] = useState<RecurringValues | null>(null);
 
   if (!event) {
     return null;
   }
+
+  useEffect(() => {
+    const updateRecurringValue = () => {
+      const interval = event.frequency.interval;
+      const unit = event.frequency.unit;
+      const matchedValue = recurringTimes.find(
+        r => r.interval === interval && r.unit === unit,
+      )?.value;
+      if (matchedValue) {
+        setRecurringValue(matchedValue);
+      }
+    };
+    updateRecurringValue();
+  }, [event]);
 
   const ChangeEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
@@ -55,17 +90,23 @@ const EventItemScreen = ({ route, navigation }: Props) => {
     images: Yup.mixed<Image>(),
     description: Yup.string(),
     date: Yup.mixed<Timestamp>().nonNullable().required(),
-    days: Yup.array().required(),
-    priority: Yup.number().required(),
-    isCyclic: Yup.boolean().required(),
-    cyclicTime: Yup.number(),
-    isNotification: Yup.boolean().required(),
-    notificationTime: Yup.number(),
-    userUid: Yup.string().nonNullable().required(),
-    createdAt: Yup.mixed<Timestamp>(),
+    frequency: Yup.mixed<Frequency>().required(),
+    notifications: Yup.mixed<Notifications>().required(),
+    priority: Yup.number()
+      .test('is-valid-priority', 'Invalid priority value', function (value) {
+        return priorities.some(p => p.value === value);
+      })
+      .required(),
     updatedAt: Yup.mixed<Timestamp>().required(),
     deleted: Yup.boolean().required(),
   });
+
+  const createDays = (data: Array<number> | null) => {
+    if (!data) {
+      return days.map(day => ({ ...day, active: false }));
+    }
+    return days.map(day => ({ ...day, active: data.includes(day.value) ? true : false }));
+  };
 
   const [initialValues, setInitialValues] = useState({
     title: event.title,
@@ -73,12 +114,10 @@ const EventItemScreen = ({ route, navigation }: Props) => {
     images: event.images,
     description: event.description,
     date: event.date,
-    days: event.days as Days,
+    days: createDays(event.frequency.daysOfWeek),
+    frequency: event.frequency,
+    notifications: event.notifications,
     priority: event.priority,
-    isCyclic: event.isCyclic,
-    cyclicTime: event.cyclicTime,
-    isNotification: event.isNotification,
-    notificationTime: event.notificationTime,
     updatedAt: event.updatedAt,
     deleted: event.deleted,
     userUid: event.userUid,
@@ -111,162 +150,85 @@ const EventItemScreen = ({ route, navigation }: Props) => {
         }}>
         {({ values, handleChange, setFieldValue, handleSubmit }) => (
           <>
-            <Input
-              placeholder={t('eventItemScreen.button.placeholder.title')}
-              onChangeText={handleChange('title')}
-              value={values.title}
-            />
-            {values.tags.length > 0 && (
-              <View style={{ gap: 10 }}>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>
-                  {t('tags.selected')}
-                </Text>
-                {values.tags.map((tag, index) => {
-                  return (
-                    <TagView
-                      key={index}
-                      color={tag.color}
-                      name={tag.name}
-                      id={tag.id}
-                      onPress={() => {
-                        setFieldValue(
-                          'tags',
-                          values.tags.filter(t => t.id !== tag.id),
-                        );
-                      }}
-                    />
-                  );
-                })}
-              </View>
-            )}
-            {tags?.length !== values.tags.length && (
-              <CustomDropdown
-                data={
-                  tags
-                    ? tags.filter(tag => !values.tags.some(valueTag => valueTag.name === tag.name))
-                    : []
-                }
-                labelField={'name'}
-                valueField={'id'}
-                placeholder={t('tags.selectPlaceholder')}
-                value={values.tags}
-                handleChange={(e: any) => {
-                  setFieldValue('tags', [...values.tags, tags?.find(tag => tag.id === e.id)]);
-                }}
-              />
-            )}
-            <Input
-              placeholder={t('eventItemScreen.button.placeholder.description')}
-              multiline={true}
-              onChangeText={handleChange('description')}
-              value={values.description}
-            />
+            <Title value={values.title} onChange={handleChange} />
+            <TagsDisplay selectedTags={values.tags} onPress={setFieldValue} />
+            <TagsPicker tags={tags} selectedTags={values.tags} onChange={setFieldValue} />
+            <Description value={values.description} onChange={handleChange} />
             <MultipleImagePicker onChange={setFieldValue} initialValues={values.images} />
-            <Button
-              onPress={() => setShowDatePicker(true)}
-              title={
-                values.date
-                  ? t('eventItemScreen.button.title.date', {
-                      date: convertTimestampToDate(values.date, 'DD-MM-YYYY HH:mm'),
-                    })
-                  : t('eventItemScreen.button.title.emptyDate')
-              }
+            <DateButton date={values.date} onPress={setShowDatePicker} />
+            <DatePicker
+              isVisible={showDatePicker}
+              date={values.date}
+              onChange={setDateValue}
+              onClose={setShowDatePicker}
+              onTimePickerOpen={setShowTimePicker}
             />
-            {values.date && (
-              <DayFieldsRenderer
-                days={values.days}
-                startDate={values.date}
-                setFieldValue={setFieldValue}
+            <TimePicker
+              isVisible={showTimePicker}
+              newDate={dateValue}
+              date={values.date}
+              endDate={values.frequency.endDate}
+              onChange={setFieldValue}
+              onClose={setShowTimePicker}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                paddingHorizontal: 21,
+              }}>
+              <NotificationsCheckbox
+                checked={values.notifications.enable}
+                onPress={setFieldValue}
               />
-            )}
-
-            {showDatePicker && (
-              <RNDateTimePicker
-                value={values.date ? new Date(values.date.seconds) : new Date()}
-                minimumDate={new Date()}
-                onChange={(e, newDate) => {
-                  setShowDatePicker(false);
-                  if (e.type !== 'set') {
-                    return false;
-                  }
-                  setDateValue(newDate);
-                  setShowTimePicker(true);
-                }}
-              />
-            )}
-            {showTimePicker && (
-              <RNDateTimePicker
-                value={values.date ? new Date(values.date.seconds) : new Date()}
-                mode="time"
-                onChange={(e, newTime) => {
-                  setShowTimePicker(false);
-                  if (e.type !== 'set') {
-                    return false;
-                  }
-                  const datetime = createDatetimeTimezone(dateValue, newTime);
-                  if (!datetime) {
-                    return false;
-                  }
-                  setFieldValue(
-                    'days',
-                    days.map(day => ({
-                      ...day,
-                      active: false,
-                    })),
-                  );
-                  setFieldValue(`days[${datetime.getDay() - 1}].active`, true);
-                  setFieldValue('executionTime', Timestamp.fromMillis(datetime.getTime()));
-                }}
-              />
-            )}
-            <View style={styles.inlineView}>
-              <CheckBox
-                title={t('eventItemScreen.button.title.notification')}
-                checked={values.isNotification}
-                onPress={() => setFieldValue('isNotification', !values.isNotification)}
-              />
-              <CheckBox
-                title={t('eventItemScreen.button.title.cyclic')}
-                checked={values.isCyclic}
-                onPress={() => setFieldValue('isCyclic', !values.isCyclic)}
+              <RecurringCheckbox
+                checked={values.frequency.recurring}
+                date={values.date}
+                onChange={setFieldValue}
               />
             </View>
-            {values.isNotification && (
-              <CustomDropdown
-                data={times}
-                placeholder={t('eventItemScreen.button.placeholder.notificationTime')}
-                value={values.notificationTime}
-                handleChange={(e: any) => setFieldValue('notificationTime', e.value)}
-              />
-            )}
-            {values.isCyclic && Localization.localizationReady && (
-              <CustomDropdown
-                data={cyclicValues}
-                placeholder={t('eventItemScreen.button.placeholder.cyclicTime')}
-                value={values.cyclicTime}
-                handleChange={(e: any) => setFieldValue('cyclicTime', e.value)}
-              />
-            )}
-            <CustomDropdown
-              data={priorities}
-              placeholder={t('eventItemScreen.button.placeholder.priority')}
-              value={values.priority}
-              handleChange={(e: any) => setFieldValue('priority', e.value)}
+            <EndDateButton
+              isRecurring={values.frequency.recurring}
+              onPress={setShowEndDatePicker}
+              endDate={values.frequency.endDate}
             />
-            {isUpdate && (
-              <Button
-                title={t('eventItemScreen.button.title.update')}
-                buttonStyle={styles.buttonUpdate}
-                containerStyle={styles.buttonContainer}
-                onPress={() => handleSubmit()}
-              />
-            )}
-            <Button
-              title={t('eventItemScreen.button.title.execute')}
-              buttonStyle={styles.buttonSubmit}
-              containerStyle={styles.buttonContainer}
-              onPress={() => handleSubmit()}
+            <EndDatePicker
+              isVisible={showEndDatePicker}
+              date={values.date}
+              endDate={values.frequency.endDate}
+              onChange={setFieldValue}
+              onClose={setShowEndDatePicker}
             />
+            <RecurringType
+              endDate={values.frequency.endDate}
+              value={values.frequency.type}
+              onChange={setFieldValue}
+            />
+            <SpecificDaysRecurring
+              isRecurring={values.frequency.recurring}
+              startDate={values.frequency.startDate}
+              endDate={values.frequency.endDate}
+              daysOfWeek={values.frequency.daysOfWeek}
+              type={values.frequency.type}
+              onChange={setFieldValue}
+            />
+            <CustomRecurring
+              isRecurring={values.frequency.recurring}
+              type={values.frequency.type}
+              startDate={values.frequency.startDate}
+              endDate={values.frequency.endDate}
+              value={recurringValue}
+              onValueChange={setRecurringValue}
+              onChange={setFieldValue}
+            />
+            <Notification
+              enabled={values.notifications.enable}
+              onChange={setFieldValue}
+              timeBefore={values.notifications.timeBefore}
+            />
+            <Priority onChange={setFieldValue} priority={values.priority} />
+            <UpdateButton visible={isUpdate} onPress={handleSubmit} />
+            <CompleteButton onPress={handleSubmit} />
             <FormikObserver
               onChange={(data: any) => {
                 const changedFields = getUpdatedFields(data.initialValues, data.values);
@@ -284,34 +246,5 @@ const EventItemScreen = ({ route, navigation }: Props) => {
     </CustomScrollContainer>
   );
 };
-
-const useStyles = (theme: any) =>
-  StyleSheet.create({
-    inlineView: {
-      flexDirection: 'row',
-      justifyContent: 'space-evenly',
-      paddingHorizontal: 21,
-    },
-    header: {
-      fontSize: 30,
-      fontWeight: '600',
-      textAlign: 'center',
-    },
-    inputSearchStyle: {
-      height: 40,
-      fontSize: 16,
-    },
-    buttonSubmit: {
-      backgroundColor: 'darkblue',
-      borderRadius: 25,
-    },
-    buttonUpdate: {
-      backgroundColor: Colors.black,
-      borderRadius: 25,
-    },
-    buttonContainer: {
-      alignSelf: 'stretch',
-    },
-  });
 
 export default EventItemScreen;

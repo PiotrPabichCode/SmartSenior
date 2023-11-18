@@ -36,6 +36,8 @@ const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
           setFieldValue('date', null);
           setFieldValue('frequency', {
             recurring: false,
+            endDate: null,
+            type: null,
             daysOfWeek: [],
             interval: 1,
             unit: 'day',
@@ -80,6 +82,7 @@ const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
               key={index + 'day'}
               value={day.value}
               active={day.active}
+              disabled={day.disabled}
               onPress={() => toggleDay(day)}
             />
           );

@@ -5,16 +5,18 @@ import { StyleSheet } from 'react-native';
 export interface Day {
   value: number;
   active: boolean;
+  disabled?: boolean;
   onPress?: () => void;
 }
 
 export type Days = Day[];
 
-const DayField = ({ value, active, onPress }: Day) => {
+const DayField = ({ value, active, disabled, onPress }: Day) => {
   return (
     <Button
       title={renderDayValue(value, false)}
       buttonStyle={[styles.button, active ? styles.dayActive : styles.dayInactive]}
+      disabled={disabled}
       titleStyle={styles.title}
       containerStyle={styles.container}
       type="outline"

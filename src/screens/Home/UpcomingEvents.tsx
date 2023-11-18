@@ -62,7 +62,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
           <Icon name="arrow-left" size={30} color={currentTheme.icon} />
         </View>
         <Text style={styles.eventTitle} numberOfLines={1}>
-          {event.description}
+          {event.title}
         </Text>
         {actionButton(event.key)}
         {isEnd && <Divider style={styles.dividerStyle} />}

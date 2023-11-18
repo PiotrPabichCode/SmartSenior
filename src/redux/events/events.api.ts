@@ -12,7 +12,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { Event, Events, Images } from '@src/models';
-import { getDownloadURL, getStorage, listAll, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 async function uploadImageAsync(uri: string, eventID: string) {
   const blob: any = await new Promise((resolve, reject) => {
@@ -44,7 +44,58 @@ const uploadImages = async (images: Images, eventID: string): Promise<Images> =>
   return images;
 };
 
-export const createEvent = async (newEventData: Event) => {
+function getAllDates(event: Event): Array<Date> {
+  const { date, frequency } = event;
+  const { type, daysOfWeek, unit, interval, endDate } = frequency;
+  const dates = [];
+  const currentDate = date?.toDate()!;
+
+  while (currentDate <= endDate?.toDate()!) {
+    if (type === 'specificDays') {
+      if (daysOfWeek!.includes(currentDate.getDay())) {
+        dates.push(new Date(currentDate));
+      }
+      currentDate.setDate(currentDate.getDate() + 1);
+    } else {
+      dates.push(new Date(currentDate));
+      switch (unit) {
+        case 'day':
+          currentDate.setDate(currentDate.getDate() + interval!);
+          break;
+        case 'week':
+          currentDate.setDate(currentDate.getDate() + 7 * interval!);
+          break;
+        case 'month':
+          currentDate.setMonth(currentDate.getMonth() + interval!);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  return dates;
+}
+
+export const createRecurringEvents = async (event: Event) => {
+  const dates = getAllDates(event);
+  const events: Events = [];
+  let skipImages = false;
+  dates.forEach(async date => {
+    const newEvent: Event = {
+      ...event,
+      date: Timestamp.fromDate(date),
+    };
+
+    const _event = await createEvent(newEvent, skipImages);
+    skipImages = true;
+    events.push(_event);
+  });
+
+  return events;
+};
+
+export const createEvent = async (newEventData: Event, skipImages?: boolean, images?: Images) => {
   try {
     const _collection = collection(db, 'events');
     const response = await addDoc(_collection, newEventData);
@@ -52,11 +103,16 @@ export const createEvent = async (newEventData: Event) => {
       throw new Error('Unable to add new event.');
     }
     const key = response.id;
-    const images = await uploadImages(newEventData.images, key);
+    let _images = {};
+    if (newEventData.images && !skipImages) {
+      _images = await uploadImages(newEventData.images, key);
+    } else {
+      _images = images ? _images : {};
+    }
     const currentEventRef = doc(db, response.path);
     await updateDoc(currentEventRef, {
       key: key,
-      images: images,
+      images: _images,
     });
     newEventData.key = key;
     return newEventData;

@@ -20,7 +20,7 @@ import {
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { createEvent } from '@src/redux/events/events.actions';
+import { createEvent, createRecurringEvents } from '@src/redux/events/events.actions';
 import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Event, Frequency, Image, Images, Notifications, Tag, Tags } from '@src/models';
@@ -98,11 +98,13 @@ const CreateEventScreen = () => {
           try {
             values.createdAt = Timestamp.now();
             values.updatedAt = Timestamp.now();
-            console.log(values);
-            return;
             NewEventSchema.validate(values)
               .then(async () => {
-                await dispatch(createEvent(values as Event)).unwrap();
+                if (!values.frequency.recurring) {
+                  await dispatch(createEvent(values as Event)).unwrap();
+                } else {
+                  await dispatch(createRecurringEvents(values as Event)).unwrap();
+                }
                 CustomToast('success', t('createEvent.message.success.add'));
                 goBack();
               })

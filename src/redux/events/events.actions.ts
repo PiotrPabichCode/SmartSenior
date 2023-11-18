@@ -24,6 +24,17 @@ export const createEvent = createAsyncThunk(
   },
 );
 
+export const createRecurringEvents = createAsyncThunk(
+  'events/createRecurringEvents',
+  async (data: Event, { rejectWithValue }) => {
+    try {
+      return await api.createRecurringEvents(data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 export const updateEvent = createAsyncThunk(
   'events/updateEvent',
   async ({ eventKey, data }: { eventKey: string; data: Partial<Event> }, { rejectWithValue }) => {

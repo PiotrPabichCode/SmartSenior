@@ -31,9 +31,26 @@ export const eventsSlice = createSlice({
         state.status = 'succeeded';
         state.events = action.payload;
       })
+      .addCase(action.createEvent.rejected, state => {
+        state.status = 'failed';
+      })
+      .addCase(action.createEvent.pending, state => {
+        state.status = 'pending';
+      })
       .addCase(action.createEvent.fulfilled, (state, action: PayloadAction<Event>) => {
         state.status = 'succeeded';
         state.events = [...state.events, action.payload];
+      })
+      .addCase(action.createRecurringEvents.rejected, state => {
+        state.status = 'failed';
+      })
+      .addCase(action.createRecurringEvents.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.createRecurringEvents.fulfilled, (state, action: PayloadAction<Events>) => {
+        const events = action.payload;
+        state.status = 'succeeded';
+        state.events = [...state.events, ...events];
       })
       .addCase(action.updateEvent.fulfilled, (state, action: PayloadAction<any>) => {
         const { key, data } = action.payload;

@@ -44,6 +44,8 @@ const CustomDropdown = (props: any) => {
         iconStyle={styles.iconStyle}
         data={updatedData}
         maxHeight={180}
+        search={props.search}
+        disable={!updatedData.length}
         containerStyle={{ display: positionFixed ? 'flex' : 'none' }}
         labelField={labelField}
         valueField={valueField}

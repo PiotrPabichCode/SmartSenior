@@ -18,7 +18,7 @@ import { useAppSelector } from '@src/redux/types';
 import { selectUser } from '@src/redux/auth/auth.slice';
 import SeniorDashboard from '@src/screens/Account/ConnectedUsers/SeniorDashboard';
 import AddTag from '@src/screens/Account/Tags/AddTag';
-import FilterPanel from '@src/components/FilterPanel';
+import FilterPanel from '@src/components/FilterPanel/FilterPanel';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

@@ -5,10 +5,11 @@ import { t } from '@src/localization/Localization';
 type Props = {
   tags: Tags | undefined;
   selectedTags: Tags;
+  fieldName: string;
   onChange: any;
 };
 
-const TagsPicker = ({ tags, selectedTags, onChange }: Props) => {
+const TagsPicker = ({ tags, selectedTags, fieldName, onChange }: Props) => {
   return (
     <CustomDropdown
       data={tags ? tags.filter(tag => !selectedTags.some(v => v.name === tag.name)) : []}
@@ -17,7 +18,7 @@ const TagsPicker = ({ tags, selectedTags, onChange }: Props) => {
       placeholder={t('tags.selectPlaceholder')}
       value={selectedTags}
       handleChange={(e: any) => {
-        onChange('tags', [...selectedTags, tags?.find(tag => tag.id === e.id)]);
+        onChange(fieldName, [...selectedTags, tags?.find(tag => tag.id === e.id)]);
       }}
     />
   );

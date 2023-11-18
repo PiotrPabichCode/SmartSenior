@@ -379,6 +379,14 @@
     "deleteTitle": "Usunięcie zdjęcia",
     "deleteQuestion": "Czy chcesz usunąć wybrane zdjęcie z listy?"
   },
+  "filterPanel": {
+    "dateFromEmpty": "Wybierz datę rozpoczęcia",
+    "dateFrom": "Data rozpoczęcia: {{date}}",
+    "dateToEmpty": "Wybierz datę zakończenia",
+    "dateTo": "Data zakończenia: {{date}}",
+    "selectTitle": "Wybierz tytuły z listy"
+  },
+  "search": "Szukaj",
   "yes": "Tak",
   "no": "Nie",
   "alert": {
@@ -405,7 +413,6 @@
   "medicinesList": "Lista leków",
   "pharmaciesList": "Lista aptek",
   "notes": "Twoje notatki",
-  "search": "Szukaj",
   "genders": {
     "male": "Mężczyzna",
     "female": "Kobieta",

@@ -7,6 +7,7 @@ import { useAppSelector } from '@src/redux/types';
 import { selectEvents } from '@src/redux/events/events.slice';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import NoEvents from './NoEvents';
+import { Events } from '@src/models';
 
 const EventsScreen = () => {
   const events = useAppSelector(state => selectEvents(state));

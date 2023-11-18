@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomToast from '@src/components/CustomToast';
@@ -130,8 +130,13 @@ const CreateEventScreen = () => {
         {({ values, handleChange, setFieldValue, handleSubmit }) => (
           <>
             <Title value={values.title} onChange={handleChange} />
-            <TagsDisplay selectedTags={values.tags} onPress={setFieldValue} />
-            <TagsPicker tags={tags} selectedTags={values.tags} onChange={setFieldValue} />
+            <TagsDisplay selectedTags={values.tags} fieldName={'tags'} onPress={setFieldValue} />
+            <TagsPicker
+              tags={tags}
+              selectedTags={values.tags}
+              fieldName={'tags'}
+              onChange={setFieldValue}
+            />
             <Description value={values.description} onChange={handleChange} />
             <MultipleImagePicker onChange={setFieldValue} />
             <DateButton date={values.date} onPress={setShowDatePicker} />
@@ -205,7 +210,7 @@ const CreateEventScreen = () => {
               onChange={setFieldValue}
               timeBefore={values.notifications.timeBefore}
             />
-            <Priority onChange={setFieldValue} priority={values.priority} />
+            <Priority onChange={setFieldValue} fieldName={'priority'} priority={values.priority} />
             <CreateButton onPress={handleSubmit} />
           </>
         )}

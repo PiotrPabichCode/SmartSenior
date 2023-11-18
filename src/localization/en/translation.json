@@ -379,6 +379,14 @@
     "deleteTitle": "Deleting Photo",
     "deleteQuestion": "Do you want to delete the selected photo from the list?"
   },
+  "filterPanel": {
+    "dateFromEmpty": "Select start date",
+    "dateFrom": "Start date: {{date}}",
+    "dateToEmpty": "Select end date",
+    "dateTo": "End date: {{date}}",
+    "selectTitle": "Select titles from list"
+  },
+  "search": "Search",
   "yes": "Yes",
   "no": "No",
   "alert": {
@@ -405,7 +413,6 @@
   "medicinesList": "Medicines",
   "pharmaciesList": "Pharmacies",
   "notes": "Your Notes",
-  "search": "Search",
   "genders": {
     "male": "Male",
     "female": "Female",

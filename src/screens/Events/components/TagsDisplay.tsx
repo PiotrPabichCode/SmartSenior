@@ -5,10 +5,11 @@ import Tag from '@src/screens/Account/Tags/Tag';
 
 type Props = {
   selectedTags: Tags;
+  fieldName: string;
   onPress: any;
 };
 
-const TagsDisplay = ({ selectedTags, onPress }: Props) => {
+const TagsDisplay = ({ selectedTags, fieldName, onPress }: Props) => {
   return (
     selectedTags.length > 0 && (
       <View style={{ gap: 10 }}>
@@ -24,7 +25,7 @@ const TagsDisplay = ({ selectedTags, onPress }: Props) => {
               id={tag.id}
               onPress={() => {
                 onPress(
-                  'tags',
+                  fieldName,
                   selectedTags.filter(t => t.id !== tag.id),
                 );
               }}

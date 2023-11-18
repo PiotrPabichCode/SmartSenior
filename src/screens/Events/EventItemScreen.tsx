@@ -151,8 +151,13 @@ const EventItemScreen = ({ route, navigation }: Props) => {
         {({ values, handleChange, setFieldValue, handleSubmit }) => (
           <>
             <Title value={values.title} onChange={handleChange} />
-            <TagsDisplay selectedTags={values.tags} onPress={setFieldValue} />
-            <TagsPicker tags={tags} selectedTags={values.tags} onChange={setFieldValue} />
+            <TagsDisplay selectedTags={values.tags} fieldName={'tags'} onPress={setFieldValue} />
+            <TagsPicker
+              tags={tags}
+              selectedTags={values.tags}
+              fieldName={'tags'}
+              onChange={setFieldValue}
+            />
             <Description value={values.description} onChange={handleChange} />
             <MultipleImagePicker onChange={setFieldValue} initialValues={values.images} />
             <DateButton date={values.date} onPress={setShowDatePicker} />
@@ -226,7 +231,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
               onChange={setFieldValue}
               timeBefore={values.notifications.timeBefore}
             />
-            <Priority onChange={setFieldValue} priority={values.priority} />
+            <Priority onChange={setFieldValue} fieldName={'priority'} priority={values.priority} />
             <UpdateButton visible={isUpdate} onPress={handleSubmit} />
             <CompleteButton onPress={handleSubmit} />
             <FormikObserver

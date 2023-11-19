@@ -8,13 +8,25 @@ import { selectEvents } from '@src/redux/events/events.slice';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import NoEvents from './NoEvents';
 import { Events } from '@src/models';
+import { useEffect, useState } from 'react';
 
-const EventsScreen = () => {
+const EventsScreen = ({ route }) => {
   const events = useAppSelector(state => selectEvents(state));
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
+  const [filteredData, setFilteredData] = useState<Events | null>(null);
+  const outputEvents = filteredData ? filteredData : events;
 
-  const mapEvents = events.map((event, index) => {
+  useEffect(() => {
+    if (route?.params?.filteredData) {
+      setFilteredData(route.params.filteredData);
+    }
+    if (route?.params?.filterConditions) {
+      console.log('Filter conditions', route.params.filterConditions);
+    }
+  }, [route.params]);
+
+  const mapEvents = outputEvents.map((event, index) => {
     return <EventItem key={index} eventKey={event.key} />;
   });
 

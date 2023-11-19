@@ -1,4 +1,5 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
+import { Events } from '@src/models';
 
 export type RootStackParamList = {
   Initial: undefined;
@@ -32,15 +33,18 @@ export type RootStackParamList = {
     eventKey: string;
   };
   FilterPanel: {
-    type: string;
     title: string;
+    filters: any;
   };
 };
 
 export type BottomBarParamList = {
   Home: undefined;
   Calendar: undefined;
-  Events: undefined;
+  Events: {
+    onBack: any;
+    filteredData: Events;
+  };
   Chat: undefined;
   Account: undefined;
 };

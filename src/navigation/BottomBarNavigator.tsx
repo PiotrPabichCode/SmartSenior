@@ -58,7 +58,19 @@ const BottomBarNavigator = () => {
             tabBarLabel: t('bottomNav.events'),
             tabBarIcon: ({ focused }) => renderIcon({ name: 'home-bottom-nav', focused: focused }),
             tabBarBadge: events.length ? events.length : undefined,
-            header: () => <CustomHeader title={t('bottomNav.events')} more={true} />,
+            header: ({ navigation, route }) => (
+              <CustomHeader
+                title={t('bottomNav.events')}
+                more={true}
+                filters={route?.params?.filterConditions}
+                onBack={item => {
+                  navigation.setParams({
+                    filteredData: item.filteredData,
+                    filterConditions: item.filterConditions,
+                  });
+                }}
+              />
+            ),
           }}
         />
         <Tab.Screen

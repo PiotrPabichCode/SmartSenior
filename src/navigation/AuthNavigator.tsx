@@ -115,7 +115,7 @@ const AuthNavigator = () => {
         component={FilterPanel}
         options={({ route }) => ({
           header: () => (
-            <CustomHeader title={'Panel filtrów - ' + route.params.type} filter={true} />
+            <CustomHeader title={'Panel filtrów'} filter={true} filters={route?.params?.filters} />
           ),
           presentation: 'transparentModal',
           animation: 'slide_from_right',

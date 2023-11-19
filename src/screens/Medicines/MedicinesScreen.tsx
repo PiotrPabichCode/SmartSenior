@@ -29,6 +29,7 @@ const MedicinesScreen = () => {
 
   const loadData = async (request: string) => {
     try {
+      console.log(request);
       const response = await fetch(request);
       const json = await response.json();
       const data: Array<any> = json.content;
@@ -42,11 +43,11 @@ const MedicinesScreen = () => {
         packaging: item['packaging'].replaceAll('\\n', '\n'),
         expiration: item['expirationDateString'],
         company: item['subjectMedicinalProductName'],
-        country: item['manufacturersDtos'][0]['countryName'],
+        country: item.manufacturersDtos[0]?.countryName,
         leafletUrl: item['id'] ? BASE_URL + item['id'] + '/leaflet' : null,
         characteristicUrl: item['id'] ? BASE_URL + item['id'] + '/characteristic' : null,
       }));
-      setApiMedicines(medicines);
+      setApiMedicines(medicines.filter(m => m.country));
     } catch (e) {
       console.log(e);
     }

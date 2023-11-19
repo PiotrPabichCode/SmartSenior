@@ -384,7 +384,9 @@
     "dateFrom": "Start date: {{date}}",
     "dateToEmpty": "Select end date",
     "dateTo": "End date: {{date}}",
-    "selectTitle": "Select titles from list"
+    "selectTitle": "Select titles from list",
+    "submit": "Apply Filters",
+    "delete": "Remove Filters"
   },
   "search": "Search",
   "yes": "Yes",

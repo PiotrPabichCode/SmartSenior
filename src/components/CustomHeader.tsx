@@ -9,9 +9,11 @@ type HeaderProps = {
   nested?: boolean;
   more?: boolean;
   filter?: boolean;
+  onBack?: any;
+  filters?: any;
 };
 
-const CustomHeader = ({ title, nested, more, filter }: HeaderProps) => {
+const CustomHeader = ({ title, nested, more, filter, onBack, filters }: HeaderProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.itemsView}>
@@ -33,7 +35,8 @@ const CustomHeader = ({ title, nested, more, filter }: HeaderProps) => {
                 filter
                   ? goBack()
                   : navigate('FilterPanel', {
-                      type: 'events',
+                      filters: filters,
+                      onBack: item => onBack(item),
                     });
               }}
             />

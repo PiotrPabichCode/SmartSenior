@@ -1,4 +1,5 @@
 import { Genders, Roles } from '@src/models';
+import { Timestamp } from 'firebase/firestore';
 
 export const SIGN_UP_SUCCESS_MESSAGE = 'Pomyślnie utworzono konto!';
 
@@ -12,3 +13,9 @@ export const roles = [
   { label: 'roles.senior', value: Roles.SENIOR, multiLang: true },
   { label: 'roles.keeper', value: Roles.KEEPER, multiLang: true },
 ];
+
+export type UserLocation = {
+  latitude: number;
+  longitude: number;
+  timestamp: Timestamp;
+};

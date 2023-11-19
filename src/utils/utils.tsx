@@ -114,3 +114,7 @@ export const createUserLabel = (firstName: string | null, lastName: string | nul
   const label = `${firstName[0]}${lastName[0]}`;
   return label.toUpperCase();
 };
+
+export const getUserAge = (timestamp: Timestamp) => {
+  return moment().diff(timestamp.toDate(), 'years');
+};

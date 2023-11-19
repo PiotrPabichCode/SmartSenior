@@ -8,14 +8,15 @@ type Props = {
   onPress: any;
   labelEmpty: string;
   label: string;
+  styles?: any;
 };
 
-const DateButton = ({ date, onPress, label, labelEmpty }: Props) => {
+const DateButton = ({ date, onPress, label, labelEmpty, styles }: Props) => {
   return (
     <Button
       size="lg"
       onPress={() => onPress(true)}
-      buttonStyle={{ backgroundColor: 'green' }}
+      buttonStyle={{ backgroundColor: 'green', ...styles }}
       containerStyle={{ minWidth: '90%', borderRadius: 25 }}
       title={
         date

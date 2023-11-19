@@ -6,6 +6,7 @@ import { t } from '@src/localization/Localization';
 import { useAppDispatch } from '@src/redux/types';
 import { deleteEvent, updateEvent } from '@src/redux/events/events.actions';
 import CustomToast from '@src/components/CustomToast';
+import { getSeniorLocation } from '@src/redux/auth/auth.api';
 
 const SeniorActions = ({ user }: { user: ConnectedUser }) => {
   const dispatch = useAppDispatch();
@@ -108,7 +109,9 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.actionContainer}
-        onPress={() => console.log('user localization')}>
+        onPress={() => {
+          getSeniorLocation(user.user.uid);
+        }}>
         <Text style={styles.actionText} numberOfLines={1}>
           {t('seniorDashboard.localization')}
         </Text>

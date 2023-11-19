@@ -388,6 +388,8 @@
     "submit": "Zastosuj filtry",
     "delete": "Usuń filtry"
   },
+  "locationAlertTitle": "Otworzenie lokalizacji w mapach Google",
+  "locationAlertQuestion": "Podana lokalizacja użytkownika: {{address}}. Czy chcesz otworzyć lokalizację w mapach Google?",
   "search": "Szukaj",
   "yes": "Tak",
   "no": "Nie",

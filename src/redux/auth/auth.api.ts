@@ -1,6 +1,12 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 import { auth, db } from 'firebaseConfig';
 import {
+  Timestamp,
   addDoc,
   collection,
   deleteDoc,
@@ -8,6 +14,7 @@ import {
   getDoc,
   getDocs,
   limit,
+  orderBy,
   query,
   setDoc,
   updateDoc,
@@ -27,6 +34,13 @@ import {
 import { User as FirebaseUser } from 'firebase/auth';
 import { fetchEventsByID } from '../events/events.api';
 import { store } from '../common';
+import * as TaskManager from 'expo-task-manager';
+import * as Location from 'expo-location';
+import * as Linking from 'expo-linking';
+import CustomToast from '@src/components/CustomToast';
+import { Alert } from 'react-native';
+import { t } from '@src/localization/Localization';
+import { UserLocation } from './auth.constants';
 
 const selectUserID = (state: any) => state.auth.user?.uid;
 const selectEmail = (state: any) => state.auth.user?.email;
@@ -55,7 +69,6 @@ export const signIn = async (authData: AuthCredentials): Promise<User> => {
       throw new Error('User not found');
     }
     const res = await loadUserDoc(user);
-    console.log('RES', res);
     return res;
   } catch (error) {
     throw error;
@@ -299,4 +312,76 @@ export const deleteConnectedUser = async (email: string) => {
   } catch (error) {
     throw error;
   }
+};
+
+const LOCATION_TASK_NAME = 'background-location-task';
+
+TaskManager.defineTask(LOCATION_TASK_NAME, ({ data: { locations }, error }: any) => {
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  const newLocation: UserLocation = {
+    latitude: locations[0].coords.latitude,
+    longitude: locations[0].coords.longitude,
+    timestamp: Timestamp.fromMillis(locations[0].timestamp),
+  };
+  const seniorID = selectUserID(store.getState());
+  updateSeniorLocation(seniorID, newLocation);
+});
+
+export const setupLocationTracking = async () => {
+  await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+    accuracy: Location.Accuracy.BestForNavigation,
+    timeInterval: 1000 * 60 * 15, // Time between each location update in milliseconds
+    distanceInterval: 100, // Minimum distance between each location update in meters
+    pausesUpdatesAutomatically: false, // Continue tracking when app is in background
+  });
+};
+
+export const updateSeniorLocation = (seniorID: string, newLocation: UserLocation) => {
+  const _collection = collection(db, `users/${seniorID}/locations`);
+  addDoc(_collection, newLocation);
+  console.log('New location', newLocation);
+};
+
+export const getSeniorLocation = async (seniorID: string) => {
+  const _collection = collection(db, `users/${seniorID}/locations`);
+  const q = query(_collection, orderBy('timestamp', 'desc'), limit(1));
+  const snapshot = await getDocs(q);
+  if (snapshot.empty) {
+    CustomToast('error', 'Location not available yet');
+    return;
+  }
+  const location = snapshot.docs[0].data() as UserLocation;
+  const { latitude, longitude } = location;
+  const locations = await Location.reverseGeocodeAsync({
+    latitude: latitude,
+    longitude: longitude,
+  });
+  const item = locations[0];
+  const address = `${item.name}, ${item.street}, ${item.postalCode}, ${item.city}`;
+
+  Alert.alert(
+    t('locationAlertTitle'),
+    t('locationAlertQuestion', {
+      address: address,
+    }),
+    [
+      {
+        text: t('eventItem.alert.no'),
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: t('eventItem.alert.yes'),
+        style: 'destructive',
+        onPress: () => {
+          const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+          Linking.openURL(url);
+        },
+      },
+    ],
+  );
 };

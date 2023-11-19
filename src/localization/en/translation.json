@@ -388,6 +388,8 @@
     "submit": "Apply Filters",
     "delete": "Remove Filters"
   },
+  "locationAlertTitle": "Opening Location in Google Maps",
+  "locationAlertQuestion": "User's provided location: {{address}}. Do you want to open the location in Google Maps?",
   "search": "Search",
   "yes": "Yes",
   "no": "No",

@@ -1,4 +1,3 @@
-import CustomDropdown from '@src/components/CustomDropdown';
 import MultiSelectComponent from '@src/components/MultiSelectDropdown';
 import { t } from '@src/localization/Localization';
 

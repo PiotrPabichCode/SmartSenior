@@ -5,7 +5,8 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import SeniorActions from './SeniorActions';
 import { goBack } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
-import { renderGender } from '@src/utils/utils';
+import { getUserAge, renderGender } from '@src/utils/utils';
+import { Timestamp } from 'firebase/firestore';
 
 const SeniorDashboard = ({ route }: any) => {
   const { uid } = route.params;
@@ -49,7 +50,7 @@ const SeniorDashboard = ({ route }: any) => {
           </Text>
           <Text style={styles.detailText}>
             {t('seniorDashboard.age', {
-              age: 50,
+              age: getUserAge(userData.birthDate!),
             })}
           </Text>
         </View>

@@ -2,12 +2,14 @@ import { Button } from '@rneui/themed';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Events, Tags } from '@src/models';
+import { Events, Tag, Tags } from '@src/models';
 import { Formik } from 'formik';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';
 import { selectTags } from '@src/redux/auth/auth.slice';
-import { DateButton, DatePicker, TitlesPicker } from './components';
+import { TitlesPicker } from './components';
+import DateButton from '../DateButton';
+import DatePicker from '../DatePicker';
 import { Timestamp } from 'firebase/firestore';
 import { Priority, TagsDisplay, TagsPicker } from '@src/screens/Events/components';
 import { ScrollView } from 'react-native';
@@ -58,7 +60,7 @@ const FilterPanel = ({ route }: any) => {
     if (conditions.tags) {
       filteredEvents = filteredEvents.filter(event => {
         return event.tags.some(e => {
-          return conditions.tags.some(t => t.id === e.id);
+          return conditions.tags.some((t: Tag) => t.id === e.id);
         });
       });
     }

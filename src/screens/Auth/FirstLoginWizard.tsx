@@ -18,6 +18,8 @@ import { Roles, Genders } from '@src/models';
 import { validateUserData, logout } from '@src/redux/auth/auth.api';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectAuthStatus, selectUser } from '@src/redux/auth/auth.slice';
+import DateButton from '@src/components/DateButton';
+import DatePicker from '@src/components/DatePicker';
 
 const FirstLoginWizard = () => {
   const dispatch = useAppDispatch();
@@ -90,31 +92,20 @@ const FirstLoginWizard = () => {
                   onChangeText={handleChange('lastName')}
                   placeholder={t('firstLoginWizard.button.title.lastName')}
                 />
-                <Button
-                  onPress={() => setShowDatePicker(true)}
-                  title={
-                    values.birthDate
-                      ? t('firstLoginWizard.button.title.birthDate', {
-                          birthDate: convertTimestampToDate(values.birthDate, 'DD-MM-YYYY'),
-                        })
-                      : t('firstLoginWizard.button.title.birthDateEmpty')
-                  }
+                <DateButton
+                  date={values.birthDate}
+                  onPress={setShowDatePicker}
+                  styles={{ backgroundColor: 'blue' }}
+                  label={'firstLoginWizard.button.title.birthDate'}
+                  labelEmpty={'firstLoginWizard.button.title.birthDateEmpty'}
                 />
-                {showDatePicker && (
-                  <RNDateTimePicker
-                    value={new Date()}
-                    maximumDate={new Date()}
-                    onChange={(e, newDate) => {
-                      setShowDatePicker(false);
-                      if (e.type !== 'set') {
-                        return false;
-                      }
-                      if (newDate) {
-                        setFieldValue('birthDate', Timestamp.fromMillis(dateToEpoch(newDate)));
-                      }
-                    }}
-                  />
-                )}
+                <DatePicker
+                  date={values.birthDate}
+                  fieldName={'birthDate'}
+                  isVisible={showDatePicker}
+                  onChange={setFieldValue}
+                  onClose={setShowDatePicker}
+                />
                 <CustomDropdown
                   data={genders}
                   placeholder={t('firstLoginWizard.button.placeholder.gender')}

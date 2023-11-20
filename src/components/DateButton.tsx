@@ -16,7 +16,7 @@ const DateButton = ({ date, onPress, label, labelEmpty, styles }: Props) => {
     <Button
       size="lg"
       onPress={() => onPress(true)}
-      buttonStyle={{ backgroundColor: 'green', ...styles }}
+      buttonStyle={{ padding: 15, backgroundColor: 'green', ...styles }}
       containerStyle={{ minWidth: '90%', borderRadius: 25 }}
       title={
         date

@@ -1,6 +1,5 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
-import AccountItem from './AccountItem';
-import AccountProfileHint from './AccountProfileHint';
+import { ScrollView, StyleSheet } from 'react-native';
+import { AccountProfileHint, AccountItem } from './components';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';

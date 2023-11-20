@@ -1,20 +1,17 @@
-import { StyleSheet, Text } from 'react-native';
-import AccountItemDetails from './AccountItemDetails';
-import { convertTimestampToDate } from '@src/utils/utils';
-import Localization, { t } from '@src/localization/Localization';
+import { StyleSheet } from 'react-native';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
 import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersScreen';
 import { goBack } from '@src/navigation/navigationUtils';
-import { useAppDispatch, useAppSelector } from '@src/redux/types';
+import { useAppSelector } from '@src/redux/types';
 import AccountTags from './Tags/AccountTags';
 import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
 import FavouriteMedicinesScreen from './FavouriteMedicines/FavouriteMedicinesScreen';
 import FavouritePharmaciesScreen from './FavouritePharmacies/FavouritePharmaciesScreen';
-import { changeLanguage } from '@src/redux/auth/auth.actions';
+import AccountData from './AccountData/AccountData';
+import LanguageScreen from './Language/LanguageScreen';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
-  const dispatch = useAppDispatch();
   const user = useAppSelector(state => selectUser(state));
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
@@ -26,81 +23,14 @@ const AccountItemDetailsScreen = ({ route }: any) => {
 
   const { screenType } = route.params;
 
-  const renderUserDetailsScreen = () => {
-    return (
-      <>
-        <AccountItemDetails
-          type="input"
-          title={t('account.title.email')}
-          placeholder={t('account.placeholder.email')}
-          value={user.email || ''}
-        />
-        <AccountItemDetails
-          type="input"
-          title={t('account.title.firstName')}
-          placeholder={t('account.placeholder.firstName')}
-          value={user.firstName || ''}
-        />
-        <AccountItemDetails
-          type="input"
-          title={t('account.title.lastName')}
-          placeholder={t('account.placeholder.lastName')}
-          value={user.lastName || ''}
-        />
-        <AccountItemDetails
-          type="input"
-          title={t('account.title.birthDate')}
-          placeholder={t('account.placeholder.birthDate')}
-          value={convertTimestampToDate(user.birthDate!, 'DD-MM-YYYY') || ''}
-        />
-        <AccountItemDetails
-          type="input"
-          title={t('account.title.password')}
-          placeholder={t('account.placeholder.password')}
-          value={t('account.placeholder.password')}
-        />
-      </>
-    );
-  };
-
-  const renderLanguageScreen = () => {
-    return (
-      <>
-        <Text style={styles.languageTitle}>{t('account.language.title')}</Text>
-        <Text style={styles.language}>{t('languageName')}</Text>
-        <Text
-          style={styles.pickLanguage}
-          onPress={async () =>
-            await dispatch(changeLanguage(Localization.supportedLanguages.POLISH))
-          }>
-          {t('account.language.polish')}
-        </Text>
-        <Text
-          style={styles.pickLanguage}
-          onPress={async () =>
-            await dispatch(changeLanguage(Localization.supportedLanguages.ENGLISH))
-          }>
-          {t('account.language.english')}
-        </Text>
-      </>
-    );
-  };
-
   const renderNotificationScreen = () => {
-    return (
-      <AccountItemDetails
-        type="input"
-        keyboard="numeric"
-        title={t('account.notification.title')}
-        value="0"
-      />
-    );
+    return <></>;
   };
 
   const renderScreenByType = (screenType: string) => {
     switch (screenType) {
       case 'user':
-        return renderUserDetailsScreen();
+        return <AccountData />;
       case 'connected-users':
         return <AccountConnectedUsersScreen />;
       case 'tags':
@@ -112,7 +42,7 @@ const AccountItemDetailsScreen = ({ route }: any) => {
       case 'notification':
         return renderNotificationScreen();
       case 'language':
-        return renderLanguageScreen();
+        return <LanguageScreen />;
       case 'share':
         return <></>;
       default:

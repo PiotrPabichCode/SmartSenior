@@ -52,14 +52,16 @@
   },
   "account": {
     "title": {
-      "email": "Adres e-mail:",
+      "email": "Adres e-mail: {{email}}",
+      "emailChange": "Wyślij prośbę o zmianę e-maila",
       "firstName": "Imię:",
       "lastName": "Nazwisko:",
-      "birthDate": "Data urodzenia:",
+      "birthDate": "Data urodzenia: {{date}}",
       "password": "Hasło:"
     },
     "placeholder": {
       "email": "Podaj adres e-mail",
+      "emailChange": "Nowy adres e-mail",
       "firstName": "Podaj imię",
       "lastName": "Podaj nazwisko",
       "birthDate": "Podaj datę urodzenia",
@@ -73,6 +75,8 @@
     "notification": {
       "title": "Czas powiadomień"
     },
+    "back": "Powrót",
+    "changeData": "Zmień dane",
     "button": {
       "title": {
         "user": "Konto",
@@ -112,7 +116,7 @@
         "logout": "Wyloguj się",
         "firstName": "Podaj imię",
         "lastName": "Podaj nazwisko",
-        "birthDate": "Data urodzenia: {{birthDate}}",
+        "birthDate": "Data urodzenia: {{date}}",
         "birthDateEmpty": "Wybierz datę urodzenia"
       },
       "placeholder": {

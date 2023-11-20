@@ -3,6 +3,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
+  updateEmail,
 } from 'firebase/auth';
 import { auth, db } from 'firebaseConfig';
 import {
@@ -86,6 +87,8 @@ export const signUp = async (authData: AuthCredentials): Promise<User> => {
     const userDoc = doc(db, 'users', user.uid);
     await setDoc(userDoc, {
       ...emptyUser,
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
       deleted: false,
     });
     return emptyUser;
@@ -172,6 +175,21 @@ export const updateUserData = async (
     const userDoc = doc(db, 'users', uid);
     await updateDoc(userDoc, values);
     return values;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const changeEmail = (email: string) => {
+  try {
+    const user = getAuth().currentUser;
+    if (!user) {
+      throw new Error('User not verified');
+    }
+    if (email === user.email) {
+      throw new Error('Email is the same');
+    }
+    updateEmail(user, email);
   } catch (error) {
     throw error;
   }

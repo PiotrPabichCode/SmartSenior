@@ -52,14 +52,16 @@
   },
   "account": {
     "title": {
-      "email": "Email:",
+      "email": "Email: {{email}}",
+      "emailChange": "Send a request to change email",
       "firstName": "First Name:",
       "lastName": "Last Name:",
-      "birthDate": "Date of Birth",
+      "birthDate": "Date of Birth: {{date}}",
       "password": "Password:"
     },
     "placeholder": {
       "email": "Enter email",
+      "emailChange": "New address email",
       "firstName": "Enter first name",
       "lastName": "Enter last name",
       "birthDate": "Enter date of birth",
@@ -73,8 +75,11 @@
     "notification": {
       "title": "Notification Time"
     },
+    "back": "Back",
+    "changeData": "Change data",
     "button": {
       "title": {
+        "email": "Email",
         "user": "Account",
         "theme": "Theme",
         "language": "Language",
@@ -112,7 +117,7 @@
         "logout": "Logout",
         "firstName": "Enter first name",
         "lastName": "Enter last name",
-        "birthDate": "Date of Birth: {{birthDate}}",
+        "birthDate": "Date of Birth: {{date}}",
         "birthDateEmpty": "Select date of birth"
       },
       "placeholder": {

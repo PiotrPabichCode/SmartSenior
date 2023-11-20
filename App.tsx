@@ -13,7 +13,7 @@ import Calendar from '@src/components/Calendar/Calendar';
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import Localization from '@src/localization/Localization';
 import { loadEvents } from '@src/redux/events/events.actions';
-import { loadConnectedUsers, verifyUser } from '@src/redux/auth/auth.actions';
+import { changeLanguage, loadConnectedUsers, verifyUser } from '@src/redux/auth/auth.actions';
 import { usePushNotifications } from '@src/hooks/usePushNotifications';
 import { loadChats } from '@src/redux/chats/chats.actions';
 import { logout } from '@src/redux/auth/auth.slice';
@@ -43,6 +43,7 @@ export default function App() {
       try {
         await Calendar.setupCalendar();
         await Localization.setupI18nConfig();
+        store.dispatch(changeLanguage(Localization.getLocale()));
         useLocalStorage('THEME_KEY').setItem(theme);
         setIsAppReady(true);
       } catch (error) {

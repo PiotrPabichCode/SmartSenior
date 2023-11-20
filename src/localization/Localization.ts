@@ -55,7 +55,7 @@ class Localization {
   };
 
   public static getLocale = () => {
-    return i18n.locale;
+    return i18n.currentLocale();
   };
 }
 

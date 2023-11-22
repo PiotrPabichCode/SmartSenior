@@ -50,6 +50,16 @@ export const eventsSlice = createSlice({
         state.eventGroups = eventGroups;
         state.status = 'succeeded';
       })
+      .addCase(action.updateEventsGroup.fulfilled, (state, action) => {
+        const { key, data } = action.payload;
+        const eventsGroup = state.eventGroups.find(e => e.key === key);
+        const updatedEventsGroup = { ...eventsGroup, ...data };
+        const eventGroups = state.eventGroups.map(e =>
+          e.key === key ? updatedEventsGroup : e,
+        ) as EventGroups;
+        state.eventGroups = eventGroups;
+        state.status = 'succeeded';
+      })
       .addCase(action.createEvent.rejected, state => {
         state.status = 'failed';
       })
@@ -95,6 +105,7 @@ export const selectEventByKey = (state: RootState, key: string) => {
   const events = selectEvents(state);
   return events.find(event => event.key === key);
 };
+export const selectEventsStatus = (state: RootState) => state.events.status;
 
 export const selectEventGroups = (state: RootState) => state.events.eventGroups;
 export const selectEventsGroupByKey = (state: RootState, key: string) => {

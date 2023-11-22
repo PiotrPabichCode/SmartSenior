@@ -1,6 +1,7 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Events } from '@src/models';
+import { Timestamp } from 'firebase/firestore';
 
 export type RootStackParamList = {
   Initial: undefined;
@@ -31,7 +32,12 @@ export type RootStackParamList = {
   };
   CreateEvent: undefined;
   EventItem: {
+    groupKey: string;
+    date: Timestamp;
     eventKey: string;
+  };
+  EventsGroup: {
+    groupKey: string;
   };
   FilterPanel: {
     title: string;
@@ -53,3 +59,4 @@ export type BottomBarParamList = {
 
 export type EventItemScreenProps = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 export type EventsScreenProps = NativeStackScreenProps<BottomBarParamList, 'Events'>;
+export type EventsGroupScreenProps = NativeStackScreenProps<RootStackParamList, 'EventsGroup'>;

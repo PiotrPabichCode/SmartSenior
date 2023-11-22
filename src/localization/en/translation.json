@@ -8,7 +8,8 @@
     "pharmacies": "Pharmacies",
     "pharmaciesItemDetails": "Pharmacy - Description",
     "createEvent": "Event",
-    "eventItem": "Event"
+    "eventItem": "Event",
+    "eventsGroup": "Events - group"
   },
   "bottomNav": {
     "home": "Home",
@@ -242,11 +243,17 @@
     }
   },
   "eventGroups": {
+    "title": "Event groups",
     "switchEvent": "Enable / disable task",
     "recurringCustom": "Recurring task - {{label}}",
     "recurringSpecificDays": "Recurring task - ",
     "update": "Update:",
-    "create": "Created:"
+    "create": "Created:",
+    "date": "Completion date:",
+    "upcomingEvent": "{{title}} / upcoming",
+    "noTags": "No tags",
+    "switchAlertTitle": "Disable event group",
+    "switchAlertQuestion": "Do you want to disable the selected event group?"
   },
   "eventItemScreen": {
     "button": {

@@ -1,18 +1,20 @@
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Alert } from 'react-native';
 import { Switch, Text } from '@rneui/themed';
-import { useAppSelector } from '@src/redux/types';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectEventsGroupByKey } from '@src/redux/events/events.slice';
 import { goBack, navigate } from '@src/navigation/navigationUtils';
 import { convertTimestampToDate, renderDayValue } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import { recurringTimes } from '@src/redux/events/events.constants';
 import { StyleSheet } from 'react-native';
+import { updateEventsGroup } from '@src/redux/events/events.actions';
 
 type Props = {
   groupKey: string;
 };
 
-const EventGroupItem = ({ groupKey }: Props) => {
+const EventsGroupItem = ({ groupKey }: Props) => {
+  const dispatch = useAppDispatch();
   const eventsGroup = useAppSelector(state => selectEventsGroupByKey(state, groupKey));
 
   if (!eventsGroup) {
@@ -37,10 +39,33 @@ const EventGroupItem = ({ groupKey }: Props) => {
     const label = recurringTimes.find(
       r => r.value === eventsGroup.frequency.interval && r.unit === eventsGroup.frequency.unit,
     )?.label!;
-    console.log(label);
     return t('eventGroups.recurring', {
       label: t(label),
     });
+  };
+
+  const switchEventsGroup = async () => {
+    Alert.alert(t('eventGroups.switchAlertTitle'), t('eventGroups.switchAlertQuestion'), [
+      {
+        text: t('eventItem.alert.no'),
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: t('eventItem.alert.yes'),
+        style: 'destructive',
+        onPress: async () => {
+          await dispatch(
+            updateEventsGroup({
+              key: groupKey,
+              data: {
+                active: !eventsGroup.active,
+              },
+            }),
+          );
+        },
+      },
+    ]);
   };
 
   return (
@@ -52,7 +77,7 @@ const EventGroupItem = ({ groupKey }: Props) => {
           alignItems: 'center',
         }}
         onPress={() =>
-          navigate('EventGroup', {
+          navigate('EventsGroup', {
             groupKey: groupKey,
           })
         }>
@@ -88,7 +113,7 @@ const EventGroupItem = ({ groupKey }: Props) => {
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
             <Text style={{ fontSize: 16 }}>{t('eventGroups.switchEvent')}</Text>
-            <Switch value={eventsGroup.active} />
+            <Switch value={eventsGroup.active} onChange={switchEventsGroup} />
           </View>
         </View>
       </TouchableOpacity>
@@ -105,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EventGroupItem;
+export default EventsGroupItem;

@@ -2,11 +2,13 @@ import { db } from 'firebaseConfig';
 import {
   Timestamp,
   addDoc,
+  arrayUnion,
   collection,
   doc,
   getDoc,
   getDocs,
   increment,
+  limit,
   query,
   setDoc,
   updateDoc,
@@ -28,6 +30,11 @@ import { days } from './events.constants';
 import type { RootState } from '../store';
 
 const selectTags = (state: RootState) => state.auth.user?.tags;
+const selectEventGroups = (state: RootState) => state.events.eventGroups;
+const selectEventsGroupByKey = (state: RootState, key: string) => {
+  const eventGroups = selectEventGroups(state);
+  return eventGroups.find(group => group.key === key);
+};
 
 async function uploadImageAsync(uri: string, eventPath: string) {
   const blob: any = await new Promise((resolve, reject) => {
@@ -58,7 +65,7 @@ const uploadImages = async (images: Images, eventPath: string): Promise<Images> 
   return images;
 };
 
-function getAllDates(event: Partial<Event>): Array<Date> {
+function getAllDates(event: Partial<Event>): Array<Timestamp> {
   const { date, frequency } = event;
   const { type, daysOfWeek, unit, interval, endDate } = frequency!;
   const dates = [];
@@ -88,7 +95,7 @@ function getAllDates(event: Partial<Event>): Array<Date> {
     }
   }
 
-  return dates;
+  return dates.map(d => Timestamp.fromDate(d));
 }
 
 export const createRecurringEvents = async (event: Event) => {
@@ -102,7 +109,7 @@ export const createRecurringEvents = async (event: Event) => {
     }
     const newEvent: Event = {
       ...event,
-      date: Timestamp.fromDate(date),
+      date: date,
       images: images,
     };
 
@@ -130,11 +137,79 @@ export const createEventGroup = async (event: Event) => {
       notifications: event.notifications,
       priority: event.priority,
       frequency: event.frequency,
+      images: event.images.map(i => i.uri),
       tags: event.tags.map(t => t.id),
       dates: getAllDates(event),
     };
     await setDoc(groupDoc, group);
     return group as EventGroup;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const prepareEventByGroupAndDate = (groupKey: string, date: Timestamp) => {
+  const group = selectEventsGroupByKey(store.getState(), groupKey);
+  if (!group) {
+    return null;
+  }
+  return {
+    date: date,
+    active: true,
+    deleted: false,
+    description: group.description,
+    frequency: group.frequency,
+    notifications: group.notifications,
+    title: group.title,
+    priority: group.priority,
+    updatedAt: Timestamp.now(),
+    userUid: group.userID,
+    groupKey: group.key,
+    images: group.images,
+    tags: group.tags,
+    days: group.frequency.daysOfWeek,
+    completed: false,
+  };
+};
+
+export const getOrCreateEventForGroupAndDate = async (
+  groupKey: string,
+  date: Timestamp,
+): Promise<Event> => {
+  try {
+    const eventsCollection = collection(db, 'eventGroups', groupKey, 'events');
+    const q = query(eventsCollection, where('date', '==', date), limit(1));
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) {
+      const event = prepareEventByGroupAndDate(groupKey, date);
+      if (!event) {
+        throw new Error('Unable to create event');
+      }
+      const response = await addDoc(eventsCollection, event);
+      if (!response || !response.id) {
+        throw new Error('Unable to create event');
+      }
+      await updateDoc(doc(db, response.path), {
+        key: response.id,
+      });
+
+      console.log('New event created');
+      return {
+        ...event,
+        key: response.id,
+        images: createImages(event.images),
+        tags: createTags(event.tags),
+        days: createDays(event.days),
+      } as Event;
+    }
+    console.log('Event loaded');
+    const event = snapshot.docs[0].data();
+    return {
+      ...event,
+      images: createImages(event.images),
+      tags: createTags(event.tags),
+      days: createDays(event.days),
+    } as Event;
   } catch (error) {
     throw error;
   }
@@ -199,14 +274,6 @@ export const createEvent = async (event: Event, isGroup?: boolean, imagesUploade
   }
 };
 
-const updateEventImages = async (images: Images, event: Event): Promise<Images> => {
-  const newImages = await uploadImages(images, `${event.groupKey}/${event.key}`);
-  if (event.images) {
-    return [...event.images, ...newImages];
-  }
-  return newImages;
-};
-
 const updateGroupEvents = async (group: string, frequency: Frequency) => {
   const groupDoc = doc(db, 'eventGroups', group);
   await updateDoc(groupDoc, {
@@ -219,27 +286,32 @@ const updateGroupEvents = async (group: string, frequency: Frequency) => {
   console.log(dates);
 };
 
-export const updateEvent = async (group: string, key: string, data: Partial<Event>) => {
+export const updateEventsGroup = async (key: string, data: Partial<EventGroup>) => {
   try {
-    const ref = doc(db, 'eventGroups', group, 'events', key);
-    const snapshot = await getDoc(ref);
-    if (!snapshot.exists()) {
-      throw new Error('Event does not exists');
-    }
-    const _data = snapshot.data() as Event;
-    if (data.images) {
-      data.images = await updateEventImages(data.images, _data);
-    }
-    if (data.frequency) {
-      await updateGroupEvents(group, data.frequency);
-    }
-    return;
-
+    const ref = doc(db, 'eventGroups', key);
     await updateDoc(ref, data);
     return {
       key: key,
       data: data,
     };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateEvent = async (group: string, key: string, data: Partial<Event>) => {
+  try {
+    const ref = doc(db, 'eventGroups', group, 'events', key);
+    const firebaseData = { ...data } as Partial<FirebaseEvent>;
+    if (data.images) {
+      const newImages = await uploadImages(data.images, `${group}/${key}`);
+      firebaseData.images = newImages.map(i => i.uri);
+    }
+    // if (data.frequency) {
+    //   await updateGroupEvents(group, data.frequency);
+    // }
+
+    await updateDoc(ref, firebaseData);
   } catch (error) {
     throw error;
   }

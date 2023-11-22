@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from './events.api';
-import { Event, Images } from '@src/models';
+import { Event, EventGroup, Images } from '@src/models';
 
 export const loadEvents = createAsyncThunk(
   'events/loadEvents',
@@ -51,6 +51,17 @@ export const createRecurringEvents = createAsyncThunk(
   async (data: Event, { rejectWithValue }) => {
     try {
       return await api.createRecurringEvents(data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const updateEventsGroup = createAsyncThunk(
+  'events/updateEventsGroup',
+  async ({ key, data }: { key: string; data: Partial<EventGroup> }, { rejectWithValue }) => {
+    try {
+      return await api.updateEventsGroup(key, data);
     } catch (error) {
       return rejectWithValue(error);
     }

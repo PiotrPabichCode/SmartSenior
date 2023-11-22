@@ -8,7 +8,8 @@
     "pharmacies": "Lista aptek",
     "pharmaciesItemDetails": "Apteka - opis",
     "createEvent": "Wydarzenie",
-    "eventItem": "Wydarzenie"
+    "eventItem": "Wydarzenie",
+    "eventsGroup": "Wydarzenia - grupa"
   },
   "bottomNav": {
     "home": "Strona główna",
@@ -241,11 +242,17 @@
     }
   },
   "eventGroups": {
+    "title": "Grupy wydarzeń",
     "switchEvent": "Włącz / wyłącz zadanie",
     "recurringCustom": "Zadanie cykliczne - {{label}}",
     "recurringSpecificDays": "Zadanie cykliczne - ",
     "update": "Aktualizacja:",
-    "create": "Utworzono:"
+    "create": "Utworzono:",
+    "date": "Data wykonania:",
+    "upcomingEvent": "{{title}} / nadchodzące",
+    "noTags": "Brak znaczników",
+    "switchAlertTitle": "Wyłączenie grupy wydarzeń",
+    "switchAlertQuestion": "Czy chcesz wyłączyć wybraną grupę wydarzeń?"
   },
   "eventItemScreen": {
     "button": {

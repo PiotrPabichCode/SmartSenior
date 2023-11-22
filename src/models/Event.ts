@@ -1,4 +1,4 @@
-import type { FirestoreDataConverter, Timestamp } from 'firebase/firestore';
+import type { FieldValue, FirestoreDataConverter, Timestamp } from 'firebase/firestore';
 import { Tags } from './Tag';
 import { Images } from './Image';
 import { Frequency } from './Frequency';
@@ -21,12 +21,13 @@ export interface Event {
   userUid: string;
   active: boolean;
   deleted: boolean;
+  completed: boolean;
 }
 
 export type FirebaseEvent = Omit<Event, 'frequency' | 'tags' | 'images'> & {
   frequency?: Frequency;
   tags: Array<string>;
-  images: Array<string>;
+  images: Array<string> | FieldValue;
 };
 
 export type Events = Event[];

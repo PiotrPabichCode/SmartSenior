@@ -38,12 +38,15 @@ import {
   TagsDisplay,
   DateButton,
 } from './components';
+import { selectEventsStatus } from '@src/redux/events/events.slice';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector(state => selectTheme(state));
   const userID = useAppSelector(state => selectUserID(state));
   const tags = useAppSelector(state => selectTags(state));
+  const status = useAppSelector(state => selectEventsStatus(state));
   const currentTheme = Colors[theme];
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
@@ -54,6 +57,9 @@ const CreateEventScreen = () => {
 
   const [recurringValue, setRecurringValue] = useState(null);
 
+  if (status === 'pending') {
+    return <CustomActivityIndicator />;
+  }
   const NewEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
     tags: Yup.mixed<Tag>(),

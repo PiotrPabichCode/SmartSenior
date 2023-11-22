@@ -1,57 +1,87 @@
-import { StyleSheet, Text } from 'react-native';
-import EventItem from '@src/screens/Events/EventItem';
-import { t } from '@src/localization/Localization';
+import { View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { EventsGroupScreenProps } from '@src/navigation/types';
+import { useAppSelector } from '@src/redux/types';
+import { selectEventsGroupByKey } from '@src/redux/events/events.slice';
+import { goBack } from '@src/navigation/navigationUtils';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
-import { useAppSelector } from '@src/redux/types';
-import { selectEventGroups, selectEvents } from '@src/redux/events/events.slice';
-import { selectTheme } from '@src/redux/auth/auth.slice';
-import NoEvents from './NoEvents';
-import { Events } from '@src/models';
-import { useEffect, useState } from 'react';
-import { EventsScreenProps } from '@src/navigation/types';
-import EventGroupItem from './EventGroupItem';
+import { Text } from '@rneui/themed';
+import { EventGroup, Frequency, Tags } from '@src/models';
+import { Timestamp } from 'firebase/firestore';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import NewEventItem from './NewEventItem';
+import { createTags } from '@src/redux/events/events.api';
 
-const EventsScreen = ({ route }: EventsScreenProps) => {
-  const eventGroups = useAppSelector(state => selectEventGroups(state));
+interface EventItem {
+  groupKey: string;
+  date: Timestamp;
+  title: string;
+  tags: Tags;
+  active: boolean;
+}
+
+type EventItems = EventItem[];
+
+const EventsScreen = ({ route, navigation }: EventsGroupScreenProps) => {
+  const { groupKey } = route.params;
+  const eventsGroup = useAppSelector(state => selectEventsGroupByKey(state, groupKey));
+  const [eventItems, setEventItems] = useState<EventItems>([]);
+  const [isReady, setIsReady] = useState<boolean>(false);
   const theme = useAppSelector(state => selectTheme(state));
-  const currentTheme = Colors[theme];
-  console.log(eventGroups);
-  // const [filteredData, setFilteredData] = useState<Events | null>(null);
-  // const outputEvents = filteredData ? filteredData : events;
+  const styles = Colors[theme];
 
-  // useEffect(() => {
-  //   if (route?.params?.filteredData) {
-  //     setFilteredData(route.params.filteredData);
-  //   }
-  //   if (route?.params?.filterConditions) {
-  //     console.log('Filter conditions', route.params.filterConditions);
-  //   }
-  // }, [route.params]);
+  if (!eventsGroup) {
+    goBack();
+    return null;
+  }
 
-  // const mapEvents = outputEvents.map((event, index) => {
-  //   return <EventItem key={index} eventKey={event.key} />;
-  // });
+  useEffect(() => {
+    const prepareEventItems = (eventsGroup: EventGroup) => {
+      const eventItems: EventItems = [];
+      const tags = createTags(eventsGroup.tags);
+      for (const date of eventsGroup.dates) {
+        eventItems.push({
+          groupKey: eventsGroup.key,
+          date: date,
+          title: eventsGroup.title,
+          tags: tags,
+          active: eventsGroup.active,
+        });
+      }
+      setEventItems(eventItems);
+      setIsReady(true);
+    };
 
-  const mapEventGroups = eventGroups.map((e, index) => {
-    return <EventGroupItem key={index} groupKey={e.key} />;
+    prepareEventItems(eventsGroup);
+  }, [eventsGroup]);
+
+  if (!isReady) {
+    return <CustomActivityIndicator />;
+  }
+
+  const mapEventItems = eventItems.map((e, index) => {
+    return (
+      <NewEventItem
+        key={index}
+        groupKey={e.groupKey}
+        title={e.title}
+        date={e.date}
+        active={e.active}
+        tags={e.tags}
+      />
+    );
   });
 
   return (
-    <CustomScrollContainer theme={currentTheme}>
-      <Text style={styles.title}>Grupy wydarzeń</Text>
-      {mapEventGroups}
-      {/* {events.length === 0 ? <NoEvents /> : mapEvents} */}
+    <CustomScrollContainer theme={styles}>
+      <Text h2 numberOfLines={1} adjustsFontSizeToFit>
+        {eventsGroup.title}
+      </Text>
+      {mapEventItems}
     </CustomScrollContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    padding: 10,
-  },
-});
 
 export default EventsScreen;

@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AccountScreen from '@screens/Account/AccountScreen';
-import EventsScreen from '@src/screens/Events/EventsScreen';
+import EventsGroupScreen from '@src/screens/Events/EventsGroupScreen';
 import HomeScreen from '@src/screens/Home/HomeScreen';
 
 import { BottomBarParamList } from './types';
@@ -53,7 +53,7 @@ const BottomBarNavigator = () => {
         />
         <Tab.Screen
           name="Events"
-          component={EventsScreen}
+          component={EventsGroupScreen}
           options={{
             tabBarLabel: t('bottomNav.events'),
             tabBarIcon: ({ focused }) => renderIcon({ name: 'home-bottom-nav', focused: focused }),

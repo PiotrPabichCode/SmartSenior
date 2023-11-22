@@ -11,13 +11,12 @@ import FormikObserver from '@src/utils/FormikObserver';
 import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { updateEvent } from '@src/redux/events/events.actions';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Timestamp } from 'firebase/firestore';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
 import { selectEventByKey } from '@src/redux/events/events.slice';
-import { Frequency, Image, Notifications, Tag, Tags } from '@src/models';
+import { Event, FirebaseEvent, Frequency, Image, Notifications, Tag, Tags } from '@src/models';
 import MultipleImagePicker from '@src/components/MultipleImagePicker';
 import {
   CompleteButton,
@@ -39,15 +38,19 @@ import {
   Title,
   UpdateButton,
 } from './components';
+import { getOrCreateEventForGroupAndDate, updateEvent } from '@src/redux/events/events.api';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 
 const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
   const dispatch = useAppDispatch();
   const [isReady, setIsReady] = useState<boolean>(false);
   const theme = useAppSelector(state => selectTheme(state));
   const tags = useAppSelector(state => selectTags(state));
+  const [event, setEvent] = useState<Event | null>(null);
+  const [initialValues, setInitialValues] = useState<any>({});
   const currentTheme = Colors[theme];
-  const { eventKey } = route.params;
-  const event = useAppSelector(state => selectEventByKey(state, eventKey));
+  const { groupKey, date } = route.params;
+  // const event = useAppSelector(state => selectEventByKey(state, eventKey));
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
@@ -59,23 +62,64 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
 
   const [recurringValue, setRecurringValue] = useState<RecurringValues | null>(null);
 
-  if (!event) {
-    return null;
-  }
+  // useEffect(() => {
+  //   const updateRecurringValue = () => {
+  //     const interval = event.frequency.interval;
+  //     const unit = event.frequency.unit;
+  //     const matchedValue = recurringTimes.find(
+  //       r => r.interval === interval && r.unit === unit,
+  //     )?.value;
+  //     if (matchedValue) {
+  //       setRecurringValue(matchedValue);
+  //     }
+  //   };
+  //   updateRecurringValue();
+  // }, [event]);
 
   useEffect(() => {
-    const updateRecurringValue = () => {
-      const interval = event.frequency.interval;
-      const unit = event.frequency.unit;
-      const matchedValue = recurringTimes.find(
-        r => r.interval === interval && r.unit === unit,
-      )?.value;
-      if (matchedValue) {
-        setRecurringValue(matchedValue);
+    const prepareEvent = async () => {
+      console.log(groupKey, date);
+      try {
+        if (groupKey && date) {
+          const event = await getOrCreateEventForGroupAndDate(groupKey, date);
+          setEvent(event);
+          setIsReady(true);
+        }
+      } catch (error) {
+        console.log(error);
       }
     };
-    updateRecurringValue();
+
+    prepareEvent();
+  }, [groupKey, date]);
+
+  useEffect(() => {
+    if (event) {
+      setInitialValues({
+        title: event.title,
+        tags: event.tags,
+        images: event.images,
+        description: event.description,
+        date: event.date,
+        days: event.days,
+        frequency: event.frequency,
+        notifications: event.notifications,
+        priority: event.priority,
+        deleted: event.deleted,
+        completed: event.completed,
+        userUid: event.userUid,
+      });
+    }
   }, [event]);
+
+  if (!isReady) {
+    return <CustomActivityIndicator />;
+  }
+
+  if (!event) {
+    goBack();
+    return null;
+  }
 
   const ChangeEventSchema = Yup.object().shape({
     title: Yup.string().min(1).required(),
@@ -102,21 +146,6 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
     return selectedTags;
   };
 
-  const [initialValues, setInitialValues] = useState({
-    title: event.title,
-    tags: event.tags,
-    images: event.images,
-    description: event.description,
-    date: event.date,
-    days: event.days,
-    frequency: event.frequency,
-    notifications: event.notifications,
-    priority: event.priority,
-    updatedAt: event.updatedAt,
-    deleted: event.deleted,
-    userUid: event.userUid,
-  });
-
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Formik
@@ -129,9 +158,7 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
               .then(async () => {
                 const updatedFields = getUpdatedFields(event, values);
                 delete updatedFields.days;
-                await dispatch(
-                  updateEvent({ group: event.groupKey, key: eventKey, data: updatedFields }),
-                ).unwrap();
+                await updateEvent(event.groupKey, event.key, updatedFields);
                 setInitialValues(values);
                 CustomToast('success', t('eventItemScreen.message.success.change'));
                 goBack();
@@ -151,7 +178,7 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
             <TagsDisplay selectedTags={values.tags} fieldName={'tags'} onPress={setFieldValue} />
             <TagsPicker
               tags={tags}
-              selectedTags={filterTags(values.tags.map(t => t.id))}
+              selectedTags={filterTags(values.tags.map((t: Tag) => t.id))}
               fieldName={'tags'}
               onChange={setFieldValue}
             />
@@ -230,7 +257,11 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
             />
             <Priority onChange={setFieldValue} fieldName={'priority'} priority={values.priority} />
             <UpdateButton visible={isUpdate} onPress={handleSubmit} />
-            <CompleteButton onPress={handleSubmit} />
+            <CompleteButton
+              fieldName={'completed'}
+              onChange={setFieldValue}
+              onPress={handleSubmit}
+            />
             <FormikObserver
               onChange={(data: any) => {
                 const changedFields = getUpdatedFields(data.initialValues, data.values);

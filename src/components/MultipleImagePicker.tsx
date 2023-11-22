@@ -29,7 +29,6 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
   const pickImages = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
       allowsMultipleSelection: true,
       selectionLimit: 5,
       base64: true,
@@ -46,7 +45,6 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       base64: true,
-      quality: 1,
     });
 
     loadImages(pickerResult);

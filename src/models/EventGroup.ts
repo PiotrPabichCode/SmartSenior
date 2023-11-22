@@ -17,7 +17,7 @@ export interface EventGroup {
   frequency: Frequency;
   tags: Array<string>;
   images: Array<string>;
-  dates: Array<Date>;
+  dates: Array<Timestamp>;
 }
 
 export type EventGroups = EventGroup[];

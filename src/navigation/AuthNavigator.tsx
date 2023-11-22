@@ -19,6 +19,7 @@ import { selectUser } from '@src/redux/auth/auth.slice';
 import SeniorDashboard from '@src/screens/Account/ConnectedUsers/SeniorDashboard';
 import AddTag from '@src/screens/Account/Tags/AddTag';
 import FilterPanel from '@src/components/FilterPanel/FilterPanel';
+import EventsScreen from '@src/screens/Events/EventsScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -101,6 +102,13 @@ const AuthNavigator = () => {
         component={CreateEventScreen}
         options={{
           header: () => <CustomHeader title={t('nav.createEvent')} nested={true} />,
+        }}
+      />
+      <Stack.Screen
+        name="EventsGroup"
+        component={EventsScreen}
+        options={{
+          header: () => <CustomHeader title={t('nav.eventsGroup')} nested={true} />,
         }}
       />
       <Stack.Screen

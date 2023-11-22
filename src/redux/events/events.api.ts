@@ -6,15 +6,30 @@ import {
   doc,
   getDoc,
   getDocs,
-  orderBy,
+  increment,
   query,
+  setDoc,
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { Event, Events, Images } from '@src/models';
+import {
+  Event,
+  EventGroup,
+  EventGroups,
+  Events,
+  FirebaseEvent,
+  Frequency,
+  Images,
+  Tags,
+} from '@src/models';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { store } from '../common';
+import { days } from './events.constants';
+import type { RootState } from '../store';
 
-async function uploadImageAsync(uri: string, eventID: string) {
+const selectTags = (state: RootState) => state.auth.user?.tags;
+
+async function uploadImageAsync(uri: string, eventPath: string) {
   const blob: any = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -29,24 +44,23 @@ async function uploadImageAsync(uri: string, eventID: string) {
     xhr.send(null);
   });
 
-  const fileRef = ref(getStorage(), `events/${eventID}/${Date.now()}`);
+  const fileRef = ref(getStorage(), `events/${eventPath}/${Date.now()}`);
   await uploadBytes(fileRef, blob);
 
   return await getDownloadURL(fileRef);
 }
 
-const uploadImages = async (images: Images, eventID: string): Promise<Images> => {
+const uploadImages = async (images: Images, eventPath: string): Promise<Images> => {
   for (const image of images) {
-    const uri = await uploadImageAsync(image.uri, eventID);
+    const uri = await uploadImageAsync(image.uri, eventPath);
     image.uri = uri;
-    image.base64 = null;
   }
   return images;
 };
 
-function getAllDates(event: Event): Array<Date> {
+function getAllDates(event: Partial<Event>): Array<Date> {
   const { date, frequency } = event;
-  const { type, daysOfWeek, unit, interval, endDate } = frequency;
+  const { type, daysOfWeek, unit, interval, endDate } = frequency!;
   const dates = [];
   const currentDate = date?.toDate()!;
 
@@ -92,54 +106,138 @@ export const createRecurringEvents = async (event: Event) => {
       images: images,
     };
 
-    const _event = await createEvent(newEvent);
+    const _event = await createEvent(newEvent, i > 0, true);
     events.push(_event);
     i++;
   }
   return events;
 };
 
-export const createEvent = async (newEventData: Event) => {
+export const createEventGroup = async (event: Event) => {
   try {
-    const _collection = collection(db, 'events');
-    const response = await addDoc(_collection, newEventData);
-    if (!response || !response.id) {
-      throw new Error('Unable to add new event.');
-    }
-    const key = response.id;
-    const currentEventRef = doc(db, response.path);
-    await updateDoc(currentEventRef, {
-      key: key,
-    });
-    newEventData.key = key;
-    return newEventData;
+    await uploadImages(event.images, event.groupKey);
+    const groupDoc = doc(db, 'eventGroups', event.groupKey);
+    const group = {
+      key: event.groupKey,
+      userID: event.userUid,
+      active: true,
+      deleted: false,
+      numOfEvents: 0,
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+      title: event.title,
+      description: event.description,
+      notifications: event.notifications,
+      priority: event.priority,
+      frequency: event.frequency,
+      tags: event.tags.map(t => t.id),
+      dates: getAllDates(event),
+    };
+    await setDoc(groupDoc, group);
+    return group as EventGroup;
   } catch (error) {
     throw error;
   }
 };
 
-export const updateEvent = async (eventKey: string, data: Partial<Event>) => {
+export const createEvent = async (event: Event, isGroup?: boolean, imagesUploaded?: boolean) => {
   try {
-    const ref = doc(db, 'events', eventKey);
+    const groupDoc = doc(db, 'eventGroups', event.groupKey);
+    if (!isGroup) {
+      await setDoc(groupDoc, {
+        key: event.groupKey,
+        userID: event.userUid,
+        active: true,
+        deleted: false,
+        numOfEvents: 0,
+        createdAt: Timestamp.now(),
+        updatedAt: Timestamp.now(),
+        title: event.title,
+        description: event.description,
+        notifications: event.notifications,
+        priority: event.priority,
+        frequency: event.frequency,
+        tags: event.tags.map(t => t.id),
+        images: event.images.map(i => i.uri),
+        dates: getAllDates(event),
+      });
+    }
+
+    const firebaseEvent = {
+      ...event,
+      tags: event.tags.map(t => t.id),
+      images: event.images.map(i => i.uri),
+    } as FirebaseEvent;
+    delete firebaseEvent.frequency;
+    const eventsCollection = collection(db, 'eventGroups', event.groupKey, 'events');
+    const response = await addDoc(eventsCollection, firebaseEvent);
+    if (!response || !response.id) {
+      throw new Error('Unable to add new event.');
+    }
+    await updateDoc(groupDoc, {
+      numOfEvents: increment(1),
+    });
+    const key = response.id;
+    const currentEventRef = doc(db, response.path);
+    const updatedData = {
+      key: key,
+    } as { key: string; images?: Array<string> };
+    if (!imagesUploaded && event.images) {
+      const images = await uploadImages(event.images, event.groupKey);
+      updatedData.images = images.map(i => i.uri);
+      event.images = images;
+    }
+    console.log('ADDED EVENT');
+    await updateDoc(currentEventRef, updatedData);
+    event.key = key;
+    if (!event.days) {
+      event.days = createDays(event.days);
+    }
+    return event;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateEventImages = async (images: Images, event: Event): Promise<Images> => {
+  const newImages = await uploadImages(images, `${event.groupKey}/${event.key}`);
+  if (event.images) {
+    return [...event.images, ...newImages];
+  }
+  return newImages;
+};
+
+const updateGroupEvents = async (group: string, frequency: Frequency) => {
+  const groupDoc = doc(db, 'eventGroups', group);
+  await updateDoc(groupDoc, {
+    frequency: frequency,
+  });
+  const dates = getAllDates({
+    date: Timestamp.now(),
+    frequency: frequency,
+  });
+  console.log(dates);
+};
+
+export const updateEvent = async (group: string, key: string, data: Partial<Event>) => {
+  try {
+    const ref = doc(db, 'eventGroups', group, 'events', key);
     const snapshot = await getDoc(ref);
     if (!snapshot.exists()) {
       throw new Error('Event does not exists');
     }
-    const _data = snapshot.data();
-    let images: Images = [];
+    const _data = snapshot.data() as Event;
     if (data.images) {
-      const newImages = await uploadImages(data.images, `${_data.groupKey}/${eventKey}`);
-      images = _data.images;
-      if (!images) {
-        images = newImages;
-      } else {
-        images = [...images, ...newImages];
-      }
-      data.images = images;
+      data.images = await updateEventImages(data.images, _data);
     }
+    if (data.frequency) {
+      await updateGroupEvents(group, data.frequency);
+    }
+    return;
+
     await updateDoc(ref, data);
     return {
-      key: eventKey,
+      key: key,
       data: data,
     };
   } catch (error) {
@@ -147,11 +245,16 @@ export const updateEvent = async (eventKey: string, data: Partial<Event>) => {
   }
 };
 
-export const deleteEvent = async (key: string) => {
+export const deleteEvent = async (group: string, key: string) => {
   try {
-    const ref = doc(db, 'events', key);
+    const ref = doc(db, 'eventGroups', group, 'events', key);
     await updateDoc(ref, {
       deleted: true,
+      updatedAt: Timestamp.now(),
+    });
+    const groupDoc = doc(db, 'eventGroups', group);
+    await updateDoc(groupDoc, {
+      numOfEvents: increment(-1),
     });
     return key;
   } catch (error) {
@@ -159,19 +262,85 @@ export const deleteEvent = async (key: string) => {
   }
 };
 
-export const fetchEventsByID = async (uid: string): Promise<Events> => {
+export const createDays = (data: Array<number> | null | undefined) => {
+  if (!data) {
+    return days.map(day => ({ ...day, active: false }));
+  }
+  return days.map(day => ({ ...day, active: data.includes(day.value) ? true : false }));
+};
+
+export const createTags = (tagIds: Array<string> | null): Tags => {
+  const tags = selectTags(store.getState());
+  if (!tagIds || !tags) {
+    return [];
+  }
+  return tags.filter(t => tagIds.includes(t.id));
+};
+
+export const createImages = (imageUris: Array<string> | null): Images => {
+  if (!imageUris) {
+    return [];
+  }
+  return imageUris.map(i => ({
+    uri: i,
+    base64: null,
+  }));
+};
+
+export const sortEvents = (events: Events): Events => {
+  return events.sort((a, b) => {
+    if (a.date && b.date) {
+      return a.date.toMillis() - b.date.toMillis();
+    }
+    return 0;
+  });
+};
+
+export const fetchEventGroupsByID = async (uid: string): Promise<EventGroups> => {
   try {
-    const _collection = collection(db, `events`);
-    const q = query(
-      _collection,
+    const groupsCollection = collection(db, 'eventGroups');
+    let q = query(
+      groupsCollection,
       where('deleted', '==', false),
       where('active', '==', true),
-      where('userUid', '==', uid),
-      orderBy('date', 'asc'),
+      where('userID', '==', uid),
     );
-    const snapshot = await getDocs(q);
-    const events = snapshot.docs.map(doc => doc.data());
-    return events as Events;
+    let snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => doc.data()) as EventGroups;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchEventsByID = async (uid: string): Promise<Events> => {
+  try {
+    const groupsCollection = collection(db, 'eventGroups');
+    let q = query(
+      groupsCollection,
+      where('deleted', '==', false),
+      where('active', '==', true),
+      where('userID', '==', uid),
+    );
+    let snapshot = await getDocs(q);
+    const events: Events = [];
+    for (const groupDoc of snapshot.docs) {
+      const groupDetails = groupDoc.data() as EventGroup;
+      const eventsCollection = collection(groupDoc.ref, 'events');
+      q = query(eventsCollection, where('deleted', '==', false));
+      snapshot = await getDocs(q);
+      snapshot.docs.map(doc => {
+        const event = doc.data();
+        const updatedEvent = {
+          ...event,
+          frequency: groupDetails.frequency,
+          days: createDays(groupDetails.frequency.daysOfWeek),
+          tags: createTags(event.tags),
+          images: createImages(event.images),
+        } as Event;
+        events.push(updatedEvent);
+      });
+    }
+    return sortEvents(events);
   } catch (error) {
     throw error;
   }

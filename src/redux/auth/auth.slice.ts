@@ -2,7 +2,6 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import * as action from './auth.actions';
 import { ConnectedUser, ConnectedUsers, User, Theme, Tag, Tags } from '@src/models';
 import type { RootState } from '../store';
-import Localization from '@src/localization/Localization';
 
 export interface AuthState {
   user: User | null;

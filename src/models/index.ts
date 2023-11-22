@@ -1,6 +1,7 @@
 import { User, Users, UserConverter } from './User';
 import { ConnectedUser, ConnectedUsers } from './ConnectedUser';
-import { Event, Events, EventConverter } from './Event';
+import { Event, Events, FirebaseEvent, EventConverter } from './Event';
+import { EventGroup, EventGroups } from './EventGroup';
 import { AuthCredentials } from './AuthCredentials';
 import { Theme } from './Theme';
 import { Roles } from './Roles';
@@ -24,7 +25,10 @@ export {
   ConnectedUsers,
   Event,
   Events,
+  FirebaseEvent,
   EventConverter,
+  EventGroup,
+  EventGroups,
   AuthCredentials,
   Theme,
   Roles,

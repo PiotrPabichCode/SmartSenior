@@ -13,11 +13,33 @@ export const loadEvents = createAsyncThunk(
   },
 );
 
+export const loadEventGroups = createAsyncThunk(
+  'events/loadEventGroups',
+  async (uid: string, { rejectWithValue }) => {
+    try {
+      return await api.fetchEventGroupsByID(uid);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const createEventGroup = createAsyncThunk(
+  'events/createEventGroup',
+  async (event: Event, { rejectWithValue }) => {
+    try {
+      return await api.createEventGroup(event);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 export const createEvent = createAsyncThunk(
   'events/createEvent',
   async (data: Event, { rejectWithValue }) => {
     try {
-      return await api.createEvent(data);
+      return await api.createEvent(data, false);
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -37,9 +59,12 @@ export const createRecurringEvents = createAsyncThunk(
 
 export const updateEvent = createAsyncThunk(
   'events/updateEvent',
-  async ({ eventKey, data }: { eventKey: string; data: Partial<Event> }, { rejectWithValue }) => {
+  async (
+    { group, key, data }: { group: string; key: string; data: Partial<Event> },
+    { rejectWithValue },
+  ) => {
     try {
-      return await api.updateEvent(eventKey, data);
+      return await api.updateEvent(group, key, data);
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -48,9 +73,9 @@ export const updateEvent = createAsyncThunk(
 
 export const deleteEvent = createAsyncThunk(
   'events/deleteEvent',
-  async (key: string, { rejectWithValue }) => {
+  async ({ group, key }: { group: string; key: string }, { rejectWithValue }) => {
     try {
-      await api.deleteEvent(key);
+      await api.deleteEvent(group, key);
       return key;
     } catch (error) {
       return rejectWithValue(error);

@@ -241,6 +241,13 @@
       "error": "Unable to delete event"
     }
   },
+  "eventGroups": {
+    "switchEvent": "Enable / disable task",
+    "recurringCustom": "Recurring task - {{label}}",
+    "recurringSpecificDays": "Recurring task - ",
+    "update": "Update:",
+    "create": "Created:"
+  },
   "eventItemScreen": {
     "button": {
       "placeholder": {

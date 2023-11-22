@@ -1,13 +1,7 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '@src/navigation/types';
+import { EventItemScreenProps } from '@src/navigation/types';
 import { getUpdatedFields } from '@src/utils/utils';
-import { View, StyleSheet } from 'react-native';
-import {
-  days,
-  priorities,
-  RecurringValues,
-  recurringTimes,
-} from '@src/redux/events/events.constants';
+import { View } from 'react-native';
+import { priorities, RecurringValues, recurringTimes } from '@src/redux/events/events.constants';
 import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -23,7 +17,7 @@ import { Timestamp } from 'firebase/firestore';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
 import { selectEventByKey } from '@src/redux/events/events.slice';
-import { Frequency, Image, Notifications, Tag } from '@src/models';
+import { Frequency, Image, Notifications, Tag, Tags } from '@src/models';
 import MultipleImagePicker from '@src/components/MultipleImagePicker';
 import {
   CompleteButton,
@@ -46,10 +40,9 @@ import {
   UpdateButton,
 } from './components';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
-
-const EventItemScreen = ({ route, navigation }: Props) => {
+const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
   const dispatch = useAppDispatch();
+  const [isReady, setIsReady] = useState<boolean>(false);
   const theme = useAppSelector(state => selectTheme(state));
   const tags = useAppSelector(state => selectTags(state));
   const currentTheme = Colors[theme];
@@ -97,15 +90,16 @@ const EventItemScreen = ({ route, navigation }: Props) => {
         return priorities.some(p => p.value === value);
       })
       .required(),
-    updatedAt: Yup.mixed<Timestamp>().required(),
     deleted: Yup.boolean().required(),
   });
 
-  const createDays = (data: Array<number> | null) => {
-    if (!data) {
-      return days.map(day => ({ ...day, active: false }));
+  const filterTags = (tagIds: Array<string>) => {
+    let selectedTags = [] as Tags;
+    if (tags) {
+      selectedTags = tags.filter(t => tagIds.includes(t.id));
     }
-    return days.map(day => ({ ...day, active: data.includes(day.value) ? true : false }));
+
+    return selectedTags;
   };
 
   const [initialValues, setInitialValues] = useState({
@@ -114,7 +108,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
     images: event.images,
     description: event.description,
     date: event.date,
-    days: createDays(event.frequency.daysOfWeek),
+    days: event.days,
     frequency: event.frequency,
     notifications: event.notifications,
     priority: event.priority,
@@ -134,7 +128,10 @@ const EventItemScreen = ({ route, navigation }: Props) => {
             ChangeEventSchema.validate(values)
               .then(async () => {
                 const updatedFields = getUpdatedFields(event, values);
-                await dispatch(updateEvent({ eventKey: eventKey, data: updatedFields })).unwrap();
+                delete updatedFields.days;
+                await dispatch(
+                  updateEvent({ group: event.groupKey, key: eventKey, data: updatedFields }),
+                ).unwrap();
                 setInitialValues(values);
                 CustomToast('success', t('eventItemScreen.message.success.change'));
                 goBack();
@@ -154,7 +151,7 @@ const EventItemScreen = ({ route, navigation }: Props) => {
             <TagsDisplay selectedTags={values.tags} fieldName={'tags'} onPress={setFieldValue} />
             <TagsPicker
               tags={tags}
-              selectedTags={values.tags}
+              selectedTags={filterTags(values.tags.map(t => t.id))}
               fieldName={'tags'}
               onChange={setFieldValue}
             />

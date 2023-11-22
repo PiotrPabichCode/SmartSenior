@@ -231,7 +231,7 @@ const loadUserByEmail = async (email: string): Promise<User> => {
   }
 };
 
-export const loadConnectedUsers = async (uid: string) => {
+export const loadConnectedUsers = async () => {
   try {
     const connectedUsersIds = selectUserConnectedUsersIds(store.getState());
     const _collection = collection(db, `users`);

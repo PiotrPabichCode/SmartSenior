@@ -7,7 +7,11 @@ import { priorities } from '@src/redux/events/events.constants';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { createEvent, createRecurringEvents } from '@src/redux/events/events.actions';
+import {
+  createEvent,
+  createEventGroup,
+  createRecurringEvents,
+} from '@src/redux/events/events.actions';
 import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Event, Frequency, Image, Images, Notifications, Tag, Tags } from '@src/models';
@@ -64,8 +68,6 @@ const CreateEventScreen = () => {
       })
       .required(),
     userUid: Yup.string().nonNullable().required(),
-    createdAt: Yup.mixed<Timestamp>().required(),
-    updatedAt: Yup.mixed<Timestamp>().required(),
     deleted: Yup.boolean().required(),
     active: Yup.boolean().required(),
   });
@@ -84,7 +86,6 @@ const CreateEventScreen = () => {
           images: [] as Images,
           description: '',
           date: null as Timestamp | null,
-          days: undefined as Days | undefined,
           frequency: {
             recurring: false,
             type: null,
@@ -96,7 +97,6 @@ const CreateEventScreen = () => {
           } as Frequency,
           notifications: {} as Notifications,
           priority: 0,
-          createdAt: Timestamp.now(),
           updatedAt: Timestamp.now(),
           deleted: false,
           active: true,
@@ -104,17 +104,15 @@ const CreateEventScreen = () => {
         }}
         onSubmit={values => {
           try {
-            values.createdAt = Timestamp.now();
             values.updatedAt = Timestamp.now();
-            const createValues = { ...values };
-            delete createValues.days;
-            NewEventSchema.validate(createValues)
+            NewEventSchema.validate(values)
               .then(async () => {
-                if (!values.frequency.recurring) {
-                  await dispatch(createEvent(values as Event)).unwrap();
-                } else {
-                  await dispatch(createRecurringEvents(values as Event)).unwrap();
-                }
+                await dispatch(createEventGroup(values as Event)).unwrap();
+                // if (!values.frequency.recurring) {
+                //   await dispatch(createEvent(values as Event)).unwrap();
+                // } else {
+                //   await dispatch(createRecurringEvents(values as Event)).unwrap();
+                // }
                 CustomToast('success', t('createEvent.message.success.add'));
                 goBack();
               })

@@ -107,7 +107,7 @@ export const loadConnectedUsers = createAsyncThunk(
   'auth/loadConnectedUsers',
   async (uid: string, { rejectWithValue }) => {
     try {
-      return await api.loadConnectedUsers(uid);
+      return await api.loadConnectedUsers();
     } catch (error) {
       return rejectWithValue(error);
     }

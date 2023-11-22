@@ -2,11 +2,11 @@ import moment from 'moment-timezone';
 import isEqual from 'lodash.isequal';
 import { t } from '@src/localization/Localization';
 import { store } from '@src/redux/common';
-import { DAYS } from '@src/redux/events/events.constants';
+import { DAYS, days } from '@src/redux/events/events.constants';
 import { Platform } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
-import { selectConnectedUserById, selectUser } from '@src/redux/auth/auth.slice';
-import { Genders } from '@src/models';
+import { selectConnectedUserById, selectTags, selectUser } from '@src/redux/auth/auth.slice';
+import { Genders, Images, Tags } from '@src/models';
 
 export const IS_ANDROID = Platform.OS === 'android';
 export const buildRequest = (baseUrl: string, params: any) => {

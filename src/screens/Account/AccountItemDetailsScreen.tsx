@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
 import AccountConnectedUsersScreen from './ConnectedUsers/AccountConnectedUsersScreen';
@@ -56,29 +55,5 @@ const AccountItemDetailsScreen = ({ route }: any) => {
     </CustomScrollContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  languageTitle: {
-    fontSize: 26,
-    fontWeight: 'bold',
-  },
-  language: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#808080',
-  },
-  pickLanguage: {
-    width: '100%',
-    height: 40,
-    backgroundColor: 'blue',
-    color: 'white',
-    textAlign: 'center',
-    borderRadius: 10,
-    marginVertical: 10,
-    fontSize: 20,
-    fontWeight: '500',
-    textAlignVertical: 'center',
-  },
-});
 
 export default AccountItemDetailsScreen;

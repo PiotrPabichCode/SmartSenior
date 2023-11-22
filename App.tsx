@@ -12,7 +12,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import Calendar from '@src/components/Calendar/Calendar';
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import Localization from '@src/localization/Localization';
-import { loadEvents } from '@src/redux/events/events.actions';
+import { loadEventGroups, loadEvents } from '@src/redux/events/events.actions';
 import { changeLanguage, loadConnectedUsers, verifyUser } from '@src/redux/auth/auth.actions';
 import { usePushNotifications } from '@src/hooks/usePushNotifications';
 import { loadChats } from '@src/redux/chats/chats.actions';
@@ -59,7 +59,7 @@ export default function App() {
       await store.dispatch(verifyUser(user));
       batch(async () => {
         if (user) {
-          await store.dispatch(loadEvents(user.uid));
+          await store.dispatch(loadEventGroups(user.uid));
           await store.dispatch(loadConnectedUsers(user.uid));
           await store.dispatch(loadChats());
           await store.dispatch(loadMedicines());

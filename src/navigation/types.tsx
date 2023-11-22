@@ -1,4 +1,5 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Events } from '@src/models';
 
 export type RootStackParamList = {
@@ -44,7 +45,11 @@ export type BottomBarParamList = {
   Events: {
     onBack: any;
     filteredData: Events;
+    filterConditions: any;
   };
   Chat: undefined;
   Account: undefined;
 };
+
+export type EventItemScreenProps = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
+export type EventsScreenProps = NativeStackScreenProps<BottomBarParamList, 'Events'>;

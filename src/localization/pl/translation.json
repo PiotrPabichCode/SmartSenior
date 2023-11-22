@@ -240,6 +240,13 @@
       "error": "Nie udało się usunąć wydarzenia"
     }
   },
+  "eventGroups": {
+    "switchEvent": "Włącz / wyłącz zadanie",
+    "recurringCustom": "Zadanie cykliczne - {{label}}",
+    "recurringSpecificDays": "Zadanie cykliczne - ",
+    "update": "Aktualizacja:",
+    "create": "Utworzono:"
+  },
   "eventItemScreen": {
     "button": {
       "placeholder": {

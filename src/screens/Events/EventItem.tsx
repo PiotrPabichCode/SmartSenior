@@ -33,7 +33,7 @@ const EventItem = ({ eventKey }: { eventKey: string }) => {
   };
 
   function generateDayTags(event: Event) {
-    return Object.values(event.days).map((day: DayProps, index: number) => {
+    return Object.values(event.days!).map((day, index) => {
       return (
         <Text style={day.active ? styles.activeDay : styles.inactiveDay} key={index}>
           {renderDayValue(day.value, true)}
@@ -46,7 +46,8 @@ const EventItem = ({ eventKey }: { eventKey: string }) => {
     try {
       await dispatch(
         updateEvent({
-          eventKey: eventKey,
+          group: event.groupKey,
+          key: eventKey,
           data: {
             active: !active,
           },

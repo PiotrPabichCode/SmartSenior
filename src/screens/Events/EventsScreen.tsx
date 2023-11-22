@@ -4,36 +4,44 @@ import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
 import { useAppSelector } from '@src/redux/types';
-import { selectEvents } from '@src/redux/events/events.slice';
+import { selectEventGroups, selectEvents } from '@src/redux/events/events.slice';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import NoEvents from './NoEvents';
 import { Events } from '@src/models';
 import { useEffect, useState } from 'react';
+import { EventsScreenProps } from '@src/navigation/types';
+import EventGroupItem from './EventGroupItem';
 
-const EventsScreen = ({ route }) => {
-  const events = useAppSelector(state => selectEvents(state));
+const EventsScreen = ({ route }: EventsScreenProps) => {
+  const eventGroups = useAppSelector(state => selectEventGroups(state));
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
-  const [filteredData, setFilteredData] = useState<Events | null>(null);
-  const outputEvents = filteredData ? filteredData : events;
+  console.log(eventGroups);
+  // const [filteredData, setFilteredData] = useState<Events | null>(null);
+  // const outputEvents = filteredData ? filteredData : events;
 
-  useEffect(() => {
-    if (route?.params?.filteredData) {
-      setFilteredData(route.params.filteredData);
-    }
-    if (route?.params?.filterConditions) {
-      console.log('Filter conditions', route.params.filterConditions);
-    }
-  }, [route.params]);
+  // useEffect(() => {
+  //   if (route?.params?.filteredData) {
+  //     setFilteredData(route.params.filteredData);
+  //   }
+  //   if (route?.params?.filterConditions) {
+  //     console.log('Filter conditions', route.params.filterConditions);
+  //   }
+  // }, [route.params]);
 
-  const mapEvents = outputEvents.map((event, index) => {
-    return <EventItem key={index} eventKey={event.key} />;
+  // const mapEvents = outputEvents.map((event, index) => {
+  //   return <EventItem key={index} eventKey={event.key} />;
+  // });
+
+  const mapEventGroups = eventGroups.map((e, index) => {
+    return <EventGroupItem key={index} groupKey={e.key} />;
   });
 
   return (
     <CustomScrollContainer theme={currentTheme}>
-      <Text style={styles.title}>{t('eventsScreen.title')}</Text>
-      {events.length === 0 ? <NoEvents /> : mapEvents}
+      <Text style={styles.title}>Grupy wydarzeń</Text>
+      {mapEventGroups}
+      {/* {events.length === 0 ? <NoEvents /> : mapEvents} */}
     </CustomScrollContainer>
   );
 };

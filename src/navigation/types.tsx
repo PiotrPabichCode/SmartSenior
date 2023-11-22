@@ -39,6 +39,9 @@ export type RootStackParamList = {
   EventsGroup: {
     groupKey: string;
   };
+  EventsGroupDetails: {
+    groupKey: string;
+  };
   FilterPanel: {
     title: string;
     filters: any;
@@ -60,3 +63,7 @@ export type BottomBarParamList = {
 export type EventItemScreenProps = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 export type EventsScreenProps = NativeStackScreenProps<BottomBarParamList, 'Events'>;
 export type EventsGroupScreenProps = NativeStackScreenProps<RootStackParamList, 'EventsGroup'>;
+export type EventsGroupDetailsProps = NativeStackScreenProps<
+  RootStackParamList,
+  'EventsGroupDetails'
+>;

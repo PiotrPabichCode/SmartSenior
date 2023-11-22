@@ -27,6 +27,17 @@ export const renderIcon = ({ name, size, color, style, focused, onPress }: IconP
 
 const Icons = ({ name, size, color, style, onPress }: IconProps) => {
   switch (name) {
+    case 'settings': {
+      return (
+        <Ionicons
+          name="settings-outline"
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
+    }
     case 'home-bottom-nav':
       return (
         <Ionicons

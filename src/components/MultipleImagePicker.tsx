@@ -65,6 +65,10 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
     }
   };
 
+  const checkIfNewImage = (image: ImageModel) => {
+    return image.base64 !== null;
+  };
+
   const handleImageResize = (index: number) => {
     scrollViewRef.current?.scrollTo({
       x: currentWidth === BASE_WIDTH ? (imageFullScreenWidth + 10) * index : 0,
@@ -122,7 +126,7 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
               PlaceholderContent={<ActivityIndicator />}
               onPress={() => handleImageResize(index)}
             />
-            {currentWidth === BASE_WIDTH && (
+            {currentWidth === BASE_WIDTH && checkIfNewImage(image) && (
               <Icons
                 name="delete"
                 style={{ position: 'absolute', top: 5, right: 5 }}

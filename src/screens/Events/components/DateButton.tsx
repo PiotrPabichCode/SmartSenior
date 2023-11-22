@@ -5,14 +5,16 @@ import { convertTimestampToDate } from '@src/utils/utils';
 
 type Props = {
   date: Timestamp | null;
-  onPress: any;
+  onPress?: any;
 };
 
 const DateButton = ({ date, onPress }: Props) => {
   return (
     <Button
       size="lg"
-      onPress={() => onPress(true)}
+      onPress={() => {
+        onPress && onPress(true);
+      }}
       buttonStyle={{ backgroundColor: 'green' }}
       containerStyle={{ minWidth: '90%', borderRadius: 25 }}
       title={

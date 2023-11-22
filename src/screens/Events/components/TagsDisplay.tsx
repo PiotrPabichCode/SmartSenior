@@ -5,8 +5,8 @@ import Tag from '@src/screens/Account/Tags/Tag';
 
 type Props = {
   selectedTags: Tags;
-  fieldName: string;
-  onPress: any;
+  fieldName?: string;
+  onPress?: any;
 };
 
 const TagsDisplay = ({ selectedTags, fieldName, onPress }: Props) => {
@@ -24,10 +24,11 @@ const TagsDisplay = ({ selectedTags, fieldName, onPress }: Props) => {
               name={tag.name}
               id={tag.id}
               onPress={() => {
-                onPress(
-                  fieldName,
-                  selectedTags.filter(t => t.id !== tag.id),
-                );
+                onPress &&
+                  onPress(
+                    fieldName,
+                    selectedTags.filter(t => t.id !== tag.id),
+                  );
               }}
             />
           );

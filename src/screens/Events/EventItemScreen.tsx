@@ -1,7 +1,6 @@
 import { EventItemScreenProps } from '@src/navigation/types';
 import { getUpdatedFields } from '@src/utils/utils';
-import { View } from 'react-native';
-import { priorities, RecurringValues, recurringTimes } from '@src/redux/events/events.constants';
+import { priorities } from '@src/redux/events/events.constants';
 import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -15,29 +14,9 @@ import { goBack } from '@src/navigation/navigationUtils';
 import { Timestamp } from 'firebase/firestore';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
-import { selectEventByKey } from '@src/redux/events/events.slice';
-import { Event, FirebaseEvent, Frequency, Image, Notifications, Tag, Tags } from '@src/models';
+import { Event, Frequency, Image, Notifications, Tag, Tags } from '@src/models';
 import MultipleImagePicker from '@src/components/MultipleImagePicker';
-import {
-  CompleteButton,
-  CustomRecurring,
-  DateButton,
-  DatePicker,
-  Description,
-  EndDateButton,
-  EndDatePicker,
-  Notification,
-  NotificationsCheckbox,
-  Priority,
-  RecurringCheckbox,
-  RecurringType,
-  SpecificDaysRecurring,
-  TagsDisplay,
-  TagsPicker,
-  TimePicker,
-  Title,
-  UpdateButton,
-} from './components';
+import { CompleteButton, DateButton, Description, TagsDisplay, Title } from './components';
 import { getOrCreateEventForGroupAndDate, updateEvent } from '@src/redux/events/events.api';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 
@@ -53,28 +32,6 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
   // const event = useAppSelector(state => selectEventByKey(state, eventKey));
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
-
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-  const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
-  const [showEndDatePicker, setShowEndDatePicker] = useState<boolean>(false);
-
-  const [dateValue, setDateValue] = useState<Date | undefined>(undefined);
-
-  const [recurringValue, setRecurringValue] = useState<RecurringValues | null>(null);
-
-  // useEffect(() => {
-  //   const updateRecurringValue = () => {
-  //     const interval = event.frequency.interval;
-  //     const unit = event.frequency.unit;
-  //     const matchedValue = recurringTimes.find(
-  //       r => r.interval === interval && r.unit === unit,
-  //     )?.value;
-  //     if (matchedValue) {
-  //       setRecurringValue(matchedValue);
-  //     }
-  //   };
-  //   updateRecurringValue();
-  // }, [event]);
 
   useEffect(() => {
     const prepareEvent = async () => {
@@ -137,15 +94,6 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
     deleted: Yup.boolean().required(),
   });
 
-  const filterTags = (tagIds: Array<string>) => {
-    let selectedTags = [] as Tags;
-    if (tags) {
-      selectedTags = tags.filter(t => tagIds.includes(t.id));
-    }
-
-    return selectedTags;
-  };
-
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Formik
@@ -175,88 +123,10 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
         {({ values, handleChange, setFieldValue, handleSubmit }) => (
           <>
             <Title value={values.title} onChange={handleChange} />
-            <TagsDisplay selectedTags={values.tags} fieldName={'tags'} onPress={setFieldValue} />
-            <TagsPicker
-              tags={tags}
-              selectedTags={filterTags(values.tags.map((t: Tag) => t.id))}
-              fieldName={'tags'}
-              onChange={setFieldValue}
-            />
+            <DateButton date={values.date} />
+            <TagsDisplay selectedTags={values.tags} />
             <Description value={values.description} onChange={handleChange} />
             <MultipleImagePicker onChange={setFieldValue} initialValues={values.images} />
-            <DateButton date={values.date} onPress={setShowDatePicker} />
-            <DatePicker
-              isVisible={showDatePicker}
-              date={values.date}
-              onChange={setDateValue}
-              onClose={setShowDatePicker}
-              onTimePickerOpen={setShowTimePicker}
-            />
-            <TimePicker
-              isVisible={showTimePicker}
-              newDate={dateValue}
-              date={values.date}
-              endDate={values.frequency.endDate}
-              onChange={setFieldValue}
-              onClose={setShowTimePicker}
-            />
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                paddingHorizontal: 21,
-              }}>
-              <NotificationsCheckbox
-                checked={values.notifications.enable}
-                onPress={setFieldValue}
-              />
-              <RecurringCheckbox
-                checked={values.frequency.recurring}
-                date={values.date}
-                onChange={setFieldValue}
-              />
-            </View>
-            <EndDateButton
-              isRecurring={values.frequency.recurring}
-              onPress={setShowEndDatePicker}
-              endDate={values.frequency.endDate}
-            />
-            <EndDatePicker
-              isVisible={showEndDatePicker}
-              date={values.date}
-              endDate={values.frequency.endDate}
-              onChange={setFieldValue}
-              onClose={setShowEndDatePicker}
-            />
-            <RecurringType
-              endDate={values.frequency.endDate}
-              value={values.frequency.type}
-              onChange={setFieldValue}
-            />
-            <SpecificDaysRecurring
-              isRecurring={values.frequency.recurring}
-              startDate={values.frequency.startDate}
-              endDate={values.frequency.endDate}
-              daysOfWeek={values.frequency.daysOfWeek}
-              type={values.frequency.type}
-              onChange={setFieldValue}
-            />
-            <CustomRecurring
-              isRecurring={values.frequency.recurring}
-              type={values.frequency.type}
-              startDate={values.frequency.startDate}
-              endDate={values.frequency.endDate}
-              value={recurringValue}
-              onValueChange={setRecurringValue}
-              onChange={setFieldValue}
-            />
-            <Notification
-              enabled={values.notifications.enable}
-              onChange={setFieldValue}
-              timeBefore={values.notifications.timeBefore}
-            />
-            <Priority onChange={setFieldValue} fieldName={'priority'} priority={values.priority} />
-            <UpdateButton visible={isUpdate} onPress={handleSubmit} />
             <CompleteButton
               fieldName={'completed'}
               onChange={setFieldValue}

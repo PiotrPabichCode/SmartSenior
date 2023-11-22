@@ -243,16 +243,18 @@
   },
   "eventGroups": {
     "title": "Grupy wydarzeń",
-    "switchEvent": "Włącz / wyłącz zadanie",
-    "recurringCustom": "Zadanie cykliczne - {{label}}",
-    "recurringSpecificDays": "Zadanie cykliczne - ",
+    "switchEvent": "Włącz / wyłącz wydarzenie",
+    "recurringCustom": "Wydarzenie cykliczne - {{label}}",
+    "recurringSpecificDays": "Wydarzenie cykliczne - ",
     "update": "Aktualizacja:",
     "create": "Utworzono:",
     "date": "Data wykonania:",
     "upcomingEvent": "{{title}} / nadchodzące",
     "noTags": "Brak znaczników",
-    "switchAlertTitle": "Wyłączenie grupy wydarzeń",
-    "switchAlertQuestion": "Czy chcesz wyłączyć wybraną grupę wydarzeń?"
+    "switchDisableAlertTitle": "Wyłączenie grupy wydarzeń",
+    "switchDisableAlertQuestion": "Czy chcesz wyłączyć wybraną grupę wydarzeń?",
+    "switchEnableAlertTitle": "Włączenie grupy wydarzeń",
+    "switchEnableAlertQuestion": "Czy chcesz włączyć wybraną grupę wydarzeń?"
   },
   "eventItemScreen": {
     "button": {
@@ -270,6 +272,10 @@
         "cyclic": "Wydarzenie cykliczne",
         "update": "Zaaktualizuj wydarzenie",
         "execute": "Wykonaj wydarzenie"
+      },
+      "label": {
+        "title": "Tytuł wydarzenia",
+        "description": "Opis wydarzenia"
       }
     },
     "message": {

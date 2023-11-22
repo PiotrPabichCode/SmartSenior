@@ -9,6 +9,8 @@ type Props = {
 const Title = ({ value, onChange }: Props) => {
   return (
     <Input
+      label={t('eventItemScreen.button.label.title')}
+      labelStyle={{ alignSelf: 'center', fontSize: 24 }}
       placeholder={t('eventItemScreen.button.placeholder.title')}
       onChangeText={onChange('title')}
       value={value}

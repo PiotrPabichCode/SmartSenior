@@ -21,6 +21,7 @@ import {
   Events,
   FirebaseEvent,
   Frequency,
+  Image,
   Images,
   Tags,
 } from '@src/models';
@@ -28,6 +29,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { store } from '../common';
 import { days } from './events.constants';
 import type { RootState } from '../store';
+import { FirebaseEventsGroup } from '@src/models/EventGroup';
 
 const selectTags = (state: RootState) => state.auth.user?.tags;
 const selectEventGroups = (state: RootState) => state.events.eventGroups;
@@ -165,7 +167,7 @@ const prepareEventByGroupAndDate = (groupKey: string, date: Timestamp) => {
     updatedAt: Timestamp.now(),
     userUid: group.userID,
     groupKey: group.key,
-    images: group.images,
+    images: [],
     tags: group.tags,
     days: group.frequency.daysOfWeek,
     completed: false,
@@ -177,6 +179,10 @@ export const getOrCreateEventForGroupAndDate = async (
   date: Timestamp,
 ): Promise<Event> => {
   try {
+    const group = selectEventsGroupByKey(store.getState(), groupKey);
+    if (!group) {
+      throw new Error('Group does not exists');
+    }
     const eventsCollection = collection(db, 'eventGroups', groupKey, 'events');
     const q = query(eventsCollection, where('date', '==', date), limit(1));
     const snapshot = await getDocs(q);
@@ -197,7 +203,7 @@ export const getOrCreateEventForGroupAndDate = async (
       return {
         ...event,
         key: response.id,
-        images: createImages(event.images),
+        images: createImages(group.images),
         tags: createTags(event.tags),
         days: createDays(event.days),
       } as Event;
@@ -206,7 +212,7 @@ export const getOrCreateEventForGroupAndDate = async (
     const event = snapshot.docs[0].data();
     return {
       ...event,
-      images: createImages(event.images),
+      images: createImages([...group.images, ...event.images]),
       tags: createTags(event.tags),
       days: createDays(event.days),
     } as Event;
@@ -286,13 +292,31 @@ const updateGroupEvents = async (group: string, frequency: Frequency) => {
   console.log(dates);
 };
 
-export const updateEventsGroup = async (key: string, data: Partial<EventGroup>) => {
+export const updateEventsGroup = async (key: string, data: Partial<any>) => {
   try {
     const ref = doc(db, 'eventGroups', key);
-    await updateDoc(ref, data);
+    const firebaseData = { ...data };
+    if (data.tags) {
+      firebaseData.tags = data.tags.map(t => t.id);
+    }
+    if (data.images) {
+      const oldImages: Images = data.images.filter((image: Image) =>
+        image.uri.startsWith('https://'),
+      );
+      const newImages = data.images.filter((image: Image) => image.uri.startsWith('file://'));
+      const uploadedImages = await uploadImages(newImages, `${key}`);
+      firebaseData.images = [...oldImages.map(i => i.uri), ...uploadedImages.map(i => i.uri)];
+    }
+    if (data.frequency) {
+      firebaseData.dates = getAllDates({
+        frequency: data.frequency,
+        date: Timestamp.now(),
+      });
+    }
+    await updateDoc(ref, firebaseData);
     return {
       key: key,
-      data: data,
+      data: firebaseData,
     };
   } catch (error) {
     throw error;
@@ -303,6 +327,9 @@ export const updateEvent = async (group: string, key: string, data: Partial<Even
   try {
     const ref = doc(db, 'eventGroups', group, 'events', key);
     const firebaseData = { ...data } as Partial<FirebaseEvent>;
+    if (data.tags) {
+      firebaseData.tags = data.tags.map(t => t.id);
+    }
     if (data.images) {
       const newImages = await uploadImages(data.images, `${group}/${key}`);
       firebaseData.images = newImages.map(i => i.uri);
@@ -368,15 +395,26 @@ export const sortEvents = (events: Events): Events => {
   });
 };
 
+export const prepareCalendarEvents = (eventGroups: EventGroups) => {
+  const calendarItems = [];
+  for (const group of eventGroups) {
+    for (const date of group.dates) {
+      calendarItems.push({
+        groupKey: group.key,
+        description: group.description,
+        date: date,
+        priority: group.priority,
+        name: group.title,
+      });
+    }
+  }
+  return calendarItems;
+};
+
 export const fetchEventGroupsByID = async (uid: string): Promise<EventGroups> => {
   try {
     const groupsCollection = collection(db, 'eventGroups');
-    let q = query(
-      groupsCollection,
-      where('deleted', '==', false),
-      where('active', '==', true),
-      where('userID', '==', uid),
-    );
+    let q = query(groupsCollection, where('deleted', '==', false), where('userID', '==', uid));
     let snapshot = await getDocs(q);
     return snapshot.docs.map(doc => doc.data()) as EventGroups;
   } catch (error) {

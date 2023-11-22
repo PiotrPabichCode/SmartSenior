@@ -252,8 +252,10 @@
     "date": "Completion date:",
     "upcomingEvent": "{{title}} / upcoming",
     "noTags": "No tags",
-    "switchAlertTitle": "Disable event group",
-    "switchAlertQuestion": "Do you want to disable the selected event group?"
+    "switchDisableAlertTitle": "Disable event group",
+    "switchDisableAlertQuestion": "Do you want to disable the selected event group?",
+    "switchEnableAlertTitle": "Enable event group",
+    "switchEnableAlertQuestion": "Do you want to enable the selected event group?"
   },
   "eventItemScreen": {
     "button": {
@@ -271,6 +273,10 @@
         "cyclic": "Recurring Event",
         "update": "Update Event",
         "execute": "Execute Event"
+      },
+      "label": {
+        "title": "Event Title",
+        "description": "Event Description"
       }
     },
     "message": {

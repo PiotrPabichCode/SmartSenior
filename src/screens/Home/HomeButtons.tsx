@@ -1,5 +1,4 @@
 import { View } from 'react-native';
-import React from 'react';
 import CustomButton from '@src/components/CustomButton';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
@@ -20,12 +19,6 @@ const HomeButtons = () => {
         backgroundColor={currentTheme.customBtnBackground}
         icon={<Icons name="pills" color="black" />}
       />
-      {/* <CustomButton
-        title={t('homeScreen.button.title.doctors')}
-        color={'black'}
-        backgroundColor={currentTheme.customBtnBackground}
-        icon={<Icons name="doctor" color="black" />}
-      /> */}
       <CustomButton
         onPress={() => navigate('Pharmacies')}
         title={t('homeScreen.button.title.pharmacies')}

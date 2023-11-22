@@ -1,6 +1,8 @@
 import { Timestamp } from 'firebase/firestore';
 import { Frequency } from './Frequency';
 import { Notifications } from './Notifications';
+import { Tags } from './Tag';
+import { Images } from './Image';
 
 export interface EventGroup {
   key: string;
@@ -21,3 +23,8 @@ export interface EventGroup {
 }
 
 export type EventGroups = EventGroup[];
+
+export type FirebaseEventsGroup = Omit<EventGroup, 'tags' | 'images'> & {
+  tags: Tags;
+  images: Images;
+};

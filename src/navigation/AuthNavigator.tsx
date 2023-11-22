@@ -20,6 +20,7 @@ import SeniorDashboard from '@src/screens/Account/ConnectedUsers/SeniorDashboard
 import AddTag from '@src/screens/Account/Tags/AddTag';
 import FilterPanel from '@src/components/FilterPanel/FilterPanel';
 import EventsScreen from '@src/screens/Events/EventsScreen';
+import EventsGroupDetails from '@src/screens/Events/EventsGroupDetails';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -117,6 +118,16 @@ const AuthNavigator = () => {
         options={{
           header: () => <CustomHeader title={t('nav.eventItem')} nested={true} />,
         }}
+      />
+      <Stack.Screen
+        name="EventsGroupDetails"
+        component={EventsGroupDetails}
+        options={() => ({
+          header: () => <CustomHeader title={'Szczegóły grupy wydarzeń'} nested={true} />,
+          presentation: 'transparentModal',
+          animation: 'slide_from_right',
+          animationTypeForReplace: 'push',
+        })}
       />
       <Stack.Screen
         name="FilterPanel"

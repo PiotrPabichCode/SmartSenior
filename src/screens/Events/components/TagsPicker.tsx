@@ -10,9 +10,13 @@ type Props = {
 };
 
 const TagsPicker = ({ tags, selectedTags, fieldName, onChange }: Props) => {
+  const filteredTags = tags ? tags.filter(tag => !selectedTags.some(v => v.name === tag.name)) : [];
+  if (filteredTags.length === 0) {
+    return null;
+  }
   return (
     <CustomDropdown
-      data={tags ? tags.filter(tag => !selectedTags.some(v => v.name === tag.name)) : []}
+      data={filteredTags}
       labelField={'name'}
       valueField={'id'}
       placeholder={t('tags.selectPlaceholder')}

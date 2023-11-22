@@ -4,16 +4,17 @@ import { navigate } from '@navigation/navigationUtils';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
-import { Event, Events } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import NoActiveEvents from './NoActiveEvents';
+import { UpcomingEventItems } from './HomeScreen';
+import { Timestamp } from 'firebase/firestore';
 
-interface UpcomingEventsProps {
-  events: Events;
+interface Props {
+  events: UpcomingEventItems;
 }
 
-const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
+const UpcomingEvents = ({ events }: Props) => {
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
@@ -29,7 +30,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
       onPress={() => navigate('Events')}
     />
   );
-  const actionButton = (eventKey: string) => (
+  const actionButton = (groupKey: string, date: Timestamp) => (
     <Button
       key={'execute-button-event'}
       title={t('button.execute')}
@@ -38,7 +39,8 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
       titleStyle={styles.actionButtonTitle}
       onPress={() =>
         navigate('EventItem', {
-          eventKey: eventKey,
+          groupKey: groupKey,
+          date: date,
         })
       }
     />
@@ -64,7 +66,7 @@ const UpcomingEvents = ({ events }: UpcomingEventsProps) => {
         <Text style={styles.eventTitle} numberOfLines={1}>
           {event.title}
         </Text>
-        {actionButton(event.key)}
+        {actionButton(event.groupKey, event.date)}
         {isEnd && <Divider style={styles.dividerStyle} />}
       </View>
     );

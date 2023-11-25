@@ -7,12 +7,13 @@ type Props = {
   selectedTags: Tags;
   fieldName?: string;
   onPress?: any;
+  disabled?: boolean;
 };
 
-const TagsDisplay = ({ selectedTags, fieldName, onPress }: Props) => {
+const TagsDisplay = ({ selectedTags, fieldName, onPress, disabled }: Props) => {
   return (
     selectedTags.length > 0 && (
-      <View style={{ gap: 10 }}>
+      <View style={{ gap: 10 }} pointerEvents={disabled ? 'none' : 'auto'}>
         <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>
           {t('tags.selected')}
         </Text>

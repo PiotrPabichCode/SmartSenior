@@ -26,7 +26,8 @@
   "message": {
     "success": {
       "addConnectedUser": "Dodano nowego seniora",
-      "addTag": "Dodano nowy znacznik"
+      "addTag": "Dodano nowy znacznik",
+      "updateTag": "Zaaktulizowano znacznik"
     },
     "error": {
       "addConnectedUser": "Nie udało się dodać nowego seniora",
@@ -279,6 +280,7 @@
         "description": "Opis wydarzenia"
       }
     },
+    "completedTitle": "Zadanie ukończone {{date}}",
     "message": {
       "success": {
         "change": "Wydarzenie zaaktualizowane",
@@ -368,6 +370,8 @@
   "tags": {
     "title": "Twoje znaczniki",
     "new": "Nowy znacznik",
+    "update": "Zaaktualizuj",
+    "updateTitle": "Aktualizacja znacznika",
     "namePlaceholder": "Wpisz nazwę znacznika",
     "selectPlaceholder": "Wybierz znaczniki wydarzenia",
     "colorPlaceholder": "Wybierz kolor znacznika",

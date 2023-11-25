@@ -136,8 +136,8 @@ const prepareEventByGroupAndDate = (groupKey: string, date: Timestamp) => {
   }
   return {
     date: date,
-    active: true,
-    deleted: false,
+    active: group.active,
+    deleted: group.deleted,
     description: group.description,
     frequency: group.frequency,
     notifications: group.notifications,
@@ -163,6 +163,7 @@ export const getEventForGroupAndDate = async (
 ): Promise<Event> => {
   try {
     const group = selectEventsGroupByKey(store.getState(), groupKey);
+    console.log(group);
     if (!group) {
       throw new Error('Group does not exists');
     }

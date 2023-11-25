@@ -50,6 +50,17 @@ export const addUserTag = createAsyncThunk(
   },
 );
 
+export const updateUserTag = createAsyncThunk(
+  'auth/updateUserTag',
+  async (tag: Tag, { rejectWithValue }) => {
+    try {
+      return await api.updateUserTag(tag);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 export const deleteUserTag = createAsyncThunk(
   'auth/deleteUserTag',
   async (uid: string, { rejectWithValue }) => {

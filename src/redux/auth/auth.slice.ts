@@ -90,6 +90,20 @@ export const authSlice = createSlice({
           state.user.tags = action.payload;
         }
       })
+      .addCase(action.updateUserTag.fulfilled, (state, action: PayloadAction<Tag>) => {
+        const tag = action.payload;
+        if (state.user) {
+          const updatedTags = state.user.tags.map(t => (t.id !== tag.id ? t : tag));
+          state.user.tags = updatedTags;
+        }
+        state.status = 'succeeded';
+      })
+      .addCase(action.updateUserTag.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.updateUserTag.rejected, state => {
+        state.status = 'failed';
+      })
       .addCase(action.deleteUserTag.fulfilled, (state, action: PayloadAction<string>) => {
         if (state.user) {
           state.user.tags = state.user.tags.filter(tag => tag.id !== action.payload);
@@ -121,6 +135,11 @@ export const selectUserConnectedUserIdById = (state: RootState, uid: string) => 
 export const selectTags = (state: RootState) => {
   const user = selectUser(state);
   return user?.tags;
+};
+
+export const selectTagById = (state: RootState, id: string) => {
+  const tags = selectTags(state);
+  return tags?.find(t => t.id === id);
 };
 
 export const selectRole = (state: RootState) => state.auth.user?.role;

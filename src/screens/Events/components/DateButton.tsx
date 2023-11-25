@@ -6,15 +6,19 @@ import { convertTimestampToDate } from '@src/utils/utils';
 type Props = {
   date: Timestamp | null;
   onPress?: any;
+  disabled?: boolean;
 };
 
-const DateButton = ({ date, onPress }: Props) => {
+const DateButton = ({ date, onPress, disabled }: Props) => {
   return (
     <Button
       size="lg"
       onPress={() => {
         onPress && onPress(true);
       }}
+      disabled={disabled}
+      disabledStyle={{ backgroundColor: 'green' }}
+      disabledTitleStyle={{ color: 'white' }}
       buttonStyle={{ backgroundColor: 'green' }}
       containerStyle={{ minWidth: '90%', borderRadius: 25 }}
       title={

@@ -46,7 +46,19 @@ const AccountTags = () => {
       {addButton()}
       <Text style={{ fontSize: 30, fontWeight: 'bold', marginBottom: 10 }}>{t('tags.title')}</Text>
       {tags.map((tag, index) => {
-        return <Tag key={index} name={tag.name} color={tag.color} id={tag.id} />;
+        return (
+          <Tag
+            key={index}
+            name={tag.name}
+            color={tag.color}
+            id={tag.id}
+            onPress={() =>
+              navigate('AddTag', {
+                key: tag.id,
+              })
+            }
+          />
+        );
       })}
     </View>
   );

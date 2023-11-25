@@ -21,7 +21,9 @@ export type RootStackParamList = {
     title: string;
   };
   AddConnectedUser: undefined;
-  AddTag: undefined;
+  AddTag: {
+    key: string;
+  };
   Medicines: undefined;
   MedicinesItemDetails: {
     item: any;
@@ -59,6 +61,8 @@ export type BottomBarParamList = {
   Chat: undefined;
   Account: undefined;
 };
+
+export type AddTagScreenProps = NativeStackScreenProps<RootStackParamList, 'AddTag'>;
 
 export type EventItemScreenProps = NativeStackScreenProps<RootStackParamList, 'EventItem'>;
 export type EventsScreenProps = NativeStackScreenProps<BottomBarParamList, 'Events'>;

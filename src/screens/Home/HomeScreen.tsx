@@ -38,7 +38,7 @@ const HomeScreen = () => {
         let i = 0;
         const tags = createTags(group.tags);
         for (const date of group.dates) {
-          if (i === 3) {
+          if (i === 4) {
             break;
           }
           if (group.completedEvents.findIndex(e => e.isEqual(date)) !== -1) {

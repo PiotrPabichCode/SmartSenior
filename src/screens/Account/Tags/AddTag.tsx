@@ -1,39 +1,67 @@
 import { Button, Input } from '@rneui/themed';
 import ColorPicker from '@src/components/ColorPicker';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import CustomToast from '@src/components/CustomToast';
 import { renderIcon } from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
 import { Tag } from '@src/models';
 import { goBack } from '@src/navigation/navigationUtils';
-import { addUserTag } from '@src/redux/auth/auth.actions';
-import { selectTags } from '@src/redux/auth/auth.slice';
+import { AddTagScreenProps } from '@src/navigation/types';
+import { addUserTag, updateUserTag } from '@src/redux/auth/auth.actions';
+import { selectAuthStatus, selectTagById, selectTags } from '@src/redux/auth/auth.slice';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 
-const AddTag = () => {
+const AddTag = ({ route }: AddTagScreenProps) => {
   const dispatch = useAppDispatch();
+  const [isReady, setIsReady] = useState<boolean>(false);
   const tags = useAppSelector(state => selectTags(state));
+  const activeTag = useAppSelector(state => selectTagById(state, route.params?.key));
   const [activeColorPicker, setActiveColorPicker] = useState(false);
+  const status = useAppSelector(state => selectAuthStatus(state));
   const [name, setName] = useState('');
   const [color, setColor] = useState('#555555');
+
+  useEffect(() => {
+    const loadTag = () => {
+      if (activeTag) {
+        console.log(activeTag);
+        setName(activeTag.name);
+        setColor(activeTag.color);
+      }
+      setIsReady(true);
+    };
+
+    loadTag();
+  }, [route.params?.key]);
+
+  if (!isReady || status === 'pending') {
+    return <CustomActivityIndicator />;
+  }
+
   const onSubmit = async () => {
     try {
       if (!name) {
         return CustomToast('error', t('message.error.missingData'));
       }
-      console.log(tags);
-      if (tags && tags.findIndex(tag => tag.name === name) !== -1) {
+      if (tags && tags.findIndex(tag => tag.name === name && !route.params?.key) !== -1) {
         return CustomToast('error', t('message.error.duplicateTag'));
       }
       const tag: Tag = {
-        id: '',
+        id: route.params?.key ? route.params.key : '',
         name: name,
         color: color,
       };
-      await dispatch(addUserTag(tag)).unwrap();
+
+      if (tag.id) {
+        await dispatch(updateUserTag(tag)).unwrap();
+        CustomToast('success', t('message.success.updateTag'));
+      } else {
+        await dispatch(addUserTag(tag)).unwrap();
+        CustomToast('success', t('message.success.addTag'));
+      }
       goBack();
-      CustomToast('success', t('message.success.addTag'));
     } catch (error) {
       console.log(error);
     }
@@ -57,9 +85,12 @@ const AddTag = () => {
           padding: 20,
           borderRadius: 25,
         }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{t('tags.new')}</Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
+          {route.params?.key ? t('tags.updateTitle') : t('tags.new')}
+        </Text>
         <Input
           placeholder={t('tags.namePlaceholder')}
+          value={name}
           onChangeText={value => setName(value)}
           inputStyle={{ alignSelf: 'flex-end' }}
           leftIcon={renderIcon({
@@ -78,7 +109,7 @@ const AddTag = () => {
           <Button
             color={color}
             onPress={() => setActiveColorPicker(true)}
-            title={t('tags.colorPlaceholder')}
+            title={name ? name : t('tags.colorPlaceholder')}
             containerStyle={{ minWidth: '100%', borderRadius: 25 }}
           />
         )}
@@ -86,7 +117,7 @@ const AddTag = () => {
           <Button
             color={'green'}
             onPress={() => onSubmit()}
-            title={t('tags.add')}
+            title={route.params?.key ? t('tags.update') : t('tags.add')}
             containerStyle={{ flex: 1 }}
           />
           <Button

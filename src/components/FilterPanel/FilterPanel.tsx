@@ -1,4 +1,4 @@
-import { Button } from '@rneui/themed';
+import { Button, Switch, Text } from '@rneui/themed';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -15,6 +15,7 @@ import { Priority, TagsDisplay, TagsPicker } from '@src/screens/Events/component
 import { ScrollView } from 'react-native';
 import { selectEventGroups, selectEvents } from '@src/redux/events/events.slice';
 import { SearchTitle } from './components/TitlesPicker';
+import { View } from 'react-native';
 
 const FilterPanel = ({ route }: any) => {
   const { filters } = route.params;
@@ -26,6 +27,7 @@ const FilterPanel = ({ route }: any) => {
   const INITIAL_VALUES = {
     titles: [] as Array<string>,
     tags: [] as Tags,
+    active: null as boolean | null,
     dateFrom: null as Timestamp | null,
     dateTo: null as Timestamp | null,
     priority: 0,
@@ -54,6 +56,9 @@ const FilterPanel = ({ route }: any) => {
     // if (conditions.dateTo) {
     //   filteredEventGroups = filteredEventGroups.filter(e => e.date?.seconds! <= conditions.dateTo.seconds);
     // }
+    if (conditions.active) {
+      filteredEventGroups = filteredEventGroups.filter(e => e.active === conditions.active);
+    }
     if (conditions.priority) {
       filteredEventGroups = filteredEventGroups.filter(e => e.priority === conditions.priority);
     }
@@ -85,6 +90,7 @@ const FilterPanel = ({ route }: any) => {
         initialValues={{
           titles: filters?.titles ?? ([] as Array<string>),
           tags: filters?.tags ?? ([] as Tags),
+          active: filters?.active ?? (null as boolean | null),
           dateFrom: filters?.dateFrom?.seconds
             ? Timestamp.fromDate(new Date(1000 * filters?.dateFrom?.seconds))
             : (null as Timestamp | null),
@@ -122,6 +128,18 @@ const FilterPanel = ({ route }: any) => {
               selectedValues={values.titles}
               onChange={setFieldValue}
             />
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+              }}>
+              <Text h4>Wydarzenia aktywne</Text>
+              <Switch
+                value={values.active}
+                onTouchStart={() => setFieldValue('active', !values.active)}
+              />
+            </View>
             <DateButton
               date={values.dateFrom}
               onPress={setShowDateFrom}

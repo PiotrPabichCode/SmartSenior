@@ -50,9 +50,6 @@ const UpcomingEvents = ({ events }: Props) => {
     if (index === MAX_DISPLAYED_EVENTS) {
       return moreButton;
     }
-    if (index > MAX_DISPLAYED_EVENTS) {
-      return;
-    }
     const isEnd = index !== events.length - 1;
     return (
       <View style={styles.eventView} key={index}>
@@ -75,7 +72,7 @@ const UpcomingEvents = ({ events }: Props) => {
   return (
     <View style={styles.viewStyle}>
       <Text h4 style={{ marginVertical: 5 }}>
-        Nadchodzące wydarzenia
+        {t('upcomingEvents.title')}
       </Text>
       {events.length > 0 ? mapEventItems : <NoActiveEvents />}
     </View>

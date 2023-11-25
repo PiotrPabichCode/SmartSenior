@@ -141,6 +141,19 @@ export const addUserTag = async (tag: Tag) => {
   }
 };
 
+export const updateUserTag = async (tag: Tag) => {
+  try {
+    const userID = selectUserID(store.getState())!;
+    const _doc = doc(db, 'users', userID, 'tags', tag.id);
+    await updateDoc(_doc, {
+      tag,
+    });
+    return tag;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const deleteUserTag = async (id: string) => {
   try {
     const userID = selectUserID(store.getState())!;

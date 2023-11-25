@@ -27,13 +27,11 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
   const dispatch = useAppDispatch();
   const [isReady, setIsReady] = useState<boolean>(false);
   const theme = useAppSelector(state => selectTheme(state));
-  const tags = useAppSelector(state => selectTags(state));
   const status = useAppSelector(state => selectEventsStatus(state));
   const [event, setEvent] = useState<Event | null>(null);
   const [initialValues, setInitialValues] = useState<any>({});
   const currentTheme = Colors[theme];
   const { groupKey, date } = route.params;
-  // const event = useAppSelector(state => selectEventByKey(state, eventKey));
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
@@ -125,18 +123,19 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
         {({ values, handleChange, setFieldValue, handleSubmit }) => (
           <>
             {event.completed && (
-              <Text h3 style={{ textAlign: 'center' }}>{`Zadanie ukończone ${convertTimestampToDate(
-                event.completed,
-                'DD-MM-YYYY HH:mm',
-              )}`}</Text>
+              <Text h3 style={{ textAlign: 'center' }}>
+                {t('eventItemScreen.completedTitle', {
+                  date: convertTimestampToDate(event.completed, 'DD-MM-YYYY HH:mm'),
+                })}
+              </Text>
             )}
 
             <Title value={values.title} onChange={handleChange} disabled={true} />
-            <DateButton date={values.date} />
-            <TagsDisplay selectedTags={values.tags} />
+            <DateButton date={values.date} disabled={true} />
+            <TagsDisplay selectedTags={values.tags} disabled={true} />
             <Description value={values.description} onChange={handleChange} />
             <MultipleImagePicker onChange={setFieldValue} initialValues={values.images} />
-            {!event.completed && (
+            {!event.completed && event.active && (
               <CompleteButton
                 fieldName={'completed'}
                 onChange={setFieldValue}

@@ -3,6 +3,7 @@ import * as action from './events.actions';
 import type { RootState } from '../store';
 import { Events, Event, EventGroups, EventGroup } from '@src/models';
 import { sortEvents } from './events.api';
+import { Timestamp } from 'firebase/firestore';
 
 export interface EventsState {
   eventGroups: EventGroups;
@@ -60,28 +61,6 @@ export const eventsSlice = createSlice({
         state.eventGroups = eventGroups;
         state.status = 'succeeded';
       })
-      .addCase(action.createEvent.rejected, state => {
-        state.status = 'failed';
-      })
-      .addCase(action.createEvent.pending, state => {
-        state.status = 'pending';
-      })
-      .addCase(action.createEvent.fulfilled, (state, action: PayloadAction<Event>) => {
-        const events = [...state.events, action.payload];
-        state.events = sortEvents(events);
-        state.status = 'succeeded';
-      })
-      .addCase(action.createRecurringEvents.rejected, state => {
-        state.status = 'failed';
-      })
-      .addCase(action.createRecurringEvents.pending, state => {
-        state.status = 'pending';
-      })
-      .addCase(action.createRecurringEvents.fulfilled, (state, action: PayloadAction<Events>) => {
-        const events = [...state.events, ...action.payload];
-        state.events = sortEvents(events);
-        state.status = 'succeeded';
-      })
       .addCase(action.updateEvent.fulfilled, (state, action: PayloadAction<any>) => {
         const { key, data } = action.payload;
         const event = state.events.find(e => e.key === key);
@@ -89,6 +68,20 @@ export const eventsSlice = createSlice({
         const events = state.events.map(e => (e.key === key ? updatedEvent : e)) as Events;
         state.events = sortEvents(events);
         state.status = 'succeeded';
+      })
+      .addCase(action.completeEvent.fulfilled, (state, action: PayloadAction<any>) => {
+        const { group, date } = action.payload;
+        const eventGroup = state.eventGroups.find(e => e.key === group);
+        if (eventGroup) {
+          eventGroup.completedEvents = [...eventGroup.completedEvents, date];
+        }
+        state.status = 'succeeded';
+      })
+      .addCase(action.completeEvent.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.completeEvent.rejected, state => {
+        state.status = 'failed';
       })
       .addCase(action.deleteEvent.fulfilled, (state, action: PayloadAction<string>) => {
         const key = action.payload;

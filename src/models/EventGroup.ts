@@ -20,6 +20,7 @@ export interface EventGroup {
   tags: Array<string>;
   images: Array<string>;
   dates: Array<Timestamp>;
+  completedEvents: Array<Timestamp>;
 }
 
 export type EventGroups = EventGroup[];

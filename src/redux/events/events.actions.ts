@@ -35,33 +35,22 @@ export const createEventGroup = createAsyncThunk(
   },
 );
 
-export const createEvent = createAsyncThunk(
-  'events/createEvent',
-  async (data: Event, { rejectWithValue }) => {
-    try {
-      return await api.createEvent(data, false);
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  },
-);
-
-export const createRecurringEvents = createAsyncThunk(
-  'events/createRecurringEvents',
-  async (data: Event, { rejectWithValue }) => {
-    try {
-      return await api.createRecurringEvents(data);
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  },
-);
-
 export const updateEventsGroup = createAsyncThunk(
   'events/updateEventsGroup',
   async ({ key, data }: { key: string; data: Partial<EventGroup> }, { rejectWithValue }) => {
     try {
       return await api.updateEventsGroup(key, data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const completeEvent = createAsyncThunk(
+  'eventGroups/completeEvent',
+  async ({ group, data }: { group: string; data: Partial<Event> }, { rejectWithValue }) => {
+    try {
+      return await api.completeEvent(group, data);
     } catch (error) {
       return rejectWithValue(error);
     }

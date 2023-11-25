@@ -20,6 +20,7 @@ interface EventItem {
   title: string;
   tags: Tags;
   active: boolean;
+  completed?: boolean;
 }
 
 type EventItems = EventItem[];
@@ -48,6 +49,7 @@ const EventsScreen = ({ route, navigation }: EventsGroupScreenProps) => {
           title: eventsGroup.title,
           tags: tags,
           active: eventsGroup.active,
+          completed: eventsGroup.completedEvents.findIndex(d => d.isEqual(date)) !== -1,
         });
       }
       setEventItems(eventItems);
@@ -70,6 +72,7 @@ const EventsScreen = ({ route, navigation }: EventsGroupScreenProps) => {
         date={e.date}
         active={e.active}
         tags={e.tags}
+        completed={e.completed}
       />
     );
   });

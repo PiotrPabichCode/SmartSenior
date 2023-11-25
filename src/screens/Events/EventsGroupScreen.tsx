@@ -8,28 +8,26 @@ import NoEvents from './NoEvents';
 import { EventsScreenProps } from '@src/navigation/types';
 import EventsGroupItem from './EventsGroupItem';
 import { t } from '@src/localization/Localization';
+import { useEffect, useState } from 'react';
+import { EventGroups } from '@src/models';
 
 const EventsGroupScreen = ({ route }: EventsScreenProps) => {
   const eventGroups = useAppSelector(state => selectEventGroups(state));
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
-  // const [filteredData, setFilteredData] = useState<Events | null>(null);
-  // const outputEvents = filteredData ? filteredData : events;
+  const [filteredData, setFilteredData] = useState<EventGroups | null>(null);
+  const outputEvents = filteredData ? filteredData : eventGroups;
 
-  // useEffect(() => {
-  //   if (route?.params?.filteredData) {
-  //     setFilteredData(route.params.filteredData);
-  //   }
-  //   if (route?.params?.filterConditions) {
-  //     console.log('Filter conditions', route.params.filterConditions);
-  //   }
-  // }, [route.params]);
+  useEffect(() => {
+    if (route?.params?.filteredData) {
+      setFilteredData(route.params.filteredData);
+    }
+    if (route?.params?.filterConditions) {
+      console.log('Filter conditions', route.params.filterConditions);
+    }
+  }, [route.params]);
 
-  // const mapEvents = outputEvents.map((event, index) => {
-  //   return <EventItem key={index} eventKey={event.key} />;
-  // });
-
-  const mapEventGroups = eventGroups.map((e, index) => {
+  const mapEventGroups = outputEvents.map((e, index) => {
     return <EventsGroupItem key={index} groupKey={e.key} />;
   });
 

@@ -251,6 +251,7 @@
     "create": "Created:",
     "date": "Completion date:",
     "upcomingEvent": "{{title}} / upcoming",
+    "completedEvent": "{{title}} / completed",
     "noTags": "No tags",
     "switchDisableAlertTitle": "Disable event group",
     "switchDisableAlertQuestion": "Do you want to disable the selected event group?",
@@ -281,10 +282,12 @@
     },
     "message": {
       "success": {
-        "change": "Event updated"
+        "change": "Event updated",
+        "complete": "Event completed"
       },
       "error": {
-        "change": "Could not update event"
+        "change": "Failed to update the event",
+        "complete": "Failed to complete the event"
       }
     }
   },

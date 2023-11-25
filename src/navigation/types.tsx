@@ -1,6 +1,6 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Events } from '@src/models';
+import { EventGroups, Events } from '@src/models';
 import { Timestamp } from 'firebase/firestore';
 
 export type RootStackParamList = {
@@ -53,7 +53,7 @@ export type BottomBarParamList = {
   Calendar: undefined;
   Events: {
     onBack: any;
-    filteredData: Events;
+    filteredData: EventGroups;
     filterConditions: any;
   };
   Chat: undefined;

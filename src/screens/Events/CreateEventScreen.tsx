@@ -7,18 +7,13 @@ import { priorities } from '@src/redux/events/events.constants';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import {
-  createEvent,
-  createEventGroup,
-  createRecurringEvents,
-} from '@src/redux/events/events.actions';
+import { createEventGroup } from '@src/redux/events/events.actions';
 import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Event, Frequency, Image, Images, Notifications, Tag, Tags } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme, selectUserID } from '@src/redux/auth/auth.slice';
 import MultipleImagePicker from '@src/components/MultipleImagePicker';
-import { Days } from './DayField';
 import {
   Notification,
   Priority,
@@ -114,11 +109,6 @@ const CreateEventScreen = () => {
             NewEventSchema.validate(values)
               .then(async () => {
                 await dispatch(createEventGroup(values as Event)).unwrap();
-                // if (!values.frequency.recurring) {
-                //   await dispatch(createEvent(values as Event)).unwrap();
-                // } else {
-                //   await dispatch(createRecurringEvents(values as Event)).unwrap();
-                // }
                 CustomToast('success', t('createEvent.message.success.add'));
                 goBack();
               })

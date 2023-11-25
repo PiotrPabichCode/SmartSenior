@@ -1,5 +1,6 @@
 import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
+import { Timestamp } from 'firebase/firestore';
 
 type Props = {
   onPress: any;
@@ -14,7 +15,7 @@ const CompleteButton = ({ onPress, onChange, fieldName }: Props) => {
       buttonStyle={{ backgroundColor: 'darkblue', borderRadius: 25 }}
       containerStyle={{ alignSelf: 'stretch' }}
       onPress={() => {
-        onChange(fieldName, true);
+        onChange(fieldName, Timestamp.now());
         onPress();
       }}
     />

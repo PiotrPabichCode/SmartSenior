@@ -250,6 +250,7 @@
     "create": "Utworzono:",
     "date": "Data wykonania:",
     "upcomingEvent": "{{title}} / nadchodzące",
+    "completedEvent": "{{title}} / ukończone",
     "noTags": "Brak znaczników",
     "switchDisableAlertTitle": "Wyłączenie grupy wydarzeń",
     "switchDisableAlertQuestion": "Czy chcesz wyłączyć wybraną grupę wydarzeń?",
@@ -280,10 +281,12 @@
     },
     "message": {
       "success": {
-        "change": "Wydarzenie zaaktualizowane"
+        "change": "Wydarzenie zaaktualizowane",
+        "complete": "Wydarzenie ukończone"
       },
       "error": {
-        "change": "Nie udało się zaaktualizować wydarzenia"
+        "change": "Nie udało się zaaktualizować wydarzenia",
+        "complete": "Nie udało się ukończyć wydarzenia"
       }
     }
   },

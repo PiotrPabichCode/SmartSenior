@@ -1,5 +1,5 @@
 import { EventItemScreenProps } from '@src/navigation/types';
-import { getUpdatedFields } from '@src/utils/utils';
+import { convertTimestampToDate, getUpdatedFields } from '@src/utils/utils';
 import { priorities } from '@src/redux/events/events.constants';
 import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
@@ -17,14 +17,18 @@ import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
 import { Event, Frequency, Image, Notifications, Tag, Tags } from '@src/models';
 import MultipleImagePicker from '@src/components/MultipleImagePicker';
 import { CompleteButton, DateButton, Description, TagsDisplay, Title } from './components';
-import { getOrCreateEventForGroupAndDate, updateEvent } from '@src/redux/events/events.api';
+import { getEventForGroupAndDate } from '@src/redux/events/events.api';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import { Text } from '@rneui/themed';
+import { completeEvent } from '@src/redux/events/events.actions';
+import { selectEventsStatus } from '@src/redux/events/events.slice';
 
 const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
   const dispatch = useAppDispatch();
   const [isReady, setIsReady] = useState<boolean>(false);
   const theme = useAppSelector(state => selectTheme(state));
   const tags = useAppSelector(state => selectTags(state));
+  const status = useAppSelector(state => selectEventsStatus(state));
   const [event, setEvent] = useState<Event | null>(null);
   const [initialValues, setInitialValues] = useState<any>({});
   const currentTheme = Colors[theme];
@@ -35,10 +39,9 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
 
   useEffect(() => {
     const prepareEvent = async () => {
-      console.log(groupKey, date);
       try {
         if (groupKey && date) {
-          const event = await getOrCreateEventForGroupAndDate(groupKey, date);
+          const event = await getEventForGroupAndDate(groupKey, date);
           setEvent(event);
           setIsReady(true);
         }
@@ -69,7 +72,7 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
     }
   }, [event]);
 
-  if (!isReady) {
+  if (!isReady || status === 'pending') {
     return <CustomActivityIndicator />;
   }
 
@@ -104,16 +107,15 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
             values.updatedAt = Timestamp.now();
             ChangeEventSchema.validate(values)
               .then(async () => {
-                const updatedFields = getUpdatedFields(event, values);
-                delete updatedFields.days;
-                await updateEvent(event.groupKey, event.key, updatedFields);
+                delete values.days;
+                await dispatch(completeEvent({ group: groupKey, data: values })).unwrap();
                 setInitialValues(values);
-                CustomToast('success', t('eventItemScreen.message.success.change'));
+                CustomToast('success', t('eventItemScreen.message.success.complete'));
                 goBack();
               })
               .catch(error => {
                 console.log(error);
-                CustomToast('error', t('eventItemScreen.message.error.change'));
+                CustomToast('error', t('eventItemScreen.message.error.complete'));
               });
           } catch (error) {
             console.log(error);
@@ -122,16 +124,25 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
         }}>
         {({ values, handleChange, setFieldValue, handleSubmit }) => (
           <>
-            <Title value={values.title} onChange={handleChange} />
+            {event.completed && (
+              <Text h3 style={{ textAlign: 'center' }}>{`Zadanie ukończone ${convertTimestampToDate(
+                event.completed,
+                'DD-MM-YYYY HH:mm',
+              )}`}</Text>
+            )}
+
+            <Title value={values.title} onChange={handleChange} disabled={true} />
             <DateButton date={values.date} />
             <TagsDisplay selectedTags={values.tags} />
             <Description value={values.description} onChange={handleChange} />
             <MultipleImagePicker onChange={setFieldValue} initialValues={values.images} />
-            <CompleteButton
-              fieldName={'completed'}
-              onChange={setFieldValue}
-              onPress={handleSubmit}
-            />
+            {!event.completed && (
+              <CompleteButton
+                fieldName={'completed'}
+                onChange={setFieldValue}
+                onPress={handleSubmit}
+              />
+            )}
             <FormikObserver
               onChange={(data: any) => {
                 const changedFields = getUpdatedFields(data.initialValues, data.values);

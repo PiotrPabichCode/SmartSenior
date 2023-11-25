@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { Button, Icon, Divider } from '@rneui/themed';
+import { View, StyleSheet } from 'react-native';
+import { Button, Icon, Divider, Text } from '@rneui/themed';
 import { navigate } from '@navigation/navigationUtils';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
@@ -73,7 +73,12 @@ const UpcomingEvents = ({ events }: Props) => {
   });
 
   return (
-    <View style={styles.viewStyle}>{events.length > 0 ? mapEventItems : <NoActiveEvents />}</View>
+    <View style={styles.viewStyle}>
+      <Text h4 style={{ marginVertical: 5 }}>
+        Nadchodzące wydarzenia
+      </Text>
+      {events.length > 0 ? mapEventItems : <NoActiveEvents />}
+    </View>
   );
 };
 

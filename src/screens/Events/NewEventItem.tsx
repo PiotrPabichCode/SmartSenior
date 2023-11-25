@@ -5,6 +5,7 @@ import { convertTimestampToDate } from '@src/utils/utils';
 import { Switch, Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { navigate } from '@src/navigation/navigationUtils';
+import Icons from '@src/components/Icons';
 
 type Props = {
   groupKey: string;
@@ -12,14 +13,22 @@ type Props = {
   date: Timestamp;
   tags: Tags;
   active: boolean;
+  completed?: boolean;
 };
 
-const NewEventItem = ({ groupKey, title, date, tags, active }: Props) => {
+const NewEventItem = ({ groupKey, title, date, tags, active, completed }: Props) => {
   return (
     <>
       <View style={{ height: 1, backgroundColor: 'black', width: '100%' }} />
       <TouchableOpacity
-        style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center', gap: 5 }}
+        style={{
+          flex: 1,
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 5,
+          opacity: completed ? 0.3 : 1,
+        }}
         onPress={() =>
           navigate('EventItem', {
             groupKey: groupKey,
@@ -27,9 +36,13 @@ const NewEventItem = ({ groupKey, title, date, tags, active }: Props) => {
           })
         }>
         <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
-          {t('eventGroups.upcomingEvent', {
-            title: title,
-          })}
+          {completed
+            ? t('eventGroups.completedEvent', {
+                title: title,
+              })
+            : t('eventGroups.upcomingEvent', {
+                title: title,
+              })}
         </Text>
         <View
           style={{
@@ -57,7 +70,19 @@ const NewEventItem = ({ groupKey, title, date, tags, active }: Props) => {
               <Text style={{ fontSize: 13, fontWeight: 'bold' }}>{t('eventGroups.noTags')}</Text>
             )}
           </View>
-          <Switch value={active} />
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            {active ? (
+              <>
+                <Icons name={'active-tick'} />
+                <Text style={{ fontWeight: '700', color: 'green' }}>Aktywne</Text>
+              </>
+            ) : (
+              <>
+                <Icons name={'active-untick'} />
+                <Text style={{ fontWeight: '700', color: 'red' }}>Nieaktywne</Text>
+              </>
+            )}
+          </View>
         </View>
       </TouchableOpacity>
     </>

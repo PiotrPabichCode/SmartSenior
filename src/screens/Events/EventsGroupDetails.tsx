@@ -141,7 +141,7 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
               .then(async () => {
                 const updatedFields = getUpdatedFields(initialValues, values);
                 delete updatedFields.days;
-                console.log(updatedFields);
+                // console.log(updatedFields);
                 await dispatch(updateEventsGroup({ key: groupKey, data: updatedFields })).unwrap();
                 setInitialValues(values);
                 CustomToast('success', t('eventItemScreen.message.success.change'));

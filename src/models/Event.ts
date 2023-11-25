@@ -21,13 +21,13 @@ export interface Event {
   userUid: string;
   active: boolean;
   deleted: boolean;
-  completed: boolean;
+  completed?: Timestamp;
 }
 
 export type FirebaseEvent = Omit<Event, 'frequency' | 'tags' | 'images'> & {
   frequency?: Frequency;
   tags: Array<string>;
-  images: Array<string> | FieldValue;
+  images: Array<string>;
 };
 
 export type Events = Event[];

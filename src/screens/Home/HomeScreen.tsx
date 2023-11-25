@@ -41,6 +41,9 @@ const HomeScreen = () => {
           if (i === 3) {
             break;
           }
+          if (group.completedEvents.findIndex(e => e.isEqual(date)) !== -1) {
+            continue;
+          }
           upcomingEvents.push({
             date: date,
             title: group.title,

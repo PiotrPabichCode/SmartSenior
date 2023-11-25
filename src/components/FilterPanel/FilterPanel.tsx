@@ -2,7 +2,7 @@ import { Button } from '@rneui/themed';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Events, Tag, Tags } from '@src/models';
+import { EventGroups, Events, Tag, Tags } from '@src/models';
 import { Formik } from 'formik';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';
@@ -13,12 +13,12 @@ import DatePicker from '../DatePicker';
 import { Timestamp } from 'firebase/firestore';
 import { Priority, TagsDisplay, TagsPicker } from '@src/screens/Events/components';
 import { ScrollView } from 'react-native';
-import { selectEvents } from '@src/redux/events/events.slice';
+import { selectEventGroups, selectEvents } from '@src/redux/events/events.slice';
 import { SearchTitle } from './components/TitlesPicker';
 
 const FilterPanel = ({ route }: any) => {
   const { filters } = route.params;
-  const events = useAppSelector(state => selectEvents(state));
+  const eventGroups = useAppSelector(state => selectEventGroups(state));
   const tags = useAppSelector(state => selectTags(state));
   const insets = useSafeAreaInsets();
   const [showDateFrom, setShowDateFrom] = useState<boolean>(false);
@@ -33,8 +33,8 @@ const FilterPanel = ({ route }: any) => {
 
   const getTitles = () => {
     const titles: Array<SearchTitle> = [];
-    for (const event of events) {
-      const title = event.title;
+    for (const group of eventGroups) {
+      const title = group.title;
       if (titles.findIndex(t => t.value === title) !== -1) {
         continue;
       }
@@ -46,29 +46,29 @@ const FilterPanel = ({ route }: any) => {
     return titles;
   };
 
-  const filterData = (events: Events, conditions: any) => {
-    let filteredEvents = events;
-    if (conditions.dateFrom) {
-      filteredEvents = filteredEvents.filter(e => e.date?.seconds! >= conditions.dateFrom.seconds);
-    }
-    if (conditions.dateTo) {
-      filteredEvents = filteredEvents.filter(e => e.date?.seconds! <= conditions.dateTo.seconds);
-    }
+  const filterData = (groups: EventGroups, conditions: any) => {
+    let filteredEventGroups = groups;
+    // if (conditions.dateFrom) {
+    //   filteredEventGroups = filteredEventGroups.filter(e => e.date?.seconds! >= conditions.dateFrom.seconds);
+    // }
+    // if (conditions.dateTo) {
+    //   filteredEventGroups = filteredEventGroups.filter(e => e.date?.seconds! <= conditions.dateTo.seconds);
+    // }
     if (conditions.priority) {
-      filteredEvents = filteredEvents.filter(e => e.priority === conditions.priority);
+      filteredEventGroups = filteredEventGroups.filter(e => e.priority === conditions.priority);
     }
     if (conditions.tags) {
-      filteredEvents = filteredEvents.filter(event => {
-        return event.tags.some(e => {
-          return conditions.tags.some((t: Tag) => t.id === e.id);
+      filteredEventGroups = filteredEventGroups.filter(group => {
+        return group.tags.some(e => {
+          return conditions.tags.some((t: Tag) => t.id === e);
         });
       });
     }
     if (conditions.titles) {
-      filteredEvents = filteredEvents.filter(e => conditions.titles.includes(e.title));
+      filteredEventGroups = filteredEventGroups.filter(e => conditions.titles.includes(e.title));
     }
 
-    return filteredEvents;
+    return filteredEventGroups;
   };
 
   return (
@@ -103,7 +103,8 @@ const FilterPanel = ({ route }: any) => {
                 }
               }),
             );
-            const filteredData = filterData(events, filterConditions);
+            const filteredData = filterData(eventGroups, filterConditions);
+            console.log(filteredData);
             route.params.onBack({
               filteredData: filteredData,
               filterConditions: filterConditions,

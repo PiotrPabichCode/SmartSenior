@@ -478,6 +478,28 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
         />
       );
     }
+    case 'active-tick': {
+      return (
+        <Ionicons
+          name="md-checkmark-circle-outline"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color || 'green'}
+          style={style}
+        />
+      );
+    }
+    case 'active-untick': {
+      return (
+        <MaterialIcons
+          name="cancel"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color || 'red'}
+          style={style}
+        />
+      );
+    }
     default:
       return (
         <Ionicons

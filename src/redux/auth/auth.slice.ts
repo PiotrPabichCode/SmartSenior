@@ -124,6 +124,10 @@ export const selectEmail = (state: RootState) => {
   const user = selectUser(state);
   return user?.email;
 };
+export const selectPhoneNumber = (state: RootState) => {
+  const user = selectUser(state);
+  return user?.phoneNumber;
+};
 export const selectUserConnectedUsersIds = (state: RootState) => {
   const user = selectUser(state);
   return user?.connectedUsersIds;

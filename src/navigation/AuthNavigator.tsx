@@ -74,7 +74,7 @@ const AuthNavigator = () => {
         name="Medicines"
         component={MedicinesScreen}
         options={{
-          header: () => <CustomHeader title={t('nav.medicines')} nested={true} more={true} />,
+          header: () => <CustomHeader title={t('nav.medicines')} nested={true} />,
         }}
       />
       <Stack.Screen
@@ -88,7 +88,7 @@ const AuthNavigator = () => {
         name="Pharmacies"
         component={PharmaciesScreen}
         options={{
-          header: () => <CustomHeader title={t('nav.pharmacies')} nested={true} more={true} />,
+          header: () => <CustomHeader title={t('nav.pharmacies')} nested={true} />,
         }}
       />
       <Stack.Screen

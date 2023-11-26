@@ -27,13 +27,19 @@
     "success": {
       "addConnectedUser": "Added a new senior",
       "addTag": "Added a new tag",
-      "updateTag": "Updated tag"
+      "updateTag": "Updated tag",
+      "updatePassword": "Password changed successfully",
+      "updateEmail": "Request to change email address has been sent"
     },
     "error": {
       "addConnectedUser": "Failed to add a new senior",
       "invalidEmail": "Invalid email provided",
+      "duplicateEmail": "The provided email address already exists",
       "duplicateTag": "A tag with the given name already exists",
-      "missingData": "Not all data provided"
+      "missingData": "Not all data provided",
+      "repeatPassword": "Repeated password must be the same",
+      "duplicatePassword": "New password cannot be the same as the current one",
+      "passwordMinLength": "Password should have at least 6 characters"
     }
   },
   "speedDial": {
@@ -54,6 +60,10 @@
   },
   "account": {
     "title": {
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "repeatNewPassword": "Repeat new password",
+      "passwordChange": "Password change",
       "email": "Email: {{email}}",
       "emailChange": "Send a request to change email",
       "firstName": "First Name:",
@@ -62,6 +72,9 @@
       "password": "Password:"
     },
     "placeholder": {
+      "currentPassword": "Enter current password",
+      "newPassword": "Enter new password",
+      "repeatNewPassword": "Repeat new password",
       "email": "Enter email",
       "emailChange": "New address email",
       "firstName": "Enter first name",
@@ -79,6 +92,7 @@
     },
     "back": "Back",
     "changeData": "Change data",
+    "changePassword": "Change password",
     "button": {
       "title": {
         "email": "Email",
@@ -257,7 +271,8 @@
     "switchDisableAlertTitle": "Disable event group",
     "switchDisableAlertQuestion": "Do you want to disable the selected event group?",
     "switchEnableAlertTitle": "Enable event group",
-    "switchEnableAlertQuestion": "Do you want to enable the selected event group?"
+    "switchEnableAlertQuestion": "Do you want to enable the selected event group?",
+    "frequencyDates": "from: {{startDate}}\t\t\t\tto: {{endDate}}"
   },
   "eventItemScreen": {
     "button": {

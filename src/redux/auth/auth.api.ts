@@ -1,9 +1,12 @@
 import {
+  EmailAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
+  reauthenticateWithCredential,
   signInWithEmailAndPassword,
   signOut,
   updateEmail,
+  updatePassword,
 } from 'firebase/auth';
 import { auth, db } from 'firebaseConfig';
 import {
@@ -42,6 +45,7 @@ import CustomToast from '@src/components/CustomToast';
 import { Alert } from 'react-native';
 import { t } from '@src/localization/Localization';
 import { UserLocation } from './auth.constants';
+import { FirebaseError } from 'firebase/app';
 
 const selectUserID = (state: any) => state.auth.user?.uid;
 const selectEmail = (state: any) => state.auth.user?.email;
@@ -52,6 +56,7 @@ const getUserTemplate = (uid: string, email: string | null): User => {
     uid: uid,
     email: email,
     birthDate: null,
+    phoneNumber: null,
     firstName: null,
     lastName: null,
     gender: Genders.MALE,
@@ -204,6 +209,30 @@ export const changeEmail = (email: string) => {
     }
     updateEmail(user, email);
   } catch (error) {
+    throw error;
+  }
+};
+
+export const changePassword = async (currentPassword: string, newPassword: string) => {
+  try {
+    const user = getAuth().currentUser;
+    if (!user || !user.email) {
+      throw new Error('User not verified');
+    }
+    await reauthenticateWithCredential(
+      user,
+      EmailAuthProvider.credential(user.email, currentPassword),
+    );
+    await updatePassword(user, newPassword);
+  } catch (error) {
+    const firebaseError = error as FirebaseError;
+    const code = firebaseError.code;
+    if (code === 'auth/wrong-password') {
+      CustomToast('error', 'Obecne hasło jest niepoprawne');
+    }
+    if (code === 'auth/too-many-requests') {
+      CustomToast('error', 'Zbyt wiele prób. Spróbuj ponownie później');
+    }
     throw error;
   }
 };

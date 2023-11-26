@@ -1,4 +1,4 @@
-import { View, Modal } from 'react-native';
+import { View, Modal, ScrollView } from 'react-native';
 import { useState } from 'react';
 import { Button, Input } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
@@ -7,6 +7,7 @@ import { selectEmail } from '@src/redux/auth/auth.slice';
 import CustomToast from '@src/components/CustomToast';
 import { changeEmail } from '@src/redux/auth/auth.api';
 import * as Yup from 'yup';
+import Toast from 'react-native-toast-message';
 
 type Props = {
   visible: boolean;
@@ -23,17 +24,17 @@ const EmailModal = ({ visible, onClose }: Props) => {
       return CustomToast('error', t('message.error.invalidEmail'));
     }
     if (email === newEmail) {
-      return CustomToast('error', 'Podany adres email już istnieje');
+      return CustomToast('error', t('message.error.duplicateEmail'));
     }
     onClose(false);
     changeEmail(newEmail);
-    CustomToast('success', 'Prośba o zmianę adresu e-mail została wysłana');
+    CustomToast('success', t('message.success.updateEmail'));
   };
   return (
-    <Modal visible={visible} animationType="slide" transparent={true}>
-      <View
-        style={{
-          flex: 1,
+    <Modal visible={visible} animationType="fade" transparent={true}>
+      <ScrollView
+        contentContainerStyle={{
+          minHeight: '100%',
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -66,7 +67,8 @@ const EmailModal = ({ visible, onClose }: Props) => {
             }}
           />
         </View>
-      </View>
+      </ScrollView>
+      <Toast />
     </Modal>
   );
 };

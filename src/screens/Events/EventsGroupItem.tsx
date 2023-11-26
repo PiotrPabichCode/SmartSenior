@@ -64,7 +64,12 @@ const EventsGroupItem = ({ groupKey }: Props) => {
             fontSize: 14,
             fontWeight: 'bold',
             marginTop: 10,
-          }}>{`od: ${startDate}\t\t\t\tdo: ${endDate}`}</Text>
+          }}>
+          {t('eventGroups.frequencyDates', {
+            startDate: startDate,
+            endDate: endDate,
+          })}
+        </Text>
       );
     }
   };

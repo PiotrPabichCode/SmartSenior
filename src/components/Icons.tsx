@@ -500,6 +500,28 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
         />
       );
     }
+    case 'show-toggle': {
+      return (
+        <Ionicons
+          name="eye-sharp"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
+    }
+    case 'hide-toggle': {
+      return (
+        <Ionicons
+          name="eye-off-sharp"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={color}
+          style={style}
+        />
+      );
+    }
     default:
       return (
         <Ionicons

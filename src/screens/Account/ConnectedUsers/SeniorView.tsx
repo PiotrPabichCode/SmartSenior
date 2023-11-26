@@ -1,7 +1,7 @@
 import CustomButton from '@src/components/CustomButton';
 import Icons from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
-import { goBack } from '@src/navigation/navigationUtils';
+import { goBack, navigate } from '@src/navigation/navigationUtils';
 import { selectConnectedUsers } from '@src/redux/auth/auth.slice';
 import { useAppSelector } from '@src/redux/types';
 import { View, Text, StyleSheet } from 'react-native';
@@ -49,7 +49,7 @@ const SeniorView = () => {
           icon={<Icons name="phone" color={mainColor} size={24} />}
         />
         <CustomButton
-          onPress={() => console.log('message keeper')}
+          onPress={() => navigate('Chat')}
           title={t('connectedUsers.messageKeeper')}
           titleStyle={{ fontSize: 18 }}
           color={mainColor}

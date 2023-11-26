@@ -27,13 +27,19 @@
     "success": {
       "addConnectedUser": "Dodano nowego seniora",
       "addTag": "Dodano nowy znacznik",
-      "updateTag": "Zaaktulizowano znacznik"
+      "updateTag": "Zaaktulizowano znacznik",
+      "updatePassword": "Zmieniono hasło logowania",
+      "updateEmail": "Prośba o zmianę adresu e-mail została wysłana"
     },
     "error": {
       "addConnectedUser": "Nie udało się dodać nowego seniora",
       "invalidEmail": "Podano nieprawidłowy e-mail",
+      "duplicateEmail": "Podany adres e-mail już istnieje",
       "duplicateTag": "Znacznik o podanej nazwie już istnieje",
-      "missingData": "Nie podano wszystkich danych"
+      "missingData": "Nie podano wszystkich danych",
+      "repeatPassword": "Powtórzone hasło musi być takie same",
+      "duplicatePassword": "Nowe hasło nie może być takie samo jak obecne",
+      "passwordMinLength": "Hasło powinno mieć co najmniej 6 znaków"
     }
   },
   "speedDial": {
@@ -54,6 +60,10 @@
   },
   "account": {
     "title": {
+      "currentPassword": "Obecne hasło",
+      "newPassword": "Nowe hasło",
+      "repeatNewPassword": "Powtórz nowe hasło",
+      "passwordChange": "Zmiana hasła logowania",
       "email": "Adres e-mail: {{email}}",
       "emailChange": "Wyślij prośbę o zmianę e-maila",
       "firstName": "Imię:",
@@ -62,6 +72,9 @@
       "password": "Hasło:"
     },
     "placeholder": {
+      "currentPassword": "Podaj obecne hasło",
+      "newPassword": "Podaj nowe hasło",
+      "repeatNewPassword": "Powtórz nowe hasło",
       "email": "Podaj adres e-mail",
       "emailChange": "Nowy adres e-mail",
       "firstName": "Podaj imię",
@@ -79,6 +92,7 @@
     },
     "back": "Powrót",
     "changeData": "Zmień dane",
+    "changePassword": "Zmień hasło",
     "button": {
       "title": {
         "user": "Konto",
@@ -256,7 +270,8 @@
     "switchDisableAlertTitle": "Wyłączenie grupy wydarzeń",
     "switchDisableAlertQuestion": "Czy chcesz wyłączyć wybraną grupę wydarzeń?",
     "switchEnableAlertTitle": "Włączenie grupy wydarzeń",
-    "switchEnableAlertQuestion": "Czy chcesz włączyć wybraną grupę wydarzeń?"
+    "switchEnableAlertQuestion": "Czy chcesz włączyć wybraną grupę wydarzeń?",
+    "frequencyDates": "od: {{startDate}}\t\t\t\tdo: {{endDate}}"
   },
   "eventItemScreen": {
     "button": {

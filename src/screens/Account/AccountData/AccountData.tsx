@@ -1,21 +1,19 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useState } from 'react';
-import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
-import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
-import Colors from '@src/constants/Colors';
+import { selectUser } from '@src/redux/auth/auth.slice';
 import { AccountDataInput, EmailModal, PasswordModal } from './components';
 import { t } from '@src/localization/Localization';
 import { Button } from '@rneui/themed';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import DateButton from '@src/components/DateButton';
-import { Timestamp } from 'firebase/firestore';
 import DatePicker from '@src/components/DatePicker';
 import { getUpdatedFields } from '@src/utils/utils';
 import CustomToast from '@src/components/CustomToast';
 import { updateUserData } from '@src/redux/auth/auth.actions';
 import { goBack } from '@src/navigation/navigationUtils';
+import FormikObserver from '@src/utils/FormikObserver';
 
 const AccountData = () => {
   const dispatch = useAppDispatch();
@@ -23,13 +21,27 @@ const AccountData = () => {
   const [showDate, setShowDate] = useState<boolean>(false);
   const [emailChange, setEmailChange] = useState<boolean>(false);
   const [passwordChange, setPasswordChange] = useState<boolean>(false);
-
-  const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
   if (!user) {
     return null;
   }
+
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+  const UpdateAccountSchema = Yup.object().shape({
+    firstName: Yup.string()
+      .min(1)
+      .required(() => t('yup.required')),
+    lastName: Yup.string()
+      .min(1)
+      .required(() => t('yup.required')),
+    phoneNumber: Yup.string()
+      .matches(phoneRegExp, { message: () => t('message.error.invalidPhoneNumber') })
+      .required(() => t('yup.required')),
+  });
+
   return (
     <View style={{ gap: 5 }}>
       <Formik
@@ -39,26 +51,19 @@ const AccountData = () => {
           phoneNumber: user.phoneNumber,
           birthDate: user.birthDate,
         }}
+        validationSchema={UpdateAccountSchema}
         onSubmit={async values => {
           try {
             const updatedValues = getUpdatedFields(user, values);
-            if (updatedValues.phoneNumber) {
-              const schema = Yup.string().matches(phoneRegExp, 'Invalid phone number');
-              const valid = await schema.isValid(updatedValues.phoneNumber);
-              if (!valid) {
-                return CustomToast('error', 'Podano nieprawidłowy numer telefonu');
-              }
-            }
             await dispatch(updateUserData({ uid: user?.uid, values: updatedValues })).unwrap();
-            console.log(updatedValues);
-            CustomToast('success', 'Zaaktulizowano dane osobowe');
+            CustomToast('success', t('message.success.updateAccountData'));
             goBack();
           } catch (error) {
             console.log(error);
-            CustomToast('error', 'Nie udało się zaaktulizować danych');
+            CustomToast('error', t('message.error.updateAccountData'));
           }
         }}>
-        {({ values, setFieldValue, handleSubmit }) => (
+        {({ values, setFieldValue, handleSubmit, errors }) => (
           <>
             <AccountDataInput
               label={t('account.title.firstName')}
@@ -66,6 +71,7 @@ const AccountData = () => {
               fieldName={'firstName'}
               value={values.firstName}
               onChange={setFieldValue}
+              errorMessage={errors.firstName}
             />
             <AccountDataInput
               label={t('account.title.lastName')}
@@ -73,13 +79,15 @@ const AccountData = () => {
               fieldName={'lastName'}
               value={values.lastName}
               onChange={setFieldValue}
+              errorMessage={errors.lastName}
             />
             <AccountDataInput
-              label={'Numer telefonu'}
-              placeholder={'Podaj numer telefonu'}
+              label={t('account.title.phoneNumber')}
+              placeholder={t('account.placeholder.phoneNumber')}
               fieldName={'phoneNumber'}
               value={values.phoneNumber}
               onChange={setFieldValue}
+              errorMessage={errors.phoneNumber}
             />
             <View style={{ gap: 15, marginTop: 10 }}>
               <Button
@@ -116,11 +124,23 @@ const AccountData = () => {
                 onChange={setFieldValue}
                 onClose={setShowDate}
               />
-              <Button
-                title={t('account.changeData')}
-                containerStyle={{ borderRadius: 25 }}
-                buttonStyle={{ padding: 15, backgroundColor: 'green' }}
-                onPress={() => handleSubmit()}
+              {isUpdate && (
+                <Button
+                  title={t('account.changeData')}
+                  containerStyle={{ borderRadius: 25 }}
+                  buttonStyle={{ padding: 15, backgroundColor: 'green' }}
+                  onPress={() => handleSubmit()}
+                />
+              )}
+              <FormikObserver
+                onChange={(data: any) => {
+                  const changedFields = getUpdatedFields(data.initialValues, data.values);
+                  if (Object.keys(changedFields).length > 0) {
+                    setIsUpdate(true);
+                  } else {
+                    setIsUpdate(false);
+                  }
+                }}
               />
             </View>
           </>

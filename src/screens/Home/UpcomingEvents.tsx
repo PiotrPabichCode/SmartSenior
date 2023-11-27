@@ -50,6 +50,9 @@ const UpcomingEvents = ({ events }: Props) => {
     if (index === MAX_DISPLAYED_EVENTS) {
       return moreButton;
     }
+    if (index > MAX_DISPLAYED_EVENTS) {
+      return;
+    }
     const isEnd = index !== events.length - 1;
     return (
       <View style={styles.eventView} key={index}>

@@ -11,13 +11,13 @@ const EmptyPharmacies = () => {
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 30 }}>
       <Text
         style={{
           fontSize: 17,
           textAlign: 'center',
           marginVertical: 10,
-          maxWidth: '90%',
+          maxWidth: '85%',
           letterSpacing: 0.5,
         }}>
         {t('favouritePharmacies.description')}

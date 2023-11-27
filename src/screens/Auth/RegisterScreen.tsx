@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 30,
+    maxWidth: '80%',
     fontWeight: 'bold',
     textAlign: 'center',
   },

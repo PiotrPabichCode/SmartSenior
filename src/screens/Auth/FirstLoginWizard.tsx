@@ -55,10 +55,10 @@ const FirstLoginWizard = () => {
         <View style={styles.innerContainer}>
           <Formik
             initialValues={{
-              firstName: '',
-              lastName: '',
-              birthDate: null,
-              gender: null,
+              firstName: user?.firstName ? user.firstName : '',
+              lastName: user?.lastName ? user.lastName : '',
+              birthDate: user?.birthDate ? user.birthDate : null,
+              gender: user?.gender ? user.gender : null,
               role: Roles.SENIOR,
             }}
             onSubmit={async values => {

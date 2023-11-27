@@ -107,8 +107,8 @@ const EventsGroupItem = ({ groupKey }: Props) => {
   };
 
   return (
-    <>
-      <View style={{ width: '100%', height: 1, backgroundColor: 'black' }} />
+    <View style={{ gap: 5 }}>
+      <View style={{ minWidth: '100%', height: 1, backgroundColor: 'black' }} />
       <TouchableOpacity
         style={{
           minWidth: '100%',
@@ -121,7 +121,7 @@ const EventsGroupItem = ({ groupKey }: Props) => {
         }>
         <Icons
           name="settings"
-          style={{ position: 'absolute', top: 12, right: 5 }}
+          style={{ alignSelf: 'flex-end' }}
           size={28}
           onPress={() =>
             navigate('EventsGroupDetails', {
@@ -129,9 +129,16 @@ const EventsGroupItem = ({ groupKey }: Props) => {
             })
           }
         />
-        <Text h2 numberOfLines={1} adjustsFontSizeToFit>
+        <Text
+          h4
+          numberOfLines={1}
+          style={{
+            textAlign: 'center',
+            marginHorizontal: 20,
+          }}>
           {eventsGroup.title}
         </Text>
+
         <View
           style={{
             alignItems: 'center',
@@ -167,7 +174,7 @@ const EventsGroupItem = ({ groupKey }: Props) => {
           </View>
         </View>
       </TouchableOpacity>
-    </>
+    </View>
   );
 };
 

@@ -19,7 +19,7 @@ const EndDateButton = ({ isRecurring, onPress, endDate }: Props) => {
         title={
           endDate
             ? t('createEvent.button.title.endDate', {
-                endDate: convertTimestampToDate(endDate, 'DD-MM-YYYY HH:mm'),
+                endDate: convertTimestampToDate(endDate, 'DD-MM-YYYY'),
               })
             : t('createEvent.button.title.endDateEmpty')
         }

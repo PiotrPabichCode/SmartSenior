@@ -29,7 +29,8 @@
       "addTag": "Dodano nowy znacznik",
       "updateTag": "Zaaktulizowano znacznik",
       "updatePassword": "Zmieniono hasło logowania",
-      "updateEmail": "Prośba o zmianę adresu e-mail została wysłana"
+      "updateEmail": "Prośba o zmianę adresu e-mail została wysłana",
+      "updateAccountData": "Zaaktualizowano dane osobowe"
     },
     "error": {
       "addConnectedUser": "Nie udało się dodać nowego seniora",
@@ -39,7 +40,9 @@
       "missingData": "Nie podano wszystkich danych",
       "repeatPassword": "Powtórzone hasło musi być takie same",
       "duplicatePassword": "Nowe hasło nie może być takie samo jak obecne",
-      "passwordMinLength": "Hasło powinno mieć co najmniej 6 znaków"
+      "passwordMinLength": "Hasło powinno mieć co najmniej 6 znaków",
+      "invalidPhoneNumber": "Podano nieprawidłowy numer telefonu",
+      "updateAccountData": "Nie udało się zaaktulizować danych osobowych"
     }
   },
   "speedDial": {
@@ -69,7 +72,8 @@
       "firstName": "Imię:",
       "lastName": "Nazwisko:",
       "birthDate": "Data urodzenia: {{date}}",
-      "password": "Hasło:"
+      "password": "Hasło:",
+      "phoneNumber": "Numer telefonu"
     },
     "placeholder": {
       "currentPassword": "Podaj obecne hasło",
@@ -80,7 +84,8 @@
       "firstName": "Podaj imię",
       "lastName": "Podaj nazwisko",
       "birthDate": "Podaj datę urodzenia",
-      "password": "*********"
+      "password": "*********",
+      "phoneNumber": "Podaj numer telefonu"
     },
     "language": {
       "title": "Wybrany język",
@@ -193,7 +198,7 @@
     }
   },
   "register": {
-    "welcome": "Cieszymy się, że zdecydowałeś się dołączyć do nas!",
+    "welcome": "Cieszymy się, że zdecydowałeś się do nas!",
     "button": {
       "placeholder": {
         "email": "Adres e-mail",
@@ -323,7 +328,7 @@
         "notes": "Twoje notatki"
       }
     },
-    "noActiveEvents": "Wygląda na to, że nie dodałeś żadnych wydarzeń. Dodaj swoje ważne daty i przypomnienia, a aplikacja będzie działać jak Twój osobisty asystent, pomagając nie zapominać o niczym istotnym."
+    "noActiveEvents": "Wygląda na to, że nie dodałeś żadnych wydarzeń. Dodaj swoje ważne daty i przypomnienia, a aplikacja będzie działać jak Twój osobisty asystent, pomagając, byś o niczym nie zapomniał."
   },
   "seniorDashboard": {
     "personal": "Dane osobowe",
@@ -408,7 +413,7 @@
     "addError": "Nie udało się dodać leku do ulubionych"
   },
   "favouritePharmacies": {
-    "description": "Znalezienie właściwej apteki może być kluczowe dla Twojego zdrowia. Dodaj kilka lokalnych aptek do swojej listy ulubionych, by mieć pewność, że zawsze znajdziesz wygodę i niezbędne produkty zdrowotne w zasięgu ręki. Bez względu na to, gdzie się znajdujesz, możesz mieć pewność, że zapisane apteki będą gotowe, by służyć Ci profesjonalną opieką i pomocą w utrzymaniu Twojego zdrowia na właściwym poziomie.",
+    "description": "Znalezienie właściwej apteki może być kluczowe dla Twojego zdrowia. Dodaj kilka lokalnych aptek do swojej listy ulubionych, by mieć pewność, że zawsze znajdziesz niezbędne produkty zdrowotne w zasięgu ręki.",
     "add": "Dodaj nową aptekę",
     "alertTitle": "Usunięcie z ulubionych",
     "alertQuestion": "Czy chcesz usunąć aptekę z ulubionych?",

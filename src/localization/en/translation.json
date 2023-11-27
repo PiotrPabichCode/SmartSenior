@@ -29,7 +29,8 @@
       "addTag": "Added a new tag",
       "updateTag": "Updated tag",
       "updatePassword": "Password changed successfully",
-      "updateEmail": "Request to change email address has been sent"
+      "updateEmail": "Request to change email address has been sent",
+      "updateAccountData": "Personal data has been updated"
     },
     "error": {
       "addConnectedUser": "Failed to add a new senior",
@@ -39,7 +40,9 @@
       "missingData": "Not all data provided",
       "repeatPassword": "Repeated password must be the same",
       "duplicatePassword": "New password cannot be the same as the current one",
-      "passwordMinLength": "Password should have at least 6 characters"
+      "passwordMinLength": "Password should have at least 6 characters",
+      "invalidPhoneNumber": "Invalid phone number provided",
+      "updateAccountData": "Failed to update personal data"
     }
   },
   "speedDial": {
@@ -69,7 +72,8 @@
       "firstName": "First Name:",
       "lastName": "Last Name:",
       "birthDate": "Date of Birth: {{date}}",
-      "password": "Password:"
+      "password": "Password:",
+      "phoneNumber": "Phone number"
     },
     "placeholder": {
       "currentPassword": "Enter current password",
@@ -80,7 +84,8 @@
       "firstName": "Enter first name",
       "lastName": "Enter last name",
       "birthDate": "Enter date of birth",
-      "password": "*********"
+      "password": "*********",
+      "phoneNumber": "Enter phone number"
     },
     "language": {
       "title": "Selected Language",

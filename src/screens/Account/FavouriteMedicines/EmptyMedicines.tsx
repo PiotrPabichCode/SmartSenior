@@ -11,14 +11,14 @@ const EmptyMedicines = () => {
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 25 }}>
       <Text
         style={{
           fontSize: 17,
           textAlign: 'center',
           marginVertical: 10,
           maxWidth: '90%',
-          letterSpacing: 0.5,
+          letterSpacing: 0.8,
         }}>
         {t('favouriteMedicines.description')}
       </Text>

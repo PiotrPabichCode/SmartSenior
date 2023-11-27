@@ -69,7 +69,7 @@ const AddTag = ({ route }: AddTagScreenProps) => {
   return (
     <ScrollView
       contentContainerStyle={{
-        flex: 1,
+        minHeight: '100%',
         alignItems: 'center',
         justifyContent: 'center',
       }}

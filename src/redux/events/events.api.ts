@@ -71,9 +71,11 @@ function getAllDates(event: Partial<Event>): Array<Timestamp> {
   const { date, frequency } = event;
   const { type, daysOfWeek, unit, interval, endDate } = frequency!;
   const dates = [];
+  const _endDate = endDate?.toDate()!;
+  _endDate.setDate(_endDate.getDate() + 1);
   const currentDate = date?.toDate()!;
 
-  while (currentDate <= endDate?.toDate()!) {
+  while (currentDate <= _endDate) {
     if (type === 'specificDays') {
       if (daysOfWeek!.includes(currentDate.getDay())) {
         dates.push(new Date(currentDate));

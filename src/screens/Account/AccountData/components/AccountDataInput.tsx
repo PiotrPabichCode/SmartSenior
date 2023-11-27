@@ -6,9 +6,17 @@ type Props = {
   fieldName: string;
   value: string | null;
   onChange: any;
+  errorMessage?: string;
 };
 
-const AccountDataInput = ({ label, placeholder, fieldName, value, onChange }: Props) => {
+const AccountDataInput = ({
+  label,
+  placeholder,
+  fieldName,
+  value,
+  onChange,
+  errorMessage,
+}: Props) => {
   return (
     <Input
       placeholder={placeholder || ''}
@@ -18,6 +26,7 @@ const AccountDataInput = ({ label, placeholder, fieldName, value, onChange }: Pr
       inputStyle={{ marginLeft: 20 }}
       label={label}
       leftIcon={{ type: 'font-awesome', name: 'comment' }}
+      errorMessage={errorMessage}
       onChangeText={value => onChange(fieldName, value)}
     />
   );

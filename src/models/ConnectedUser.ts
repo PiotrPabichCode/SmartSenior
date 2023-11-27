@@ -1,9 +1,9 @@
-import { Events } from './Event';
+import { EventGroups } from './EventGroup';
 import { User } from './User';
 
 export interface ConnectedUser {
   user: User;
-  events: Events;
+  eventGroups: EventGroups;
 }
 
 export type ConnectedUsers = ConnectedUser[];

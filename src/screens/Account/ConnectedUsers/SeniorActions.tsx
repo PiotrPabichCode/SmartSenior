@@ -1,30 +1,84 @@
-import { View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native';
-import React from 'react';
-import { ConnectedUser } from '@src/models';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { Button } from '@rneui/themed';
+import React, { useEffect, useState } from 'react';
+import { ConnectedUser, EventGroups, Tags } from '@src/models';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import { useAppDispatch } from '@src/redux/types';
 import { deleteEvent, updateEvent } from '@src/redux/events/events.actions';
 import CustomToast from '@src/components/CustomToast';
 import { getSeniorLocation } from '@src/redux/auth/auth.api';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import { Timestamp } from 'firebase/firestore';
+import { createTags } from '@src/redux/events/events.api';
+
+interface UserEvent {
+  date: Timestamp;
+  title: string;
+  tags: Tags;
+  groupKey: string;
+}
+
+type UserEvents = UserEvent[];
 
 const SeniorActions = ({ user }: { user: ConnectedUser }) => {
   const dispatch = useAppDispatch();
-  const events = user.events;
+  const [isLoading, setIsLoading] = useState(true);
+  const eventGroups = user.eventGroups;
+  const [events, setEvents] = useState<UserEvents>([]);
+
+  useEffect(() => {
+    const prepareEvents = (eventGroups: EventGroups) => {
+      const events: UserEvents = [];
+      eventGroups = eventGroups.filter(e => e.active);
+      for (const group of eventGroups) {
+        let i = 0;
+        const tags = createTags(group.tags);
+        const dates = group.dates.filter(d => d.toMillis() >= Timestamp.now().toMillis());
+        for (const date of dates) {
+          if (group.completedEvents.findIndex(e => e.isEqual(date)) !== -1) {
+            continue;
+          }
+          events.push({
+            date: date,
+            title: group.title,
+            groupKey: group.key,
+            tags: tags,
+          });
+          i++;
+        }
+      }
+      setEvents(
+        events.sort((a, b) => {
+          if (a.date && b.date) {
+            return a.date.toMillis() - b.date.toMillis();
+          }
+          return 0;
+        }),
+      );
+      setIsLoading(false);
+    };
+
+    prepareEvents(eventGroups);
+  }, []);
+
+  if (isLoading) {
+    return <CustomActivityIndicator />;
+  }
 
   const onEventComplete = async (key: string) => {
-    try {
-      await dispatch(
-        updateEvent({
-          eventKey: key,
-          data: {},
-        }),
-      ).unwrap();
-      CustomToast('success', t('eventItem.alert.success'));
-    } catch (error) {
-      console.log(error);
-      CustomToast('error', t('eventItem.alert.error'));
-    }
+    // try {
+    //   await dispatch(
+    //     updateEvent({
+    //       eventKey: key,
+    //       data: {},
+    //     }),
+    //   ).unwrap();
+    //   CustomToast('success', t('eventItem.alert.success'));
+    // } catch (error) {
+    //   console.log(error);
+    //   CustomToast('error', t('eventItem.alert.error'));
+    // }
   };
 
   const handleCompleteEvent = (key: string) => {
@@ -43,13 +97,13 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
   };
 
   const onEventDelete = async (key: string) => {
-    try {
-      await dispatch(deleteEvent(key)).unwrap();
-      CustomToast('success', t('eventItem.alert.success'));
-    } catch (error) {
-      console.log(error);
-      CustomToast('error', t('eventItem.alert.error'));
-    }
+    // try {
+    //   await dispatch(deleteEvent(key)).unwrap();
+    //   CustomToast('success', t('eventItem.alert.success'));
+    // } catch (error) {
+    //   console.log(error);
+    //   CustomToast('error', t('eventItem.alert.error'));
+    // }
   };
 
   const handleDeleteEvent = (key: string) => {
@@ -84,10 +138,15 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
           </Text>
         </View>
 
-        <View style={{ flexDirection: 'row', gap: 10 }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 10,
+            minWidth: '100%',
+          }}>
           <Button
             color={'green'}
-            onPress={() => handleCompleteEvent(event.key)}
+            onPress={() => handleCompleteEvent('')}
             title={t('seniorDashboard.execute')}
           />
           <Button
@@ -97,7 +156,7 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
           />
           <Button
             color={'red'}
-            onPress={() => handleDeleteEvent(event.key)}
+            onPress={() => handleDeleteEvent('')}
             title={t('seniorDashboard.delete')}
           />
         </View>

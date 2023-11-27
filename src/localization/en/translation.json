@@ -42,7 +42,8 @@
       "duplicatePassword": "New password cannot be the same as the current one",
       "passwordMinLength": "Password should have at least 6 characters",
       "invalidPhoneNumber": "Invalid phone number provided",
-      "updateAccountData": "Failed to update personal data"
+      "updateAccountData": "Failed to update personal data",
+      "keeperNoPhone": "The caretaker did not provide a phone number."
     }
   },
   "speedDial": {
@@ -347,7 +348,7 @@
     "availableActions": "Available Actions",
     "localization": "Display User's Location",
     "upcomingEvents": "Upcoming Events",
-    "execute": "Execute",
+    "execute": "Mark as done",
     "remind": "Remind",
     "delete": "Delete"
   },
@@ -361,7 +362,9 @@
     "company": "Company",
     "country": "Country of Manufacture",
     "leaflet": "Leaflet",
-    "characteristic": "Characteristics"
+    "characteristic": "Characteristics",
+    "download": "File downloaded",
+    "downloadNoPermission": "Permission not granted"
   },
   "medicinesScreen": {
     "title": "Medicines",

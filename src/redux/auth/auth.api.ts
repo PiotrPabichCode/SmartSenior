@@ -36,7 +36,7 @@ import {
   Tag,
 } from '@src/models';
 import { User as FirebaseUser } from 'firebase/auth';
-import { fetchEventsByID } from '../events/events.api';
+import { fetchEventGroupsByID, fetchEventsByID } from '../events/events.api';
 import { store } from '../common';
 import * as TaskManager from 'expo-task-manager';
 import * as Location from 'expo-location';
@@ -295,16 +295,16 @@ export const loadConnectedUsers = async () => {
     const connectedUsers: ConnectedUsers = await Promise.all(
       users.map(async user => {
         try {
-          const events = await fetchEventsByID(user.uid);
+          const eventGroups = await fetchEventGroupsByID(user.uid);
           return {
             user: user,
-            events: events,
+            eventGroups: eventGroups,
             deleted: false,
           };
         } catch (error) {
           return {
             user: user,
-            events: [],
+            eventGroups: [],
             deleted: false,
           };
         }
@@ -347,7 +347,7 @@ export const addConnectedUser = async (email: string) => {
 
     const connectedUser: ConnectedUser = {
       user: newUser,
-      events: await fetchEventsByID(newUserID),
+      eventGroups: await fetchEventGroupsByID(newUserID),
     };
 
     return connectedUser;

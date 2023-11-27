@@ -19,6 +19,7 @@ const ChatScreen = () => {
   }
 
   useLayoutEffect(() => {
+    console.log(activeChat);
     const q = query(
       collection(db, 'chats', activeChat.key, 'messages'),
       orderBy('createdAt', 'desc'),
@@ -39,22 +40,25 @@ const ChatScreen = () => {
     return () => unsubscribe();
   }, [activeChat]);
 
-  const onSend = useCallback((messages = []) => {
-    if (!activeChat) {
-      return;
-    }
-    const { _id, createdAt, text, user } = messages[0];
+  const onSend = useCallback(
+    (messages = []) => {
+      if (!activeChat) {
+        return;
+      }
+      const { _id, createdAt, text, user } = messages[0];
 
-    const chatMessage = {
-      _id: _id,
-      createdAt: createdAt,
-      text: text,
-      user: user,
-      read: false,
-    };
+      const chatMessage = {
+        _id: _id,
+        createdAt: createdAt,
+        text: text,
+        user: user,
+        read: false,
+      };
 
-    addDoc(collection(db, 'chats', activeChat.key, 'messages'), chatMessage);
-  }, []);
+      addDoc(collection(db, 'chats', activeChat.key, 'messages'), chatMessage);
+    },
+    [activeChat],
+  );
 
   return (
     <>

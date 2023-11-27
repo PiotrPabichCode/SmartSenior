@@ -42,7 +42,8 @@
       "duplicatePassword": "Nowe hasło nie może być takie samo jak obecne",
       "passwordMinLength": "Hasło powinno mieć co najmniej 6 znaków",
       "invalidPhoneNumber": "Podano nieprawidłowy numer telefonu",
-      "updateAccountData": "Nie udało się zaaktulizować danych osobowych"
+      "updateAccountData": "Nie udało się zaaktulizować danych osobowych",
+      "keeperNoPhone": "Opiekun nie udzielił numeru kontaktowego."
     }
   },
   "speedDial": {
@@ -268,7 +269,7 @@
     "recurringSpecificDays": "Wydarzenie cykliczne - ",
     "update": "Aktualizacja:",
     "create": "Utworzono:",
-    "date": "Data wykonania:",
+    "date": "Data wydarzenia:",
     "upcomingEvent": "{{title}} / nadchodzące",
     "completedEvent": "{{title}} / ukończone",
     "delayedEvent": "{{title}} / zaległe",
@@ -360,7 +361,9 @@
     "company": "Firma",
     "country": "Kraj wytworzenia",
     "leaflet": "Ulotka",
-    "characteristic": "Charakterystyka"
+    "characteristic": "Charakterystyka",
+    "download": "Pobrano plik",
+    "downloadNoPermission": "Brak zgody na pobranie"
   },
   "medicinesScreen": {
     "title": "Lista leków",

@@ -18,7 +18,6 @@ export const usePushNotifications = (): PushNotificationState => {
       shouldSetBadge: false,
     }),
   });
-
   const [expoPushToken, setExpoPushToken] = useState<Notifications.ExpoPushToken | undefined>();
   const [notification, setNotification] = useState<Notifications.Notification | undefined>();
 
@@ -65,11 +64,12 @@ export const usePushNotifications = (): PushNotificationState => {
     });
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log('Notification listener', notification);
       setNotification(notification);
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
+      console.log('Push notification response', response);
     });
 
     return () => {

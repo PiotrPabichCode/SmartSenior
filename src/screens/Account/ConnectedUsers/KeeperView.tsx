@@ -58,7 +58,7 @@ const KeeperView = () => {
       CustomToast('success', t('connectedUsers.message.success.add'));
     } catch (e) {
       console.log(e);
-      CustomToast('success', t('connectedUsers.message.error.add'));
+      CustomToast('error', t('connectedUsers.message.error.add'));
     }
   };
 

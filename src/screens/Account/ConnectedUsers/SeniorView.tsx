@@ -5,6 +5,8 @@ import { goBack, navigate } from '@src/navigation/navigationUtils';
 import { selectConnectedUsers } from '@src/redux/auth/auth.slice';
 import { useAppSelector } from '@src/redux/types';
 import { View, Text, StyleSheet } from 'react-native';
+import * as Linking from 'expo-linking';
+import CustomToast from '@src/components/CustomToast';
 
 const mainColor = '#FFFAF0';
 
@@ -40,7 +42,12 @@ const SeniorView = () => {
       </View>
       <View style={styles.buttons}>
         <CustomButton
-          onPress={() => console.log('call keeper')}
+          onPress={() => {
+            if (!keeper.phoneNumber) {
+              return CustomToast('error', t('message.error.keeperNoPhone'));
+            }
+            Linking.openURL(`tel:${keeper.phoneNumber}`);
+          }}
           title={t('connectedUsers.callKeeper')}
           titleStyle={{ fontSize: 18 }}
           color={mainColor}

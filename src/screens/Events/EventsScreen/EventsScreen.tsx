@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { EventsGroupScreenProps } from '@src/navigation/types';
 import { useAppSelector } from '@src/redux/types';
-import { selectEventsGroupByKey } from '@src/redux/events/events.slice';
+import { selectEventsGroupByKey, selectEventsStatus } from '@src/redux/events/events.slice';
 import { goBack } from '@src/navigation/navigationUtils';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
@@ -29,6 +29,7 @@ export type EventItems = EventItem[];
 const EventsScreen = ({ route, navigation }: EventsGroupScreenProps) => {
   const { groupKey } = route.params;
   const eventsGroup = useAppSelector(state => selectEventsGroupByKey(state, groupKey));
+  const status = useAppSelector(state => selectEventsStatus(state));
   const [upcomingEvents, setUpcomingEvents] = useState<EventItems>([]);
   const [completedEvents, setCompletedEvents] = useState<EventItems>([]);
   const [delayedEvents, setDelayedEvents] = useState<EventItems>([]);
@@ -60,7 +61,9 @@ const EventsScreen = ({ route, navigation }: EventsGroupScreenProps) => {
       }
       const completedEvents = eventItems.filter(e => e.completed);
       setCompletedEvents(completedEvents);
-      const delayedEvents = eventItems.filter(e => e.date.toMillis() < Timestamp.now().toMillis());
+      const delayedEvents = eventItems.filter(
+        e => e.date.toMillis() < Timestamp.now().toMillis() && !e.completed,
+      );
       setDelayedEvents(delayedEvents);
       const upcomingEvents = eventItems.filter(
         e => e.date.toMillis() >= Timestamp.now().toMillis() && !e.completed,

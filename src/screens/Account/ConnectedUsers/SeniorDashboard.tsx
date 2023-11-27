@@ -7,6 +7,7 @@ import { goBack } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { getUserAge, renderGender } from '@src/utils/utils';
 import { Timestamp } from 'firebase/firestore';
+import { ConnectedUser } from '@src/models';
 
 const SeniorDashboard = ({ route }: any) => {
   const { uid } = route.params;
@@ -21,7 +22,11 @@ const SeniorDashboard = ({ route }: any) => {
   }
 
   const userData = user.user;
-  const events = user.events;
+
+  const connectedUser: ConnectedUser = {
+    user: user.user,
+    eventGroups: user.eventGroups,
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.viewStyle} showsVerticalScrollIndicator={false}>
@@ -57,7 +62,7 @@ const SeniorDashboard = ({ route }: any) => {
       </View>
       <View style={styles.container}>
         <Text style={styles.title}>{t('seniorDashboard.availableActions')}</Text>
-        <SeniorActions user={user} />
+        <SeniorActions user={connectedUser} />
       </View>
     </ScrollView>
   );

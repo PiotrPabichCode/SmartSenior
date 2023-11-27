@@ -23,6 +23,7 @@ import {
   Frequency,
   Image,
   Images,
+  Notifications,
   Tag,
   Tags,
 } from '@src/models';
@@ -30,6 +31,8 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { store } from '../common';
 import { days } from './events.constants';
 import type { RootState } from '../store';
+import { setupEventsGroupNotification } from '@src/components/Notifications/EventNotifications';
+import { cancelNotification } from '@src/components/Notifications/Notifications';
 
 const selectTags = (state: RootState) => state.auth.user?.tags;
 const selectEventGroups = (state: RootState) => state.events.eventGroups;
@@ -106,7 +109,7 @@ export const createEventGroup = async (event: Event) => {
   try {
     await uploadImages(event.images, event.groupKey);
     const groupDoc = doc(db, 'eventGroups', event.groupKey);
-    const group = {
+    let group = {
       key: event.groupKey,
       userID: event.userUid,
       active: true,
@@ -124,6 +127,17 @@ export const createEventGroup = async (event: Event) => {
       dates: getAllDates(event),
       completedEvents: [],
     };
+    const notificationId = await setupEventsGroupNotification(group, group.dates[0]);
+    if (notificationId) {
+      group = {
+        ...group,
+        notifications: {
+          ...group.notifications,
+          notificationId: notificationId,
+        },
+      };
+    }
+
     await setDoc(groupDoc, group);
     return group as EventGroup;
   } catch (error) {
@@ -165,7 +179,6 @@ export const getEventForGroupAndDate = async (
 ): Promise<Event> => {
   try {
     const group = selectEventsGroupByKey(store.getState(), groupKey);
-    console.log(group);
     if (!group) {
       throw new Error('Group does not exists');
     }
@@ -210,6 +223,10 @@ const updateGroupEvents = async (group: string, frequency: Frequency) => {
 
 export const updateEventsGroup = async (key: string, data: Partial<any>) => {
   try {
+    const group = selectEventsGroupByKey(store.getState(), key);
+    if (!group) {
+      throw new Error('Group does not exists');
+    }
     const ref = doc(db, 'eventGroups', key);
     const firebaseData = { ...data };
     if (data.tags) {
@@ -223,11 +240,23 @@ export const updateEventsGroup = async (key: string, data: Partial<any>) => {
       const uploadedImages = await uploadImages(newImages, `${key}`);
       firebaseData.images = [...oldImages.map(i => i.uri), ...uploadedImages.map(i => i.uri)];
     }
-    if (data.frequency) {
+    if (data.frequency || data.date) {
       firebaseData.dates = getAllDates({
-        frequency: data.frequency,
-        date: Timestamp.now(),
+        frequency: data.frequency ?? group.frequency,
+        date: data.date ?? group.dates[0],
       });
+      const notificationId = await setupEventsGroupNotification(group, firebaseData.dates[0]);
+      firebaseData.notifications = {
+        ...firebaseData.notifications,
+        notificationId: notificationId,
+      };
+    }
+    if (firebaseData.notifications?.enable === false) {
+      await cancelNotification(group.notifications.notificationId);
+      firebaseData.notifications = {
+        ...firebaseData.notifications,
+        notificationId: null,
+      };
     }
     await updateDoc(ref, firebaseData);
     return {

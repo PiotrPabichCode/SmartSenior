@@ -1,19 +1,32 @@
-import { Event } from '@src/models';
-import { NotificationProps } from './Notifications';
+import { EventGroup, Notifications } from '@src/models';
+import { NotificationProps, saveNotification } from './Notifications';
+import { Timestamp } from 'firebase/firestore';
 
-const createNotificationFromEvent = (event: Event): NotificationProps => {
+const createNotificationFromEventsGroup = (
+  group: EventGroup,
+  date: Timestamp,
+): NotificationProps => {
   return {
-    id: event.key,
-    title: event.title,
-    body: event.description,
-    data: event.createdAt,
-    displayBefore: event.notifications.timeBefore,
-    datetimeNotification: event.date!,
+    id: group.key,
+    title: group.title,
+    body: group.description ?? '',
+    data: {
+      groupKey: group.key,
+      date: date,
+    },
+    displayBefore: group.notifications.timeBefore ?? 0,
+    datetimeNotification: date,
   };
 };
 
-export async function addEventNotification(event: Event): Promise<void> {
+export async function setupEventsGroupNotification(
+  group: EventGroup,
+  date: Timestamp,
+): Promise<string> {
   try {
-    const notification = createNotificationFromEvent(event);
-  } catch (error) {}
+    const notification = createNotificationFromEventsGroup(group, date);
+    return await saveNotification(notification);
+  } catch (error) {
+    throw error;
+  }
 }

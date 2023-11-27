@@ -1,9 +1,6 @@
-import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import * as Notifications from 'expo-notifications';
 import { Timestamp } from 'firebase/firestore';
 import moment from 'moment';
-
-export const NOTIFICATIONS_LOCAL_STORAGE = '@notifications';
 
 export interface NotificationProps {
   id: string;
@@ -21,7 +18,15 @@ export interface NotificationStorageProps {
   };
 }
 
-export async function saveNotification(notification: NotificationProps): Promise<void> {
+export async function cancelNotification(notificationId: string): Promise<void> {
+  try {
+    await Notifications.cancelScheduledNotificationAsync(notificationId);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function saveNotification(notification: NotificationProps): Promise<string> {
   try {
     const displayBefore = notification.displayBefore * 60;
     const now = Timestamp.now().seconds;
@@ -29,24 +34,9 @@ export async function saveNotification(notification: NotificationProps): Promise
 
     const seconds = Math.abs(Math.ceil(now - notificationDatetime - displayBefore));
     const notificationId = await scheduleNotification(notification, seconds);
-
-    const storage = useLocalStorage(NOTIFICATIONS_LOCAL_STORAGE);
-
-    const data = await storage.getItem();
-    const oldNotifications = data ? (JSON.parse(data) as NotificationStorageProps) : {};
-
-    const newNotification = {
-      [notification.id]: {
-        data: notification,
-        notificationId,
-      },
-    };
-    await storage.setItem(
-      JSON.stringify({
-        ...newNotification,
-        ...oldNotifications,
-      }),
-    );
+    const date = moment().add({ seconds: seconds });
+    console.log(`Notification will trigger in ${date}`);
+    return notificationId;
   } catch (error: any) {
     throw new Error(error);
   }

@@ -1,6 +1,5 @@
 import { StyleSheet, View, Text, Platform } from 'react-native';
 import { Button, Divider } from '@rneui/themed';
-import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
@@ -8,9 +7,18 @@ import Colors from '@src/constants/Colors';
 import { useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import { Medicine } from '@src/models';
+import { useState } from 'react';
+import * as FileSystem from 'expo-file-system';
+import { StorageAccessFramework } from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
+import CustomToast from '@src/components/CustomToast';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import { Timestamp } from 'firebase/firestore';
+import { convertTimestampToDate } from '@src/utils/utils';
 
 const MedicineItemDetails = ({ route }: any) => {
   const theme = useAppSelector(state => selectTheme(state));
+  const [loading, setLoading] = useState(false);
   const currentTheme = Colors[theme];
   const renderDetail = (title: string, detail: string) => {
     return (
@@ -22,20 +30,39 @@ const MedicineItemDetails = ({ route }: any) => {
     );
   };
 
-  const downloadFromUrl = async (url: string | null, type: string) => {
-    if (!url) {
-      return;
-    }
-    const filename = type + '-' + new Date() + '.pdf';
-    const result = await FileSystem.downloadAsync(url, FileSystem.documentDirectory + filename);
+  if (loading) {
+    return <CustomActivityIndicator />;
+  }
 
-    save(result.uri, filename, 'application/pdf');
+  const downloadFromUrl = async (url: string | null, type: string, title: string) => {
+    try {
+      if (!url) {
+        return;
+      }
+      setLoading(true);
+      const filename = `${type}-${title}${convertTimestampToDate(
+        Timestamp.now(),
+        'DD-MM-YYYY HH:mm:ss',
+      )}.pdf`.replace(/[\s,%]/g, '');
+      console.log(filename);
+      const result = await FileSystem.downloadAsync(url, FileSystem.documentDirectory + filename);
+      console.log(result);
+
+      await save(result.uri, filename, 'application/pdf');
+      CustomToast('success', t('medicineItem.download'));
+    } catch (error) {
+      CustomToast('error', t('medicineItem.downloadNoPermission'));
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const save = async (uri: any, filename: any, mimetype: any) => {
     if (Platform.OS === 'android') {
       const permissions =
         await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+      console.log(permissions);
       if (permissions.granted) {
         const base64 = await FileSystem.readAsStringAsync(uri, {
           encoding: FileSystem.EncodingType.Base64,
@@ -52,7 +79,7 @@ const MedicineItemDetails = ({ route }: any) => {
           })
           .catch(e => console.log(e));
       } else {
-        shareAsync(uri);
+        throw new Error('Permission not granted');
       }
     } else {
       shareAsync(uri);
@@ -80,14 +107,16 @@ const MedicineItemDetails = ({ route }: any) => {
             titleStyle={styles.buttonTitle}
             containerStyle={styles.buttonContainer}
             buttonStyle={styles.buttonStyle}
-            onPress={() => downloadFromUrl(medicine.leafletUrl, 'ulotka')}
+            onPress={() => downloadFromUrl(medicine.leafletUrl, 'ulotka', medicine.productName)}
           />
           <Button
             title={t('medicineItem.characteristic')}
             titleStyle={styles.buttonTitle}
             containerStyle={styles.buttonContainer}
             buttonStyle={styles.buttonStyle}
-            onPress={() => downloadFromUrl(medicine.characteristicUrl, 'charakterystyka')}
+            onPress={() =>
+              downloadFromUrl(medicine.leafletUrl, 'charakterystyka', medicine.productName)
+            }
           />
         </View>
       )}

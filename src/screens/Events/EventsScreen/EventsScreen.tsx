@@ -7,12 +7,13 @@ import { goBack } from '@src/navigation/navigationUtils';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
-import { Text } from '@rneui/themed';
+import { CheckBox, Switch, Text } from '@rneui/themed';
 import { EventGroup, Frequency, Tags } from '@src/models';
 import { Timestamp } from 'firebase/firestore';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
-import NewEventItem from './NewEventItem';
 import { createTags } from '@src/redux/events/events.api';
+import { CompletedEvents, DelayedEvents, UpcomingEvents } from './components';
+import { t } from '@src/localization/Localization';
 
 interface EventItem {
   groupKey: string;
@@ -23,15 +24,20 @@ interface EventItem {
   completed?: boolean;
 }
 
-type EventItems = EventItem[];
+export type EventItems = EventItem[];
 
 const EventsScreen = ({ route, navigation }: EventsGroupScreenProps) => {
   const { groupKey } = route.params;
   const eventsGroup = useAppSelector(state => selectEventsGroupByKey(state, groupKey));
-  const [eventItems, setEventItems] = useState<EventItems>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<EventItems>([]);
+  const [completedEvents, setCompletedEvents] = useState<EventItems>([]);
+  const [delayedEvents, setDelayedEvents] = useState<EventItems>([]);
   const [isReady, setIsReady] = useState<boolean>(false);
   const theme = useAppSelector(state => selectTheme(state));
   const styles = Colors[theme];
+
+  const [showDelayedEvents, setShowDelayedEvents] = useState<boolean>(false);
+  const [showCompletedEvents, setShowCompletedEvents] = useState<boolean>(false);
 
   if (!eventsGroup) {
     goBack();
@@ -52,7 +58,14 @@ const EventsScreen = ({ route, navigation }: EventsGroupScreenProps) => {
           completed: eventsGroup.completedEvents.findIndex(d => d.isEqual(date)) !== -1,
         });
       }
-      setEventItems(eventItems);
+      const completedEvents = eventItems.filter(e => e.completed);
+      setCompletedEvents(completedEvents);
+      const delayedEvents = eventItems.filter(e => e.date.toMillis() < Timestamp.now().toMillis());
+      setDelayedEvents(delayedEvents);
+      const upcomingEvents = eventItems.filter(
+        e => e.date.toMillis() >= Timestamp.now().toMillis() && !e.completed,
+      );
+      setUpcomingEvents(upcomingEvents);
       setIsReady(true);
     };
 
@@ -63,26 +76,30 @@ const EventsScreen = ({ route, navigation }: EventsGroupScreenProps) => {
     return <CustomActivityIndicator />;
   }
 
-  const mapEventItems = eventItems.map((e, index) => {
-    return (
-      <NewEventItem
-        key={index}
-        groupKey={e.groupKey}
-        title={e.title}
-        date={e.date}
-        active={e.active}
-        tags={e.tags}
-        completed={e.completed}
-      />
-    );
-  });
-
   return (
     <CustomScrollContainer theme={styles}>
       <Text h2 numberOfLines={1} adjustsFontSizeToFit>
         {eventsGroup.title}
       </Text>
-      {mapEventItems}
+      <View style={{ alignItems: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
+        <CheckBox
+          checked={showDelayedEvents}
+          title={t('eventGroups.delayedEventsTitle')}
+          onPress={() => setShowDelayedEvents(!showDelayedEvents)}
+          textStyle={{ fontSize: 11 }}
+          containerStyle={{ backgroundColor: 'transparent' }}
+        />
+        <CheckBox
+          checked={showCompletedEvents}
+          title={t('eventGroups.completedEventsTitle')}
+          onPress={() => setShowCompletedEvents(!showCompletedEvents)}
+          textStyle={{ fontSize: 11 }}
+          containerStyle={{ backgroundColor: 'transparent' }}
+        />
+      </View>
+      <DelayedEvents visible={showDelayedEvents} events={delayedEvents} />
+      <CompletedEvents visible={showCompletedEvents} events={completedEvents} />
+      <UpcomingEvents visible={true} events={upcomingEvents} />
     </CustomScrollContainer>
   );
 };

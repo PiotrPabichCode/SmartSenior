@@ -19,7 +19,7 @@ import { selectUser } from '@src/redux/auth/auth.slice';
 import SeniorDashboard from '@src/screens/Account/ConnectedUsers/SeniorDashboard';
 import AddTag from '@src/screens/Account/Tags/AddTag';
 import FilterPanel from '@src/components/FilterPanel/FilterPanel';
-import EventsScreen from '@src/screens/Events/EventsScreen';
+import EventsScreen from '@src/screens/Events/EventsScreen/EventsScreen';
 import EventsGroupDetails from '@src/screens/Events/EventsGroupDetails';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

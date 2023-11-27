@@ -37,7 +37,8 @@ const HomeScreen = () => {
       for (const group of eventGroups) {
         let i = 0;
         const tags = createTags(group.tags);
-        for (const date of group.dates) {
+        const dates = group.dates.filter(d => d.toMillis() >= Timestamp.now().toMillis());
+        for (const date of dates) {
           if (i === 4) {
             break;
           }

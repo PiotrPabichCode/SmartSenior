@@ -7,6 +7,7 @@ import { Timestamp } from 'firebase/firestore';
 
 export interface EventsState {
   eventGroups: EventGroups;
+  completedEvents: Events;
   events: Events;
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string;
@@ -14,6 +15,7 @@ export interface EventsState {
 
 const initialState: EventsState = {
   eventGroups: [],
+  completedEvents: [],
   events: [],
   status: 'idle',
   error: '',

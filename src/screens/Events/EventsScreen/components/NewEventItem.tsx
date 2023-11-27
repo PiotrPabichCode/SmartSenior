@@ -17,6 +17,24 @@ type Props = {
 };
 
 const NewEventItem = ({ groupKey, title, date, tags, active, completed }: Props) => {
+  const renderLabel = () => {
+    if (completed) {
+      return t('eventGroups.completedEvent', {
+        title: title,
+      });
+    }
+    if (date.toMillis() < Timestamp.now().toMillis()) {
+      return t('eventGroups.delayedEvent', {
+        title: title,
+      });
+    }
+    if (!completed) {
+      return t('eventGroups.upcomingEvent', {
+        title: title,
+      });
+    }
+  };
+
   return (
     <>
       <View style={{ height: 1, backgroundColor: 'black', width: '100%' }} />
@@ -35,15 +53,7 @@ const NewEventItem = ({ groupKey, title, date, tags, active, completed }: Props)
             date: date,
           })
         }>
-        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
-          {completed
-            ? t('eventGroups.completedEvent', {
-                title: title,
-              })
-            : t('eventGroups.upcomingEvent', {
-                title: title,
-              })}
-        </Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{renderLabel()}</Text>
         <View
           style={{
             flexGrow: 1,
@@ -74,12 +84,12 @@ const NewEventItem = ({ groupKey, title, date, tags, active, completed }: Props)
             {active ? (
               <>
                 <Icons name={'active-tick'} />
-                <Text style={{ fontWeight: '700', color: 'green' }}>Aktywne</Text>
+                <Text style={{ fontWeight: '700', color: 'green' }}>{t('eventGroups.active')}</Text>
               </>
             ) : (
               <>
                 <Icons name={'active-untick'} />
-                <Text style={{ fontWeight: '700', color: 'red' }}>Nieaktywne</Text>
+                <Text style={{ fontWeight: '700', color: 'red' }}>{t('eventGroups.inactive')}</Text>
               </>
             )}
           </View>

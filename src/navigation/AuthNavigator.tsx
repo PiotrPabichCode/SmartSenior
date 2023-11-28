@@ -1,9 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import AccountItemDetailsScreen from '@screens/Account/AccountItemDetailsScreen';
-import MedicinesScreen from '@screens/Medicines/MedicinesScreen';
-import MedicineItemDetails from '@screens/Medicines/MedicineItemDetails';
 import { PharmaciesScreen, PharmacyItemDetails } from '@src/screens/Pharmacies';
+import { MedicinesScreen, MedicineItemDetails } from '@src/screens/Medicines';
 import CreateEventScreen from '@screens/Events/CreateEventScreen';
 import FirstLoginWizard from '@screens/Auth/FirstLoginWizard';
 

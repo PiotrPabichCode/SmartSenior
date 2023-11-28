@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, Alert } from 'react-native';
 import MedicineItem from './MedicineItem';
 import { Formik } from 'formik';
-import { buildRequest } from '@utils/utils';
+import { buildApiRequest } from '@utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
@@ -14,18 +14,24 @@ import { selectTheme } from '@src/redux/auth/auth.slice';
 import { Medicine, Medicines } from '@src/models';
 import { addMedicine, deleteMedicine } from '@src/redux/medicines/medicines.actions';
 import CustomToast from '@src/components/CustomToast';
-import { selectMedicines } from '@src/redux/medicines/medicines.slice';
+import { selectMedicines, selectMedicinesStatus } from '@src/redux/medicines/medicines.slice';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 
 const MedicinesScreen = () => {
   const dispatch = useAppDispatch();
   const [apiMedicines, setApiMedicines] = useState<Medicines>([]);
   const theme = useAppSelector(state => selectTheme(state));
   const medicines = useAppSelector(state => selectMedicines(state));
+  const status = useAppSelector(state => selectMedicinesStatus(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(currentTheme);
 
   const BASE_URL = 'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/';
   const BASE_SEARCH_URL = BASE_URL + 'search/public?specimenTypeEnum=L&';
+
+  if (status === 'pending') {
+    return <CustomActivityIndicator />;
+  }
 
   const loadData = async (request: string) => {
     try {
@@ -96,7 +102,7 @@ const MedicinesScreen = () => {
         initialValues={{ name: '' }}
         onSubmit={params => {
           try {
-            const request = buildRequest(BASE_SEARCH_URL, params);
+            const request = buildApiRequest(BASE_SEARCH_URL, params);
             loadData(request);
           } catch (e) {
             console.log(e);

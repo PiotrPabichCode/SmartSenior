@@ -9,8 +9,6 @@ import { selectTheme } from '@src/redux/auth/auth.slice';
 import { Medicine } from '@src/models';
 import { useState } from 'react';
 import * as FileSystem from 'expo-file-system';
-import { StorageAccessFramework } from 'expo-file-system';
-import * as MediaLibrary from 'expo-media-library';
 import CustomToast from '@src/components/CustomToast';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { Timestamp } from 'firebase/firestore';

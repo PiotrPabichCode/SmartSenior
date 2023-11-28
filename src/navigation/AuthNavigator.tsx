@@ -3,8 +3,7 @@ import { RootStackParamList } from './types';
 import AccountItemDetailsScreen from '@screens/Account/AccountItemDetailsScreen';
 import MedicinesScreen from '@screens/Medicines/MedicinesScreen';
 import MedicineItemDetails from '@screens/Medicines/MedicineItemDetails';
-import PharmaciesScreen from '@screens/Pharmacies/PharmaciesScreen';
-import PharmacyItemDetails from '@screens/Pharmacies/PharmacyItemDetails';
+import { PharmaciesScreen, PharmacyItemDetails } from '@src/screens/Pharmacies';
 import CreateEventScreen from '@screens/Events/CreateEventScreen';
 import FirstLoginWizard from '@screens/Auth/FirstLoginWizard';
 
@@ -134,7 +133,11 @@ const AuthNavigator = () => {
         component={FilterPanel}
         options={({ route }) => ({
           header: () => (
-            <CustomHeader title={'Panel filtrów'} filter={true} filters={route?.params?.filters} />
+            <CustomHeader
+              title={t('filterPanel.label')}
+              filter={true}
+              filters={route?.params?.filters}
+            />
           ),
           presentation: 'transparentModal',
           animation: 'slide_from_right',

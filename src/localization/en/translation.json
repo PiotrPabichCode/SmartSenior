@@ -441,13 +441,15 @@
     "deleteQuestion": "Do you want to delete the selected photo from the list?"
   },
   "filterPanel": {
+    "label": "Filter panel",
     "dateFromEmpty": "Select start date",
     "dateFrom": "Start date: {{date}}",
     "dateToEmpty": "Select end date",
     "dateTo": "End date: {{date}}",
     "selectTitle": "Select titles from list",
     "submit": "Apply Filters",
-    "delete": "Remove Filters"
+    "delete": "Remove Filters",
+    "activeEvents": "Active events"
   },
   "locationAlertTitle": "Opening Location in Google Maps",
   "locationAlertQuestion": "User's provided location: {{address}}. Do you want to open the location in Google Maps?",

@@ -440,13 +440,15 @@
     "deleteQuestion": "Czy chcesz usunąć wybrane zdjęcie z listy?"
   },
   "filterPanel": {
+    "label": "Panel filtrów",
     "dateFromEmpty": "Wybierz datę rozpoczęcia",
     "dateFrom": "Data rozpoczęcia: {{date}}",
     "dateToEmpty": "Wybierz datę zakończenia",
     "dateTo": "Data zakończenia: {{date}}",
     "selectTitle": "Wybierz tytuły z listy",
     "submit": "Zastosuj filtry",
-    "delete": "Usuń filtry"
+    "delete": "Usuń filtry",
+    "activeEvents": "Wydarzenia aktywne"
   },
   "locationAlertTitle": "Otworzenie lokalizacji w mapach Google",
   "locationAlertQuestion": "Podana lokalizacja użytkownika: {{address}}. Czy chcesz otworzyć lokalizację w mapach Google?",

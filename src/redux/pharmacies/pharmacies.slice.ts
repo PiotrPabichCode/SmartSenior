@@ -39,9 +39,23 @@ export const pharmaciesSlice = createSlice({
       })
       .addCase(action.deletePharmacy.fulfilled, (state, action: PayloadAction<string>) => {
         state.pharmacies = state.pharmacies.filter(m => m.key !== action.payload);
+        state.status = 'succeeded';
+      })
+      .addCase(action.deletePharmacy.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.deletePharmacy.rejected, state => {
+        state.status = 'failed';
       })
       .addCase(action.addPharmacy.fulfilled, (state, action: PayloadAction<Pharmacy>) => {
         state.pharmacies = [...state.pharmacies, action.payload];
+        state.status = 'succeeded';
+      })
+      .addCase(action.addPharmacy.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.addPharmacy.rejected, state => {
+        state.status = 'failed';
       });
   },
 });

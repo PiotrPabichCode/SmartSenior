@@ -134,7 +134,7 @@ const FilterPanel = ({ route }: any) => {
                 alignItems: 'center',
                 justifyContent: 'space-around',
               }}>
-              <Text h4>Wydarzenia aktywne</Text>
+              <Text h4>{t('filterPanel.activeEvents')}</Text>
               <Switch
                 value={values.active}
                 onTouchStart={() => setFieldValue('active', !values.active)}

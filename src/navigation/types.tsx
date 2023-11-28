@@ -1,6 +1,6 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { EventGroups, Events } from '@src/models';
+import { EventGroups, Events, Pharmacy } from '@src/models';
 import { Timestamp } from 'firebase/firestore';
 
 export type RootStackParamList = {
@@ -30,7 +30,7 @@ export type RootStackParamList = {
   };
   Pharmacies: undefined;
   PharmaciesItemDetails: {
-    item: any;
+    pharmacy: Pharmacy;
   };
   CreateEvent: undefined;
   EventItem: {
@@ -70,4 +70,8 @@ export type EventsGroupScreenProps = NativeStackScreenProps<RootStackParamList, 
 export type EventsGroupDetailsProps = NativeStackScreenProps<
   RootStackParamList,
   'EventsGroupDetails'
+>;
+export type PharmacyItemScreenDetails = NativeStackScreenProps<
+  RootStackParamList,
+  'PharmaciesItemDetails'
 >;

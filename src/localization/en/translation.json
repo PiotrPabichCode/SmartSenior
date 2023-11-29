@@ -43,7 +43,8 @@
       "passwordMinLength": "Password should have at least 6 characters",
       "invalidPhoneNumber": "Invalid phone number provided",
       "updateAccountData": "Failed to update personal data",
-      "keeperNoPhone": "The caretaker did not provide a phone number."
+      "keeperNoPhone": "The caretaker did not provide a phone number.",
+      "locationNotAvailable": "Location not available yet"
     }
   },
   "speedDial": {
@@ -525,6 +526,12 @@
       "friday": "Fri.",
       "saturday": "Sat.",
       "sunday": "Sun."
+    }
+  },
+  "firebaseMessage": {
+    "error": {
+      "auth/wrong-password": "The current password is incorrect",
+      "auth/too-many-requests": "Too many attempts. Please try again later"
     }
   }
 }

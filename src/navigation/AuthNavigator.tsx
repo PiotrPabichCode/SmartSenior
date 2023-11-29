@@ -1,22 +1,24 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
-import AccountItemDetailsScreen from '@screens/Account/AccountItemDetailsScreen';
 import { PharmaciesScreen, PharmacyItemDetails } from '@src/screens/Pharmacies';
 import { MedicinesScreen, MedicineItemDetails } from '@src/screens/Medicines';
 import CreateEventScreen from '@screens/Events/CreateEventScreen';
 import FirstLoginWizard from '@screens/Auth/FirstLoginWizard';
+import {
+  AddConnectedUser,
+  AddTag,
+  SeniorDashboard,
+  AccountItemDetailsScreen,
+} from '@src/screens/Account';
 
 import BottomBarNavigator from './BottomBarNavigator';
 import CustomHeader from '@components/CustomHeader';
 import EventItemScreen from '@src/screens/Events/EventItemScreen';
 import { t } from '@src/localization/Localization';
-import AddConnectedUser from '@src/screens/Account/ConnectedUsers/AddConnectedUser';
 import { validateUserData } from '@src/redux/auth/auth.api';
 import { useAppSelector } from '@src/redux/types';
 import { selectUser } from '@src/redux/auth/auth.slice';
-import SeniorDashboard from '@src/screens/Account/ConnectedUsers/SeniorDashboard';
-import AddTag from '@src/screens/Account/Tags/AddTag';
-import FilterPanel from '@src/components/FilterPanel/FilterPanel';
+import FilterPanel from '@src/components/FilterPanel';
 import EventsScreen from '@src/screens/Events/EventsScreen/EventsScreen';
 import EventsGroupDetails from '@src/screens/Events/EventsGroupDetails';
 

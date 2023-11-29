@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import { Tags } from '@src/models';
 import { t } from '@src/localization/Localization';
-import Tag from '@src/screens/Account/Tags/Tag';
+import TagCard from '@src/screens/Account/modules/AccountItemDetailsScreen/AccountTags/TagCard';
 
 type Props = {
   selectedTags: Tags;
@@ -19,7 +19,7 @@ const TagsDisplay = ({ selectedTags, fieldName, onPress, disabled }: Props) => {
         </Text>
         {selectedTags.map((tag, index) => {
           return (
-            <Tag
+            <TagCard
               key={index}
               color={tag.color}
               name={tag.name}

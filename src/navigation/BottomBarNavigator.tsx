@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AccountScreen from '@screens/Account/AccountScreen';
 import EventsGroupScreen from '@src/screens/Events/EventsGroupScreen';
+import { AccountScreen } from '@src/screens/Account';
 import HomeScreen from '@src/screens/Home';
 import ChatScreen from '@src/screens/Chat';
 
@@ -8,7 +8,7 @@ import { BottomBarParamList } from './types';
 import { renderIcon } from '@src/components/Icons';
 import CustomHeader from '@components/CustomHeader';
 import SpeedDialMenu from '@src/components/SpeedDialMenu';
-import AgendaScreen from '@src/screens/Calendar/AgendaScreen';
+import AgendaScreen from '@src/screens/Calendar';
 import { t } from '@src/localization/Localization';
 import { navigationRef } from './navigationUtils';
 import { useAppSelector } from '@src/redux/types';

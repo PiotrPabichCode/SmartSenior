@@ -43,7 +43,8 @@
       "passwordMinLength": "Hasło powinno mieć co najmniej 6 znaków",
       "invalidPhoneNumber": "Podano nieprawidłowy numer telefonu",
       "updateAccountData": "Nie udało się zaaktulizować danych osobowych",
-      "keeperNoPhone": "Opiekun nie udzielił numeru kontaktowego."
+      "keeperNoPhone": "Opiekun nie udzielił numeru kontaktowego.",
+      "locationNotAvailable": "Lokalizacja niedostępna"
     }
   },
   "speedDial": {
@@ -530,6 +531,12 @@
       "friday": "pt.",
       "saturday": "sob.",
       "sunday": "niedz."
+    }
+  },
+  "firebaseMessage": {
+    "error": {
+      "auth/wrong-password": "Obecne hasło jest niepoprawne",
+      "auth/too-many-requests": "Zbyt wiele prób. Spróbuj ponownie później"
     }
   }
 }

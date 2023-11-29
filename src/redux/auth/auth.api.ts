@@ -228,10 +228,10 @@ export const changePassword = async (currentPassword: string, newPassword: strin
     const firebaseError = error as FirebaseError;
     const code = firebaseError.code;
     if (code === 'auth/wrong-password') {
-      CustomToast('error', 'Obecne hasło jest niepoprawne');
+      CustomToast('error', t('firebaseMessage.error.auth/wrong-password'));
     }
     if (code === 'auth/too-many-requests') {
-      CustomToast('error', 'Zbyt wiele prób. Spróbuj ponownie później');
+      CustomToast('error', t('firebaseMessage.error.auth/too-many-requests'));
     }
     throw error;
   }
@@ -412,7 +412,7 @@ export const getSeniorLocation = async (seniorID: string) => {
   const q = query(_collection, orderBy('timestamp', 'desc'), limit(1));
   const snapshot = await getDocs(q);
   if (snapshot.empty) {
-    CustomToast('error', 'Location not available yet');
+    CustomToast('error', t('message.error.locationNotAvailable'));
     return;
   }
   const location = snapshot.docs[0].data() as UserLocation;

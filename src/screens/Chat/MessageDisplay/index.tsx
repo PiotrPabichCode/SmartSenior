@@ -1,22 +1,15 @@
-import { useCallback, useState, useLayoutEffect } from 'react';
+import React, { useCallback, useState, useLayoutEffect } from 'react';
 import { db } from 'firebaseConfig';
 import { collection, addDoc, query, orderBy, onSnapshot, limit } from 'firebase/firestore';
-import { GiftedChat } from 'react-native-gifted-chat';
-import { IMessage } from 'react-native-gifted-chat';
-import ChatList from './ChatList';
+import { GiftedChat, IMessage } from 'react-native-gifted-chat';
 import { useAppSelector } from '@src/redux/types';
 import { selectActiveChat } from '@src/redux/chats/chats.slice';
 import { selectUser } from '@src/redux/auth/auth.slice';
-import EmptyChat from './EmptyChat';
+import ChatList from './ChatList';
 
-const ChatScreen = () => {
-  const activeChat = useAppSelector(state => selectActiveChat(state));
-  const user = useAppSelector(state => selectUser(state));
+// New functional component for fetching and displaying messages
+const MessageDisplay = ({ activeChat }: { activeChat: any }) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
-
-  if (!activeChat) {
-    return <EmptyChat />;
-  }
 
   useLayoutEffect(() => {
     console.log(activeChat);
@@ -60,6 +53,8 @@ const ChatScreen = () => {
     [activeChat],
   );
 
+  const user = useAppSelector(state => selectUser(state));
+
   return (
     <>
       <ChatList />
@@ -76,4 +71,4 @@ const ChatScreen = () => {
   );
 };
 
-export default ChatScreen;
+export default MessageDisplay;

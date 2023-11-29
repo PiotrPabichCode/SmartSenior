@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { changeActiveChat } from '@src/redux/chats/chats.slice';
 import { useAppDispatch } from '@src/redux/types';
 import { ChatUser as User } from '@src/models';
+import { useStyles } from './styles';
 
 const ChatUser = ({ user, active, single }: { user: User; active: boolean; single?: boolean }) => {
   const dispatch = useAppDispatch();
+  const styles = useStyles();
 
   if (single) {
     return (
@@ -23,19 +25,5 @@ const ChatUser = ({ user, active, single }: { user: User; active: boolean; singl
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  label: { fontSize: 22, fontWeight: '500' },
-  container: {
-    backgroundColor: 'lightblue',
-    flex: 1,
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 25,
-    borderColor: 'blue',
-    borderWidth: 1,
-  },
-});
 
 export default ChatUser;

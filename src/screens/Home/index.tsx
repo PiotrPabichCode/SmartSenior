@@ -1,5 +1,4 @@
-import { Text, StyleSheet } from 'react-native';
-import UpcomingEvents from '@src/screens/Home/UpcomingEvents';
+import { Text } from 'react-native';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
@@ -9,18 +8,12 @@ import { useAppSelector } from '@src/redux/types';
 import { selectEventGroups } from '@src/redux/events/events.slice';
 import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
 import { useEffect, useState } from 'react';
-import { EventGroups, Tags } from '@src/models';
+import { EventGroups } from '@src/models';
 import { Timestamp } from 'firebase/firestore';
 import { createTags } from '@src/redux/events/events.api';
-
-interface UpcomingEventItem {
-  groupKey: string;
-  title: string;
-  date: Timestamp;
-  tags: Tags;
-}
-
-export type UpcomingEventItems = UpcomingEventItem[];
+import { UpcomingEventItems } from './types';
+import UpcomingEvents from './UpcomingEvents';
+import { useStyles } from './styles';
 
 const HomeScreen = () => {
   const eventGroups = useAppSelector(state => selectEventGroups(state));
@@ -29,6 +22,7 @@ const HomeScreen = () => {
   const user = useAppSelector(state => selectUser(state));
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
+  const styles = useStyles();
 
   useEffect(() => {
     const prepareUpcomingEvents = (eventGroups: EventGroups) => {
@@ -79,20 +73,10 @@ const HomeScreen = () => {
           name: user.firstName,
         })}
       </Text>
-      <UpcomingEvents events={upcomingEvents} />
+      <UpcomingEvents upcomingEvents={upcomingEvents} />
       <HomeButtons />
     </CustomScrollContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  welcomeText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-    color: Colors.black,
-  },
-});
 
 export default HomeScreen;

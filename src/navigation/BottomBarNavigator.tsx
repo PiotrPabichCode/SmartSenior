@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AccountScreen from '@screens/Account/AccountScreen';
 import EventsGroupScreen from '@src/screens/Events/EventsGroupScreen';
-import HomeScreen from '@src/screens/Home/HomeScreen';
+import HomeScreen from '@src/screens/Home';
+import ChatScreen from '@src/screens/Chat';
 
 import { BottomBarParamList } from './types';
 import { renderIcon } from '@src/components/Icons';
@@ -9,7 +10,6 @@ import CustomHeader from '@components/CustomHeader';
 import SpeedDialMenu from '@src/components/SpeedDialMenu';
 import AgendaScreen from '@src/screens/Calendar/AgendaScreen';
 import { t } from '@src/localization/Localization';
-import ChatScreen from '@src/screens/Chat/ChatScreen';
 import { navigationRef } from './navigationUtils';
 import { useAppSelector } from '@src/redux/types';
 import { selectChatsUnseenMessages } from '@src/redux/chats/chats.slice';

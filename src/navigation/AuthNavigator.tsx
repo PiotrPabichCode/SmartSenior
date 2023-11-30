@@ -3,7 +3,6 @@ import { RootStackParamList } from './types';
 import { PharmaciesScreen, PharmacyItemDetails } from '@src/screens/Pharmacies';
 import { MedicinesScreen, MedicineItemDetails } from '@src/screens/Medicines';
 import CreateEventScreen from '@screens/Events/CreateEventScreen';
-import FirstLoginWizard from '@screens/Auth/FirstLoginWizard';
 import {
   AddConnectedUser,
   AddTag,
@@ -11,6 +10,7 @@ import {
   AccountItemDetailsScreen,
 } from '@src/screens/Account';
 
+import { FirstLoginWizard } from '@src/screens/Auth';
 import BottomBarNavigator from './BottomBarNavigator';
 import CustomHeader from '@components/CustomHeader';
 import EventItemScreen from '@src/screens/Events/EventItemScreen';

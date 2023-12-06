@@ -27,6 +27,7 @@ const HomeButtons = () => {
         icon={<Icons name="pharmacy" color="black" />}
       />
       <CustomButton
+        onPress={() => navigate('Notes')}
         title={t('homeScreen.button.title.notes')}
         color={'black'}
         backgroundColor={currentTheme.customBtnBackground}

@@ -9,7 +9,10 @@
     "pharmaciesItemDetails": "Apteka - opis",
     "createEvent": "Wydarzenie",
     "eventItem": "Wydarzenie",
-    "eventsGroup": "Wydarzenia - grupa"
+    "eventsGroup": "Wydarzenia - grupa",
+    "notes": "Notatki",
+    "noteDetails": "Szczegóły notatki",
+    "createNote": "Tworzenie notatki"
   },
   "bottomNav": {
     "home": "Strona główna",
@@ -30,7 +33,9 @@
       "updateTag": "Zaaktulizowano znacznik",
       "updatePassword": "Zmieniono hasło logowania",
       "updateEmail": "Prośba o zmianę adresu e-mail została wysłana",
-      "updateAccountData": "Zaaktualizowano dane osobowe"
+      "updateAccountData": "Zaaktualizowano dane osobowe",
+      "addNote": "Dodano nową notatkę",
+      "updateNote": "Zaaktualizowano notatkę"
     },
     "error": {
       "addConnectedUser": "Nie udało się dodać nowego seniora",
@@ -49,7 +54,8 @@
   },
   "speedDial": {
     "addEvent": "Dodaj wydarzenie",
-    "addSenior": "Dodaj seniora"
+    "addSenior": "Dodaj seniora",
+    "addNote": "Dodaj notatkę"
   },
   "medicines": {
     "title": "Lista leków",
@@ -480,6 +486,19 @@
   "medicinesList": "Lista leków",
   "pharmaciesList": "Lista aptek",
   "notes": "Twoje notatki",
+  "emptyNotesDescription": "Dodaj swoją osobistą notatkę, aby zawsze mieć pod ręką ważne informacje i wspomnienia. Twoje notatki są kluczem do pamięci - dzięki nim łatwiej będzie Ci przypomnieć sobie wszystko, co dla Ciebie istotne.",
+  "emptyNotesButton": "Dodaj nową notatkę",
+  "noteTitle": "Tytuł notatki",
+  "noteTitlePlaceholder": "Podaj tytuł notatki...",
+  "noteDescription": "Opis notatki",
+  "noteDescriptionPlaceholder": "Podaj opis notatki...",
+  "createNoteButton": "Utwórz notatkę",
+  "updateNoteButton": "Zaaktualizuj notatkę",
+  "notesPerLine1": "1 notatka w linii",
+  "notesPerLine2": "2 notatki w linii",
+  "yourNotes": "Twoje notatki",
+  "createdAt": "Utworzono:",
+  "updatedAt": "Zaaktualizowano:",
   "genders": {
     "male": "Mężczyzna",
     "female": "Kobieta",
@@ -533,6 +552,13 @@
       "sunday": "niedz."
     }
   },
+  "sortBy": "Sortuj według",
+  "sortType": "Typ sortowania",
+  "ascending": "Rosnąco",
+  "descending": "Malejąco",
+  "updatedAtSort": "Data aktualizacji",
+  "createdAtSort": "Data utworzenia",
+  "titleSort": "Tytuł",
   "firebaseMessage": {
     "error": {
       "auth/wrong-password": "Obecne hasło jest niepoprawne",

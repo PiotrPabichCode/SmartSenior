@@ -9,7 +9,10 @@
     "pharmaciesItemDetails": "Pharmacy - Description",
     "createEvent": "Event",
     "eventItem": "Event",
-    "eventsGroup": "Events - group"
+    "eventsGroup": "Events - group",
+    "notes": "Notes",
+    "noteDetails": "Note details",
+    "createNote": "Note - create"
   },
   "bottomNav": {
     "home": "Home",
@@ -30,7 +33,9 @@
       "updateTag": "Updated tag",
       "updatePassword": "Password changed successfully",
       "updateEmail": "Request to change email address has been sent",
-      "updateAccountData": "Personal data has been updated"
+      "updateAccountData": "Personal data has been updated",
+      "addNote": "Added a new note",
+      "updateNote": "Updated note"
     },
     "error": {
       "addConnectedUser": "Failed to add a new senior",
@@ -49,7 +54,8 @@
   },
   "speedDial": {
     "addEvent": "Add Event",
-    "addSenior": "Add Senior"
+    "addSenior": "Add Senior",
+    "addNote": "Add Note"
   },
   "medicines": {
     "title": "Medicines",
@@ -481,6 +487,19 @@
   "medicinesList": "Medicines",
   "pharmaciesList": "Pharmacies",
   "notes": "Your Notes",
+  "emptyNotesDescription": "Add your personal note to always have important information and memories at hand. Your notes are the key to memory - they'll make it easier for you to recall everything that's important to you.",
+  "emptyNotesButton": "Add a new note",
+  "noteTitle": "Note Title",
+  "noteTitlePlaceholder": "Enter note title...",
+  "noteDescription": "Note description",
+  "noteDescriptionPlaceholder": "Enter note description...",
+  "createNoteButton": "Create a note",
+  "updateNoteButton": "Update a note",
+  "notesPerLine1": "1 note per line",
+  "notesPerLine2": "2 notes per line",
+  "createdAt": "Created at:",
+  "updatedAt": "Updated at:",
+  "yourNotes": "Your notes",
   "genders": {
     "male": "Male",
     "female": "Female",
@@ -528,6 +547,13 @@
       "sunday": "Sun."
     }
   },
+  "sortBy": "Sort by",
+  "sortType": "Sort type",
+  "ascending": "Ascending",
+  "descending": "Descending",
+  "updatedAtSort": "Updated at",
+  "createdAtSort": "Created at",
+  "titleSort": "Title",
   "firebaseMessage": {
     "error": {
       "auth/wrong-password": "The current password is incorrect",

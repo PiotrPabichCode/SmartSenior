@@ -32,6 +32,11 @@ export type RootStackParamList = {
   PharmaciesItemDetails: {
     pharmacy: Pharmacy;
   };
+  Notes: undefined;
+  NoteDetails: {
+    key: string;
+  };
+  CreateNote: undefined;
   CreateEvent: undefined;
   EventItem: {
     groupKey: string;
@@ -79,3 +84,5 @@ export type MedicineItemScreenDetails = NativeStackScreenProps<
   RootStackParamList,
   'MedicinesItemDetails'
 >;
+
+export type NoteDetailsProps = NativeStackScreenProps<RootStackParamList, 'NoteDetails'>;

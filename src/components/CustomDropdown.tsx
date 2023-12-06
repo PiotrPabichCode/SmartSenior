@@ -36,7 +36,7 @@ const CustomDropdown = (props: any) => {
   };
 
   return (
-    <View collapsable={false} ref={dropdownRef} style={{ width: '95%' }}>
+    <View collapsable={false} ref={dropdownRef} style={[{ width: '95%' }, props.viewStyle]}>
       <Dropdown
         style={styles.dropdown}
         placeholderStyle={styles.placeholderStyle}

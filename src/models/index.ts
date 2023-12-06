@@ -16,6 +16,7 @@ import { Pharmacy, Pharmacies } from './Pharmacy';
 import { Image, Images } from './Image';
 import { Frequency } from './Frequency';
 import { Notifications } from './Notifications';
+import { Note, Notes } from './Note';
 
 export {
   User,
@@ -50,4 +51,6 @@ export {
   Images,
   Frequency,
   Notifications,
+  Note,
+  Notes,
 };

@@ -26,6 +26,8 @@ import { clearPharmacies } from '@src/redux/pharmacies/pharmacies.slice';
 import LocationPermissionModal from '@src/components/LocationPermissionModal';
 import store from '@src/redux/store';
 import { injectStore } from '@src/redux/common';
+import { loadNotes } from '@src/redux/notes/notes.actions';
+import { clearNotes } from '@src/redux/notes/notes.slice';
 injectStore(store);
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
@@ -64,12 +66,14 @@ export default function App() {
           await store.dispatch(loadChats());
           await store.dispatch(loadMedicines());
           await store.dispatch(loadPharmacies());
+          await store.dispatch(loadNotes());
         } else {
           store.dispatch(logout());
           store.dispatch(clearEvents());
           store.dispatch(clearChats());
           store.dispatch(clearMedicines());
           store.dispatch(clearPharmacies());
+          store.dispatch(clearNotes());
         }
       });
     });

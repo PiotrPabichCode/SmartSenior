@@ -39,7 +39,7 @@ const NotesScreen = () => {
         return 0;
       }),
     );
-  }, [sortBy, sortType]);
+  }, [sortBy, sortType, notes]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

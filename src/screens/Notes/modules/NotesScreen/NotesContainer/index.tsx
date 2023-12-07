@@ -2,8 +2,17 @@ import { View } from 'react-native';
 import NotesCard from './NotesCard';
 import { NotesContainerProps } from './types';
 import { useStyles } from './styles';
+import { useAppSelector } from '@src/redux/types';
+import { selectNotesStatus } from '@src/redux/notes/notes.slice';
+import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 
 const NotesContainer = ({ notes, elementsPerLine }: NotesContainerProps) => {
+  const status = useAppSelector(state => selectNotesStatus(state));
+
+  if (status === 'pending') {
+    return <CustomActivityIndicator />;
+  }
+
   const rows = [];
   const numNotes = notes.length;
   const elementsInLine = Math.min(elementsPerLine, numNotes);

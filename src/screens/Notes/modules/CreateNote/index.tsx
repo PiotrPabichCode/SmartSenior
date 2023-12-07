@@ -37,6 +37,7 @@ const CreateNote = () => {
     try {
       const newNote = { ...note, createdAt: Timestamp.now(), updatedAt: Timestamp.now() } as Note;
       await dispatch(addNote(newNote)).unwrap();
+      setNote(initialValues);
       CustomToast('success', t('message.success.addNote'));
       goBack();
     } catch (error) {

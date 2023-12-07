@@ -61,7 +61,8 @@ export const updateNote = async (key: string, data: Partial<Note>) => {
 
 export const deleteNote = async (key: string) => {
   try {
-    const _doc = getDocumentRef(key);
+    const _collection = getNotesCollection();
+    const _doc = doc(_collection, key);
     await deleteDoc(_doc);
     return key;
   } catch (error) {

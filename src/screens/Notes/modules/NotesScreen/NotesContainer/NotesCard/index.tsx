@@ -5,6 +5,8 @@ import { navigate } from '@src/navigation/navigationUtils';
 import { NotesCardProps } from './types';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
+import { deleteNoteAlert } from './utils';
+import { useAppDispatch } from '@src/redux/types';
 
 const NotesCard = ({
   noteKey,
@@ -15,16 +17,20 @@ const NotesCard = ({
   extended,
 }: NotesCardProps) => {
   const styles = useStyles();
+  const dispatch = useAppDispatch();
   return (
     <TouchableOpacity
       style={styles.container}
+      onLongPress={() => {
+        return deleteNoteAlert(noteKey, title, dispatch);
+      }}
       onPress={() =>
         navigate('NoteDetails', {
           key: noteKey,
         })
       }>
       <View style={styles.innerContainer}>
-        <Text h4 numberOfLines={2} h4Style={styles.title}>
+        <Text style={styles.title} numberOfLines={1} allowFontScaling>
           {title}
         </Text>
 

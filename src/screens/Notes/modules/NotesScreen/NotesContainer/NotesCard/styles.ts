@@ -16,7 +16,7 @@ export const useStyles = () => {
       alignItems: 'center',
     },
     title: {
-      fontSize: 16,
+      fontWeight: 'bold',
       textAlign: 'center',
       maxWidth: '90%',
       marginTop: 10,

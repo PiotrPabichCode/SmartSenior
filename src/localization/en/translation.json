@@ -497,6 +497,7 @@
   "updateNoteButton": "Update a note",
   "notesPerLine1": "1 note per line",
   "notesPerLine2": "2 notes per line",
+  "noteDeleteAlertQuestion": "Do you want to delete the selected note?",
   "createdAt": "Created at:",
   "updatedAt": "Updated at:",
   "yourNotes": "Your notes",

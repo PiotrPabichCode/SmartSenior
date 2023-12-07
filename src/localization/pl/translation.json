@@ -496,6 +496,7 @@
   "updateNoteButton": "Zaaktualizuj notatkę",
   "notesPerLine1": "1 notatka w linii",
   "notesPerLine2": "2 notatki w linii",
+  "noteDeleteAlertQuestion": "Czy chcesz usunąć wybraną notatkę?",
   "yourNotes": "Twoje notatki",
   "createdAt": "Utworzono:",
   "updatedAt": "Zaaktualizowano:",

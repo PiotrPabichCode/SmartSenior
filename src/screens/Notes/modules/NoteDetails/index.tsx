@@ -43,6 +43,7 @@ const NoteDetails = ({ navigation, route }: NoteDetailsProps) => {
       const updatedNote = { ...note, updatedAt: Timestamp.now() };
       const updatedValues = getUpdatedFields(storeNote, updatedNote);
       await dispatch(updateNote({ key: note.key, data: updatedValues })).unwrap();
+      setNote(updatedNote);
       CustomToast('success', t('message.success.updateNote'));
       goBack();
     } catch (error) {

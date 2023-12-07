@@ -17,6 +17,7 @@ import { Image, Images } from './Image';
 import { Frequency } from './Frequency';
 import { Notifications } from './Notifications';
 import { Note, Notes } from './Note';
+import { UserToken } from './UserToken';
 
 export {
   User,
@@ -53,4 +54,5 @@ export {
   Notifications,
   Note,
   Notes,
+  UserToken,
 };

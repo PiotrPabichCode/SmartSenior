@@ -21,6 +21,7 @@ export interface EventGroup {
   images: Array<string>;
   dates: Array<Timestamp>;
   completedEvents: Array<Timestamp>;
+  deletedEvents: Array<Timestamp>;
 }
 
 export type EventGroups = EventGroup[];

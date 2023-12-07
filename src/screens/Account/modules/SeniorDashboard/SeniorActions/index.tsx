@@ -1,31 +1,26 @@
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Button } from '@rneui/themed';
 import { useEffect, useState } from 'react';
-import { ConnectedUser, EventGroups, Tags } from '@src/models';
+import { ConnectedUser, EventGroups } from '@src/models';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
-import { useAppDispatch } from '@src/redux/types';
-import { deleteEvent, updateEvent } from '@src/redux/events/events.actions';
-import CustomToast from '@src/components/CustomToast';
+import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { getSeniorLocation } from '@src/redux/auth/auth.api';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { Timestamp } from 'firebase/firestore';
 import { createTags } from '@src/redux/events/events.api';
-
-interface UserEvent {
-  date: Timestamp;
-  title: string;
-  tags: Tags;
-  groupKey: string;
-}
-
-type UserEvents = UserEvent[];
+import { selectEventsStatus } from '@src/redux/events/events.slice';
+import { useStyles } from './styles';
+import { UserEvents } from './types';
+import { handleCompleteEvent, handleDeleteEvent, sendEventNotificationReminder } from './utils';
 
 const SeniorActions = ({ user }: { user: ConnectedUser }) => {
   const dispatch = useAppDispatch();
+  const status = useAppSelector(state => selectEventsStatus(state));
   const [isLoading, setIsLoading] = useState(true);
   const eventGroups = user.eventGroups;
   const [events, setEvents] = useState<UserEvents>([]);
+  const styles = useStyles();
 
   useEffect(() => {
     const prepareEvents = (eventGroups: EventGroups) => {
@@ -62,101 +57,52 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
     prepareEvents(eventGroups);
   }, []);
 
-  if (isLoading) {
+  if (isLoading || status === 'pending') {
     return <CustomActivityIndicator />;
   }
-
-  const onEventComplete = async (key: string) => {
-    // try {
-    //   await dispatch(
-    //     updateEvent({
-    //       eventKey: key,
-    //       data: {},
-    //     }),
-    //   ).unwrap();
-    //   CustomToast('success', t('eventItem.alert.success'));
-    // } catch (error) {
-    //   console.log(error);
-    //   CustomToast('error', t('eventItem.alert.error'));
-    // }
-  };
-
-  const handleCompleteEvent = (key: string) => {
-    Alert.alert('Wykonanie zadania', 'Czy chcesz wykonać zadanie?', [
-      {
-        text: t('eventItem.alert.no'),
-        style: 'cancel',
-        onPress: () => {},
-      },
-      {
-        text: t('eventItem.alert.yes'),
-        style: 'destructive',
-        onPress: async () => await onEventComplete(key),
-      },
-    ]);
-  };
-
-  const onEventDelete = async (key: string) => {
-    // try {
-    //   await dispatch(deleteEvent(key)).unwrap();
-    //   CustomToast('success', t('eventItem.alert.success'));
-    // } catch (error) {
-    //   console.log(error);
-    //   CustomToast('error', t('eventItem.alert.error'));
-    // }
-  };
-
-  const handleDeleteEvent = (key: string) => {
-    Alert.alert(t('eventItem.alert.title'), t('eventItem.alert.message'), [
-      {
-        text: t('eventItem.alert.no'),
-        style: 'cancel',
-        onPress: () => {},
-      },
-      {
-        text: t('eventItem.alert.yes'),
-        style: 'destructive',
-        onPress: async () => await onEventDelete(key),
-      },
-    ]);
-  };
 
   const mapEvents = events.map((event, index) => {
     return (
       <View key={index}>
-        <View
-          style={{
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 5,
-            marginVertical: 10,
-          }}>
-          <Text style={{ fontSize: 18 }}>{event.title}</Text>
-          <Text style={{ fontSize: 18 }}>
+        <View style={styles.eventContainer}>
+          <Text style={styles.eventTitle}>{event.title}</Text>
+          <Text style={styles.eventDate}>
             {convertTimestampToDate(event.date!, 'DD-MM-YYYY HH:mm')}
           </Text>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            gap: 10,
-            minWidth: '100%',
-          }}>
+        <View style={styles.buttonsContainer}>
           <Button
             color={'green'}
-            onPress={() => handleCompleteEvent('')}
+            onPress={() =>
+              handleCompleteEvent(
+                event.groupKey,
+                event.title,
+                event.date,
+                setEvents,
+                dispatch,
+                events,
+              )
+            }
             title={t('seniorDashboard.execute')}
           />
           <Button
             color={'orange'}
-            onPress={() => console.log('przypomnij')}
+            onPress={() => sendEventNotificationReminder(event, user.user.uid)}
             title={t('seniorDashboard.remind')}
           />
           <Button
             color={'red'}
-            onPress={() => handleDeleteEvent('')}
+            onPress={() =>
+              handleDeleteEvent(
+                event.groupKey,
+                event.title,
+                event.date,
+                setEvents,
+                dispatch,
+                events,
+              )
+            }
             title={t('seniorDashboard.delete')}
           />
         </View>
@@ -184,22 +130,5 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    gap: 20,
-  },
-  actionContainer: {
-    alignItems: 'center',
-    borderRadius: 25,
-    borderWidth: 1,
-    padding: 20,
-  },
-  actionText: {
-    fontSize: 14,
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-});
 
 export default SeniorActions;

@@ -85,9 +85,14 @@ export const eventsSlice = createSlice({
       .addCase(action.completeEvent.rejected, state => {
         state.status = 'failed';
       })
-      .addCase(action.deleteEvent.fulfilled, (state, action: PayloadAction<string>) => {
-        const key = action.payload;
-        state.events = state.events.filter(event => event.key !== key);
+      .addCase(action.deleteEvent.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.deleteEvent.rejected, state => {
+        state.status = 'failed';
+      })
+      .addCase(action.deleteEvent.fulfilled, state => {
+        state.status = 'succeeded';
       });
   },
 });

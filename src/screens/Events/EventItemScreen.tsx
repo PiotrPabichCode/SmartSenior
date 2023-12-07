@@ -106,7 +106,7 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
             ChangeEventSchema.validate(values)
               .then(async () => {
                 delete values.days;
-                await dispatch(completeEvent({ group: groupKey, data: values })).unwrap();
+                await dispatch(completeEvent({ groupKey: groupKey, data: values })).unwrap();
                 setInitialValues(values);
                 CustomToast('success', t('eventItemScreen.message.success.complete'));
                 goBack();

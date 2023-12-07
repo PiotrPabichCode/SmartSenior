@@ -35,7 +35,9 @@
       "updateEmail": "Request to change email address has been sent",
       "updateAccountData": "Personal data has been updated",
       "addNote": "Added a new note",
-      "updateNote": "Updated note"
+      "updateNote": "Updated note",
+      "completeEvent": "Event completed",
+      "deleteEvent": "Event deleted"
     },
     "error": {
       "addConnectedUser": "Failed to add a new senior",
@@ -49,7 +51,9 @@
       "invalidPhoneNumber": "Invalid phone number provided",
       "updateAccountData": "Failed to update personal data",
       "keeperNoPhone": "The caretaker did not provide a phone number.",
-      "locationNotAvailable": "Location not available yet"
+      "locationNotAvailable": "Location not available yet",
+      "completeEvent": "Failed to complete event",
+      "deleteEvent": "Failed to delete event"
     }
   },
   "speedDial": {
@@ -327,8 +331,13 @@
       }
     }
   },
+  "notificationEventReminder": "The event will take place at: {{date}}",
   "alertEventDeleteDateTitle": "Deleting Event Date",
   "alertEventDeleteDateQuestion": "Disabling this day will result in deleting the event date. Do you want to set the event date again?",
+  "alertEventCompleteTitle": "Event Completion",
+  "alertEventCompleteQuestion": "Do you want to complete the event '{{title}}' scheduled for {{date}}?",
+  "alertEventDeleteTitle": "Event Deletion",
+  "alertEventDeleteQuestion": "Do you want to delete the event '{{title}}' scheduled for {{date}}?",
   "eventsScreen": {
     "title": "Events",
     "noActiveEvents": "You have no active events"

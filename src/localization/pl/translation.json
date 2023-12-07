@@ -35,7 +35,9 @@
       "updateEmail": "Prośba o zmianę adresu e-mail została wysłana",
       "updateAccountData": "Zaaktualizowano dane osobowe",
       "addNote": "Dodano nową notatkę",
-      "updateNote": "Zaaktualizowano notatkę"
+      "updateNote": "Zaaktualizowano notatkę",
+      "completeEvent": "Wydarzenie wykonane",
+      "deleteEvent": "Wydarzenie usunięte"
     },
     "error": {
       "addConnectedUser": "Nie udało się dodać nowego seniora",
@@ -49,7 +51,9 @@
       "invalidPhoneNumber": "Podano nieprawidłowy numer telefonu",
       "updateAccountData": "Nie udało się zaaktulizować danych osobowych",
       "keeperNoPhone": "Opiekun nie udzielił numeru kontaktowego.",
-      "locationNotAvailable": "Lokalizacja niedostępna"
+      "locationNotAvailable": "Lokalizacja niedostępna",
+      "completeEvent": "Nie udało się wykonać zadania",
+      "deleteEvent": "Nie udało się usunąć wydarzenia"
     }
   },
   "speedDial": {
@@ -326,8 +330,13 @@
       }
     }
   },
+  "notificationEventReminder": "Wydarzenie wykona się o godzinie: {{date}}",
   "alertEventDeleteDateTitle": "Usunięcie daty wydarzenia",
   "alertEventDeleteDateQuestion": "Wyłączenie tego dnia, spowoduje usunięcie daty wydarzenia. Czy chcesz ustawić datę wydarzenia od nowa?",
+  "alertEventCompleteTitle": "Wykonanie wydarzenia",
+  "alertEventCompleteQuestion": "Czy chcesz wykonać wydarzenie: '{{title}}' z dnia: {{date}}",
+  "alertEventDeleteTitle": "Usunięcie wydarzenia",
+  "alertEventDeleteQuestion": "Czy chcesz usunąć wydarzenie: '{{title}}' z dnia: {{date}}",
   "eventsScreen": {
     "title": "Wydarzenia",
     "noActiveEvents": "Nie masz aktywnych wydarzeń"

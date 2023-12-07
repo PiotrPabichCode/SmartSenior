@@ -126,6 +126,7 @@ export const createEventGroup = async (event: Event) => {
       tags: event.tags.map(t => t.id),
       dates: getAllDates(event),
       completedEvents: [],
+      deletedEvents: [],
     };
     const notificationId = await setupEventsGroupNotification(group, group.dates[0]);
     if (notificationId) {
@@ -145,11 +146,7 @@ export const createEventGroup = async (event: Event) => {
   }
 };
 
-const prepareEventByGroupAndDate = (groupKey: string, date: Timestamp) => {
-  const group = selectEventsGroupByKey(store.getState(), groupKey);
-  if (!group) {
-    return null;
-  }
+const prepareEventByGroupAndDate = (date: Timestamp, group: EventGroup) => {
   return {
     date: date,
     active: group.active,
@@ -176,11 +173,17 @@ const prepareImages = (groupImages: Array<string>, eventImages: Array<string>) =
 export const getEventForGroupAndDate = async (
   groupKey: string,
   date: Timestamp,
+  fetchGroup?: boolean,
 ): Promise<Event> => {
   try {
-    const group = selectEventsGroupByKey(store.getState(), groupKey);
-    if (!group) {
-      throw new Error('Group does not exists');
+    let group;
+    if (!fetchGroup) {
+      group = selectEventsGroupByKey(store.getState(), groupKey);
+      if (!group) {
+        throw new Error('Group does not exists');
+      }
+    } else {
+      group = await fetchEventGroupDetails(groupKey);
     }
     const completedEventsCollection = collection(db, 'eventGroups', groupKey, 'completedEvents');
     const q = query(completedEventsCollection, where('date', '==', date), limit(1));
@@ -194,7 +197,7 @@ export const getEventForGroupAndDate = async (
         days: createDays(group.frequency.daysOfWeek),
       } as Event;
     }
-    const event = prepareEventByGroupAndDate(groupKey, date);
+    const event = prepareEventByGroupAndDate(date, group);
     if (!event) {
       throw new Error('Unable to create event');
     }
@@ -268,18 +271,33 @@ export const updateEventsGroup = async (key: string, data: Partial<any>) => {
   }
 };
 
-export const completeEvent = async (group: string, data: Partial<Event>) => {
+export const getOrFetchEventGroup = async (
+  groupKey: string,
+  fetchGroup?: boolean,
+): Promise<EventGroup> => {
+  if (fetchGroup) {
+    return await fetchEventGroupDetails(groupKey);
+  }
+  const groupData = selectEventsGroupByKey(store.getState(), groupKey);
+  if (!groupData) {
+    throw new Error('Group does not exists');
+  }
+  return groupData;
+};
+
+export const completeEvent = async (
+  groupKey: string,
+  data: Partial<Event>,
+  fetchGroup?: boolean,
+) => {
   try {
-    const groupData = selectEventsGroupByKey(store.getState(), group);
-    if (!groupData) {
-      throw new Error('Group does not exists');
-    }
+    const groupData = await getOrFetchEventGroup(groupKey, fetchGroup);
     const firebaseData = { ...data } as Partial<FirebaseEvent>;
     delete firebaseData.images;
     if (data.tags) {
       firebaseData.tags = data.tags.map(t => t.id);
     }
-    const ref = collection(db, 'eventGroups', group, 'completedEvents');
+    const ref = collection(db, 'eventGroups', groupKey, 'completedEvents');
     const snapshot = await addDoc(ref, firebaseData);
     if (snapshot.id) {
       await updateDoc(doc(db, snapshot.path), {
@@ -289,19 +307,57 @@ export const completeEvent = async (group: string, data: Partial<Event>) => {
 
     if (data.images) {
       const filteredImages = data.images.filter(i => !groupData.images.includes(i.uri));
-      const newImages = await uploadImages(filteredImages, `${group}`);
+      const newImages = await uploadImages(filteredImages, `${groupKey}`);
       await updateDoc(doc(db, snapshot.path), {
         images: newImages.map(i => i.uri),
       });
     }
 
-    const groupDoc = doc(db, 'eventGroups', group);
+    const groupDoc = doc(db, 'eventGroups', groupKey);
     await updateDoc(groupDoc, {
       completedEvents: arrayUnion(data.date),
     });
 
     return {
-      group: group,
+      group: groupKey,
+      date: data.date,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteEvent = async (groupKey: string, data: Partial<Event>, fetchGroup?: boolean) => {
+  try {
+    const groupData = await getOrFetchEventGroup(groupKey, fetchGroup);
+    const firebaseData = { ...data } as Partial<FirebaseEvent>;
+    delete firebaseData.images;
+    if (data.tags) {
+      firebaseData.tags = data.tags.map(t => t.id);
+    }
+    const ref = collection(db, 'eventGroups', groupKey, 'deletedEvents');
+    const snapshot = await addDoc(ref, firebaseData);
+    if (snapshot.id) {
+      await updateDoc(doc(db, snapshot.path), {
+        key: snapshot.id,
+      });
+    }
+
+    if (data.images) {
+      const filteredImages = data.images.filter(i => !groupData.images.includes(i.uri));
+      const newImages = await uploadImages(filteredImages, `${groupKey}`);
+      await updateDoc(doc(db, snapshot.path), {
+        images: newImages.map(i => i.uri),
+      });
+    }
+
+    const groupDoc = doc(db, 'eventGroups', groupKey);
+    await updateDoc(groupDoc, {
+      deletedEvents: arrayUnion(data.date),
+    });
+
+    return {
+      group: groupKey,
       date: data.date,
     };
   } catch (error) {
@@ -325,23 +381,6 @@ export const updateEvent = async (group: string, key: string, data: Partial<Even
     // }
 
     await updateDoc(ref, firebaseData);
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const deleteEvent = async (group: string, key: string) => {
-  try {
-    const ref = doc(db, 'eventGroups', group, 'events', key);
-    await updateDoc(ref, {
-      deleted: true,
-      updatedAt: Timestamp.now(),
-    });
-    const groupDoc = doc(db, 'eventGroups', group);
-    await updateDoc(groupDoc, {
-      numOfEvents: increment(-1),
-    });
-    return key;
   } catch (error) {
     throw error;
   }
@@ -395,6 +434,17 @@ export const prepareCalendarEvents = (eventGroups: EventGroups) => {
     }
   }
   return calendarItems;
+};
+
+export const fetchEventGroupDetails = async (groupKey: string): Promise<EventGroup> => {
+  try {
+    const groupCollection = collection(db, 'eventGroups');
+    const _doc = doc(groupCollection, groupKey);
+    const snapshot = await getDoc(_doc);
+    return snapshot.data() as EventGroup;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const fetchEventGroupsByID = async (uid: string): Promise<EventGroups> => {

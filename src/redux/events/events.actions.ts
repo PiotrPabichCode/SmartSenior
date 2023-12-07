@@ -48,9 +48,16 @@ export const updateEventsGroup = createAsyncThunk(
 
 export const completeEvent = createAsyncThunk(
   'eventGroups/completeEvent',
-  async ({ group, data }: { group: string; data: Partial<Event> }, { rejectWithValue }) => {
+  async (
+    {
+      groupKey,
+      data,
+      fetchGroup,
+    }: { groupKey: string; data: Partial<Event>; fetchGroup?: boolean },
+    { rejectWithValue },
+  ) => {
     try {
-      return await api.completeEvent(group, data);
+      return await api.completeEvent(groupKey, data, fetchGroup);
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -72,11 +79,17 @@ export const updateEvent = createAsyncThunk(
 );
 
 export const deleteEvent = createAsyncThunk(
-  'events/deleteEvent',
-  async ({ group, key }: { group: string; key: string }, { rejectWithValue }) => {
+  'eventGroups/deleteEvent',
+  async (
+    {
+      groupKey,
+      data,
+      fetchGroup,
+    }: { groupKey: string; data: Partial<Event>; fetchGroup?: boolean },
+    { rejectWithValue },
+  ) => {
     try {
-      await api.deleteEvent(group, key);
-      return key;
+      return await api.deleteEvent(groupKey, data, fetchGroup);
     } catch (error) {
       return rejectWithValue(error);
     }

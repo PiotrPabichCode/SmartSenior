@@ -16,7 +16,7 @@ import { loadEventGroups, loadEvents } from '@src/redux/events/events.actions';
 import { changeLanguage, loadConnectedUsers, verifyUser } from '@src/redux/auth/auth.actions';
 import { usePushNotifications } from '@src/hooks/usePushNotifications';
 import { loadChats } from '@src/redux/chats/chats.actions';
-import { logout } from '@src/redux/auth/auth.slice';
+import { logout, selectUserID } from '@src/redux/auth/auth.slice';
 import { clearEvents } from '@src/redux/events/events.slice';
 import { clearChats } from '@src/redux/chats/chats.slice';
 import { loadMedicines } from '@src/redux/medicines/medicines.actions';
@@ -35,10 +35,11 @@ LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  usePushNotifications();
   const [isAppReady, setIsAppReady] = useState<boolean>(false);
   const [isNavigationReady, setIsNavigationReady] = useState<boolean>(false);
+  const [userReady, setUserReady] = useState<boolean>(false);
   const theme = useColorScheme();
+  usePushNotifications(userReady);
 
   useEffect(() => {
     async function prepare() {
@@ -67,6 +68,7 @@ export default function App() {
           await store.dispatch(loadMedicines());
           await store.dispatch(loadPharmacies());
           await store.dispatch(loadNotes());
+          setUserReady(true);
         } else {
           store.dispatch(logout());
           store.dispatch(clearEvents());
@@ -74,6 +76,7 @@ export default function App() {
           store.dispatch(clearMedicines());
           store.dispatch(clearPharmacies());
           store.dispatch(clearNotes());
+          setUserReady(false);
         }
       });
     });

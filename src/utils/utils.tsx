@@ -7,7 +7,8 @@ import { Platform } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
 import { selectConnectedUserById, selectTags, selectUser } from '@src/redux/auth/auth.slice';
 import { Genders, Images, Tags } from '@src/models';
-
+export const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const IS_ANDROID = Platform.OS === 'android';
 export const buildApiRequest = (baseUrl: string, params: any) => {
   const entries = Object.entries(params).filter(([key, value]) => String(value).trim() !== '');

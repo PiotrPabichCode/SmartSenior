@@ -6,11 +6,13 @@ import { t } from '@src/localization/Localization';
 
 const ColorPicker = ({
   onPress,
-  setColor,
+  onChange,
+  fieldName,
   color,
 }: {
   onPress: () => void;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
+  onChange: any;
+  fieldName: string;
   color: string;
 }) => {
   const [swatch, setSwatch] = useState(color);
@@ -33,7 +35,7 @@ const ColorPicker = ({
         color={swatch}
         containerStyle={{ marginVertical: 30 }}
         onPress={() => {
-          setColor(swatch);
+          onChange(fieldName, swatch);
           onPress();
         }}
       />

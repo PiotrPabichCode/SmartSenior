@@ -151,7 +151,8 @@
         "firstName": "Enter first name",
         "lastName": "Enter last name",
         "birthDate": "Date of Birth: {{date}}",
-        "birthDateEmpty": "Select date of birth"
+        "birthDateEmpty": "Select date of birth",
+        "phoneNumber": "Enter phone number"
       },
       "placeholder": {
         "gender": "Select gender",

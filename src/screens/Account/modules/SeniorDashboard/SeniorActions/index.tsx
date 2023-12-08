@@ -88,7 +88,7 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
           />
           <Button
             color={'orange'}
-            onPress={() => sendEventNotificationReminder(event, user.user.uid)}
+            onPress={() => sendEventNotificationReminder(event, user.user.uid, setIsLoading)}
             title={t('seniorDashboard.remind')}
           />
           <Button

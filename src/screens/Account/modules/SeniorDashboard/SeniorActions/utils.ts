@@ -131,8 +131,13 @@ export const handleDeleteEvent = (
   );
 };
 
-export async function sendEventNotificationReminder(userEvent: UserEvent, userID: string) {
+export async function sendEventNotificationReminder(
+  userEvent: UserEvent,
+  userID: string,
+  onNotification: any,
+) {
   try {
+    onNotification(true);
     const _collection = collection(db, 'pushTokens');
     const q = query(_collection, where('user', '==', userID), limit(1));
     const snapshot = await getDocs(q);
@@ -159,8 +164,12 @@ export async function sendEventNotificationReminder(userEvent: UserEvent, userID
       },
       body: JSON.stringify(message),
     });
+    CustomToast('success', t('message.success.notificationReminder'));
     console.log('notification sent');
   } catch (error) {
+    CustomToast('error', t('message.error.notificationReminder'));
     console.log(error);
+  } finally {
+    onNotification(false);
   }
 }

@@ -5,7 +5,7 @@ import { MedicinesScreen, MedicineItemDetails } from '@src/screens/Medicines';
 import CreateEventScreen from '@screens/Events/CreateEventScreen';
 import {
   AddConnectedUser,
-  AddTag,
+  TagScreen,
   SeniorDashboard,
   AccountItemDetailsScreen,
 } from '@src/screens/Account';
@@ -60,8 +60,8 @@ const AuthNavigator = () => {
           }}
         />
         <Stack.Screen
-          name="AddTag"
-          component={AddTag}
+          name="TagScreen"
+          component={TagScreen}
           options={{
             headerShown: false,
             presentation: 'transparentModal',

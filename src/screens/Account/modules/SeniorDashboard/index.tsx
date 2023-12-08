@@ -1,20 +1,18 @@
-import Colors from '@src/constants/Colors';
 import { selectConnectedUserById, selectTheme } from '@src/redux/auth/auth.slice';
 import { useAppSelector } from '@src/redux/types';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import SeniorActions from './SeniorActions';
 import { goBack } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { getUserAge, renderGender } from '@src/utils/utils';
-import { Timestamp } from 'firebase/firestore';
 import { ConnectedUser } from '@src/models';
+import { useStyles } from './styles';
 
 const SeniorDashboard = ({ route }: any) => {
   const { uid } = route.params;
   const user = useAppSelector(state => selectConnectedUserById(state, uid));
   const theme = useAppSelector(state => selectTheme(state));
-  const currentTheme = Colors[theme];
-  const styles = useStyles(currentTheme);
+  const styles = useStyles(theme);
 
   if (!user) {
     goBack();
@@ -67,38 +65,5 @@ const SeniorDashboard = ({ route }: any) => {
     </ScrollView>
   );
 };
-
-const useStyles = (theme: any) =>
-  StyleSheet.create({
-    viewStyle: {
-      minHeight: '100%',
-      alignItems: 'center',
-      backgroundColor: theme.mainBackground,
-    },
-    container: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '90%',
-      elevation: 5,
-      backgroundColor: Colors.primary,
-      padding: 25,
-      borderRadius: 25,
-      marginVertical: 10,
-      gap: 10,
-    },
-    title: {
-      fontSize: 28,
-      fontWeight: 'bold',
-    },
-    details: {
-      flexGrow: 1,
-      alignItems: 'center',
-      gap: 20,
-    },
-    detailText: {
-      fontSize: 18,
-      fontWeight: '500',
-    },
-  });
 
 export default SeniorDashboard;

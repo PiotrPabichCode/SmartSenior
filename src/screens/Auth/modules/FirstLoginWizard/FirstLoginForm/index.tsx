@@ -20,6 +20,7 @@ const FirstLoginForm = ({ user }: FirstLoginFormProps) => {
   const dispatch = useAppDispatch();
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const styles = useStyles();
+
   return (
     <ScrollView
       contentContainerStyle={styles.view}
@@ -32,6 +33,7 @@ const FirstLoginForm = ({ user }: FirstLoginFormProps) => {
             lastName: user?.lastName ? user.lastName : '',
             birthDate: user?.birthDate ? user.birthDate : null,
             gender: user?.gender ? user.gender : null,
+            phoneNumber: user?.phoneNumber ? user.phoneNumber : '',
             role: Roles.SENIOR,
           }}
           onSubmit={async values => {
@@ -64,6 +66,11 @@ const FirstLoginForm = ({ user }: FirstLoginFormProps) => {
                 value={values.lastName}
                 onChangeText={handleChange('lastName')}
                 placeholder={t('firstLoginWizard.button.title.lastName')}
+              />
+              <Input
+                value={values.phoneNumber}
+                onChangeText={handleChange('phoneNumber')}
+                placeholder={t('firstLoginWizard.button.title.phoneNumber')}
               />
               <DateButton
                 date={values.birthDate}

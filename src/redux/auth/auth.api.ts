@@ -249,7 +249,6 @@ export const validateUserData = (user: User | null) => {
   if (!user) {
     return false;
   }
-  if (!user.phoneNumber) return true;
   return Object.values(user).findIndex(val => !val) === -1;
 };
 

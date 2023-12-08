@@ -37,7 +37,8 @@
       "addNote": "Dodano nową notatkę",
       "updateNote": "Zaaktualizowano notatkę",
       "completeEvent": "Wydarzenie wykonane",
-      "deleteEvent": "Wydarzenie usunięte"
+      "deleteEvent": "Wydarzenie usunięte",
+      "notificationReminder": "Wysłano przypomnienie wydarzenia"
     },
     "error": {
       "addConnectedUser": "Nie udało się dodać nowego seniora",
@@ -53,7 +54,8 @@
       "keeperNoPhone": "Opiekun nie udzielił numeru kontaktowego.",
       "locationNotAvailable": "Lokalizacja niedostępna",
       "completeEvent": "Nie udało się wykonać zadania",
-      "deleteEvent": "Nie udało się usunąć wydarzenia"
+      "deleteEvent": "Nie udało się usunąć wydarzenia",
+      "notificationReminder": "Nie udało się wysłać przypomnienia wydarzenia"
     }
   },
   "speedDial": {
@@ -150,7 +152,8 @@
         "firstName": "Podaj imię",
         "lastName": "Podaj nazwisko",
         "birthDate": "Data urodzenia: {{date}}",
-        "birthDateEmpty": "Wybierz datę urodzenia"
+        "birthDateEmpty": "Wybierz datę urodzenia",
+        "phoneNumber": "Podaj numer telefonu"
       },
       "placeholder": {
         "gender": "Wybierz płeć",

@@ -2,7 +2,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import { PharmaciesScreen, PharmacyItemDetails } from '@src/screens/Pharmacies';
 import { MedicinesScreen, MedicineItemDetails } from '@src/screens/Medicines';
-import CreateEventScreen from '@screens/Events/CreateEventScreen';
+import {
+  CreateEventScreen,
+  EventsScreen,
+  EventsGroupDetails,
+  EventItemScreen,
+} from '@src/screens/Events';
 import {
   AddConnectedUser,
   TagScreen,
@@ -13,14 +18,11 @@ import {
 import { FirstLoginWizard } from '@src/screens/Auth';
 import BottomBarNavigator from './BottomBarNavigator';
 import CustomHeader from '@components/CustomHeader';
-import EventItemScreen from '@src/screens/Events/EventItemScreen';
 import { t } from '@src/localization/Localization';
 import { validateUserData } from '@src/redux/auth/auth.api';
 import { useAppSelector } from '@src/redux/types';
 import { selectUser } from '@src/redux/auth/auth.slice';
 import FilterPanel from '@src/components/FilterPanel';
-import EventsScreen from '@src/screens/Events/EventsScreen/EventsScreen';
-import EventsGroupDetails from '@src/screens/Events/EventsGroupDetails';
 import NotesScreen from '@src/screens/Notes/modules/NotesScreen';
 import { navigationRef } from './navigationUtils';
 import SpeedDialMenu from '@src/components/SpeedDialMenu';
@@ -156,7 +158,7 @@ const AuthNavigator = () => {
           name="EventsGroupDetails"
           component={EventsGroupDetails}
           options={() => ({
-            header: () => <CustomHeader title={'Szczegóły grupy wydarzeń'} nested={true} />,
+            header: () => <CustomHeader title={t('eventsGroupDetails')} nested={true} />,
             presentation: 'transparentModal',
             animation: 'slide_from_right',
             animationTypeForReplace: 'push',

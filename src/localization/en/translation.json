@@ -12,7 +12,8 @@
     "eventsGroup": "Events - group",
     "notes": "Notes",
     "noteDetails": "Note details",
-    "createNote": "Note - create"
+    "createNote": "Note - create",
+    "eventsGroupDetails": "Events group details"
   },
   "bottomNav": {
     "home": "Home",

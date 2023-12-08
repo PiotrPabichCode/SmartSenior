@@ -12,7 +12,8 @@
     "eventsGroup": "Wydarzenia - grupa",
     "notes": "Notatki",
     "noteDetails": "Szczegóły notatki",
-    "createNote": "Tworzenie notatki"
+    "createNote": "Tworzenie notatki",
+    "eventsGroupDetails": "Szczegóły grupy wydarzeń"
   },
   "bottomNav": {
     "home": "Strona główna",

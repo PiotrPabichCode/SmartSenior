@@ -63,7 +63,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.2",
     "yup": "^1.2.0",
-    "expo-secure-store": "~12.3.1"
+    "expo-secure-store": "~12.3.1",
+    "@shopify/flash-list": "1.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

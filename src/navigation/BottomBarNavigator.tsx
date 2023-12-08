@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import EventsGroupScreen from '@src/screens/Events/EventsGroupScreen';
 import { AccountScreen } from '@src/screens/Account';
+import { EventsGroupScreen } from '@src/screens/Events';
 import HomeScreen from '@src/screens/Home';
 import ChatScreen from '@src/screens/Chat';
 

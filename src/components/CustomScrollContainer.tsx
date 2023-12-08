@@ -10,7 +10,10 @@ export const CustomScrollContainer = ({ children, theme }: CustomScrollContainer
     <View style={{ flex: 1 }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ flexGrow: 1, backgroundColor: theme.mainBackground }}>
+        contentContainerStyle={{
+          flexGrow: 1,
+          backgroundColor: theme.mainBackground,
+        }}>
         <View
           style={{
             flex: 1,

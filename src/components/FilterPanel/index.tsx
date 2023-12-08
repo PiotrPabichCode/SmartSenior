@@ -11,7 +11,7 @@ import { TitlesPicker } from './components';
 import DateButton from '../DateButton';
 import DatePicker from '../DatePicker';
 import { Timestamp } from 'firebase/firestore';
-import { Priority, TagsDisplay, TagsPicker } from '@src/screens/Events/components';
+import { Priority, TagsDisplay, TagsPicker } from '@src/screens/Events/modules/components';
 import { ScrollView } from 'react-native';
 import { selectEventGroups, selectEvents } from '@src/redux/events/events.slice';
 import { SearchTitle } from './components/TitlesPicker';

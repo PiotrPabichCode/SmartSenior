@@ -15,11 +15,6 @@ export const onSubmit = async (newTag: Tag) => {
     if (tags && tags.findIndex(t => t.name === newTag.name && !route.params?.key) !== -1) {
       return CustomToast('error', t('message.error.duplicateTag'));
     }
-    // const tag: Tag = {
-    //   id: route.params?.key ? route.params.key : '',
-    //   name: name,
-    //   color: color,
-    // };
 
     if (newTag.id) {
       await store.dispatch(updateUserTag(newTag)).unwrap();

@@ -16,23 +16,5 @@ export const useStyles = () => {
       fontWeight: '500',
       textAlign: 'center',
     },
-    eventContainer: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 5,
-      marginVertical: 10,
-    },
-    eventTitle: {
-      fontSize: 18,
-    },
-    eventDate: {
-      fontSize: 18,
-    },
-    buttonsContainer: {
-      flexDirection: 'row',
-      gap: 10,
-      minWidth: '100%',
-    },
   });
 };

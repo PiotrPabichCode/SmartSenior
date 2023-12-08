@@ -13,12 +13,12 @@ export const useStyles = (theme: Theme) => {
     container: {
       alignItems: 'center',
       justifyContent: 'center',
-      width: '90%',
+      width: '100%',
       elevation: 5,
       backgroundColor: Colors.primary,
-      padding: 25,
+      padding: 10,
       borderRadius: 25,
-      marginVertical: 10,
+      margin: 10,
       gap: 10,
     },
     title: {

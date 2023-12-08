@@ -15,7 +15,7 @@ const AccountTags = () => {
         title={t('tags.addTitle')}
         titleStyle={{ fontSize: 20 }}
         color={'green'}
-        onPress={() => navigate('AddTag')}
+        onPress={() => navigate('TagScreen')}
         buttonStyle={{ minWidth: '100%' }}
         containerStyle={{ marginHorizontal: 20, marginVertical: 10, borderRadius: 25 }}
       />
@@ -53,7 +53,7 @@ const AccountTags = () => {
             color={tag.color}
             id={tag.id}
             onPress={() =>
-              navigate('AddTag', {
+              navigate('TagScreen', {
                 key: tag.id,
               })
             }

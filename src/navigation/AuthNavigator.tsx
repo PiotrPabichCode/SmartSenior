@@ -158,7 +158,7 @@ const AuthNavigator = () => {
           name="EventsGroupDetails"
           component={EventsGroupDetails}
           options={() => ({
-            header: () => <CustomHeader title={t('eventsGroupDetails')} nested={true} />,
+            header: () => <CustomHeader title={t('nav.eventsGroupDetails')} nested={true} />,
             presentation: 'transparentModal',
             animation: 'slide_from_right',
             animationTypeForReplace: 'push',

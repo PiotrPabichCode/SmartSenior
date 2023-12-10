@@ -1,10 +1,9 @@
 import { Text } from 'react-native';
 import { t } from '@src/localization/Localization';
 import { navigate } from '@src/navigation/navigationUtils';
-import { useStyles } from './styles';
+import { StyleSheet } from 'react-native';
 
 const SignInRedirect = () => {
-  const styles = useStyles();
   return (
     <Text style={styles.textLinks}>
       {t('register.question')}
@@ -16,3 +15,14 @@ const SignInRedirect = () => {
 };
 
 export default SignInRedirect;
+
+const styles = StyleSheet.create({
+  textLinks: {
+    margin: 15,
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  textRegister: {
+    color: 'blue',
+  },
+});

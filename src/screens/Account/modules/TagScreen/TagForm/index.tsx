@@ -1,5 +1,4 @@
-import { View } from 'react-native';
-import { useStyles } from './styles';
+import { StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
 import NameInput from './NameInput';
 import ColorPicker from './ColorPicker';
@@ -16,7 +15,6 @@ import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 
 const TagForm = ({ isUpdate, tag }: TagFormProps) => {
   const dispatch = useAppDispatch();
-  const styles = useStyles();
   return (
     <View style={styles.container}>
       <Formik
@@ -65,3 +63,16 @@ const TagForm = ({ isUpdate, tag }: TagFormProps) => {
 };
 
 export default TagForm;
+
+const styles = StyleSheet.create({
+  container: {
+    width: '90%',
+    elevation: 5,
+    gap: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 25,
+  },
+});

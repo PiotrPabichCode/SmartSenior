@@ -1,6 +1,6 @@
 import { Input } from '@rneui/themed';
 import { AccountDataInputProps } from './types';
-import { useStyles } from './styles';
+import { StyleSheet } from 'react-native';
 
 const AccountDataInput = ({
   label,
@@ -10,7 +10,6 @@ const AccountDataInput = ({
   onChange,
   errorMessage,
 }: AccountDataInputProps) => {
-  const styles = useStyles();
   return (
     <Input
       placeholder={placeholder || ''}
@@ -27,3 +26,16 @@ const AccountDataInput = ({
 };
 
 export default AccountDataInput;
+
+const styles = StyleSheet.create({
+  label: {
+    alignSelf: 'center',
+    fontSize: 20,
+  },
+  container: {
+    minWidth: '95%',
+  },
+  input: {
+    marginLeft: 20,
+  },
+});

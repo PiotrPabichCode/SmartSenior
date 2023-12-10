@@ -1,11 +1,6 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { UserEvent, UserEvents } from '../types';
-import { useEffect, useState } from 'react';
-import { ConnectedUser, EventGroups } from '@src/models';
-import { createTags } from '@src/redux/events/events.api';
-import { Timestamp } from 'firebase/firestore';
-import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
-import { useStyles } from './styles';
+import { ConnectedUser } from '@src/models';
 import { FlashList } from '@shopify/flash-list';
 import { t } from '@src/localization/Localization';
 import { convertTimestampToDate } from '@src/utils/utils';
@@ -13,55 +8,13 @@ import { handleCompleteEvent, handleDeleteEvent, sendEventNotificationReminder }
 import { Button } from '@rneui/themed';
 
 type Props = {
-  eventGroups: EventGroups;
+  events: UserEvents;
+  setEvents: any;
   user: ConnectedUser;
+  onLoad: any;
 };
 
-const EventsMapper = ({ eventGroups, user }: Props) => {
-  const [events, setEvents] = useState<UserEvents>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const styles = useStyles();
-
-  useEffect(() => {
-    const prepareEvents = (eventGroups: EventGroups) => {
-      const events: UserEvents = [];
-      eventGroups = eventGroups.filter(e => e.active);
-      const now = Timestamp.now().toMillis();
-      for (const group of eventGroups) {
-        let i = 0;
-        const tags = createTags(group.tags);
-        const dates = group.dates.filter(d => d.toMillis() >= now);
-        for (const date of dates) {
-          if (group.completedEvents.findIndex(e => e.isEqual(date)) !== -1) {
-            continue;
-          }
-          events.push({
-            date: date,
-            title: group.title,
-            groupKey: group.key,
-            tags: tags,
-          });
-          i++;
-        }
-      }
-      setEvents(
-        events.sort((a, b) => {
-          if (a.date && b.date) {
-            return a.date.toMillis() - b.date.toMillis();
-          }
-          return 0;
-        }),
-      );
-      setIsLoading(false);
-    };
-
-    prepareEvents(eventGroups);
-  }, []);
-
-  if (isLoading) {
-    return <CustomActivityIndicator />;
-  }
-
+const EventsMapper = ({ user, events, setEvents, onLoad }: Props) => {
   const renderItem = ({ item }: { item: UserEvent }) => {
     return (
       <View>
@@ -88,7 +41,7 @@ const EventsMapper = ({ eventGroups, user }: Props) => {
             containerStyle={{ flex: 1 }}
             buttonStyle={{ height: 40 }}
             titleProps={{ adjustsFontSizeToFit: true, numberOfLines: 1 }}
-            onPress={() => sendEventNotificationReminder(item, user.user.uid, setIsLoading)}
+            onPress={() => sendEventNotificationReminder(item, user.user.uid, onLoad)}
             title={t('seniorDashboard.remind')}
           />
           <Button
@@ -113,7 +66,6 @@ const EventsMapper = ({ eventGroups, user }: Props) => {
         <View
           style={{
             flexGrow: 1,
-            maxHeight: '95%',
             minHeight: 2,
             minWidth: '100%',
           }}>
@@ -121,7 +73,7 @@ const EventsMapper = ({ eventGroups, user }: Props) => {
             <FlashList
               renderItem={renderItem}
               data={events}
-              estimatedItemSize={113}
+              estimatedItemSize={111}
               scrollEnabled={false}
               onLoad={e => {
                 console.log(e);
@@ -135,3 +87,39 @@ const EventsMapper = ({ eventGroups, user }: Props) => {
 };
 
 export default EventsMapper;
+
+const styles = StyleSheet.create({
+  actionContainer: {
+    flexGrow: 1,
+    alignItems: 'center',
+    borderRadius: 25,
+    width: '100%',
+    maxHeight: '95%',
+    borderWidth: 1,
+    padding: 20,
+  },
+  actionText: {
+    fontSize: 14,
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  eventContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+    marginVertical: 10,
+  },
+  eventTitle: {
+    fontSize: 18,
+  },
+  eventDate: {
+    fontSize: 18,
+  },
+  buttonsContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 10,
+  },
+});

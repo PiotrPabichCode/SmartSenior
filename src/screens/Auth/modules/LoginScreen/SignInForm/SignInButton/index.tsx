@@ -1,10 +1,9 @@
 import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { SignInButtonProps } from './types';
-import { useStyles } from './styles';
+import { StyleSheet } from 'react-native';
 
 const SignInButton = ({ onSubmit }: SignInButtonProps) => {
-  const styles = useStyles();
   return (
     <Button
       title={t('login.button.submit')}
@@ -17,3 +16,21 @@ const SignInButton = ({ onSubmit }: SignInButtonProps) => {
 };
 
 export default SignInButton;
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    marginTop: 10,
+    alignSelf: 'stretch',
+    borderRadius: 5,
+    marginHorizontal: 20,
+    backgroundColor: 'blue',
+  },
+  buttonSignIn: {
+    backgroundColor: 'black',
+  },
+  buttonSignInTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: 'white',
+  },
+});

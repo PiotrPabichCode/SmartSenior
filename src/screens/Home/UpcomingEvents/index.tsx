@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Icon, Divider, Text } from '@rneui/themed';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
@@ -8,13 +8,13 @@ import NoActiveEvents from './NoActiveEvents';
 import { UpcomingEventsProps } from './types';
 import MoreButton from './MoreButton';
 import ActionButton from './ActionButton';
-import { useStyles } from './styles';
 import Colors from '@src/constants/Colors';
+import { Theme } from '@src/models';
 
 const UpcomingEvents = ({ upcomingEvents }: UpcomingEventsProps) => {
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
-  const styles = useStyles(currentTheme);
+  const styles = useStyles(theme);
 
   const MAX_DISPLAYED_EVENTS = 3;
 
@@ -55,3 +55,77 @@ const UpcomingEvents = ({ upcomingEvents }: UpcomingEventsProps) => {
 };
 
 export default UpcomingEvents;
+
+const useStyles = (theme: Theme) => {
+  const currentTheme = Colors[theme];
+  return StyleSheet.create({
+    viewStyle: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: currentTheme.upcomingEventsBackground,
+      width: '95%',
+      borderRadius: 20,
+      overflow: 'hidden',
+      elevation: 5,
+    },
+    actionButtonStyle: {
+      backgroundColor: currentTheme.upcomingEventsActionBtn,
+    },
+    actionButtonContainerStyle: {
+      minWidth: '90%',
+      borderRadius: 25,
+      marginBottom: 10,
+      elevation: 5,
+    },
+    actionButtonTitle: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: Colors.black,
+    },
+    moreButtonContainerStyle: {
+      borderRadius: 25,
+      marginBottom: 10,
+      minWidth: '90%',
+      elevation: 5,
+    },
+    moreButtonStyle: {
+      backgroundColor: currentTheme.upcomingEventsMoreBtn,
+    },
+    moreButtonTitle: {
+      fontSize: 16,
+      fontWeight: '400',
+      color: Colors.white,
+    },
+    eventView: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginVertical: 5,
+    },
+    eventTitle: {
+      color: currentTheme.upcomingEventsTitle,
+      fontWeight: '500',
+      fontSize: 17,
+      marginVertical: 7,
+    },
+    eventTimeView: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    },
+    date: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: currentTheme.upcomingEventsDate,
+    },
+    dividerStyle: {
+      backgroundColor: currentTheme.divider,
+      height: 1.7,
+      minWidth: '90%',
+      marginVertical: 5,
+    },
+  });
+};

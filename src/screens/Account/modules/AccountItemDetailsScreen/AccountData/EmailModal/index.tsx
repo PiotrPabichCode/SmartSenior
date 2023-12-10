@@ -1,4 +1,4 @@
-import { View, Modal, ScrollView } from 'react-native';
+import { View, Modal, ScrollView, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';
@@ -7,14 +7,12 @@ import CustomToast from '@src/components/CustomToast';
 import { changeEmail } from '@src/redux/auth/auth.api';
 import * as Yup from 'yup';
 import Toast from 'react-native-toast-message';
-import { useStyles } from './styles';
 import { EmailModalProps } from './types';
 import FormInput from './FormInput';
 import BackButton from './BackButton';
 import EmailChangeButton from './EmailChangeButton';
 
 const EmailModal = ({ visible, onClose }: EmailModalProps) => {
-  const styles = useStyles();
   const email = useAppSelector(state => selectEmail(state));
   const [newEmail, setNewEmail] = useState<string>('');
 
@@ -50,3 +48,17 @@ const EmailModal = ({ visible, onClose }: EmailModalProps) => {
 };
 
 export default EmailModal;
+
+const styles = StyleSheet.create({
+  container: {
+    minHeight: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  innerContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+});

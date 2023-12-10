@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { RegisterSchema } from './utils';
 import { signUp } from '@src/redux/auth/auth.actions';
@@ -6,13 +6,11 @@ import { t } from '@src/localization/Localization';
 import CustomToast from '@src/components/CustomToast';
 import { Icon, Input } from '@rneui/themed';
 import { useAppDispatch } from '@src/redux/types';
-import { useStyles } from './styles';
 import SignInRedirect from './SignInRedirect';
 import SignUpButton from './SignUpButton';
 
 const SignUpForm = () => {
   const dispatch = useAppDispatch();
-  const styles = useStyles();
   return (
     <View style={styles.formContainer}>
       <Text style={styles.headerText}>{t('register.welcome')}</Text>
@@ -71,3 +69,25 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
+
+const styles = StyleSheet.create({
+  formContainer: {
+    padding: 8,
+    margin: 8,
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+  },
+  headerText: {
+    fontSize: 30,
+    maxWidth: '80%',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  inputField: {
+    alignSelf: 'stretch',
+    textAlign: 'left',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+});

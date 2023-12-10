@@ -4,10 +4,9 @@ import { BASE_SEARCH_URL, SearchFormProps } from './types';
 import { loadApiMedicines } from './utils';
 import { Button, Input } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
-import { useStyles } from './styles';
+import { StyleSheet } from 'react-native';
 
 const SearchForm = ({ onLoad }: SearchFormProps) => {
-  const styles = useStyles();
   return (
     <Formik
       initialValues={{ name: '' }}
@@ -39,3 +38,18 @@ const SearchForm = ({ onLoad }: SearchFormProps) => {
 };
 
 export default SearchForm;
+
+const styles = StyleSheet.create({
+  buttonSearchContainer: {
+    width: '90%',
+    borderRadius: 25,
+  },
+  buttonSearchStyle: {
+    backgroundColor: 'blue',
+  },
+  title: {
+    marginTop: 10,
+    fontSize: 26,
+    fontWeight: 'bold',
+  },
+});

@@ -1,14 +1,12 @@
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import ChatUser from './ChatUser';
 import { useAppSelector } from '@src/redux/types';
 import { selectChats } from '@src/redux/chats/chats.slice';
 import { selectUserID } from '@src/redux/auth/auth.slice';
-import { useStyles } from './styles';
 
 const ChatList = () => {
   const chats = useAppSelector(state => selectChats(state));
   const userID = useAppSelector(state => selectUserID(state));
-  const styles = useStyles();
 
   const renderUsers = () => {
     if (chats.length === 1) {
@@ -34,3 +32,17 @@ const ChatList = () => {
 };
 
 export default ChatList;
+
+const styles = StyleSheet.create({
+  container: {
+    borderBottomColor: 'black',
+    borderBottomWidth: 0.8,
+    paddingVertical: 10,
+  },
+  innerContainer: {
+    minWidth: '100%',
+    height: 60,
+    gap: 10,
+    padding: 5,
+  },
+});

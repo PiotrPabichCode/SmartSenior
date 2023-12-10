@@ -6,7 +6,6 @@ const BackButton = ({ onClose }: BackButtonProps) => {
   return (
     <Button
       title={t('account.back')}
-      containerStyle={{ borderRadius: 25 }}
       buttonStyle={{ padding: 15, backgroundColor: 'black' }}
       onPress={() => {
         onClose(false);

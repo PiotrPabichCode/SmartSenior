@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
@@ -9,7 +9,6 @@ import { selectTheme } from '@src/redux/auth/auth.slice';
 import { Medicines } from '@src/models';
 import { selectMedicinesStatus } from '@src/redux/medicines/medicines.slice';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
-import { useStyles } from './styles';
 import SearchForm from './SearchForm';
 import MedicinesGrid from './MedicinesGrid';
 
@@ -18,7 +17,6 @@ const MedicinesScreen = () => {
   const theme = useAppSelector(state => selectTheme(state));
   const status = useAppSelector(state => selectMedicinesStatus(state));
   const currentTheme = Colors[theme];
-  const styles = useStyles();
 
   if (status === 'pending') {
     return <CustomActivityIndicator />;
@@ -35,3 +33,18 @@ const MedicinesScreen = () => {
 };
 
 export default MedicinesScreen;
+
+const styles = StyleSheet.create({
+  buttonSearchContainer: {
+    width: '90%',
+    borderRadius: 25,
+  },
+  buttonSearchStyle: {
+    backgroundColor: 'blue',
+  },
+  title: {
+    marginTop: 10,
+    fontSize: 26,
+    fontWeight: 'bold',
+  },
+});

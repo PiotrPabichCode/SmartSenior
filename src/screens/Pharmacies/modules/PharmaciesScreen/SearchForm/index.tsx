@@ -4,11 +4,10 @@ import { loadApiPharmacies } from './utils';
 import { Button, Input } from '@rneui/themed';
 import CustomDropdown from '@src/components/CustomDropdown';
 import { t } from '@src/localization/Localization';
-import { useStyles } from './styles';
 import { BASE_SEARCH_URL, SearchFormProps, provinces } from './types';
+import { StyleSheet } from 'react-native';
 
 const SearchForm = ({ onLoad }: SearchFormProps) => {
-  const styles = useStyles();
   return (
     <Formik
       initialValues={{ name: '', companyCity: '', companyProvince: '' }}
@@ -51,3 +50,25 @@ const SearchForm = ({ onLoad }: SearchFormProps) => {
 };
 
 export default SearchForm;
+
+const styles = StyleSheet.create({
+  buttonSearchContainer: {
+    width: '90%',
+    borderRadius: 25,
+    marginTop: 10,
+  },
+  buttonSearchStyle: {
+    backgroundColor: 'blue',
+  },
+  title: {
+    marginTop: 10,
+    fontSize: 26,
+    fontWeight: 'bold',
+  },
+  dividerStyle: {
+    width: '100%',
+    marginVertical: 10,
+    backgroundColor: 'black',
+    height: 1,
+  },
+});

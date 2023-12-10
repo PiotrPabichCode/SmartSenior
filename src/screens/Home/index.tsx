@@ -1,4 +1,4 @@
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import CustomActivityIndicator from '@components/CustomActivityIndicator';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
@@ -13,7 +13,6 @@ import { Timestamp } from 'firebase/firestore';
 import { createTags } from '@src/redux/events/events.api';
 import { UpcomingEventItems } from './types';
 import UpcomingEvents from './UpcomingEvents';
-import { useStyles } from './styles';
 
 const HomeScreen = () => {
   const eventGroups = useAppSelector(state => selectEventGroups(state));
@@ -22,7 +21,6 @@ const HomeScreen = () => {
   const user = useAppSelector(state => selectUser(state));
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
-  const styles = useStyles();
 
   useEffect(() => {
     const prepareUpcomingEvents = (eventGroups: EventGroups) => {
@@ -80,3 +78,13 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  welcomeText: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+    color: Colors.black,
+  },
+});

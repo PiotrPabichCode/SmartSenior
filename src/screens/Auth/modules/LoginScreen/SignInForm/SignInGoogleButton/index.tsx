@@ -1,9 +1,8 @@
 import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
-import { useStyles } from './styles';
+import { StyleSheet } from 'react-native';
 
 const SignInGoogleButton = () => {
-  const styles = useStyles();
   return (
     <Button
       title={t('login.google')}
@@ -15,3 +14,21 @@ const SignInGoogleButton = () => {
 };
 
 export default SignInGoogleButton;
+
+const styles = StyleSheet.create({
+  buttonAuthGoogle: {
+    backgroundColor: 'blue',
+  },
+  buttonAuthGoogleTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: 'white',
+  },
+  buttonContainer: {
+    marginTop: 10,
+    alignSelf: 'stretch',
+    borderRadius: 5,
+    marginHorizontal: 20,
+    backgroundColor: 'blue',
+  },
+});

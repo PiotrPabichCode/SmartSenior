@@ -5,15 +5,14 @@ import { useAppDispatch } from '@src/redux/types';
 import { t } from '@src/localization/Localization';
 import CustomToast from '@src/components/CustomToast';
 import { signIn } from '@src/redux/auth/auth.actions';
-import { useStyles } from './styles';
 import SignInButton from './SignInButton';
 import SignInGoogleButton from './SignInGoogleButton';
 import LoginDivider from './LoginDivider';
 import SignUpRedirect from './SignUpRedirect';
+import { StyleSheet } from 'react-native';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
-  const styles = useStyles();
   return (
     <>
       <Text style={styles.headerText}>{t('login.welcomeBack')}</Text>
@@ -63,3 +62,17 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
+
+const styles = StyleSheet.create({
+  inputField: {
+    alignSelf: 'stretch',
+    textAlign: 'left',
+    fontSize: 16,
+    fontWeight: '700',
+    marginHorizontal: 20,
+  },
+  headerText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+  },
+});

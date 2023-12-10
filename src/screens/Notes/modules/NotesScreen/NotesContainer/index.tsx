@@ -1,7 +1,6 @@
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import NotesCard from './NotesCard';
 import { NotesContainerProps } from './types';
-import { useStyles } from './styles';
 import { useAppSelector } from '@src/redux/types';
 import { selectNotesStatus } from '@src/redux/notes/notes.slice';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
@@ -16,7 +15,6 @@ const NotesContainer = ({ notes, elementsPerLine }: NotesContainerProps) => {
   const rows = [];
   const numNotes = notes.length;
   const elementsInLine = Math.min(elementsPerLine, numNotes);
-  const styles = useStyles();
 
   for (let i = 0; i < numNotes; i += elementsInLine) {
     const elements = [];
@@ -50,3 +48,14 @@ const NotesContainer = ({ notes, elementsPerLine }: NotesContainerProps) => {
 };
 
 export default NotesContainer;
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+  },
+  item: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+  },
+});

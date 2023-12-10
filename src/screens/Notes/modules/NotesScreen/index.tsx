@@ -1,4 +1,4 @@
-import { ScrollView, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import NotesContainer from './NotesContainer';
 import { Text } from '@rneui/themed';
 import { useAppSelector } from '@src/redux/types';
@@ -10,7 +10,6 @@ import { elementsPerLineOptions } from './NotesContainer/types';
 import { t } from '@src/localization/Localization';
 import { Note } from '@src/models';
 import { sortOptions, sortTypes } from './types';
-import { useStyles } from './styles';
 
 const NotesScreen = () => {
   const notes = useAppSelector(state => selectNotes(state));
@@ -18,7 +17,6 @@ const NotesScreen = () => {
   const [sortBy, setSortBy] = useState<keyof Note>('createdAt');
   const [sortType, setSortType] = useState<-1 | 1>(-1);
   const [sortedNotes, setSortedNotes] = useState(notes);
-  const styles = useStyles();
 
   if (notes.length === 0) {
     return <EmptyNotes />;
@@ -79,3 +77,37 @@ const NotesScreen = () => {
 };
 
 export default NotesScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    minHeight: '100%',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    gap: 10,
+  },
+  titleAndElementsPerLine: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+  },
+  title: {
+    flex: 1,
+    textAlign: 'center',
+  },
+  sortContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+  },
+  sortSingleItemContainer: {
+    flex: 1,
+    alignItems: 'center',
+    gap: 10,
+  },
+  boldedText: {
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
+});

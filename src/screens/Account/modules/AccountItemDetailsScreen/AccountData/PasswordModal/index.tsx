@@ -1,17 +1,15 @@
-import { View, Modal, ScrollView } from 'react-native';
+import { View, Modal, ScrollView, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { t } from '@src/localization/Localization';
 import CustomToast from '@src/components/CustomToast';
 import { changePassword } from '@src/redux/auth/auth.api';
 import Toast from 'react-native-toast-message';
-import { useStyles } from './styles';
 import FormInput from './FormInput';
 import { PasswordModalProps } from './types';
 import BackButton from './BackButton';
 import ChangePasswordButton from './ChangePasswordButton';
 
 const PasswordModal = ({ visible, onClose }: PasswordModalProps) => {
-  const styles = useStyles();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [repeatNewPassword, setRepeatNewPassword] = useState('');
@@ -74,3 +72,17 @@ const PasswordModal = ({ visible, onClose }: PasswordModalProps) => {
 };
 
 export default PasswordModal;
+
+const styles = StyleSheet.create({
+  container: {
+    minHeight: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  innerContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+});

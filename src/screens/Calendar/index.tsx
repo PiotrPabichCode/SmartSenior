@@ -7,7 +7,6 @@ import { EventGroups } from '@src/models';
 import { connect } from 'react-redux';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
-import { useStyles } from './styles';
 
 interface State {
   items?: AgendaSchedule;
@@ -144,4 +143,30 @@ class AgendaScreen extends Component<State> {
 
 export default connect(mapStateToProps)(AgendaScreen);
 
-const styles = useStyles();
+const styles = StyleSheet.create({
+  item: {
+    backgroundColor: 'white',
+    flex: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 17,
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: '500',
+  },
+  emptyDate: {
+    height: 15,
+    flex: 1,
+    paddingTop: 30,
+  },
+  customDay: {
+    margin: 10,
+    fontSize: 24,
+    color: 'green',
+  },
+  dayItem: {
+    marginLeft: 34,
+  },
+});

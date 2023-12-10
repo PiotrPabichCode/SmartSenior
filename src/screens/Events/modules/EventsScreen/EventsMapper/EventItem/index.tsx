@@ -1,12 +1,9 @@
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { navigate } from '@src/navigation/navigationUtils';
-import { useStyles } from './styles';
 import { Title, Date, TagCard, ActivityStatus } from './components';
 import { EventItemProps } from './utils';
 
 const EventItem = ({ groupKey, title, date, tags, active, completed }: EventItemProps) => {
-  const styles = useStyles();
-
   return (
     <>
       <View style={styles.divider} />
@@ -30,3 +27,25 @@ const EventItem = ({ groupKey, title, date, tags, active, completed }: EventItem
 };
 
 export default EventItem;
+
+const styles = StyleSheet.create({
+  divider: {
+    height: 1,
+    backgroundColor: 'black',
+    width: '100%',
+  },
+  container: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
+    gap: 5,
+  },
+  detailsContainer: {
+    flexGrow: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+});

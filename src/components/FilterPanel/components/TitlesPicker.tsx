@@ -1,4 +1,4 @@
-import MultiSelectComponent from '@src/components/MultiSelectDropdown';
+import MultiSelectDropdown from '@src/components/MultiSelectDropdown';
 import { t } from '@src/localization/Localization';
 
 export type SearchTitle = {
@@ -15,7 +15,7 @@ type Props = {
 
 const TitlesPicker = ({ data, selectedValues, fieldName, onChange }: Props) => {
   return (
-    <MultiSelectComponent
+    <MultiSelectDropdown
       data={data}
       onChange={onChange}
       fieldName={fieldName}

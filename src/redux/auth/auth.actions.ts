@@ -4,7 +4,7 @@ import * as api from './auth.api';
 import { User as FirebaseUser } from 'firebase/auth';
 import { AuthCredentials, Tag, User } from '@src/models';
 import Localization from '@src/localization/Localization';
-import Calendar from '@src/components/Calendar/Calendar';
+import Calendar from '@src/components/Calendar';
 
 export const signIn = createAsyncThunk(
   'auth/signIn',

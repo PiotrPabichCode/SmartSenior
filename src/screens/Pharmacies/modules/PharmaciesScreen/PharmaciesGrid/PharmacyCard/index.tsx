@@ -1,13 +1,11 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Icons, { renderIcon } from '@src/components/Icons';
 import { Button } from '@rneui/themed';
 
 import { t } from '@src/localization/Localization';
-import { useStyles } from './styles';
 import { PharmacyItemProps } from './types';
 
 const PharmacyCard = ({ name, added, onPress, onPressFavourite }: PharmacyItemProps) => {
-  const styles = useStyles();
   return (
     <View style={styles.view}>
       {renderIcon({ name: 'pharmacy', size: 24 })}
@@ -26,3 +24,24 @@ const PharmacyCard = ({ name, added, onPress, onPressFavourite }: PharmacyItemPr
 };
 
 export default PharmacyCard;
+
+const styles = StyleSheet.create({
+  view: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 60,
+    padding: 5,
+  },
+  name: {
+    width: 150,
+  },
+  button: {
+    backgroundColor: 'rgba(78, 116, 289, 1)',
+  },
+  buttonTitle: {
+    fontSize: 10,
+  },
+});

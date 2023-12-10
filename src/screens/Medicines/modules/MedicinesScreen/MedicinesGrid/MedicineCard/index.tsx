@@ -1,12 +1,10 @@
-import { View, Text } from 'react-native';
-import { useStyles } from './styles';
+import { View, Text, StyleSheet } from 'react-native';
 import { MedicineCardProps } from './types';
 import Icons, { renderIcon } from '@src/components/Icons';
 import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 
 const MedicineCard = ({ added, name, onPressFavourite, onPress }: MedicineCardProps) => {
-  const styles = useStyles();
   return (
     <View style={styles.viewStyle}>
       {renderIcon({ name: 'pills', size: 24 })}
@@ -30,3 +28,18 @@ const MedicineCard = ({ added, name, onPressFavourite, onPress }: MedicineCardPr
 };
 
 export default MedicineCard;
+
+const styles = StyleSheet.create({
+  viewStyle: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 60,
+    padding: 5,
+  },
+  name: {
+    width: 150,
+  },
+});

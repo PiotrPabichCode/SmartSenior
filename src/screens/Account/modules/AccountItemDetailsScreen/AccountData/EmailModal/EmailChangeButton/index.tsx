@@ -6,7 +6,7 @@ const EmailChangeButton = ({ onPress }: EmailChangeButtonProps) => {
   return (
     <Button
       title={t('account.title.emailChange')}
-      containerStyle={{ borderRadius: 25, marginBottom: 15 }}
+      containerStyle={{ marginBottom: 15 }}
       buttonStyle={{ padding: 15, backgroundColor: 'green' }}
       onPress={onPress}
     />

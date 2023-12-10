@@ -1,14 +1,12 @@
 import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { BackButtonProps } from './types';
-import { useStyles } from './styles';
+import { StyleSheet } from 'react-native';
 
 const BackButton = ({ onClose }: BackButtonProps) => {
-  const styles = useStyles();
   return (
     <Button
       title={t('account.back')}
-      containerStyle={styles.container}
       buttonStyle={styles.button}
       onPress={() => {
         onClose(false);
@@ -18,3 +16,10 @@ const BackButton = ({ onClose }: BackButtonProps) => {
 };
 
 export default BackButton;
+
+const styles = StyleSheet.create({
+  button: {
+    padding: 15,
+    backgroundColor: 'black',
+  },
+});

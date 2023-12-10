@@ -1,11 +1,9 @@
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { DetailsProps } from './types';
 import { Divider } from '@rneui/themed';
-import { useStyles } from './styles';
 import { t } from '@src/localization/Localization';
 
 const Details = ({ pharmacyItem }: DetailsProps) => {
-  const styles = useStyles();
   const renderDetail = (title: string, detail: string) => {
     return (
       <>
@@ -35,3 +33,18 @@ const Details = ({ pharmacyItem }: DetailsProps) => {
 };
 
 export default Details;
+
+const styles = StyleSheet.create({
+  divider: {
+    width: '100%',
+    marginVertical: 10,
+    backgroundColor: 'black',
+    height: 1,
+  },
+  title: { fontSize: 22, fontWeight: '500' },
+  detail: {
+    fontSize: 16,
+    fontWeight: '400',
+    textAlign: 'center',
+  },
+});

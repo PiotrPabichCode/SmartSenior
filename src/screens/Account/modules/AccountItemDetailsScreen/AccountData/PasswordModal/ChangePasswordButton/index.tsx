@@ -1,9 +1,8 @@
 import { Button } from '@rneui/themed';
-import { useStyles } from './styles';
 import { ChangePasswordButtonProps } from './types';
+import { StyleSheet } from 'react-native';
 
 const ChangePasswordButton = ({ title, onPress }: ChangePasswordButtonProps) => {
-  const styles = useStyles();
   return (
     <Button
       title={title}
@@ -15,3 +14,13 @@ const ChangePasswordButton = ({ title, onPress }: ChangePasswordButtonProps) => 
 };
 
 export default ChangePasswordButton;
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 15,
+  },
+  button: {
+    padding: 15,
+    backgroundColor: 'green',
+  },
+});

@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Input } from '@rneui/themed';
 import Icons from '@src/components/Icons';
-import { useStyles } from './styles';
 import { FormInputProps } from './types';
+import { StyleSheet } from 'react-native';
 
 const FormInput = ({ label, placeholder, onChange, value }: FormInputProps) => {
   const [textVisible, setTextVisible] = useState(false);
-  const styles = useStyles();
   return (
     <Input
       placeholder={placeholder}
@@ -29,3 +28,16 @@ const FormInput = ({ label, placeholder, onChange, value }: FormInputProps) => {
 };
 
 export default FormInput;
+
+const styles = StyleSheet.create({
+  label: {
+    alignSelf: 'center',
+    fontSize: 20,
+  },
+  container: {
+    minWidth: '95%',
+  },
+  input: {
+    marginHorizontal: 10,
+  },
+});

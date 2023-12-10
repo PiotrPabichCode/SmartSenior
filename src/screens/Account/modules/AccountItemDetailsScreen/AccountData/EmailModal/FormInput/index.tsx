@@ -1,9 +1,8 @@
 import { Input } from '@rneui/themed';
 import { FormInputProps } from './types';
-import { useStyles } from './styles';
+import { StyleSheet } from 'react-native';
 
 const FormInput = ({ label, onChange, placeholder, value }: FormInputProps) => {
-  const styles = useStyles();
   return (
     <Input
       placeholder={placeholder}
@@ -19,3 +18,16 @@ const FormInput = ({ label, onChange, placeholder, value }: FormInputProps) => {
 };
 
 export default FormInput;
+
+const styles = StyleSheet.create({
+  label: {
+    alignSelf: 'center',
+    fontSize: 20,
+  },
+  container: {
+    minWidth: '95%',
+  },
+  input: {
+    marginLeft: 20,
+  },
+});

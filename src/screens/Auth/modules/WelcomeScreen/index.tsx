@@ -1,14 +1,12 @@
-import { Text, SafeAreaView } from 'react-native';
+import { Text, SafeAreaView, StyleSheet } from 'react-native';
 import WelcomeSvg from '@assets/welcome-image.svg';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';
 import { selectAuthStatus } from '@src/redux/auth/auth.slice';
 import ActionButtons from './ActionButtons';
-import { useStyles } from './styles';
 
 const WelcomeScreen = () => {
   const status = useAppSelector(state => selectAuthStatus(state));
-  const styles = useStyles();
 
   if (status === 'pending') {
     return null;
@@ -29,3 +27,28 @@ const WelcomeScreen = () => {
 };
 
 export default WelcomeScreen;
+
+const styles = StyleSheet.create({
+  viewStyle: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  headerText: {
+    marginTop: 50,
+    fontSize: 48,
+    fontWeight: 'bold',
+  },
+  welcomeText: {
+    marginTop: 10,
+    fontSize: 32,
+    fontWeight: '500',
+    textAlign: 'center',
+    color: 'black',
+  },
+  welcomeText2: {
+    marginTop: 5,
+    fontSize: 16,
+    textAlign: 'center',
+    color: 'black',
+  },
+});

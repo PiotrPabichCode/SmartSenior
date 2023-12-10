@@ -16,7 +16,7 @@ import { NoteDetailsProps } from '@src/navigation/types';
 import isEqual from 'lodash.isequal';
 import { getUpdatedFields } from '@src/utils/utils';
 import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
-import { useStyles } from './styles';
+import { StyleSheet } from 'react-native';
 
 const NoteDetails = ({ navigation, route }: NoteDetailsProps) => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,6 @@ const NoteDetails = ({ navigation, route }: NoteDetailsProps) => {
     return null;
   }
 
-  const styles = useStyles();
   const status = useAppSelector(state => selectNotesStatus(state));
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
@@ -95,3 +94,24 @@ const NoteDetails = ({ navigation, route }: NoteDetailsProps) => {
 };
 
 export default NoteDetails;
+
+const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+    fontSize: 24,
+  },
+  descriptionContainer: {
+    flexGrow: 1,
+  },
+  descriptionLabel: {
+    textAlign: 'center',
+    fontSize: 24,
+  },
+  updateButton: {
+    backgroundColor: 'blue',
+  },
+  updateButtonContainer: {
+    minWidth: '95%',
+    borderRadius: 25,
+  },
+});

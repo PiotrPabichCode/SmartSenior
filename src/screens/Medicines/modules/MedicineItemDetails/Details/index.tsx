@@ -1,14 +1,12 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { DetailsProps } from './types';
 import { Button, Divider } from '@rneui/themed';
-import { useStyles } from './styles';
 import { t } from '@src/localization/Localization';
 import { downloadFromUrl } from './utils';
 import { useState } from 'react';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 
 const Details = ({ medicineItem }: DetailsProps) => {
-  const styles = useStyles();
   const [loading, setLoading] = useState(false);
 
   if (loading) {
@@ -74,3 +72,45 @@ const Details = ({ medicineItem }: DetailsProps) => {
 };
 
 export default Details;
+
+const styles = StyleSheet.create({
+  name: {
+    fontSize: 26,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: '500',
+  },
+  details: {
+    fontSize: 16,
+    fontWeight: '400',
+    textAlign: 'center',
+  },
+  divider: {
+    width: '100%',
+    marginVertical: 10,
+    backgroundColor: 'black',
+    height: 1,
+  },
+  buttons: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '100%',
+    padding: 10,
+  },
+  buttonTitle: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    width: 140,
+    borderRadius: 10,
+  },
+  buttonStyle: {
+    backgroundColor: 'blue',
+  },
+});

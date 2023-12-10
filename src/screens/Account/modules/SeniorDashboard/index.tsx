@@ -1,12 +1,12 @@
 import { selectConnectedUserById, selectTheme } from '@src/redux/auth/auth.slice';
 import { useAppSelector } from '@src/redux/types';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import SeniorActions from './SeniorActions';
 import { goBack } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { getUserAge, renderGender } from '@src/utils/utils';
-import { ConnectedUser } from '@src/models';
-import { useStyles } from './styles';
+import { ConnectedUser, Theme } from '@src/models';
+import Colors from '@src/constants/Colors';
 
 const SeniorDashboard = ({ route }: any) => {
   const { uid } = route.params;
@@ -67,3 +67,38 @@ const SeniorDashboard = ({ route }: any) => {
 };
 
 export default SeniorDashboard;
+
+const useStyles = (theme: Theme) => {
+  const currentTheme = Colors[theme];
+  return StyleSheet.create({
+    viewStyle: {
+      minHeight: '100%',
+      alignItems: 'center',
+      backgroundColor: currentTheme.mainBackground,
+    },
+    container: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      elevation: 5,
+      backgroundColor: Colors.primary,
+      padding: 10,
+      borderRadius: 25,
+      margin: 10,
+      gap: 10,
+    },
+    title: {
+      fontSize: 28,
+      fontWeight: 'bold',
+    },
+    details: {
+      flexGrow: 1,
+      alignItems: 'center',
+      gap: 20,
+    },
+    detailText: {
+      fontSize: 18,
+      fontWeight: '500',
+    },
+  });
+};

@@ -81,7 +81,6 @@ const AccountData = () => {
                 title={t('account.title.passwordChange')}
                 titleProps={{ allowFontScaling: true }}
                 icon={{ type: 'font-awesome5', name: 'lock', color: 'white' }}
-                containerStyle={{ borderRadius: 25 }}
                 buttonStyle={{ padding: 15, backgroundColor: '#502419', gap: 10 }}
                 onPress={() => setPasswordChange(true)}
               />
@@ -92,7 +91,6 @@ const AccountData = () => {
                 })}
                 titleProps={{ allowFontScaling: true }}
                 icon={{ type: 'entypo', name: 'email', color: 'white' }}
-                containerStyle={{ borderRadius: 25 }}
                 buttonStyle={{ padding: 15, backgroundColor: '#502419', gap: 10 }}
                 onPress={() => setEmailChange(true)}
               />
@@ -114,7 +112,6 @@ const AccountData = () => {
               {isUpdate && (
                 <Button
                   title={t('account.changeData')}
-                  containerStyle={{ borderRadius: 25 }}
                   buttonStyle={{ padding: 15, backgroundColor: 'green' }}
                   onPress={() => handleSubmit()}
                 />

@@ -2,10 +2,9 @@ import { Input } from '@rneui/themed';
 import { renderIcon } from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
 import { NameInputProps } from './types';
-import { useStyles } from './styles';
+import { StyleSheet } from 'react-native';
 
 const NameInput = ({ onChange, value, fieldName }: NameInputProps) => {
-  const styles = useStyles();
   return (
     <Input
       placeholder={t('tags.namePlaceholder')}
@@ -22,3 +21,12 @@ const NameInput = ({ onChange, value, fieldName }: NameInputProps) => {
 };
 
 export default NameInput;
+
+const styles = StyleSheet.create({
+  input: {
+    alignSelf: 'flex-end',
+  },
+  icon: {
+    marginTop: 10,
+  },
+});

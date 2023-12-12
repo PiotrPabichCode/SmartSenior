@@ -23,7 +23,7 @@ export default TagScreen;
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: '100%',
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

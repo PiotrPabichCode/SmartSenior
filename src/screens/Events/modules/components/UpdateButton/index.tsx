@@ -12,7 +12,7 @@ const UpdateButton = ({ visible, onPress }: Props) => {
     visible && (
       <Button
         title={t('eventItemScreen.button.title.update')}
-        buttonStyle={{ backgroundColor: Colors.black, borderRadius: 25 }}
+        buttonStyle={{ backgroundColor: Colors.black }}
         containerStyle={{ alignSelf: 'stretch' }}
         onPress={() => onPress()}
       />

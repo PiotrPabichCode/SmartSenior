@@ -5,8 +5,10 @@ import { useAppSelector } from '@src/redux/types';
 import { selectAuthStatus, selectUser } from '@src/redux/auth/auth.slice';
 import FirstLoginForm from './FirstLoginForm';
 import BackButton from './BackButton';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const FirstLoginWizard = () => {
+  const { top } = useSafeAreaInsets();
   const status = useAppSelector(state => selectAuthStatus(state));
   const user = useAppSelector(state => selectUser(state));
   if (status === 'pending' || validateUserData(user)) {
@@ -14,7 +16,7 @@ const FirstLoginWizard = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: top * 1.5 }]}>
       <BackButton />
       <FirstLoginForm user={user} />
     </View>
@@ -26,6 +28,5 @@ export default FirstLoginWizard;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
   },
 });

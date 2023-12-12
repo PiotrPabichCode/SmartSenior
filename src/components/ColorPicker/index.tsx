@@ -33,7 +33,6 @@ const ColorPicker = ({
       <Button
         title={t('colorPickerAccept')}
         color={swatch}
-        containerStyle={styles.acceptButtonContainer}
         onPress={() => {
           onChange(fieldName, swatch);
           onPress();
@@ -49,9 +48,5 @@ const styles = StyleSheet.create({
   container: {
     height: 350,
     gap: 30,
-    backgroundColor: 'white',
-  },
-  acceptButtonContainer: {
-    marginVertical: 30,
   },
 });

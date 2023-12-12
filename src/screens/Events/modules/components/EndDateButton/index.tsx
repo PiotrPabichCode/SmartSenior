@@ -2,6 +2,7 @@ import { Timestamp } from 'firebase/firestore';
 import { Button } from '@rneui/themed';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
+import { StyleSheet } from 'react-native';
 
 type Props = {
   isRecurring: boolean;
@@ -15,7 +16,6 @@ const EndDateButton = ({ isRecurring, onPress, endDate }: Props) => {
       <Button
         size="lg"
         onPress={() => onPress(true)}
-        containerStyle={{ minWidth: '90%', borderRadius: 25 }}
         title={
           endDate
             ? t('createEvent.button.title.endDate', {
@@ -29,3 +29,5 @@ const EndDateButton = ({ isRecurring, onPress, endDate }: Props) => {
 };
 
 export default EndDateButton;
+
+const styles = StyleSheet.create({});

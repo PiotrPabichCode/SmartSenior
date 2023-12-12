@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import { Tags } from '@src/models';
 import { t } from '@src/localization/Localization';
-import TagCard from '@src/screens/Account/modules/AccountItemDetailsScreen/AccountTags/TagCard';
+import { TagCard } from '@src/components';
 
 type Props = {
   selectedTags: Tags;

@@ -1,19 +1,19 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, ScrollView } from 'react-native';
 import WelcomeSvg from '@assets/welcome-image.svg';
-import { ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import SignInForm from './SignInForm';
 
 const LoginScreen = () => {
+  const { top } = useSafeAreaInsets();
   return (
-    <ScrollView keyboardShouldPersistTaps="handled">
-      <SafeAreaView style={styles.container}>
-        <WelcomeSvg
-          width={Dimensions.get('screen').width}
-          height={Dimensions.get('screen').height * 0.3}
-        />
-        <SignInForm />
-      </SafeAreaView>
+    <ScrollView
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={[styles.container, { paddingTop: top * 1.5 }]}>
+      <WelcomeSvg
+        width={Dimensions.get('screen').width}
+        height={Dimensions.get('screen').height * 0.3}
+      />
+      <SignInForm />
     </ScrollView>
   );
 };
@@ -22,8 +22,7 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 50,
+    flexGrow: 1,
+    gap: 20,
   },
 });

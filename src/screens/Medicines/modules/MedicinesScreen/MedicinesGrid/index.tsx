@@ -1,11 +1,15 @@
-import { MedicinesGridProps } from './types';
-import MedicineCard from './MedicineCard';
 import { useAppSelector } from '@src/redux/types';
 import { selectMedicines } from '@src/redux/medicines/medicines.slice';
 import { navigate } from '@src/navigation/navigationUtils';
 import { handleAddMedicine, handleDeleteItem } from './utils';
+import { MedicineCard } from '@src/components';
+import { Medicines } from '@src/models';
 
-const MedicinesGrid = ({ apiMedicines }: MedicinesGridProps) => {
+type Props = {
+  apiMedicines: Medicines;
+};
+
+const MedicinesGrid = ({ apiMedicines }: Props) => {
   const medicines = useAppSelector(state => selectMedicines(state));
   return (
     apiMedicines &&

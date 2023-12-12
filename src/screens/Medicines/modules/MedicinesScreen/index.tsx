@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
 import { t } from '@src/localization/Localization';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import Colors from '@src/constants/Colors';
@@ -11,6 +10,7 @@ import { selectMedicinesStatus } from '@src/redux/medicines/medicines.slice';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import SearchForm from './SearchForm';
 import MedicinesGrid from './MedicinesGrid';
+import { Text } from '@rneui/themed';
 
 const MedicinesScreen = () => {
   const [apiMedicines, setApiMedicines] = useState<Medicines>([]);
@@ -24,7 +24,7 @@ const MedicinesScreen = () => {
 
   return (
     <CustomScrollContainer theme={currentTheme}>
-      <Text style={styles.title}>{t('medicinesScreen.title')}</Text>
+      <Text h3>{t('medicinesScreen.title')}</Text>
       <CustomDivider />
       <SearchForm onLoad={setApiMedicines} />
       <MedicinesGrid apiMedicines={apiMedicines} />
@@ -33,18 +33,3 @@ const MedicinesScreen = () => {
 };
 
 export default MedicinesScreen;
-
-const styles = StyleSheet.create({
-  buttonSearchContainer: {
-    width: '90%',
-    borderRadius: 25,
-  },
-  buttonSearchStyle: {
-    backgroundColor: 'blue',
-  },
-  title: {
-    marginTop: 10,
-    fontSize: 26,
-    fontWeight: 'bold',
-  },
-});

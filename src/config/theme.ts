@@ -5,9 +5,26 @@ const theme = createTheme({
     Button: {
       containerStyle: {
         borderRadius: 25,
+        alignSelf: 'stretch',
+        marginHorizontal: 10,
+      },
+      color: 'primary',
+    },
+    Input: {
+      inputContainerStyle: {
+        width: '100%',
+      },
+      inputStyle: {
+        marginHorizontal: 10,
+      },
+      labelStyle: {
+        alignSelf: 'center',
+        fontSize: 24,
       },
     },
-    Text: {},
+  },
+  lightColors: {
+    primary: 'blue',
   },
 });
 

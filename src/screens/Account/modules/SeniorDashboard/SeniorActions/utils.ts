@@ -10,12 +10,7 @@ import { db } from 'firebaseConfig';
 import { UserToken } from '@src/models';
 import { store } from '@src/redux/common';
 
-const onEventComplete = async (
-  groupKey: string,
-  date: Timestamp,
-  onChange: any,
-  events: UserEvents,
-) => {
+const onEventComplete = async (groupKey: string, date: Timestamp, onComplete: () => void) => {
   try {
     const event = await getEventForGroupAndDate(groupKey, date, true);
     if (!event) {
@@ -35,7 +30,7 @@ const onEventComplete = async (
         }),
       )
       .unwrap();
-    onChange(events.filter(e => e.date !== date));
+    onComplete();
     CustomToast('success', t('message.success.completeEvent'));
   } catch (error) {
     console.log(error);
@@ -43,13 +38,14 @@ const onEventComplete = async (
   }
 };
 
-export const handleCompleteEvent = (
-  groupKey: string,
-  title: string,
-  date: Timestamp,
-  onChange: any,
-  events: UserEvents,
-) => {
+type onCompleteProps = {
+  groupKey: string;
+  title: string;
+  date: Timestamp;
+  onComplete: () => void;
+};
+
+export const handleCompleteEvent = ({ date, groupKey, onComplete, title }: onCompleteProps) => {
   Alert.alert(
     t('alertEventCompleteTitle'),
     t('alertEventCompleteQuestion', {
@@ -65,18 +61,13 @@ export const handleCompleteEvent = (
       {
         text: t('yes'),
         style: 'destructive',
-        onPress: async () => await onEventComplete(groupKey, date, onChange, events),
+        onPress: async () => await onEventComplete(groupKey, date, onComplete),
       },
     ],
   );
 };
 
-const onEventDelete = async (
-  groupKey: string,
-  date: Timestamp,
-  onChange: any,
-  events: UserEvents,
-) => {
+const onEventDelete = async (groupKey: string, date: Timestamp, onDelete: () => void) => {
   try {
     const event = await getEventForGroupAndDate(groupKey, date, true);
     if (!event) {
@@ -96,7 +87,7 @@ const onEventDelete = async (
         }),
       )
       .unwrap();
-    onChange(events.filter(e => e.date !== date));
+    onDelete();
     CustomToast('success', t('message.success.deleteEvent'));
   } catch (error) {
     console.log(error);
@@ -104,13 +95,14 @@ const onEventDelete = async (
   }
 };
 
-export const handleDeleteEvent = (
-  groupKey: string,
-  title: string,
-  date: Timestamp,
-  onChange: any,
-  events: UserEvents,
-) => {
+type onDeleteProps = {
+  groupKey: string;
+  title: string;
+  date: Timestamp;
+  onDelete: () => void;
+};
+
+export const handleDeleteEvent = ({ groupKey, title, date, onDelete }: onDeleteProps) => {
   Alert.alert(
     t('alertEventDeleteTitle'),
     t('alertEventDeleteQuestion', {
@@ -126,7 +118,7 @@ export const handleDeleteEvent = (
       {
         text: t('yes'),
         style: 'destructive',
-        onPress: async () => await onEventDelete(groupKey, date, onChange, events),
+        onPress: async () => await onEventDelete(groupKey, date, onDelete),
       },
     ],
   );

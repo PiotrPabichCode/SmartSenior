@@ -27,6 +27,7 @@ export default {
     divider: '#B2A8CC',
     icon: '#FFFFFF',
   },
+  customBtnBackground: '#7EF9FF',
   lightOld: {
     primary: '#f3f4f6',
     secondary: '#ffffff',

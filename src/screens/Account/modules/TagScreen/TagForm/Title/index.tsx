@@ -1,16 +1,12 @@
-import { StyleSheet, Text } from 'react-native';
-import { TitleProps } from './types';
 import { t } from '@src/localization/Localization';
+import { Text } from '@rneui/themed';
 
-const Title = ({ isUpdate }: TitleProps) => {
-  return <Text style={styles.title}>{isUpdate ? t('tags.updateTitle') : t('tags.new')}</Text>;
+type Props = {
+  isUpdate: boolean;
+};
+
+const Title = ({ isUpdate }: Props) => {
+  return <Text h4>{isUpdate ? t('tags.updateTitle') : t('tags.new')}</Text>;
 };
 
 export default Title;
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-});

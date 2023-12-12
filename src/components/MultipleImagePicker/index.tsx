@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, ScrollView, Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { Button, Image } from '@rneui/themed';
+import { Button, Image, useTheme } from '@rneui/themed';
 import { ActivityIndicator, Alert } from 'react-native';
 import { Image as ImageModel, Images } from '@src/models';
 import { t } from '@src/localization/Localization';
@@ -16,6 +16,7 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
   const [selectedImages, setSelectedImages] = useState<Images>(initialValues ? initialValues : []);
   const BASE_WIDTH = 200;
   const BASE_HEIGHT = 200;
+  const theme = useTheme().theme;
   const [currentWidth, setCurrentWidth] = useState<number>(BASE_WIDTH);
   const [currentHeight, setCurrentHeight] = useState<number>(BASE_HEIGHT);
   const imageFullScreenHeight = Dimensions.get('window').height * 0.7;
@@ -105,15 +106,15 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
       <Button
         size="lg"
         title={t('multipleImagePicker.selectPhotos')}
-        buttonStyle={{ backgroundColor: 'black' }}
-        containerStyle={{ minWidth: '90%', borderRadius: 25 }}
+        buttonStyle={{ backgroundColor: theme.colors.black }}
+        containerStyle={{ minWidth: '90%' }}
         onPress={pickImages}
       />
       <Button
         size="lg"
         title={t('multipleImagePicker.takePhoto')}
-        buttonStyle={{ backgroundColor: 'green' }}
-        containerStyle={{ minWidth: '90%', borderRadius: 25 }}
+        buttonStyle={{ backgroundColor: theme.colors.black }}
+        containerStyle={{ minWidth: '90%' }}
         onPress={takePhoto}
       />
       <ScrollView horizontal ref={scrollViewRef} scrollEventThrottle={16}>

@@ -10,7 +10,6 @@ const Description = ({ value, onChange }: Props) => {
   return (
     <Input
       label={t('eventItemScreen.button.label.description')}
-      labelStyle={{ alignSelf: 'center', fontSize: 24 }}
       placeholder={t('createEvent.button.placeholder.description')}
       multiline={true}
       onChangeText={onChange('description')}

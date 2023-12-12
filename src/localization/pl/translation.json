@@ -84,8 +84,8 @@
       "passwordChange": "Zmiana hasła logowania",
       "email": "Adres e-mail: {{email}}",
       "emailChange": "Wyślij prośbę o zmianę e-maila",
-      "firstName": "Imię:",
-      "lastName": "Nazwisko:",
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
       "birthDate": "Data urodzenia: {{date}}",
       "password": "Hasło:",
       "phoneNumber": "Numer telefonu"
@@ -104,8 +104,8 @@
     },
     "language": {
       "title": "Wybrany język",
-      "polish": "Polski",
-      "english": "Angielski"
+      "pl": "Polski",
+      "en": "Angielski"
     },
     "notification": {
       "title": "Czas powiadomień"
@@ -231,11 +231,8 @@
       "passwordLengthMin": "Hasło powinno mieć co najmniej 6 znaków",
       "passwordLengthMax": "Hasło może mieć maksymalnie 30 znaków"
     },
-    "message": {
-      "error": {
-        "signUp": "Nie udało się zarejestrować"
-      }
-    }
+    "registerSuccess": "Zarejestrowano pomyślnie",
+    "registerError": "Nie udało się zarejestrować"
   },
   "createEvent": {
     "title": "Nowe wydarzenie",
@@ -424,7 +421,7 @@
     "namePlaceholder": "Wpisz nazwę znacznika",
     "selectPlaceholder": "Wybierz znaczniki wydarzenia",
     "colorPlaceholder": "Wybierz kolor znacznika",
-    "noAssignedTags": "Brak przypisanych znaczników.",
+    "noAssignedTags": "Brak przypisanych znaczników",
     "description": "Znaczniki pozwalają na filtrowanie wydarzeń na podstawie danego znacznika. Umożliwiają skuteczną kategoryzację i organizację, umożliwiając użytkownikom łatwe znalezienie wydarzeń zgodnych z konkretnymi zainteresowaniami, umiejętnościami lub cechami. Dodaj znacznik, aby zwiększyć możliwości filtrowania swoich wydarzeń!",
     "addTitle": "Dodaj nowy znacznik",
     "add": "Dodaj",

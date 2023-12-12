@@ -1,9 +1,9 @@
-import { StyleSheet, View } from 'react-native';
-import NotesCard from './NotesCard';
+import { View } from 'react-native';
 import { NotesContainerProps } from './types';
 import { useAppSelector } from '@src/redux/types';
 import { selectNotesStatus } from '@src/redux/notes/notes.slice';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import NotesMapper from './NotesMapper';
 
 const NotesContainer = ({ notes, elementsPerLine }: NotesContainerProps) => {
   const status = useAppSelector(state => selectNotesStatus(state));
@@ -12,50 +12,11 @@ const NotesContainer = ({ notes, elementsPerLine }: NotesContainerProps) => {
     return <CustomActivityIndicator />;
   }
 
-  const rows = [];
-  const numNotes = notes.length;
-  const elementsInLine = Math.min(elementsPerLine, numNotes);
-
-  for (let i = 0; i < numNotes; i += elementsInLine) {
-    const elements = [];
-    let notesInLine = 0;
-    for (let j = i; j < i + elementsInLine; j++) {
-      if (j < numNotes) {
-        const note = notes[j];
-        elements.push(
-          <NotesCard
-            key={'note' + j}
-            noteKey={note.key}
-            description={note.description}
-            title={note.title}
-            updatedAt={note.updatedAt}
-            createdAt={note.createdAt}
-            extended={elementsInLine === 1 || (j + 1 === numNotes && notesInLine === 0)}
-          />,
-        );
-        notesInLine++;
-      }
-    }
-
-    rows.push(
-      <View key={`row_${i / elementsInLine}`} style={styles.item}>
-        {elements}
-      </View>,
-    );
-  }
-
-  return <View style={styles.container}>{rows}</View>;
+  return (
+    <View>
+      <NotesMapper notes={notes} elementsPerLine={elementsPerLine} />
+    </View>
+  );
 };
 
 export default NotesContainer;
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-  },
-  item: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
-  },
-});

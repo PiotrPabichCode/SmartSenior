@@ -1,25 +1,21 @@
 import { useState } from 'react';
-import { Button, Input } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { useAppDispatch, useAppSelector } from '@src/redux/types';
+import { useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import Colors from '@src/constants/Colors';
 import { t } from '@src/localization/Localization';
-import { updateNote } from '@src/redux/notes/notes.actions';
 import { Note } from '@src/models';
-import { Timestamp } from 'firebase/firestore';
 import { selectNoteByKey, selectNotesStatus } from '@src/redux/notes/notes.slice';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { goBack } from '@src/navigation/navigationUtils';
-import CustomToast from '@src/components/CustomToast';
 import { NoteDetailsProps } from '@src/navigation/types';
 import isEqual from 'lodash.isequal';
-import { getUpdatedFields } from '@src/utils/utils';
 import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
-import { StyleSheet } from 'react-native';
+import { NoteDescription, NoteTitle } from '../components';
+import { onSubmit } from './utils';
 
 const NoteDetails = ({ navigation, route }: NoteDetailsProps) => {
-  const dispatch = useAppDispatch();
   const { key } = route.params;
   const storeNote = useAppSelector(state => selectNoteByKey(state, key));
 
@@ -37,55 +33,24 @@ const NoteDetails = ({ navigation, route }: NoteDetailsProps) => {
     return <CustomActivityIndicator />;
   }
 
-  const handlePress = async () => {
-    try {
-      const updatedNote = { ...note, updatedAt: Timestamp.now() };
-      const updatedValues = getUpdatedFields(storeNote, updatedNote);
-      await dispatch(updateNote({ key: note.key, data: updatedValues })).unwrap();
-      setNote(updatedNote);
-      CustomToast('success', t('message.success.updateNote'));
-      goBack();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <CustomScrollContainer theme={currentTheme}>
-      <Input
-        numberOfLines={1}
-        label={t('noteTitle')}
-        placeholder={t('noteTitlePlaceholder')}
-        textAlign="center"
+      <NoteTitle
         value={note.title}
-        onChangeText={e => {
-          setNote({ ...note, title: e });
+        onChange={(newValue: string) => {
+          setNote({ ...note, title: newValue });
         }}
-        maxLength={50}
-        labelStyle={styles.title}
-        multiline
       />
 
-      <Input
-        label={t('noteDescription')}
-        placeholder={t('noteDescriptionPlaceholder')}
+      <NoteDescription
         value={note.description}
-        onChangeText={e => {
-          setNote({ ...note, description: e });
+        onChange={(newValue: string) => {
+          setNote({ ...note, description: newValue });
         }}
-        containerStyle={styles.descriptionContainer}
-        labelStyle={styles.descriptionLabel}
-        multiline
       />
       {!isEqual(storeNote, note) && (
         <>
-          <Button
-            size="lg"
-            title={t('updateNoteButton')}
-            buttonStyle={styles.updateButton}
-            containerStyle={styles.updateButtonContainer}
-            onPress={() => handlePress()}
-          />
+          <Button size="lg" title={t('updateNoteButton')} onPress={() => onSubmit(key, setNote)} />
           <DiscardChangesAlert navigation={navigation} isUpdate={true} />
         </>
       )}
@@ -94,24 +59,3 @@ const NoteDetails = ({ navigation, route }: NoteDetailsProps) => {
 };
 
 export default NoteDetails;
-
-const styles = StyleSheet.create({
-  title: {
-    textAlign: 'center',
-    fontSize: 24,
-  },
-  descriptionContainer: {
-    flexGrow: 1,
-  },
-  descriptionLabel: {
-    textAlign: 'center',
-    fontSize: 24,
-  },
-  updateButton: {
-    backgroundColor: 'blue',
-  },
-  updateButtonContainer: {
-    minWidth: '95%',
-    borderRadius: 25,
-  },
-});

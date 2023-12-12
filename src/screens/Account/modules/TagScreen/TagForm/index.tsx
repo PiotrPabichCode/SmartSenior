@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     gap: 10,
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 25,

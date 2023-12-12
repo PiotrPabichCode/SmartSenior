@@ -12,7 +12,6 @@ const Title = ({ value, onChange, disabled }: Props) => {
     <Input
       disabled={disabled}
       label={t('eventItemScreen.button.label.title')}
-      labelStyle={{ alignSelf: 'center', fontSize: 24 }}
       placeholder={t('eventItemScreen.button.placeholder.title')}
       onChangeText={onChange('title')}
       value={value}

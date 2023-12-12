@@ -1,7 +1,6 @@
-import { Button, Switch, Text } from '@rneui/themed';
+import { Button, Switch, Text, useTheme } from '@rneui/themed';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { EventGroups, Events, Tag, Tags } from '@src/models';
 import { Formik } from 'formik';
 import { t } from '@src/localization/Localization';
@@ -12,7 +11,7 @@ import DateButton from '../DateButton';
 import DatePicker from '../DatePicker';
 import { Timestamp } from 'firebase/firestore';
 import { Priority, TagsDisplay, TagsPicker } from '@src/screens/Events/modules/components';
-import { ScrollView } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { selectEventGroups, selectEvents } from '@src/redux/events/events.slice';
 import { SearchTitle } from './components/TitlesPicker';
 import { View } from 'react-native';
@@ -21,7 +20,7 @@ const FilterPanel = ({ route }: any) => {
   const { filters } = route.params;
   const eventGroups = useAppSelector(state => selectEventGroups(state));
   const tags = useAppSelector(state => selectTags(state));
-  const insets = useSafeAreaInsets();
+  const theme = useTheme().theme;
   const [showDateFrom, setShowDateFrom] = useState<boolean>(false);
   const [showDateTo, setShowDateTo] = useState<boolean>(false);
   const INITIAL_VALUES = {
@@ -77,26 +76,18 @@ const FilterPanel = ({ route }: any) => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        minHeight: '100%',
-        alignItems: 'center',
-        gap: 20,
-        backgroundColor: 'white',
-        paddingTop: insets.top * 1.5,
-        paddingBottom: 15,
-      }}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Formik
         initialValues={{
-          titles: filters?.titles ?? ([] as Array<string>),
-          tags: filters?.tags ?? ([] as Tags),
-          active: filters?.active ?? (null as boolean | null),
+          titles: filters?.titles ?? [],
+          tags: filters?.tags ?? [],
+          active: filters?.active ?? null,
           dateFrom: filters?.dateFrom?.seconds
             ? Timestamp.fromDate(new Date(1000 * filters?.dateFrom?.seconds))
-            : (null as Timestamp | null),
+            : null,
           dateTo: filters?.dateTo?.seconds
             ? Timestamp.fromDate(new Date(1000 * filters?.dateTo?.seconds))
-            : (null as Timestamp | null),
+            : null,
           priority: filters?.priority ?? 0,
         }}
         enableReinitialize
@@ -180,14 +171,12 @@ const FilterPanel = ({ route }: any) => {
               title={t('filterPanel.submit')}
               size="lg"
               buttonStyle={{ backgroundColor: 'green' }}
-              containerStyle={{ minWidth: '90%', borderRadius: 25 }}
               onPress={() => handleSubmit()}
             />
             <Button
               title={t('filterPanel.delete')}
               size="lg"
-              buttonStyle={{ backgroundColor: 'red' }}
-              containerStyle={{ minWidth: '90%', borderRadius: 25 }}
+              buttonStyle={{ backgroundColor: theme.colors.error }}
               onPress={() => {
                 setValues(INITIAL_VALUES);
               }}
@@ -200,3 +189,13 @@ const FilterPanel = ({ route }: any) => {
 };
 
 export default FilterPanel;
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    alignItems: 'center',
+    gap: 20,
+    backgroundColor: 'white',
+    paddingVertical: 15,
+  },
+});

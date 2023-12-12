@@ -1,12 +1,10 @@
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectUser } from '@src/redux/auth/auth.slice';
 import { t } from '@src/localization/Localization';
 import { Button } from '@rneui/themed';
 import { Formik } from 'formik';
-import DateButton from '@src/components/DateButton';
-import DatePicker from '@src/components/DatePicker';
 import { getUpdatedFields } from '@src/utils/utils';
 import CustomToast from '@src/components/CustomToast';
 import { updateUserData } from '@src/redux/auth/auth.actions';
@@ -14,15 +12,14 @@ import { goBack } from '@src/navigation/navigationUtils';
 import FormikObserver from '@src/utils/FormikObserver';
 import { UpdateAccountSchema } from './utils';
 import AccountDataInput from './AccountDataInput';
-import EmailModal from './EmailModal';
-import PasswordModal from './PasswordModal';
+import Email from './Email';
+import Password from './Password';
+import BirthDate from './BirthDate';
+import ChangeDataButton from './ChangeDataButton';
 
 const AccountData = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => selectUser(state));
-  const [showDate, setShowDate] = useState<boolean>(false);
-  const [emailChange, setEmailChange] = useState<boolean>(false);
-  const [passwordChange, setPasswordChange] = useState<boolean>(false);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
   if (!user) {
@@ -30,7 +27,7 @@ const AccountData = () => {
   }
 
   return (
-    <View style={{ gap: 5 }}>
+    <View style={styles.container}>
       <Formik
         initialValues={{
           firstName: user.firstName,
@@ -76,57 +73,22 @@ const AccountData = () => {
               onChange={setFieldValue}
               errorMessage={errors.phoneNumber}
             />
-            <View style={{ gap: 15, marginTop: 10 }}>
-              <Button
-                title={t('account.title.passwordChange')}
-                titleProps={{ allowFontScaling: true }}
-                icon={{ type: 'font-awesome5', name: 'lock', color: 'white' }}
-                buttonStyle={{ padding: 15, backgroundColor: '#502419', gap: 10 }}
-                onPress={() => setPasswordChange(true)}
-              />
-              <PasswordModal visible={passwordChange} onClose={setPasswordChange} />
-              <Button
-                title={t('account.title.email', {
-                  email: user.email,
-                })}
-                titleProps={{ allowFontScaling: true }}
-                icon={{ type: 'entypo', name: 'email', color: 'white' }}
-                buttonStyle={{ padding: 15, backgroundColor: '#502419', gap: 10 }}
-                onPress={() => setEmailChange(true)}
-              />
-              <EmailModal visible={emailChange} onClose={setEmailChange} />
-              <DateButton
-                date={values.birthDate}
-                onPress={setShowDate}
-                styles={{ backgroundColor: 'blue' }}
-                label={'account.title.birthDate'}
-                labelEmpty={'account.placeholder.birthDate'}
-              />
-              <DatePicker
-                date={values.birthDate}
-                fieldName={'birthDate'}
-                isVisible={showDate}
-                onChange={setFieldValue}
-                onClose={setShowDate}
-              />
-              {isUpdate && (
-                <Button
-                  title={t('account.changeData')}
-                  buttonStyle={{ padding: 15, backgroundColor: 'green' }}
-                  onPress={() => handleSubmit()}
-                />
-              )}
-              <FormikObserver
-                onChange={(data: any) => {
-                  const changedFields = getUpdatedFields(data.initialValues, data.values);
-                  if (Object.keys(changedFields).length > 0) {
-                    setIsUpdate(true);
-                  } else {
-                    setIsUpdate(false);
-                  }
-                }}
-              />
+            <View style={styles.buttons}>
+              <Password />
+              <Email email={user.email} />
+              <BirthDate onChange={setFieldValue} birthDate={values.birthDate} />
+              <ChangeDataButton visible={isUpdate} onSubmit={handleSubmit} />
             </View>
+            <FormikObserver
+              onChange={(data: any) => {
+                const changedFields = getUpdatedFields(data.initialValues, data.values);
+                if (Object.keys(changedFields).length > 0) {
+                  setIsUpdate(true);
+                } else {
+                  setIsUpdate(false);
+                }
+              }}
+            />
           </>
         )}
       </Formik>
@@ -135,3 +97,13 @@ const AccountData = () => {
 };
 
 export default AccountData;
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 5,
+  },
+  buttons: {
+    gap: 15,
+    marginTop: 10,
+  },
+});

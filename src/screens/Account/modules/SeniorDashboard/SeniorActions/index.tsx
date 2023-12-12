@@ -1,13 +1,15 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ConnectedUser } from '@src/models';
 import { t } from '@src/localization/Localization';
-import { getSeniorLocation } from '@src/redux/auth/auth.api';
 import EventsMapper from './EventsMapper';
 import { useState } from 'react';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { usePrepareEvents } from './usePrepareEvents';
 import { useAppSelector } from '@src/redux/types';
 import { selectEventsStatus } from '@src/redux/events/events.slice';
+import { Text } from '@rneui/themed';
+import Colors from '@src/constants/Colors';
+import SeniorLocationButton from './SeniorLocationButton';
 
 const SeniorActions = ({ user }: { user: ConnectedUser }) => {
   const eventGroups = user.eventGroups;
@@ -20,17 +22,10 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.actionContainer}
-        onPress={() => {
-          getSeniorLocation(user.user.uid);
-        }}>
-        <Text style={styles.actionText} numberOfLines={1}>
-          {t('seniorDashboard.localization')}
-        </Text>
-      </TouchableOpacity>
-      <EventsMapper events={events} setEvents={setEvents} user={user} onLoad={setIsLoading} />
+    <View style={styles.mainContainer}>
+      <Text h3>{t('seniorDashboard.availableActions')}</Text>
+      <SeniorLocationButton user={user} />
+      <EventsMapper events={events} onEvent={setEvents} user={user} onLoad={setIsLoading} />
     </View>
   );
 };
@@ -38,18 +33,13 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
 export default SeniorActions;
 
 const styles = StyleSheet.create({
-  container: {
-    gap: 20,
-  },
-  actionContainer: {
+  mainContainer: {
     alignItems: 'center',
+    width: '95%',
+    backgroundColor: Colors.primary,
+    paddingVertical: 10,
     borderRadius: 25,
-    borderWidth: 1,
-    padding: 20,
-  },
-  actionText: {
-    fontSize: 14,
-    fontWeight: '500',
-    textAlign: 'center',
+    elevation: 5,
+    gap: 10,
   },
 });

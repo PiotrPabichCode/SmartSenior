@@ -7,18 +7,21 @@ import { StyleSheet } from 'react-native';
 type Props = {
   date: Timestamp | null;
   onPress: any;
+  onBlur?: any;
+  isError?: boolean;
   labelEmpty: string;
   label: string;
   styles?: any;
 };
 
-const DateButton = ({ date, onPress, label, labelEmpty, styles }: Props) => {
+const DateButton = ({ date, onPress, onBlur, isError, label, labelEmpty, styles }: Props) => {
   return (
     <Button
       size="lg"
       onPress={() => onPress(true)}
+      onBlur={onBlur}
       buttonStyle={[_styles.button, styles]}
-      containerStyle={_styles.container}
+      titleStyle={isError && { color: 'red' }}
       title={
         date
           ? t(label, {
@@ -36,8 +39,5 @@ const _styles = StyleSheet.create({
   button: {
     padding: 15,
     backgroundColor: 'green',
-  },
-  container: {
-    minWidth: '90%',
   },
 });

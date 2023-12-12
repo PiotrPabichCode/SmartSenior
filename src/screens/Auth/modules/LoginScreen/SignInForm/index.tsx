@@ -9,13 +9,13 @@ import SignInButton from './SignInButton';
 import SignInGoogleButton from './SignInGoogleButton';
 import LoginDivider from './LoginDivider';
 import SignUpRedirect from './SignUpRedirect';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
   return (
-    <>
-      <Text style={styles.headerText}>{t('login.welcomeBack')}</Text>
+    <View style={styles.container}>
+      <Text h2>{t('login.welcomeBack')}</Text>
       <SignInGoogleButton />
       <LoginDivider />
       <Formik
@@ -30,17 +30,17 @@ const SignInForm = () => {
             CustomToast('error', t('login.message.error.signIn'));
           }
         }}>
-        {({ values, handleChange, handleSubmit, errors }) => (
+        {({ values, handleChange, handleBlur, handleSubmit, errors, touched }) => (
           <>
             <Input
               style={styles.inputField}
-              underlineColorAndroid="transparent"
               leftIcon={<Icon name="email" size={30} color="black" />}
               placeholder={t('login.button.placeholder.email')}
               keyboardType="email-address"
+              onBlur={handleBlur('email')}
               onChangeText={handleChange('email')}
               value={values.email}
-              errorMessage={errors.email}
+              errorMessage={touched.email ? errors.email : ''}
             />
 
             <Input
@@ -48,31 +48,37 @@ const SignInForm = () => {
               leftIcon={<Icon name="lock" size={30} color="black" />}
               secureTextEntry={true}
               placeholder={t('login.button.placeholder.password')}
+              onBlur={handleBlur('password')}
               onChangeText={handleChange('password')}
               value={values.password}
-              errorMessage={errors.password}
+              errorMessage={touched.password ? errors.password : ''}
             />
-            <SignInButton onSubmit={handleSubmit} />
+            <View style={styles.signInContainer}>
+              <SignInButton onSubmit={handleSubmit} />
+              <SignUpRedirect />
+            </View>
           </>
         )}
       </Formik>
-      <SignUpRedirect />
-    </>
+    </View>
   );
 };
 
 export default SignInForm;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
   inputField: {
-    alignSelf: 'stretch',
-    textAlign: 'left',
     fontSize: 16,
     fontWeight: '700',
-    marginHorizontal: 20,
   },
-  headerText: {
-    fontSize: 32,
-    fontWeight: 'bold',
+  signInContainer: {
+    flexGrow: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 });

@@ -1,11 +1,11 @@
 import { Formik } from 'formik';
 import { buildApiRequest } from '@src/utils/utils';
 import { loadApiPharmacies } from './utils';
-import { Button, Input } from '@rneui/themed';
+import { Input } from '@rneui/themed';
 import CustomDropdown from '@src/components/CustomDropdown';
 import { t } from '@src/localization/Localization';
 import { BASE_SEARCH_URL, SearchFormProps, provinces } from './types';
-import { StyleSheet } from 'react-native';
+import SearchButton from './SearchButton';
 
 const SearchForm = ({ onLoad }: SearchFormProps) => {
   return (
@@ -37,12 +37,7 @@ const SearchForm = ({ onLoad }: SearchFormProps) => {
             value={values.companyProvince}
             handleChange={(e: any) => setFieldValue('companyProvince', e.value)}
           />
-          <Button
-            title={t('button.search')}
-            containerStyle={styles.buttonSearchContainer}
-            buttonStyle={styles.buttonSearchStyle}
-            onPress={() => handleSubmit()}
-          />
+          <SearchButton onPress={handleSubmit} />
         </>
       )}
     </Formik>
@@ -50,25 +45,3 @@ const SearchForm = ({ onLoad }: SearchFormProps) => {
 };
 
 export default SearchForm;
-
-const styles = StyleSheet.create({
-  buttonSearchContainer: {
-    width: '90%',
-    borderRadius: 25,
-    marginTop: 10,
-  },
-  buttonSearchStyle: {
-    backgroundColor: 'blue',
-  },
-  title: {
-    marginTop: 10,
-    fontSize: 26,
-    fontWeight: 'bold',
-  },
-  dividerStyle: {
-    width: '100%',
-    marginVertical: 10,
-    backgroundColor: 'black',
-    height: 1,
-  },
-});

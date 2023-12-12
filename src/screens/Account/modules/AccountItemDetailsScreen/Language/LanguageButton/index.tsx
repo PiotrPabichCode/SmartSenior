@@ -1,4 +1,5 @@
 import { Button } from '@rneui/themed';
+import { StyleSheet } from 'react-native';
 
 type Props = {
   title: string;
@@ -8,10 +9,10 @@ type Props = {
 const LanguageButton = ({ title, onPress }: Props) => {
   return (
     <Button
+      size="lg"
       title={title}
-      containerStyle={{ minWidth: '95%', borderRadius: 25, marginTop: 20 }}
-      buttonStyle={{ padding: 15, backgroundColor: 'blue', gap: 10 }}
-      titleStyle={{ fontSize: 20 }}
+      buttonStyle={styles.button}
+      titleStyle={styles.title}
       icon={{ type: 'font-awesome', name: 'language', color: 'white' }}
       onPress={onPress}
     />
@@ -19,3 +20,12 @@ const LanguageButton = ({ title, onPress }: Props) => {
 };
 
 export default LanguageButton;
+
+const styles = StyleSheet.create({
+  button: {
+    gap: 10,
+  },
+  title: {
+    fontSize: 20,
+  },
+});

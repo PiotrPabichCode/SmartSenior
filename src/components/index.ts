@@ -18,6 +18,9 @@ import MultipleImagePicker from './MultipleImagePicker';
 import MultiSelectDropdown from './MultiSelectDropdown';
 import Row from './Row';
 import SpeedDialMenu from './SpeedDialMenu';
+import TagCard from './TagCard';
+import PharmacyCard from './PharmacyCard';
+import MedicineCard from './MedicineCard';
 
 export {
   Calendar,
@@ -40,4 +43,7 @@ export {
   MultiSelectDropdown,
   Row,
   SpeedDialMenu,
+  TagCard,
+  PharmacyCard,
+  MedicineCard,
 };

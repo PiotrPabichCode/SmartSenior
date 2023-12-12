@@ -1,16 +1,28 @@
 import { t } from '@src/localization/Localization';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 const LoginDivider = () => {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', margin: 20 }}>
-      <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
-      <View>
-        <Text style={{ width: 50, textAlign: 'center' }}>{t('login.or')}</Text>
-      </View>
-      <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
+    <View style={styles.container}>
+      <View style={styles.line} />
+      <Text style={styles.text}>{t('login.or')}</Text>
+      <View style={styles.line} />
     </View>
   );
 };
 
 export default LoginDivider;
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 20,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: 'black',
+  },
+  text: { width: 50, textAlign: 'center' },
+});

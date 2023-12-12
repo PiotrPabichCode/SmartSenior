@@ -1,5 +1,6 @@
 import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
+import { StyleSheet } from 'react-native';
 
 type Props = {
   onPress: any;
@@ -10,11 +11,20 @@ const CreateButton = ({ onPress }: Props) => {
     <Button
       size="lg"
       title={t('createEvent.button.submit')}
-      buttonStyle={{ backgroundColor: 'rgba(127, 220, 103, 1)' }}
-      containerStyle={{ minWidth: '95%', borderRadius: 25 }}
+      buttonStyle={styles.button}
+      containerStyle={styles.container}
       onPress={() => onPress()}
     />
   );
 };
 
 export default CreateButton;
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: 'rgba(127, 220, 103, 1)',
+  },
+  container: {
+    minWidth: '95%',
+  },
+});

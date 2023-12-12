@@ -82,8 +82,8 @@
       "passwordChange": "Password change",
       "email": "Email: {{email}}",
       "emailChange": "Send a request to change email",
-      "firstName": "First Name:",
-      "lastName": "Last Name:",
+      "firstName": "First Name",
+      "lastName": "Last Name",
       "birthDate": "Date of Birth: {{date}}",
       "password": "Password:",
       "phoneNumber": "Phone number"
@@ -102,8 +102,8 @@
     },
     "language": {
       "title": "Selected Language",
-      "polish": "Polish",
-      "english": "English"
+      "pl": "Polish",
+      "en": "English"
     },
     "notification": {
       "title": "Notification Time"
@@ -230,11 +230,8 @@
       "passwordLengthMin": "Password must be at least 6 characters long",
       "passwordLengthMax": "Password can be at most 30 characters long"
     },
-    "message": {
-      "error": {
-        "signUp": "Could not register"
-      }
-    }
+    "registerSuccess": "Signed up successfully",
+    "registerError": "Could not sign up"
   },
   "createEvent": {
     "title": "New Event",
@@ -423,7 +420,7 @@
     "namePlaceholder": "Enter tag name",
     "selectPlaceholder": "Select event tags",
     "colorPlaceholder": "Select tag color",
-    "noAssignedTags": "No assigned tags.",
+    "noAssignedTags": "No assigned tags",
     "description": "Tags provide the ability to filter events based on the tag. They enable effective categorization and organization, allowing users to easily find events that match specific interests, skills, or characteristics. Add a tag to enhance the filtering capabilities of your events!",
     "addTitle": "Add a new tag",
     "add": "Add",

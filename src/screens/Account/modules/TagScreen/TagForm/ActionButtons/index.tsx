@@ -1,8 +1,12 @@
 import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { StyleSheet, View } from 'react-native';
-import { ActionButtonsProps } from './types';
 import { goBack } from '@src/navigation/navigationUtils';
+
+type ActionButtonsProps = {
+  onSubmit: () => void;
+  isUpdate: boolean;
+};
 
 const ActionButtons = ({ onSubmit, isUpdate }: ActionButtonsProps) => {
   return (
@@ -28,8 +32,6 @@ export default ActionButtons;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    gap: 10,
-    minWidth: '100%',
   },
   buttonContainer: {
     flex: 1,

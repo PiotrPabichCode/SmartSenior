@@ -2,6 +2,7 @@ import { Timestamp } from 'firebase/firestore';
 import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { convertTimestampToDate } from '@src/utils/utils';
+import { StyleSheet } from 'react-native';
 
 type Props = {
   date: Timestamp | null;
@@ -17,10 +18,10 @@ const DateButton = ({ date, onPress, disabled }: Props) => {
         onPress && onPress(true);
       }}
       disabled={disabled}
-      disabledStyle={{ backgroundColor: 'green' }}
-      disabledTitleStyle={{ color: 'white' }}
-      buttonStyle={{ backgroundColor: 'green' }}
-      containerStyle={{ minWidth: '90%', borderRadius: 25 }}
+      disabledStyle={styles.disabled}
+      disabledTitleStyle={styles.disabledTitle}
+      buttonStyle={styles.button}
+      containerStyle={styles.container}
       title={
         date
           ? t('createEvent.button.title.date', {
@@ -33,3 +34,18 @@ const DateButton = ({ date, onPress, disabled }: Props) => {
 };
 
 export default DateButton;
+
+const styles = StyleSheet.create({
+  disabled: {
+    backgroundColor: 'green',
+  },
+  disabledTitle: {
+    color: 'white',
+  },
+  button: {
+    backgroundColor: 'green',
+  },
+  container: {
+    minWidth: '90%',
+  },
+});

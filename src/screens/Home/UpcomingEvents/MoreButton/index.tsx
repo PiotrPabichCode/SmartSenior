@@ -12,6 +12,7 @@ const MoreButton = () => {
   const styles = useStyles(theme);
   return (
     <Button
+      size="lg"
       key={'more-button-event'}
       title={t('button.more')}
       containerStyle={styles.moreButtonContainerStyle}

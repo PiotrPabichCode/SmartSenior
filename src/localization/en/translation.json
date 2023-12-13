@@ -248,7 +248,7 @@
         "emptyDate": "Select event date",
         "date": "Event Date {{date}}",
         "endDate": "Event end date: {{endDate}}",
-        "endDateEmpty": "Select the end date for the recurring event",
+        "endDateEmpty": "Select end date for recurring event",
         "notification": "Notifications",
         "cyclic": "Recurring Event"
       },
@@ -379,7 +379,10 @@
     "leaflet": "Leaflet",
     "characteristic": "Characteristics",
     "download": "File downloaded",
-    "downloadNoPermission": "Permission not granted"
+    "downloadNoPermission": "Permission not granted",
+    "alertDownloadTitle": "File download",
+    "alertDownloadLeafletQuestion": "Do you want to download leaflet for {{name}}?",
+    "alertDownloadCharacteristicQuestion": "Do you want to download characteristic for {{name}}?"
   },
   "medicinesScreen": {
     "title": "Medicines",

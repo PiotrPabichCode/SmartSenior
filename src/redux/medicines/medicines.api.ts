@@ -3,6 +3,7 @@ import { selectUserID } from '../auth/auth.slice';
 import { store } from '../common';
 import {
   CollectionReference,
+  Timestamp,
   addDoc,
   collection,
   deleteDoc,
@@ -11,6 +12,10 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { db } from 'firebaseConfig';
+import { convertTimestampToDate } from '@src/utils/utils';
+import { downloadAsync, documentDirectory, FileSystemDownloadResult } from 'expo-file-system';
+import { Linking } from 'react-native';
+import { CustomToast } from '@src/components';
 
 const getMedicinesCollection = (): CollectionReference => {
   const uid = selectUserID(store.getState());
@@ -62,6 +67,14 @@ export const loadMedicines = async (): Promise<Medicines> => {
     }
 
     return snapshot.docs.map(doc => doc.data()) as Medicines;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const downloadMedicineFile = async (url: string) => {
+  try {
+    await Linking.openURL(url);
   } catch (error) {
     throw error;
   }

@@ -16,6 +16,7 @@ const EndDateButton = ({ isRecurring, onPress, endDate }: Props) => {
       <Button
         size="lg"
         onPress={() => onPress(true)}
+        buttonStyle={styles.button}
         title={
           endDate
             ? t('createEvent.button.title.endDate', {
@@ -30,4 +31,8 @@ const EndDateButton = ({ isRecurring, onPress, endDate }: Props) => {
 
 export default EndDateButton;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: 'green',
+  },
+});

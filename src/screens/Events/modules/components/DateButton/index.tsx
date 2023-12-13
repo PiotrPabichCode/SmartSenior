@@ -19,9 +19,7 @@ const DateButton = ({ date, onPress, disabled }: Props) => {
       }}
       disabled={disabled}
       disabledStyle={styles.disabled}
-      disabledTitleStyle={styles.disabledTitle}
       buttonStyle={styles.button}
-      containerStyle={styles.container}
       title={
         date
           ? t('createEvent.button.title.date', {
@@ -39,13 +37,7 @@ const styles = StyleSheet.create({
   disabled: {
     backgroundColor: 'green',
   },
-  disabledTitle: {
-    color: 'white',
-  },
   button: {
     backgroundColor: 'green',
-  },
-  container: {
-    minWidth: '90%',
   },
 });

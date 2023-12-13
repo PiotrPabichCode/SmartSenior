@@ -12,7 +12,6 @@ const CreateButton = ({ onPress }: Props) => {
       size="lg"
       title={t('createEvent.button.submit')}
       buttonStyle={styles.button}
-      containerStyle={styles.container}
       onPress={() => onPress()}
     />
   );
@@ -22,9 +21,6 @@ export default CreateButton;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'rgba(127, 220, 103, 1)',
-  },
-  container: {
-    minWidth: '95%',
+    backgroundColor: 'blue',
   },
 });

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Medicine } from '@src/models';
 import * as api from './medicines.api';
+import { Linking } from 'react-native';
 
 export const addMedicine = createAsyncThunk(
   'medicines/addMedicine',
@@ -29,6 +30,17 @@ export const loadMedicines = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       return await api.loadMedicines();
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const downloadMedicineFile = createAsyncThunk(
+  'medicines/downloadMedicineFile',
+  async (url: string, { rejectWithValue }) => {
+    try {
+      await api.downloadMedicineFile(url);
     } catch (error) {
       return rejectWithValue(error);
     }

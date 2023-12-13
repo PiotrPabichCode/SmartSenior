@@ -92,11 +92,11 @@ const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
   );
 };
 
+export default DayFieldsRenderer;
+
 const styles = StyleSheet.create({
   view: {
-    display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-around',
     width: '100%',
     padding: 10,
@@ -104,9 +104,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     color: 'black',
+    fontWeight: '600',
     marginTop: 10,
     marginLeft: 20,
   },
 });
-
-export default DayFieldsRenderer;

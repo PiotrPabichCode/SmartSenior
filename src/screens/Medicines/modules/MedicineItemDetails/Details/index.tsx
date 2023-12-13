@@ -1,70 +1,47 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { DetailsProps } from './types';
-import { Button, Divider } from '@rneui/themed';
+import { Divider } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
-import { downloadFromUrl } from './utils';
-import { useState } from 'react';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import LeafletButton from './LeafletButton';
+import CharacteristicButton from './CharacteristicButton';
+import { useAppSelector } from '@src/redux/types';
+import { selectMedicinesStatus } from '@src/redux/medicines/medicines.slice';
+import DetailsItem from './DetailsItem';
+import { Medicine } from '@src/models';
 
-const Details = ({ medicineItem }: DetailsProps) => {
-  const [loading, setLoading] = useState(false);
+type Props = {
+  medicineItem: Medicine;
+};
 
-  if (loading) {
+const Details = ({ medicineItem }: Props) => {
+  const status = useAppSelector(state => selectMedicinesStatus(state));
+
+  if (status === 'pending') {
     return <CustomActivityIndicator />;
   }
-
-  const renderDetail = (title: string, detail: string) => {
-    return (
-      <>
-        <Divider style={styles.divider} />
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.details}>{detail}</Text>
-      </>
-    );
-  };
 
   return (
     <>
       <Text style={styles.name}>{medicineItem.productName}</Text>
-      {renderDetail(t('medicineItem.commonName'), medicineItem.commonName)}
-      {renderDetail(t('medicineItem.power'), medicineItem.power)}
-      {renderDetail(t('medicineItem.pharmaceuticalForm'), medicineItem.pharmaceuticalForm)}
-      {renderDetail(t('medicineItem.activeSubstance'), medicineItem.activeSubstance)}
-      {renderDetail(t('medicineItem.packaging'), medicineItem.packaging)}
-      {renderDetail(t('medicineItem.expiration'), medicineItem.expiration)}
-      {renderDetail(t('medicineItem.company'), medicineItem.company)}
-      {renderDetail(t('medicineItem.country'), medicineItem.country)}
+      <DetailsItem title={t('medicineItem.commonName')} detail={medicineItem.commonName} />
+      <DetailsItem title={t('medicineItem.power')} detail={medicineItem.power} />
+      <DetailsItem
+        title={t('medicineItem.pharmaceuticalForm')}
+        detail={medicineItem.pharmaceuticalForm}
+      />
+      <DetailsItem
+        title={t('medicineItem.activeSubstance')}
+        detail={medicineItem.activeSubstance}
+      />
+      <DetailsItem title={t('medicineItem.packaging')} detail={medicineItem.packaging} />
+      <DetailsItem title={t('medicineItem.expiration')} detail={medicineItem.expiration} />
+      <DetailsItem title={t('medicineItem.company')} detail={medicineItem.company} />
+      <DetailsItem title={t('medicineItem.country')} detail={medicineItem.country} />
       <Divider style={styles.divider} />
       {medicineItem.leafletUrl && medicineItem.characteristicUrl && (
         <View style={styles.buttons}>
-          <Button
-            title={t('medicineItem.leaflet')}
-            titleStyle={styles.buttonTitle}
-            containerStyle={styles.buttonContainer}
-            buttonStyle={styles.buttonStyle}
-            onPress={() =>
-              downloadFromUrl(
-                medicineItem.leafletUrl,
-                'ulotka',
-                medicineItem.productName,
-                setLoading,
-              )
-            }
-          />
-          <Button
-            title={t('medicineItem.characteristic')}
-            titleStyle={styles.buttonTitle}
-            containerStyle={styles.buttonContainer}
-            buttonStyle={styles.buttonStyle}
-            onPress={() =>
-              downloadFromUrl(
-                medicineItem.leafletUrl,
-                'charakterystyka',
-                medicineItem.productName,
-                setLoading,
-              )
-            }
-          />
+          <LeafletButton url={medicineItem.leafletUrl} name={medicineItem.commonName} />
+          <CharacteristicButton url={medicineItem.leafletUrl} name={medicineItem.commonName} />
         </View>
       )}
     </>
@@ -79,15 +56,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   },
-  title: {
-    fontSize: 22,
-    fontWeight: '500',
-  },
-  details: {
-    fontSize: 16,
-    fontWeight: '400',
-    textAlign: 'center',
-  },
   divider: {
     width: '100%',
     marginVertical: 10,
@@ -95,22 +63,6 @@ const styles = StyleSheet.create({
     height: 1,
   },
   buttons: {
-    display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '100%',
-    padding: 10,
-  },
-  buttonTitle: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  buttonContainer: {
-    width: 140,
-    borderRadius: 10,
-  },
-  buttonStyle: {
-    backgroundColor: 'blue',
   },
 });

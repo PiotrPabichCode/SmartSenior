@@ -21,7 +21,9 @@ const FavouriteMedicines = () => {
   return (
     <View style={styles.container}>
       <MedicinesMapper medicines={medicines} />
-      <AddMedicineButton />
+      <View style={styles.buttonContainer}>
+        <AddMedicineButton />
+      </View>
     </View>
   );
 };
@@ -31,5 +33,9 @@ export default FavouriteMedicines;
 const styles = StyleSheet.create({
   container: {
     gap: 15,
+  },
+  buttonContainer: {
+    flexGrow: 1,
+    justifyContent: 'flex-end',
   },
 });

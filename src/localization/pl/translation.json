@@ -380,7 +380,10 @@
     "leaflet": "Ulotka",
     "characteristic": "Charakterystyka",
     "download": "Pobrano plik",
-    "downloadNoPermission": "Brak zgody na pobranie"
+    "downloadNoPermission": "Brak zgody na pobranie",
+    "alertDownloadTitle": "Pobieranie pliku",
+    "alertDownloadLeafletQuestion": "Czy chcesz pobrać ulotkę dla {{name}}?",
+    "alertDownloadCharacteristicQuestion": "Czy chcesz pobrać charakterystykę dla {{name}}?"
   },
   "medicinesScreen": {
     "title": "Lista leków",

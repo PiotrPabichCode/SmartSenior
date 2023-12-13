@@ -12,9 +12,9 @@ type Props = {
 const CompleteButton = ({ onPress, onChange, fieldName }: Props) => {
   return (
     <Button
+      size="lg"
       title={t('eventItemScreen.button.title.execute')}
       buttonStyle={styles.button}
-      containerStyle={styles.container}
       onPress={() => {
         onChange(fieldName, Timestamp.now());
         onPress();
@@ -28,8 +28,5 @@ export default CompleteButton;
 const styles = StyleSheet.create({
   button: {
     backgroundColor: 'darkblue',
-  },
-  container: {
-    alignSelf: 'stretch',
   },
 });

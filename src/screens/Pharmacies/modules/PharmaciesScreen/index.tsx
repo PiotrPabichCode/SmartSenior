@@ -9,7 +9,7 @@ import { Pharmacies } from '@src/models';
 import { selectPharmaciesStatus } from '@src/redux/pharmacies/pharmacies.slice';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import SearchForm from './SearchForm';
-import PharmaciesGrid from './PharmaciesGrid';
+import PharmaciesMapper from './PharmaciesMapper';
 import { CustomDivider } from '@src/components';
 
 const PharmaciesScreen = () => {
@@ -27,7 +27,7 @@ const PharmaciesScreen = () => {
       <Text h3>{t('pharmaciesScreen.title')}</Text>
       <CustomDivider />
       <SearchForm onLoad={setApiPharmacies} />
-      <PharmaciesGrid apiPharmacies={apiPharmacies} />
+      <PharmaciesMapper apiPharmacies={apiPharmacies} />
     </CustomScrollContainer>
   );
 };

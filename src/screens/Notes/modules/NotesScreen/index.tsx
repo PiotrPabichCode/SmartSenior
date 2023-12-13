@@ -67,13 +67,11 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
     gap: 10,
   },
   titleAndElementsPerLine: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     margin: 10,
   },
   title: {
@@ -82,8 +80,6 @@ const styles = StyleSheet.create({
   },
   sortContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     margin: 10,
   },
   sortSingleItemContainer: {

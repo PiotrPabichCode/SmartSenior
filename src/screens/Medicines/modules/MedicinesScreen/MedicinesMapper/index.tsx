@@ -9,7 +9,7 @@ type Props = {
   apiMedicines: Medicines;
 };
 
-const MedicinesGrid = ({ apiMedicines }: Props) => {
+const MedicinesMapper = ({ apiMedicines }: Props) => {
   const medicines = useAppSelector(state => selectMedicines(state));
   return (
     apiMedicines &&
@@ -36,4 +36,4 @@ const MedicinesGrid = ({ apiMedicines }: Props) => {
   );
 };
 
-export default MedicinesGrid;
+export default MedicinesMapper;

@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
 import CustomToast from '@src/components/CustomToast';
-import { priorities } from '@src/redux/events/events.constants';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { createEventGroup } from '@src/redux/events/events.actions';
 import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
-import { Event, Frequency, Image, Images, Notifications, Tag, Tags } from '@src/models';
+import { Event } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTags, selectTheme, selectUserID } from '@src/redux/auth/auth.slice';
 import MultipleImagePicker from '@src/components/MultipleImagePicker';
@@ -36,6 +34,8 @@ import {
 import { selectEventsStatus } from '@src/redux/events/events.slice';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { NewEventSchema } from './utils';
+import { Text } from '@rneui/themed';
+import { initialValues } from './types';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
@@ -59,34 +59,9 @@ const CreateEventScreen = () => {
 
   return (
     <CustomScrollContainer theme={currentTheme}>
-      <Text style={{ fontSize: 30, fontWeight: '600', textAlign: 'center' }}>
-        {t('createEvent.title')}
-      </Text>
+      <Text h3>{t('createEvent.title')}</Text>
       <Formik
-        initialValues={{
-          key: '',
-          groupKey: Date.now().toString(36),
-          title: '',
-          tags: [] as Tags,
-          images: [] as Images,
-          description: '',
-          date: null as Timestamp | null,
-          frequency: {
-            recurring: false,
-            type: null,
-            daysOfWeek: null,
-            unit: 'day',
-            interval: null,
-            startDate: null,
-            endDate: null,
-          } as Frequency,
-          notifications: {} as Notifications,
-          priority: 0,
-          updatedAt: Timestamp.now(),
-          deleted: false,
-          active: true,
-          userUid: userID,
-        }}
+        initialValues={{ ...initialValues, userUid: userID }}
         onSubmit={values => {
           try {
             values.updatedAt = Timestamp.now();
@@ -133,12 +108,7 @@ const CreateEventScreen = () => {
               onChange={setFieldValue}
               onClose={setShowTimePicker}
             />
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                paddingHorizontal: 21,
-              }}>
+            <View style={styles.checkboxContainer}>
               <NotificationsCheckbox
                 checked={values.notifications.enable}
                 onPress={setFieldValue}
@@ -198,3 +168,11 @@ const CreateEventScreen = () => {
 };
 
 export default CreateEventScreen;
+
+const styles = StyleSheet.create({
+  checkboxContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 21,
+  },
+});

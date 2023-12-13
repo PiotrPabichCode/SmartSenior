@@ -1,6 +1,6 @@
 import Icons from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 type Props = {
   active: boolean;
@@ -8,16 +8,16 @@ type Props = {
 
 const ActivityStatus = ({ active }: Props) => {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <View style={styles.container}>
       {active ? (
         <>
           <Icons name={'active-tick'} />
-          <Text style={{ fontWeight: '700', color: 'green' }}>{t('eventGroups.active')}</Text>
+          <Text style={styles.active}>{t('eventGroups.active')}</Text>
         </>
       ) : (
         <>
           <Icons name={'active-untick'} />
-          <Text style={{ fontWeight: '700', color: 'red' }}>{t('eventGroups.inactive')}</Text>
+          <Text style={styles.inactive}>{t('eventGroups.inactive')}</Text>
         </>
       )}
     </View>
@@ -25,3 +25,18 @@ const ActivityStatus = ({ active }: Props) => {
 };
 
 export default ActivityStatus;
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  active: {
+    fontWeight: '700',
+    color: 'green',
+  },
+  inactive: {
+    fontWeight: '700',
+    color: 'red',
+  },
+});

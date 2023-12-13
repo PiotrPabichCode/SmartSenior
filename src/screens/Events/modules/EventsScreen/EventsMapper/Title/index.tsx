@@ -6,15 +6,12 @@ type Props = {
 };
 
 const Title = ({ type }: Props) => {
-  const renderTitle = () => {
-    if (type === 'delayed') {
-      return t('eventGroups.delayedEventsTitle');
-    } else if (type === 'completed') {
-      return t('eventGroups.completedEventsTitle');
-    } else {
-      return t('eventGroups.upcomingEventsTitle');
-    }
-  };
+  let label = t('eventGroups.upcomingEventsTitle');
+  if (type === 'delayed') {
+    label = t('eventGroups.delayedEventsTitle');
+  } else if (type === 'completed') {
+    label = t('eventGroups.completedEventsTitle');
+  }
 
   return (
     <Text
@@ -22,7 +19,7 @@ const Title = ({ type }: Props) => {
       numberOfLines={1}
       adjustsFontSizeToFit
       h4Style={{ marginVertical: 5, alignSelf: 'center' }}>
-      {renderTitle()}
+      {label}
     </Text>
   );
 };

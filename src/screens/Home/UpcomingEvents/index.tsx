@@ -5,16 +5,24 @@ import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import NoActiveEvents from './NoActiveEvents';
-import { UpcomingEventsProps } from './types';
 import MoreButton from './MoreButton';
 import ActionButton from './ActionButton';
 import Colors from '@src/constants/Colors';
 import { Theme } from '@src/models';
+import { useUpcomingEvents } from './useUpcomingEvents';
+import { selectEventGroups } from '@src/redux/events/events.slice';
+import { CustomActivityIndicator } from '@src/components';
 
-const UpcomingEvents = ({ upcomingEvents }: UpcomingEventsProps) => {
+const UpcomingEvents = () => {
+  const eventGroups = useAppSelector(state => selectEventGroups(state));
+  const { upcomingEvents, isReady } = useUpcomingEvents(eventGroups);
   const theme = useAppSelector(state => selectTheme(state));
   const currentTheme = Colors[theme];
   const styles = useStyles(theme);
+
+  if (!isReady) {
+    return <CustomActivityIndicator />;
+  }
 
   const MAX_DISPLAYED_EVENTS = 3;
 
@@ -60,7 +68,6 @@ const useStyles = (theme: Theme) => {
   const currentTheme = Colors[theme];
   return StyleSheet.create({
     viewStyle: {
-      display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       backgroundColor: currentTheme.upcomingEventsBackground,

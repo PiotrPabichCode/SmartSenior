@@ -1,9 +1,7 @@
 import { EventItemScreenProps } from '@src/navigation/types';
 import { convertTimestampToDate, getUpdatedFields } from '@src/utils/utils';
-import { priorities } from '@src/redux/events/events.constants';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
 import CustomToast from '@src/components/CustomToast';
 import Colors from '@src/constants/Colors';
 import FormikObserver from '@src/utils/FormikObserver';
@@ -14,62 +12,24 @@ import { goBack } from '@src/navigation/navigationUtils';
 import { Timestamp } from 'firebase/firestore';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
-import { Event, Frequency, Image, Notifications, Tag } from '@src/models';
 import MultipleImagePicker from '@src/components/MultipleImagePicker';
 import { CompleteButton, DateButton, Description, TagsDisplay, Title } from '../components';
-import { getEventForGroupAndDate } from '@src/redux/events/events.api';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { Text } from '@rneui/themed';
 import { completeEvent } from '@src/redux/events/events.actions';
 import { selectEventsStatus } from '@src/redux/events/events.slice';
 import { ChangeEventSchema } from './utils';
+import { usePrepareEvent } from './usePrepareEvent';
 
 const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
   const dispatch = useAppDispatch();
-  const [isReady, setIsReady] = useState<boolean>(false);
   const theme = useAppSelector(state => selectTheme(state));
   const status = useAppSelector(state => selectEventsStatus(state));
-  const [event, setEvent] = useState<Event | null>(null);
-  const [initialValues, setInitialValues] = useState<any>({});
   const currentTheme = Colors[theme];
   const { groupKey, date } = route.params;
+  const { event, isReady, initialValues, setInitialValues } = usePrepareEvent(groupKey, date);
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
-
-  useEffect(() => {
-    const prepareEvent = async () => {
-      try {
-        if (groupKey && date) {
-          const event = await getEventForGroupAndDate(groupKey, date);
-          setEvent(event);
-          setIsReady(true);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    prepareEvent();
-  }, [groupKey, date]);
-
-  useEffect(() => {
-    if (event) {
-      setInitialValues({
-        title: event.title,
-        tags: event.tags,
-        images: event.images,
-        description: event.description,
-        date: event.date,
-        days: event.days,
-        frequency: event.frequency,
-        notifications: event.notifications,
-        priority: event.priority,
-        deleted: event.deleted,
-        completed: event.completed,
-        userUid: event.userUid,
-      });
-    }
-  }, [event]);
 
   if (!isReady || status === 'pending') {
     return <CustomActivityIndicator />;

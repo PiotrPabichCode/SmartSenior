@@ -25,16 +25,14 @@ const DayField = ({ value, active, disabled, onPress }: Day) => {
   );
 };
 
+export default DayField;
+
 const styles = StyleSheet.create({
   title: {
-    color: 'blue',
-    textAlign: 'center',
     fontSize: 13,
     fontWeight: '800',
-    marginBottom: 2,
   },
   button: {
-    alignContent: 'center',
     borderRadius: 25,
     borderColor: 'rgba(78, 116, 289, 1)',
     borderWidth: 1.3,
@@ -49,8 +47,5 @@ const styles = StyleSheet.create({
   container: {
     width: 40,
     height: 40,
-    borderRadius: 25,
   },
 });
-
-export default DayField;

@@ -1,5 +1,5 @@
-import { View, Text, Modal } from 'react-native';
-import { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectEventsGroupByKey, selectEventsStatus } from '@src/redux/events/events.slice';
 import { goBack } from '@src/navigation/navigationUtils';
@@ -7,7 +7,6 @@ import { EventsGroupDetailsProps } from '@src/navigation/types';
 import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
 import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
 import Colors from '@src/constants/Colors';
-import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Timestamp } from 'firebase/firestore';
 import { getUpdatedFields } from '@src/utils/utils';
@@ -33,13 +32,14 @@ import {
   Title,
   UpdateButton,
 } from '../components';
-import { Frequency, Image, Notifications, Tag, Tags } from '@src/models';
+import { Tag, Tags } from '@src/models';
 import MultipleImagePicker from '@src/components/MultipleImagePicker';
 import FormikObserver from '@src/utils/FormikObserver';
 import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
-import { RecurringValues, priorities, recurringTimes } from '@src/redux/events/events.constants';
-import { createDays, createImages, createTags } from '@src/redux/events/events.api';
 import { updateEventsGroup } from '@src/redux/events/events.actions';
+import { ChangeEventSchema, filterTags } from './utils';
+import { StyleSheet } from 'react-native';
+import { usePrepareEventsGroup } from './usePrepareEventsGroup';
 
 const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
   const dispatch = useAppDispatch();
@@ -48,14 +48,11 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
   const status = useAppSelector(state => selectEventsStatus(state));
   const theme = useAppSelector(state => selectTheme(state));
   const tags = useAppSelector(state => selectTags(state));
-  const [initialValues, setInitialValues] = useState<any>({});
-  const [isReady, setIsReady] = useState(false);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState<boolean>(false);
   const [dateValue, setDateValue] = useState<Date | undefined>(undefined);
-  const [recurringValue, setRecurringValue] = useState<RecurringValues | null>(null);
   const currentTheme = Colors[theme];
 
   if (!eventsGroup) {
@@ -63,39 +60,10 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
     return null;
   }
 
-  if (status === 'pending') {
-    return <CustomActivityIndicator />;
-  }
+  const { initialValues, setInitialValues, isReady, recurringValue, setRecurringValue } =
+    usePrepareEventsGroup(eventsGroup);
 
-  useEffect(() => {
-    if (eventsGroup) {
-      setInitialValues({
-        title: eventsGroup.title,
-        tags: createTags(eventsGroup.tags),
-        images: createImages(eventsGroup.images),
-        description: eventsGroup.description,
-        date: eventsGroup.dates[0],
-        days: createDays(eventsGroup.frequency.daysOfWeek),
-        frequency: eventsGroup.frequency,
-        notifications: eventsGroup.notifications,
-        priority: eventsGroup.priority,
-        deleted: eventsGroup.deleted,
-        updatedAt: eventsGroup.updatedAt,
-        userUid: eventsGroup.userID,
-      });
-      const interval = eventsGroup.frequency.interval;
-      const unit = eventsGroup.frequency.unit;
-      const matchedValue = recurringTimes.find(
-        r => r.interval === interval && r.unit === unit,
-      )?.value;
-      if (matchedValue) {
-        setRecurringValue(matchedValue);
-      }
-      setIsReady(true);
-    }
-  }, [eventsGroup]);
-
-  if (!isReady) {
+  if (!isReady || status === 'pending') {
     return <CustomActivityIndicator />;
   }
 
@@ -103,32 +71,6 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
     goBack();
     return null;
   }
-
-  const ChangeEventSchema = Yup.object().shape({
-    title: Yup.string().min(1).required(),
-    tags: Yup.mixed<Tag>(),
-    images: Yup.mixed<Image>(),
-    description: Yup.string(),
-    date: Yup.mixed<Timestamp>().nonNullable().required(),
-    frequency: Yup.mixed<Frequency>().required(),
-    notifications: Yup.mixed<Notifications>().required(),
-    priority: Yup.number()
-      .test('is-valid-priority', 'Invalid priority value', function (value) {
-        return priorities.some(p => p.value === value);
-      })
-      .required(),
-    deleted: Yup.boolean().required(),
-  });
-
-  const filterTags = (tagIds: Array<string>) => {
-    let selectedTags = [] as Tags;
-    if (tags) {
-      selectedTags = tags.filter(t => tagIds.includes(t.id));
-    }
-
-    return selectedTags;
-  };
-
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Formik
@@ -162,7 +104,10 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
             <TagsDisplay selectedTags={values.tags} fieldName={'tags'} onPress={setFieldValue} />
             <TagsPicker
               tags={tags}
-              selectedTags={filterTags(values.tags.map((t: Tag) => t.id))}
+              selectedTags={filterTags(
+                tags,
+                values.tags.map((t: Tag) => t.id),
+              )}
               fieldName={'tags'}
               onChange={setFieldValue}
             />
@@ -184,12 +129,7 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
               onChange={setFieldValue}
               onClose={setShowTimePicker}
             />
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                paddingHorizontal: 21,
-              }}>
+            <View style={styles.checkboxContainer}>
               <NotificationsCheckbox
                 checked={values.notifications.enable}
                 onPress={setFieldValue}
@@ -260,3 +200,11 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
 };
 
 export default EventsGroupDetails;
+
+const styles = StyleSheet.create({
+  checkboxContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 21,
+  },
+});

@@ -6,10 +6,11 @@ import { selectEventGroups } from '@src/redux/events/events.slice';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import NoEvents from './NoEvents';
 import { EventsScreenProps } from '@src/navigation/types';
-import EventsGroupItem from './EventsGroupItem';
+import EventsGroupItem from './EventsGroupsMapper/EventsGroupItem';
 import { t } from '@src/localization/Localization';
 import { useEffect, useState } from 'react';
 import { EventGroups } from '@src/models';
+import EventsGroupsMapper from './EventsGroupsMapper';
 
 const EventsGroupScreen = ({ route }: EventsScreenProps) => {
   const eventGroups = useAppSelector(state => selectEventGroups(state));
@@ -27,17 +28,15 @@ const EventsGroupScreen = ({ route }: EventsScreenProps) => {
     }
   }, [route.params]);
 
-  const mapEventGroups = outputEvents.map((e, index) => {
-    return <EventsGroupItem key={index} groupKey={e.key} />;
-  });
-
   return (
     <CustomScrollContainer theme={currentTheme}>
       <Text style={styles.title}>{t('eventGroups.title')}</Text>
-      {eventGroups.length > 0 ? mapEventGroups : <NoEvents />}
+      {eventGroups.length > 0 ? <EventsGroupsMapper eventsGroups={outputEvents} /> : <NoEvents />}
     </CustomScrollContainer>
   );
 };
+
+export default EventsGroupScreen;
 
 const styles = StyleSheet.create({
   title: {
@@ -46,5 +45,3 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
-
-export default EventsGroupScreen;

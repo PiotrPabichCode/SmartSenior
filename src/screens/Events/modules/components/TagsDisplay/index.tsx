@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Tags } from '@src/models';
 import { t } from '@src/localization/Localization';
 import { TagCard } from '@src/components';
@@ -13,10 +13,8 @@ type Props = {
 const TagsDisplay = ({ selectedTags, fieldName, onPress, disabled }: Props) => {
   return (
     selectedTags.length > 0 && (
-      <View style={{ gap: 10 }} pointerEvents={disabled ? 'none' : 'auto'}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>
-          {t('tags.selected')}
-        </Text>
+      <View style={styles.container} pointerEvents={disabled ? 'none' : 'auto'}>
+        <Text style={styles.label}>{t('tags.selected')}</Text>
         {selectedTags.map((tag, index) => {
           return (
             <TagCard
@@ -40,3 +38,15 @@ const TagsDisplay = ({ selectedTags, fieldName, onPress, disabled }: Props) => {
 };
 
 export default TagsDisplay;
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 10,
+    width: '100%',
+  },
+  label: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});

@@ -1,5 +1,7 @@
+import { Pharmacies } from '@src/models';
+
 export interface SearchFormProps {
-  onLoad: any;
+  onLoad: (_: Pharmacies) => void;
 }
 
 export const provinces = [

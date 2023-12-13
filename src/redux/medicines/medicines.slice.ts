@@ -56,6 +56,15 @@ export const medicinesSlice = createSlice({
       })
       .addCase(action.addMedicine.rejected, state => {
         state.status = 'failed';
+      })
+      .addCase(action.downloadMedicineFile.fulfilled, state => {
+        state.status = 'succeeded';
+      })
+      .addCase(action.downloadMedicineFile.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.downloadMedicineFile.rejected, state => {
+        state.status = 'failed';
       });
   },
 });

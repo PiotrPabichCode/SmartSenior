@@ -13,7 +13,6 @@ const UpdateButton = ({ visible, onPress }: Props) => {
       <Button
         title={t('eventItemScreen.button.title.update')}
         buttonStyle={{ backgroundColor: Colors.black }}
-        containerStyle={{ alignSelf: 'stretch' }}
         onPress={() => onPress()}
       />
     )

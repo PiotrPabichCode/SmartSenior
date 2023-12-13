@@ -9,7 +9,7 @@ import { Medicines } from '@src/models';
 import { selectMedicinesStatus } from '@src/redux/medicines/medicines.slice';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import SearchForm from './SearchForm';
-import MedicinesGrid from './MedicinesGrid';
+import MedicinesMapper from './MedicinesMapper';
 import { Text } from '@rneui/themed';
 
 const MedicinesScreen = () => {
@@ -27,7 +27,7 @@ const MedicinesScreen = () => {
       <Text h3>{t('medicinesScreen.title')}</Text>
       <CustomDivider />
       <SearchForm onLoad={setApiMedicines} />
-      <MedicinesGrid apiMedicines={apiMedicines} />
+      <MedicinesMapper apiMedicines={apiMedicines} />
     </CustomScrollContainer>
   );
 };

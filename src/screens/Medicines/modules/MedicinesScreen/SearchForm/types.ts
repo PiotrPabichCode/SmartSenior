@@ -1,5 +1,7 @@
+import { Medicines } from '@src/models';
+
 export interface SearchFormProps {
-  onLoad: any;
+  onLoad: (medicines: Medicines) => void;
 }
 
 const BASE_URL = 'https://rejestrymedyczne.ezdrowie.gov.pl/api/rpl/medicinal-products/';

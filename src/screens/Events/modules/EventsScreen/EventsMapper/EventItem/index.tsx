@@ -30,7 +30,7 @@ export default EventItem;
 
 const styles = StyleSheet.create({
   divider: {
-    height: 1,
+    height: 1.2,
     backgroundColor: 'black',
     width: '100%',
   },
@@ -38,14 +38,12 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 5,
-    gap: 5,
+    padding: 10,
+    gap: 10,
   },
   detailsContainer: {
     flexGrow: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
 });

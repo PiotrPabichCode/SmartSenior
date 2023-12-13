@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ScrollView, Dimensions } from 'react-native';
+import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Button, Image, useTheme } from '@rneui/themed';
 import { ActivityIndicator, Alert } from 'react-native';
@@ -95,31 +95,22 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        gap: 10,
-      }}>
+    <View style={styles.container}>
       <Button
         size="lg"
         title={t('multipleImagePicker.selectPhotos')}
         buttonStyle={{ backgroundColor: theme.colors.black }}
-        containerStyle={{ minWidth: '90%' }}
         onPress={pickImages}
       />
       <Button
         size="lg"
         title={t('multipleImagePicker.takePhoto')}
         buttonStyle={{ backgroundColor: theme.colors.black }}
-        containerStyle={{ minWidth: '90%' }}
         onPress={takePhoto}
       />
       <ScrollView horizontal ref={scrollViewRef} scrollEventThrottle={16}>
         {selectedImages.map((image, index) => (
-          <View key={index} style={{ position: 'relative' }}>
+          <View key={index} style={styles.imageContainer}>
             <Image
               source={{ uri: image.uri }}
               resizeMode={currentWidth === BASE_WIDTH ? 'cover' : 'center'}
@@ -128,11 +119,7 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
               onPress={() => handleImageResize(index)}
             />
             {currentWidth === BASE_WIDTH && checkIfNewImage(image) && (
-              <Icons
-                name="delete"
-                style={{ position: 'absolute', top: 5, right: 5 }}
-                onPress={() => handleImageDelete(image)}
-              />
+              <Icons name="delete" style={styles.delete} onPress={() => handleImageDelete(image)} />
             )}
           </View>
         ))}
@@ -142,3 +129,19 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
 };
 
 export default MultipleImagePicker;
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    alignItems: 'center',
+    gap: 10,
+  },
+  imageContainer: {
+    position: 'relative',
+  },
+  delete: {
+    position: 'absolute',
+    top: 5,
+    right: 5,
+  },
+});

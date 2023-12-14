@@ -6,7 +6,7 @@ import CustomButton from './CustomButton';
 import CustomDivider from './CustomDivider';
 import CustomDropdown from './CustomDropdown';
 import CustomHeader from './CustomHeader';
-import { CustomScrollContainer } from './CustomScrollContainer';
+import CustomScrollContainer from './CustomScrollContainer';
 import CustomToast from './CustomToast';
 import DateButton from './DateButton';
 import DatePicker from './DatePicker';

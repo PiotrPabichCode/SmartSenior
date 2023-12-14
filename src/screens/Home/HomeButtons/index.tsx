@@ -11,22 +11,16 @@ const HomeButtons = () => {
       <CustomButton
         onPress={() => navigate('Medicines')}
         title={t('homeScreen.button.title.medicines')}
-        color={'black'}
-        backgroundColor={Colors.customBtnBackground}
         icon={<Icons name="pills" color="black" />}
       />
       <CustomButton
         onPress={() => navigate('Pharmacies')}
         title={t('homeScreen.button.title.pharmacies')}
-        color={'black'}
-        backgroundColor={Colors.customBtnBackground}
         icon={<Icons name="pharmacy" color="black" />}
       />
       <CustomButton
         onPress={() => navigate('Notes')}
         title={t('homeScreen.button.title.notes')}
-        color={'black'}
-        backgroundColor={Colors.customBtnBackground}
         icon={<Icons name="notes" color="black" />}
       />
     </View>

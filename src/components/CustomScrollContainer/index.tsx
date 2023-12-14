@@ -1,11 +1,13 @@
+import { useTheme, useThemeMode } from '@rneui/themed';
 import { View, ScrollView } from 'react-native';
 
 type CustomScrollContainerProps = {
   children?: React.ReactNode;
-  theme: any;
 };
 
-export const CustomScrollContainer = ({ children, theme }: CustomScrollContainerProps) => {
+const CustomScrollContainer = ({ children }: CustomScrollContainerProps) => {
+  const theme = useTheme().theme.colors;
+  console.log('container mode', useThemeMode().mode);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -31,3 +33,5 @@ export const CustomScrollContainer = ({ children, theme }: CustomScrollContainer
     </View>
   );
 };
+
+export default CustomScrollContainer;

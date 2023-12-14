@@ -4,15 +4,18 @@ import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectEventsGroupByKey, selectEventsStatus } from '@src/redux/events/events.slice';
 import { goBack } from '@src/navigation/navigationUtils';
 import { EventsGroupDetailsProps } from '@src/navigation/types';
-import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import { selectTags, selectTheme } from '@src/redux/auth/auth.slice';
-import Colors from '@src/constants/Colors';
+import {
+  CustomScrollContainer,
+  CustomActivityIndicator,
+  CustomToast,
+  MultipleImagePicker,
+  DiscardChangesAlert,
+} from '@src/components';
+import { selectTags } from '@src/redux/auth/auth.slice';
 import { Formik } from 'formik';
 import { Timestamp } from 'firebase/firestore';
 import { getUpdatedFields } from '@src/utils/utils';
-import CustomToast from '@src/components/CustomToast';
 import { t } from '@src/localization/Localization';
-import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import {
   CustomRecurring,
   DateButton,
@@ -33,9 +36,7 @@ import {
   UpdateButton,
 } from '../components';
 import { Tag, Tags } from '@src/models';
-import MultipleImagePicker from '@src/components/MultipleImagePicker';
 import FormikObserver from '@src/utils/FormikObserver';
-import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
 import { updateEventsGroup } from '@src/redux/events/events.actions';
 import { ChangeEventSchema, filterTags } from './utils';
 import { StyleSheet } from 'react-native';
@@ -46,14 +47,12 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
   const { groupKey } = route.params;
   const eventsGroup = useAppSelector(state => selectEventsGroupByKey(state, groupKey));
   const status = useAppSelector(state => selectEventsStatus(state));
-  const theme = useAppSelector(state => selectTheme(state));
   const tags = useAppSelector(state => selectTags(state));
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState<boolean>(false);
   const [dateValue, setDateValue] = useState<Date | undefined>(undefined);
-  const currentTheme = Colors[theme];
 
   if (!eventsGroup) {
     goBack();
@@ -72,7 +71,7 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
     return null;
   }
   return (
-    <CustomScrollContainer theme={currentTheme}>
+    <CustomScrollContainer>
       <Formik
         initialValues={initialValues}
         enableReinitialize

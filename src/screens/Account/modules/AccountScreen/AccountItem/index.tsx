@@ -4,6 +4,8 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import type { PropsWithChildren } from 'react';
 import { renderIcon } from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
+import { changeTheme, selectTheme } from '@src/redux/auth/auth.slice';
+import { store } from '@src/redux/common';
 
 type AccountItemProps = PropsWithChildren<{
   type?: string;
@@ -14,7 +16,7 @@ type AccountItemProps = PropsWithChildren<{
 }>;
 
 const renderRightItems = (type?: string) => {
-  const [themeMode, setThemeMode] = useState('light');
+  const theme = selectTheme(store.getState());
 
   switch (type) {
     case 'language': {
@@ -28,13 +30,13 @@ const renderRightItems = (type?: string) => {
     case 'theme': {
       return (
         <View style={styles.rightItemsStacked}>
-          <TouchableOpacity onPress={() => setThemeMode('light')}>
-            {themeMode === 'light'
+          <TouchableOpacity onPress={() => store.dispatch(changeTheme('light'))}>
+            {theme === 'light'
               ? renderIcon({ name: 'theme-light', focused: true })
               : renderIcon({ name: 'theme-light' })}
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setThemeMode('dark')}>
-            {themeMode === 'dark'
+          <TouchableOpacity onPress={() => store.dispatch(changeTheme('dark'))}>
+            {theme === 'dark'
               ? renderIcon({ name: 'theme-dark', focused: true })
               : renderIcon({ name: 'theme-dark' })}
           </TouchableOpacity>

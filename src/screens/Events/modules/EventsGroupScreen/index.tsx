@@ -8,8 +8,10 @@ import { t } from '@src/localization/Localization';
 import { useEffect, useState } from 'react';
 import { EventGroups } from '@src/models';
 import EventsGroupsMapper from './EventsGroupsMapper';
+import useThemeColors from '@src/config/useThemeColors';
 
 const EventsGroupScreen = ({ route }: EventsScreenProps) => {
+  const styles = useStyles();
   const eventGroups = useAppSelector(state => selectEventGroups(state));
   const [filteredData, setFilteredData] = useState<EventGroups | null>(null);
   const outputEvents = filteredData ? filteredData : eventGroups;
@@ -33,10 +35,12 @@ const EventsGroupScreen = ({ route }: EventsScreenProps) => {
 
 export default EventsGroupScreen;
 
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    padding: 10,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    title: {
+      fontSize: 36,
+      fontWeight: 'bold',
+      padding: 10,
+      color: theme.text,
+    },
+  });

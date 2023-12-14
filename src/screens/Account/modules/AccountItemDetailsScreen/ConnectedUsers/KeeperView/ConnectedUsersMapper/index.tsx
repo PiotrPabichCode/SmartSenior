@@ -13,7 +13,7 @@ const ConnectedUsersMapper = ({ connectedUsers }: Props) => {
     connectedUsers.length > 0 && (
       <View style={styles.container}>
         <Text style={styles.title}>{t('connectedUsers.keeperTitle')}</Text>
-        <View style={[styles.container]}>
+        <View style={styles.container}>
           {connectedUsers.map((connectedUser: ConnectedUser, index) => {
             return <ConnectedUserItem connectedUser={connectedUser} key={index} />;
           })}
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: 'black',
     fontWeight: '600',
   },
 });

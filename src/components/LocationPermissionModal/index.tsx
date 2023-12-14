@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Modal, View, Text, Button } from 'react-native';
+import { Modal, View, Button } from 'react-native';
 import * as Location from 'expo-location';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';
 import { selectRole } from '@src/redux/auth/auth.slice';
 import { setupLocationTracking } from '@src/redux/auth/auth.api';
 import { StyleSheet } from 'react-native';
+import { Text } from '@rneui/themed';
 
 const LocationPermissionModal = () => {
   const [visible, setVisible] = useState<boolean>(false);

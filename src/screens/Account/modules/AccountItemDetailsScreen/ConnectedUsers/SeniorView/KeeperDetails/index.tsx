@@ -1,8 +1,8 @@
-import { useTheme } from '@rneui/themed';
+import { Text, useTheme } from '@rneui/themed';
 import { CustomButton, Icons } from '@src/components';
 import { t } from '@src/localization/Localization';
 import { User } from '@src/models';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 type Props = {
   keeper: User;

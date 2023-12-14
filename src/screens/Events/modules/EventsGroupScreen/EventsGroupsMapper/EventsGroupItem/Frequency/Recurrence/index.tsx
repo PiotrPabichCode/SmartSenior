@@ -1,8 +1,9 @@
+import { Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { Frequency } from '@src/models';
 import { recurringTimes } from '@src/redux/events/events.constants';
 import { renderDayValue } from '@src/utils/utils';
-import { Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 type Props = {
   type: Frequency['type'];

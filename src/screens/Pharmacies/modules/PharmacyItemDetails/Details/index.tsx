@@ -3,8 +3,10 @@ import { DetailsProps } from './types';
 import { Divider } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import DetailsItem from './DetailsItem';
+import useThemeColors from '@src/config/useThemeColors';
 
 const Details = ({ pharmacyItem }: DetailsProps) => {
+  const styles = useStyles();
   return (
     <>
       <DetailsItem title={t('pharmacyItem.name')} detail={pharmacyItem.name} />
@@ -25,11 +27,12 @@ const Details = ({ pharmacyItem }: DetailsProps) => {
 
 export default Details;
 
-const styles = StyleSheet.create({
-  divider: {
-    width: '100%',
-    marginVertical: 10,
-    backgroundColor: 'black',
-    height: 1,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    divider: {
+      width: '100%',
+      marginVertical: 10,
+      backgroundColor: theme.divider,
+      height: 1,
+    },
+  });

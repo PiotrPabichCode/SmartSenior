@@ -14,12 +14,14 @@ import { navigationRef } from './navigationUtils';
 import { useAppSelector } from '@src/redux/types';
 import { selectChatsUnseenMessages } from '@src/redux/chats/chats.slice';
 import { selectEvents } from '@src/redux/events/events.slice';
+import useThemeColors from '@src/config/useThemeColors';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
 const BottomBarNavigator = () => {
   const events = useAppSelector(state => selectEvents(state));
   const unseenMessages = useAppSelector(state => selectChatsUnseenMessages(state));
+  const { text, background } = useThemeColors();
 
   const renderSpeedDial = () => {
     const route = navigationRef.getCurrentRoute()?.name;
@@ -30,13 +32,19 @@ const BottomBarNavigator = () => {
 
   return (
     <>
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarStyle: { backgroundColor: background },
+          tabBarInactiveTintColor: text,
+          tabBarIconStyle: { color: text },
+        }}>
         <Tab.Screen
           name="Home"
           component={HomeScreen}
           options={{
             tabBarLabel: t('bottomNav.home'),
-            tabBarIcon: ({ focused }) => renderIcon({ name: 'home-bottom-nav', focused: focused }),
+            tabBarIcon: ({ focused, color }) =>
+              renderIcon({ name: 'home-bottom-nav', focused, color }),
             header: () => <CustomHeader title={t('bottomNav.home')} />,
           }}
         />
@@ -45,8 +53,8 @@ const BottomBarNavigator = () => {
           component={AgendaScreen} // TODO
           options={{
             tabBarLabel: t('bottomNav.calendar'),
-            tabBarIcon: ({ focused }) =>
-              renderIcon({ name: 'calendar-bottom-nav', focused: focused }),
+            tabBarIcon: ({ focused, color }) =>
+              renderIcon({ name: 'calendar-bottom-nav', focused, color }),
             tabBarBadge: events.length ? events.length : undefined,
             header: () => <CustomHeader title={t('bottomNav.calendar')} />,
           }}
@@ -56,7 +64,8 @@ const BottomBarNavigator = () => {
           component={EventsGroupScreen}
           options={{
             tabBarLabel: t('bottomNav.events'),
-            tabBarIcon: ({ focused }) => renderIcon({ name: 'home-bottom-nav', focused: focused }),
+            tabBarIcon: ({ focused, color }) =>
+              renderIcon({ name: 'home-bottom-nav', focused, color }),
             tabBarBadge: events.length ? events.length : undefined,
             header: ({ navigation, route }) => (
               <CustomHeader
@@ -78,7 +87,8 @@ const BottomBarNavigator = () => {
           component={ChatScreen}
           options={{
             tabBarLabel: t('bottomNav.chat'),
-            tabBarIcon: ({ focused }) => renderIcon({ name: 'chat-bottom-nav', focused: focused }),
+            tabBarIcon: ({ focused, color }) =>
+              renderIcon({ name: 'chat-bottom-nav', focused, color }),
             tabBarBadge: unseenMessages ? unseenMessages : undefined,
             header: () => <CustomHeader title={t('bottomNav.chat')} />,
           }}
@@ -88,8 +98,8 @@ const BottomBarNavigator = () => {
           component={AccountScreen}
           options={{
             tabBarLabel: t('bottomNav.profile'),
-            tabBarIcon: ({ focused }) =>
-              renderIcon({ name: 'account-bottom-nav', focused: focused }),
+            tabBarIcon: ({ focused, color }) =>
+              renderIcon({ name: 'account-bottom-nav', focused, color }),
             header: () => <CustomHeader title={t('bottomNav.profile')} />,
           }}
         />

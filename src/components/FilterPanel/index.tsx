@@ -15,14 +15,15 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { selectEventGroups, selectEvents } from '@src/redux/events/events.slice';
 import { SearchTitle } from './components/TitlesPicker';
 import { View } from 'react-native';
+import useThemeColors from '@src/config/useThemeColors';
 
 const FilterPanel = ({ route }: any) => {
   const { filters } = route.params;
   const eventGroups = useAppSelector(state => selectEventGroups(state));
   const tags = useAppSelector(state => selectTags(state));
-  const theme = useTheme().theme;
   const [showDateFrom, setShowDateFrom] = useState<boolean>(false);
   const [showDateTo, setShowDateTo] = useState<boolean>(false);
+  const styles = useStyles();
   const INITIAL_VALUES = {
     titles: [] as Array<string>,
     tags: [] as Tags,
@@ -176,7 +177,7 @@ const FilterPanel = ({ route }: any) => {
             <Button
               title={t('filterPanel.delete')}
               size="lg"
-              buttonStyle={{ backgroundColor: theme.colors.error }}
+              buttonStyle={{ backgroundColor: 'red' }}
               onPress={() => {
                 setValues(INITIAL_VALUES);
               }}
@@ -190,12 +191,13 @@ const FilterPanel = ({ route }: any) => {
 
 export default FilterPanel;
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    alignItems: 'center',
-    gap: 20,
-    backgroundColor: 'white',
-    paddingVertical: 15,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      flexGrow: 1,
+      alignItems: 'center',
+      gap: 20,
+      backgroundColor: theme.cardBackground,
+      paddingVertical: 15,
+    },
+  });

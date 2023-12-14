@@ -1,0 +1,25 @@
+import { Button } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
+import { t } from '@src/localization/Localization';
+import { handlePress } from '../utils';
+import { Note } from '@src/models';
+import { Dispatch, SetStateAction } from 'react';
+
+type Props = {
+  note: Partial<Note>;
+  onChange: Dispatch<SetStateAction<Partial<Note>>>;
+};
+
+const CreateButton = ({ note, onChange }: Props) => {
+  const backgroundColor = useThemeColors().customBtnBackground;
+  return (
+    <Button
+      size="lg"
+      title={t('createNoteButton')}
+      buttonStyle={{ backgroundColor }}
+      onPress={() => handlePress(note, onChange)}
+    />
+  );
+};
+
+export default CreateButton;

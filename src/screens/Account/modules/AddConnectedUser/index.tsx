@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, TextInput, Button } from 'react-native';
 import { useState } from 'react';
 import { goBack } from '@src/navigation/navigationUtils';
 import { addConnectedUser } from '@src/redux/auth/auth.actions';
@@ -7,6 +7,7 @@ import CustomToast from '@src/components/CustomToast';
 import { addChat } from '@src/redux/chats/chats.actions';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@src/redux/types';
+import { Text } from '@rneui/themed';
 
 const AddConnectedUser = () => {
   const [email, setEmail] = useState('');

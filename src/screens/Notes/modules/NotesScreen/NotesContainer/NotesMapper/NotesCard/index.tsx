@@ -6,6 +6,7 @@ import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import { deleteNoteAlert } from './utils';
 import { useAppDispatch } from '@src/redux/types';
+import useThemeColors from '@src/config/useThemeColors';
 
 const NotesCard = ({
   noteKey,
@@ -16,6 +17,7 @@ const NotesCard = ({
   extended,
 }: NotesCardProps) => {
   const dispatch = useAppDispatch();
+  const styles = useStyles();
   return (
     <TouchableOpacity
       style={styles.container}
@@ -69,50 +71,51 @@ const NotesCard = ({
 
 export default NotesCard;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    borderRadius: 25,
-    minHeight: 150,
-    maxHeight: 200,
-    backgroundColor: 'white',
-    elevation: 5,
-    margin: 10,
-  },
-  innerContainer: {
-    gap: 5,
-    alignItems: 'center',
-  },
-  title: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    maxWidth: '90%',
-    marginTop: 10,
-  },
-  divider: {
-    width: '100%',
-  },
-  subtitle: {
-    color: 'black',
-  },
-  datesContainer: {
-    flexDirection: 'row',
-  },
-  singleDate: { alignItems: 'center', flex: 1 },
-  singleDateTitle: { fontSize: 15, fontWeight: 'bold' },
-  singleDateTimestamp: {
-    fontWeight: '500',
-    fontSize: 15,
-  },
-  smallerNoteCard: {
-    flexGrow: 1,
-    alignItems: 'center',
-  },
-  description: {
-    textAlign: 'center',
-    textAlignVertical: 'bottom',
-    maxWidth: '90%',
-    fontSize: 14,
-    marginBottom: 10,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      borderRadius: 25,
+      minHeight: 150,
+      maxHeight: 200,
+      backgroundColor: theme.cardBackground,
+      elevation: 5,
+      margin: 10,
+    },
+    innerContainer: {
+      gap: 5,
+      alignItems: 'center',
+    },
+    title: {
+      fontWeight: 'bold',
+      textAlign: 'center',
+      maxWidth: '90%',
+      marginTop: 10,
+      color: theme.text,
+    },
+    divider: {
+      width: '100%',
+    },
+    datesContainer: {
+      flexDirection: 'row',
+    },
+    singleDate: { alignItems: 'center', flex: 1 },
+    singleDateTitle: { fontSize: 15, fontWeight: '700', color: theme.text },
+    singleDateTimestamp: {
+      fontWeight: '500',
+      fontSize: 15,
+      color: theme.text,
+    },
+    smallerNoteCard: {
+      flexGrow: 1,
+      alignItems: 'center',
+    },
+    description: {
+      textAlign: 'center',
+      textAlignVertical: 'bottom',
+      maxWidth: '90%',
+      fontSize: 14,
+      marginBottom: 10,
+      color: theme.text,
+    },
+  });

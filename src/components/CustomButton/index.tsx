@@ -1,10 +1,8 @@
-import { useTheme, useThemeMode } from '@rneui/themed';
-import Colors from '@src/constants/Colors';
+import { Text, useTheme } from '@rneui/themed';
 import {
   ColorValue,
   StyleSheet,
   TouchableOpacity,
-  Text,
   View,
   StyleProp,
   TextStyle,

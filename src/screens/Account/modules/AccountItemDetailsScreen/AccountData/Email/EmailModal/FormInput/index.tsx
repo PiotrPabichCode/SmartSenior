@@ -1,5 +1,6 @@
 import { Input } from '@rneui/themed';
 import { FormInputProps } from './types';
+import { Icons } from '@src/components';
 
 const FormInput = ({ label, onChange, placeholder, value }: FormInputProps) => {
   return (
@@ -7,7 +8,7 @@ const FormInput = ({ label, onChange, placeholder, value }: FormInputProps) => {
       placeholder={placeholder}
       value={value}
       label={label}
-      leftIcon={{ type: 'font-awesome', name: 'comment' }}
+      leftIcon={<Icons name="email" />}
       onChangeText={value => onChange(value)}
     />
   );

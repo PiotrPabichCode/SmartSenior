@@ -1,6 +1,7 @@
+import { Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { Tag } from '@src/models';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 type Props = {
   tag?: Tag;

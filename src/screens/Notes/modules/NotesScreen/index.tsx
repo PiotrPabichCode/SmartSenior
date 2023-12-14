@@ -10,8 +10,10 @@ import { elementsPerLineOptions } from './NotesContainer/types';
 import { t } from '@src/localization/Localization';
 import { sortOptions, sortTypes } from './types';
 import { useSortNotes } from './useSortNotes';
+import useThemeColors from '@src/config/useThemeColors';
 
 const NotesScreen = () => {
+  const styles = useStyles();
   const notes = useAppSelector(state => selectNotes(state));
   const [elementsPerLine, setElementsPerLine] = useState(1);
   const { sortedNotes, sortBy, sortType, setSortType, setSortBy } = useSortNotes(notes);
@@ -63,31 +65,32 @@ const NotesScreen = () => {
 
 export default NotesScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: 'white',
-    gap: 10,
-  },
-  titleAndElementsPerLine: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: 10,
-  },
-  title: {
-    flex: 1,
-    textAlign: 'center',
-  },
-  sortContainer: {
-    flexDirection: 'row',
-    margin: 10,
-  },
-  sortSingleItemContainer: {
-    flex: 1,
-    alignItems: 'center',
-    gap: 10,
-  },
-  sortOptionsText: {
-    fontSize: 20,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      flexGrow: 1,
+      backgroundColor: theme.cardBackground,
+      gap: 10,
+    },
+    titleAndElementsPerLine: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      margin: 10,
+    },
+    title: {
+      flex: 1,
+      textAlign: 'center',
+    },
+    sortContainer: {
+      flexDirection: 'row',
+      margin: 10,
+    },
+    sortSingleItemContainer: {
+      flex: 1,
+      alignItems: 'center',
+      gap: 10,
+    },
+    sortOptionsText: {
+      fontSize: 20,
+    },
+  });

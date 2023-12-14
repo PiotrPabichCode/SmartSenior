@@ -1,7 +1,9 @@
+import useThemeColors from '@src/config/useThemeColors';
 import { View } from 'react-native';
 
 const CustomDivider = () => {
-  return <View style={{ backgroundColor: '#000000', minWidth: '100%', height: 1.2 }} />;
+  const backgroundColor = useThemeColors().divider;
+  return <View style={{ backgroundColor, minWidth: '100%', height: 1.2 }} />;
 };
 
 export default CustomDivider;

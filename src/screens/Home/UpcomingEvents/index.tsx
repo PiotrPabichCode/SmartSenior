@@ -6,7 +6,6 @@ import { useAppSelector } from '@src/redux/types';
 import NoActiveEvents from './NoActiveEvents';
 import MoreButton from './MoreButton';
 import ActionButton from './ActionButton';
-import Colors from '@src/constants/Colors';
 import { useUpcomingEvents } from './useUpcomingEvents';
 import { selectEventGroups } from '@src/redux/events/events.slice';
 import { CustomActivityIndicator } from '@src/components';
@@ -85,7 +84,7 @@ const useStyles = (theme = useThemeColors()) => {
     actionButtonTitle: {
       fontSize: 16,
       fontWeight: '500',
-      color: Colors.black,
+      color: theme.text,
     },
     moreButtonContainerStyle: {
       borderRadius: 25,
@@ -99,7 +98,7 @@ const useStyles = (theme = useThemeColors()) => {
     moreButtonTitle: {
       fontSize: 16,
       fontWeight: '400',
-      color: Colors.white,
+      color: theme.text,
     },
     eventView: {
       display: 'flex',

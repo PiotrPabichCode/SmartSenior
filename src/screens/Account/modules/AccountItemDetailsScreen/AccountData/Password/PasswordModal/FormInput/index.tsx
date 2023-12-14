@@ -12,7 +12,7 @@ const FormInput = ({ label, placeholder, onChange, value }: FormInputProps) => {
       value={value}
       label={label}
       onChangeText={value => onChange(value)}
-      leftIcon={{ type: 'font-awesome', name: 'lock' }}
+      leftIcon={<Icons name={'lock'} />}
       rightIcon={
         <Icons
           name={textVisible ? 'show-toggle' : 'hide-toggle'}

@@ -3,7 +3,6 @@ import CustomButton from '@src/components/CustomButton';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import Icons from '@src/components/Icons';
-import Colors from '@src/constants/Colors';
 import useThemeColors from '@src/config/useThemeColors';
 
 const HomeButtons = () => {

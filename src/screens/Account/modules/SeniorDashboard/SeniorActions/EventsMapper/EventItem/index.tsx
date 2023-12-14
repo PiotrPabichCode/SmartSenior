@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { handleCompleteEvent, handleDeleteEvent, sendEventNotificationReminder } from '../../utils';
-import { Button } from '@rneui/themed';
+import { Button, Text } from '@rneui/themed';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { UserEvent } from '../../types';
 import { t } from '@src/localization/Localization';

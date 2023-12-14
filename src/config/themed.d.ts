@@ -13,5 +13,6 @@ declare module '@rneui/themed' {
     upcomingEventsTitle: string;
     upcomingEventsDate: string;
     icon: string;
+    speedDial: string;
   }
 }

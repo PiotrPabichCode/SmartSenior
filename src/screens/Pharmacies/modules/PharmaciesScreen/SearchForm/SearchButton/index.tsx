@@ -1,4 +1,5 @@
 import { Button } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 
 type Props = {
@@ -6,7 +7,15 @@ type Props = {
 };
 
 const SearchButton = ({ onPress }: Props) => {
-  return <Button size="lg" title={t('button.search')} onPress={() => onPress()} />;
+  const backgroundColor = useThemeColors().customBtnBackground;
+  return (
+    <Button
+      size="lg"
+      title={t('button.search')}
+      buttonStyle={{ backgroundColor }}
+      onPress={() => onPress()}
+    />
+  );
 };
 
 export default SearchButton;

@@ -1,10 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Icons from '@src/components/Icons';
 import { goBack, navigate } from '@src/navigation/navigationUtils';
-import { Colors, Theme, useTheme } from '@rneui/themed';
 import useThemeColors from '@src/config/useThemeColors';
+import { Text } from '@rneui/themed';
 
 type HeaderProps = {
   title: string;
@@ -17,10 +17,10 @@ type HeaderProps = {
 
 const CustomHeader = ({ title, nested, more, filter, onBack, filters }: HeaderProps) => {
   const theme = useThemeColors();
-  const styles = useStyles(theme);
-  const { top, bottom } = useSafeAreaInsets();
+  const styles = useStyles();
+  const { top } = useSafeAreaInsets();
   return (
-    <View style={[styles.container, { paddingTop: top, paddingBottom: bottom }]}>
+    <View style={[styles.container, { paddingTop: top * 1.5, paddingBottom: 15 }]}>
       <View style={styles.itemsView}>
         {nested ? (
           <TouchableOpacity onPress={goBack} style={styles.back}>
@@ -57,10 +57,10 @@ const CustomHeader = ({ title, nested, more, filter, onBack, filters }: HeaderPr
 
 export default CustomHeader;
 
-const useStyles = (theme: Colors) =>
+const useStyles = (theme = useThemeColors()) =>
   StyleSheet.create({
     container: {
-      backgroundColor: theme.mainBackground,
+      backgroundColor: theme.cardBackground,
     },
     itemsView: {
       flexDirection: 'row',
@@ -80,7 +80,6 @@ const useStyles = (theme: Colors) =>
     title: {
       fontSize: 18,
       fontWeight: '500',
-      color: theme.text,
     },
     more: {
       flex: 1,

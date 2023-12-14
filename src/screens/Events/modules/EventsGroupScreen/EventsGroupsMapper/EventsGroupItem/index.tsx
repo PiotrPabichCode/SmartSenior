@@ -1,9 +1,8 @@
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Text } from '@rneui/themed';
 import { useAppSelector } from '@src/redux/types';
 import { selectEventsGroupByKey } from '@src/redux/events/events.slice';
 import { goBack, navigate } from '@src/navigation/navigationUtils';
-import { StyleSheet } from 'react-native';
 import Icons from '@src/components/Icons';
 import Frequency from './Frequency';
 import ActivationSwitch from './ActivationSwitch';

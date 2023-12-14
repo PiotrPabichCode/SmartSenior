@@ -2,6 +2,7 @@ import { ThemeProvider as RNEThemeProvider, createTheme } from '@rneui/themed';
 import { useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import { useMemo } from 'react';
+import { StatusBar } from 'react-native';
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -12,29 +13,38 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   const theme = useMemo(() => {
     console.log('Theme mode changed', themeMode);
-    return createTheme({
+    const newTheme = createTheme({
       mode: themeMode,
       components: {
-        Button: {
+        Button: (props, theme) => ({
           containerStyle: {
             borderRadius: 25,
             alignSelf: 'stretch',
             marginHorizontal: 10,
           },
-          color: 'primary',
-        },
-        Input: {
+          color: theme.colors.text,
+        }),
+        Input: (props, theme) => ({
           inputContainerStyle: {
             width: '100%',
+            borderColor: theme.colors.text,
           },
           inputStyle: {
             marginHorizontal: 10,
+            color: theme.colors.text,
           },
+          placeholderTextColor: theme.colors.text,
           labelStyle: {
             alignSelf: 'center',
             fontSize: 24,
           },
-        },
+          keyboardAppearance: themeMode,
+        }),
+        CheckBox: (props, theme) => ({
+          containerStyle: {
+            backgroundColor: theme.colors.cardBackground,
+          },
+        }),
       },
 
       lightColors: {
@@ -51,23 +61,28 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         upcomingEventsDate: '#251D40',
         divider: '#251D40',
         icon: '#000000',
+        speedDial: '#ad1457',
       },
       darkColors: {
-        primary: 'blue',
         text: '#F8F8FF',
         mainBackground: '#1e2124',
         cardBackground: '#282b30',
         customBtnBackground: '#36393e',
         customBtnTitle: '#FFFFFF',
         upcomingEventsBackground: '#424549',
-        upcomingEventsActionBtn: '#7289da',
+        upcomingEventsActionBtn: '#003262',
         upcomingEventsMoreBtn: '#290025',
         upcomingEventsTitle: 'white',
         upcomingEventsDate: 'white',
         divider: '#C0C0C0',
-        icon: '#35012C',
+        icon: '#F8F8FF',
+        speedDial: '#ad1457',
       },
     });
+
+    StatusBar.setBarStyle(themeMode === 'dark' ? 'light-content' : 'dark-content');
+    StatusBar.setBackgroundColor(themeMode === 'dark' ? '#282b30' : 'white');
+    return newTheme;
   }, [themeMode]);
 
   return <RNEThemeProvider theme={theme}>{children}</RNEThemeProvider>;

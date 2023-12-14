@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Icons, { renderIcon } from '@src/components/Icons';
-import { Button } from '@rneui/themed';
+import { Button, Text } from '@rneui/themed';
 
 import { t } from '@src/localization/Localization';
+import useThemeColors from '@src/config/useThemeColors';
 
 type Props = {
   name: string;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const PharmacyCard = ({ name, added, onPress, onPressFavourite }: Props) => {
+  const styles = useStyles();
   return (
     <View style={styles.container}>
       <Icons name="pharmacy" size={24} />
@@ -32,25 +34,27 @@ const PharmacyCard = ({ name, added, onPress, onPressFavourite }: Props) => {
 
 export default PharmacyCard;
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    gap: 10,
-    width: '100%',
-    padding: 5,
-  },
-  buttonContainer: {
-    alignSelf: 'center',
-  },
-  name: {
-    flex: 1,
-  },
-  buttonTitle: {
-    fontSize: 10,
-  },
-  button: {
-    backgroundColor: 'rgba(78, 116, 289, 1)',
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+      gap: 10,
+      width: '100%',
+      padding: 5,
+    },
+    buttonContainer: {
+      alignSelf: 'center',
+    },
+    name: {
+      flex: 1,
+      color: theme.text,
+    },
+    buttonTitle: {
+      fontSize: 10,
+    },
+    button: {
+      backgroundColor: 'rgba(78, 116, 289, 1)',
+    },
+  });

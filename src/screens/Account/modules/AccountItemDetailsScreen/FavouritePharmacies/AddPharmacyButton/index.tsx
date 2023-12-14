@@ -8,9 +8,7 @@ const AddPharmacyButton = () => {
     <CustomButton
       onPress={() => navigate('Pharmacies')}
       title={t('favouritePharmacies.add')}
-      color={'black'}
-      backgroundColor={Colors.customBtnBackground}
-      icon={<Icons name="pharmacy" color="black" />}
+      icon={<Icons name="pharmacy" />}
     />
   );
 };

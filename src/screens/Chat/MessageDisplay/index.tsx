@@ -3,9 +3,10 @@ import { db } from 'firebaseConfig';
 import { collection, addDoc, query, orderBy, onSnapshot, limit } from 'firebase/firestore';
 import { GiftedChat, IMessage } from 'react-native-gifted-chat';
 import { useAppSelector } from '@src/redux/types';
-import { selectActiveChat } from '@src/redux/chats/chats.slice';
 import { selectUser } from '@src/redux/auth/auth.slice';
 import ChatList from './ChatList';
+import { View } from 'react-native';
+import useThemeColors from '@src/config/useThemeColors';
 
 // New functional component for fetching and displaying messages
 const MessageDisplay = ({ activeChat }: { activeChat: any }) => {
@@ -54,9 +55,10 @@ const MessageDisplay = ({ activeChat }: { activeChat: any }) => {
   );
 
   const user = useAppSelector(state => selectUser(state));
+  const backgroundColor = useThemeColors().cardBackground;
 
   return (
-    <>
+    <View style={{ flexGrow: 1, backgroundColor }}>
       <ChatList />
       <GiftedChat
         messages={messages}
@@ -67,7 +69,7 @@ const MessageDisplay = ({ activeChat }: { activeChat: any }) => {
           name: user?.firstName!,
         }}
       />
-    </>
+    </View>
   );
 };
 

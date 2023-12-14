@@ -1,10 +1,11 @@
 import { navigate } from '@src/navigation/navigationUtils';
 import { StyleSheet } from 'react-native';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Tags } from '@src/models';
 import { t } from '@src/localization/Localization';
 import AddTagButton from '../AddTagButton';
 import { TagCard } from '@src/components';
+import { Text } from '@rneui/themed';
 
 type Props = {
   tags: Tags;

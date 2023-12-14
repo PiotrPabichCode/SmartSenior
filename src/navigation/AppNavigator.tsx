@@ -10,6 +10,7 @@ const AppNavigator = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const user = useAppSelector(state => selectUser(state));
   const language = useAppSelector(state => selectLanguage(state));
+  const backgroundColor = useThemeColors().cardBackground;
   return (
     <Stack.Navigator
       key={language}
@@ -17,6 +18,9 @@ const AppNavigator = () => {
       screenOptions={{
         headerShown: false,
         animation: 'none',
+        contentStyle: {
+          backgroundColor,
+        },
       }}>
       {user ? (
         <Stack.Screen name="Inside" component={AuthNavigator} />

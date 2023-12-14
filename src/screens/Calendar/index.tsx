@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import { Agenda, AgendaEntry, AgendaSchedule, DateData } from 'react-native-calendars';
 import { navigate } from '@src/navigation/navigationUtils';
@@ -7,6 +7,7 @@ import { EventGroups } from '@src/models';
 import { connect } from 'react-redux';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
+import { Text } from '@rneui/themed';
 
 interface State {
   items?: AgendaSchedule;

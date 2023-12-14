@@ -4,5 +4,6 @@ export interface AccountDataInputProps {
   fieldName: string;
   value: string | null;
   onChange: any;
+  iconName: string;
   errorMessage?: string;
 }

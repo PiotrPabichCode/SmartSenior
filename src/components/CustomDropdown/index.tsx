@@ -1,6 +1,8 @@
+import { Text } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { useRef, useState } from 'react';
-import { StyleSheet, View, Text, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 const CustomDropdown = (props: any) => {
@@ -15,6 +17,7 @@ const CustomDropdown = (props: any) => {
   );
   const dropdownRef = useRef<View>(null);
   const [positionFixed, setPositionFixed] = useState<boolean>(false);
+  const styles = useStyles();
 
   const renderItem = (item: any) => {
     return (
@@ -42,11 +45,15 @@ const CustomDropdown = (props: any) => {
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         iconStyle={styles.iconStyle}
+        itemTextStyle={styles.textItem}
         data={updatedData}
         maxHeight={180}
         search={props.search}
         disable={!updatedData.length}
-        containerStyle={{ display: positionFixed ? 'flex' : 'none' }}
+        containerStyle={{
+          display: positionFixed ? 'flex' : 'none',
+          borderWidth: 0,
+        }}
         labelField={labelField}
         valueField={valueField}
         placeholder={props.placeholder}
@@ -65,32 +72,37 @@ const CustomDropdown = (props: any) => {
 
 export default CustomDropdown;
 
-const styles = StyleSheet.create({
-  dropdown: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 12,
-    elevation: 2,
-  },
-  item: {
-    padding: 17,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  textItem: {
-    flex: 1,
-    fontSize: 16,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-    lineHeight: 18,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    dropdown: {
+      backgroundColor: theme.cardBackground,
+      borderRadius: 12,
+      padding: 12,
+      elevation: 5,
+    },
+    item: {
+      padding: 17,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: theme.cardBackground,
+    },
+    textItem: {
+      flex: 1,
+      fontSize: 16,
+      color: theme.text,
+    },
+    placeholderStyle: {
+      fontSize: 16,
+      lineHeight: 18,
+      color: theme.text,
+    },
+    selectedTextStyle: {
+      fontSize: 16,
+      color: theme.text,
+    },
+    iconStyle: {
+      width: 20,
+      height: 20,
+    },
+  });

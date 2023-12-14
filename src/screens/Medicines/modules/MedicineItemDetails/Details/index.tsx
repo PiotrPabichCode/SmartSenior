@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { Divider } from '@rneui/themed';
+import { View, StyleSheet } from 'react-native';
+import { Divider, Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import LeafletButton from './LeafletButton';
@@ -8,6 +8,7 @@ import { useAppSelector } from '@src/redux/types';
 import { selectMedicinesStatus } from '@src/redux/medicines/medicines.slice';
 import DetailsItem from './DetailsItem';
 import { Medicine } from '@src/models';
+import useThemeColors from '@src/config/useThemeColors';
 
 type Props = {
   medicineItem: Medicine;
@@ -15,6 +16,7 @@ type Props = {
 
 const Details = ({ medicineItem }: Props) => {
   const status = useAppSelector(state => selectMedicinesStatus(state));
+  const styles = useStyles();
 
   if (status === 'pending') {
     return <CustomActivityIndicator />;
@@ -50,19 +52,21 @@ const Details = ({ medicineItem }: Props) => {
 
 export default Details;
 
-const styles = StyleSheet.create({
-  name: {
-    fontSize: 26,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  divider: {
-    width: '100%',
-    marginVertical: 10,
-    backgroundColor: 'black',
-    height: 1,
-  },
-  buttons: {
-    flexDirection: 'row',
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    name: {
+      fontSize: 26,
+      fontWeight: '600',
+      textAlign: 'center',
+      color: theme.text,
+    },
+    divider: {
+      width: '100%',
+      marginVertical: 10,
+      backgroundColor: theme.divider,
+      height: 1,
+    },
+    buttons: {
+      flexDirection: 'row',
+    },
+  });

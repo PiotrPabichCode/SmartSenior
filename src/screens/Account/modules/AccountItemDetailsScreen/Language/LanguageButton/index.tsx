@@ -1,4 +1,6 @@
 import { Button } from '@rneui/themed';
+import { Icons } from '@src/components';
+import useThemeColors from '@src/config/useThemeColors';
 import { StyleSheet } from 'react-native';
 
 type Props = {
@@ -7,13 +9,14 @@ type Props = {
 };
 
 const LanguageButton = ({ title, onPress }: Props) => {
+  const backgroundColor = useThemeColors().customBtnBackground;
   return (
     <Button
       size="lg"
       title={title}
-      buttonStyle={styles.button}
+      buttonStyle={[styles.button, { backgroundColor }]}
       titleStyle={styles.title}
-      icon={{ type: 'font-awesome', name: 'language', color: 'white' }}
+      icon={<Icons name="language-account" />}
       onPress={onPress}
     />
   );
@@ -23,9 +26,9 @@ export default LanguageButton;
 
 const styles = StyleSheet.create({
   button: {
-    gap: 10,
+    gap: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
   },
 });

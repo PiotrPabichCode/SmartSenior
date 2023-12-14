@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { ConnectedUser } from '@src/models';
 import { createUserLabel } from '@src/utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
+import { Text } from '@rneui/themed';
 
 type Props = {
   connectedUser: ConnectedUser;
@@ -64,7 +65,6 @@ const styles = StyleSheet.create({
   avatarLabel: {
     fontWeight: '600',
     fontSize: 18,
-    color: 'white',
   },
   keeperContainer: {
     gap: 10,

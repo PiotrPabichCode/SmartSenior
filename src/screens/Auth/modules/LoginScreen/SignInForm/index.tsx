@@ -33,8 +33,8 @@ const SignInForm = () => {
         {({ values, handleChange, handleBlur, handleSubmit, errors, touched }) => (
           <>
             <Input
-              style={styles.inputField}
-              leftIcon={<Icon name="email" size={30} color="black" />}
+              style={styles.input}
+              leftIcon={<Icon name="email" size={30} />}
               placeholder={t('login.button.placeholder.email')}
               keyboardType="email-address"
               onBlur={handleBlur('email')}
@@ -44,8 +44,8 @@ const SignInForm = () => {
             />
 
             <Input
-              style={styles.inputField}
-              leftIcon={<Icon name="lock" size={30} color="black" />}
+              style={styles.input}
+              leftIcon={<Icon name="lock" size={30} />}
               secureTextEntry={true}
               placeholder={t('login.button.placeholder.password')}
               onBlur={handleBlur('password')}
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  inputField: {
+  input: {
     fontSize: 16,
     fontWeight: '700',
   },

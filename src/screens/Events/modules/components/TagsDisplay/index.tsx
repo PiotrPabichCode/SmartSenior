@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Tags } from '@src/models';
 import { t } from '@src/localization/Localization';
 import { TagCard } from '@src/components';
+import { Text } from '@rneui/themed';
 
 type Props = {
   selectedTags: Tags;

@@ -1,20 +1,17 @@
 import { useState } from 'react';
-import { Button } from '@rneui/themed';
 import {
   CustomScrollContainer,
   CustomActivityIndicator,
   DiscardChangesAlert,
 } from '@src/components';
 import { useAppSelector } from '@src/redux/types';
-import { t } from '@src/localization/Localization';
 import { Note } from '@src/models';
 import { selectNotesStatus } from '@src/redux/notes/notes.slice';
 import isEqual from 'lodash.isequal';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
 import { initialValues } from './types';
-import { handlePress } from './utils';
 import { NoteDescription, NoteTitle } from '../components';
+import CreateButton from './CreateButton';
 
 const CreateNote = () => {
   const navigation = useNavigation();
@@ -40,19 +37,10 @@ const CreateNote = () => {
           setNote({ ...note, description: newValue });
         }}
       />
-      <Button
-        size="lg"
-        title={t('createNoteButton')}
-        buttonStyle={styles.button}
-        onPress={() => handlePress(note, setNote)}
-      />
+      <CreateButton note={note} onChange={setNote} />
       <DiscardChangesAlert navigation={navigation} isUpdate={!isEqual(note, initialValues)} />
     </CustomScrollContainer>
   );
 };
 
 export default CreateNote;
-
-const styles = StyleSheet.create({
-  button: { backgroundColor: 'rgba(127, 220, 103, 1)' },
-});

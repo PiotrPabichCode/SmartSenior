@@ -1,7 +1,7 @@
-import { Switch } from '@rneui/themed';
+import { Switch, Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { EventGroup } from '@src/models';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { switchEventsGroup } from '../utils';
 
 type Props = {

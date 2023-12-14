@@ -1,7 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { t } from '@src/localization/Localization';
+import useThemeColors from '@src/config/useThemeColors';
+import { Text } from '@rneui/themed';
 
 const NoEvents = () => {
+  const styles = useStyles();
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{t('eventsScreen.noActiveEvents')}</Text>
@@ -11,15 +14,17 @@ const NoEvents = () => {
 
 export default NoEvents;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  label: {
-    fontSize: 24,
-    textAlign: 'center',
-    marginBottom: 50,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    label: {
+      fontSize: 24,
+      textAlign: 'center',
+      marginBottom: 50,
+      color: theme.text,
+    },
+  });

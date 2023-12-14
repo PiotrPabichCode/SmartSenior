@@ -3,7 +3,8 @@ import RootNavigator from './RootNavigator';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import { useAppSelector } from '@src/redux/types';
-import { selectLanguage, selectUser } from '@src/redux/auth/auth.slice';
+import { selectLanguage, selectTheme, selectUser } from '@src/redux/auth/auth.slice';
+import useThemeColors from '@src/config/useThemeColors';
 
 const AppNavigator = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();

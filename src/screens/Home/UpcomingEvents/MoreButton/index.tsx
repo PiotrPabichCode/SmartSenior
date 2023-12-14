@@ -1,15 +1,11 @@
 import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { navigate } from '@src/navigation/navigationUtils';
-import { selectTheme } from '@src/redux/auth/auth.slice';
-import { useAppSelector } from '@src/redux/types';
-import { Theme } from '@src/models';
-import Colors from '@src/constants/Colors';
 import { StyleSheet } from 'react-native';
+import useThemeColors from '@src/config/useThemeColors';
 
 const MoreButton = () => {
-  const theme = useAppSelector(state => selectTheme(state));
-  const styles = useStyles(theme);
+  const styles = useStyles();
   return (
     <Button
       size="lg"
@@ -25,8 +21,7 @@ const MoreButton = () => {
 
 export default MoreButton;
 
-const useStyles = (theme: Theme) => {
-  const currentTheme = Colors[theme];
+const useStyles = (theme = useThemeColors()) => {
   return StyleSheet.create({
     moreButtonContainerStyle: {
       marginBottom: 10,
@@ -34,12 +29,12 @@ const useStyles = (theme: Theme) => {
       elevation: 5,
     },
     moreButtonStyle: {
-      backgroundColor: currentTheme.upcomingEventsMoreBtn,
+      backgroundColor: theme.upcomingEventsMoreBtn,
     },
     moreButtonTitle: {
       fontSize: 16,
       fontWeight: '400',
-      color: Colors.white,
+      color: theme.text,
     },
   });
 };

@@ -9,6 +9,7 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons';
+import useThemeColors from '@src/config/useThemeColors';
 import { constants } from '@src/constants/Constants';
 
 type IconProps = {
@@ -26,6 +27,8 @@ export const renderIcon = ({ name, size, color, style, focused, onPress }: IconP
 };
 
 const Icons = ({ name, size, color, style, onPress }: IconProps) => {
+  const iconColor = useThemeColors().icon;
+
   switch (name) {
     case 'settings': {
       return (

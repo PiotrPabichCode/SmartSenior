@@ -1,3 +1,5 @@
+import { useTheme, useThemeMode } from '@rneui/themed';
+import Colors from '@src/constants/Colors';
 import {
   ColorValue,
   StyleSheet,
@@ -14,7 +16,7 @@ interface ButtonProps {
   title: string;
   titleStyle?: StyleProp<TextStyle>;
   style?: StyleProp<ViewStyle>;
-  color: ColorValue;
+  color?: ColorValue;
   backgroundColor?: ColorValue;
   onPress?: () => void;
 }
@@ -24,16 +26,16 @@ const CustomButton = ({
   title,
   titleStyle,
   style,
-  color,
   backgroundColor,
   onPress,
 }: ButtonProps) => {
+  const theme = useTheme().theme.colors;
   const renderDetails = () => {
     return (
       <>
         <View style={styles.iconStyle}>{icon}</View>
         <Text
-          style={[styles.title, titleStyle, { color }]}
+          style={[styles.title, titleStyle, { color: theme.text }]}
           numberOfLines={1}
           adjustsFontSizeToFit={true}>
           {title}
@@ -41,11 +43,11 @@ const CustomButton = ({
       </>
     );
   };
-  const bg = backgroundColor;
+  const bg = backgroundColor ?? theme.customBtnBackground;
   return !onPress ? (
-    <View style={[styles.container, style, { backgroundColor }]}>{renderDetails()}</View>
+    <View style={[styles.container, style, { backgroundColor: bg }]}>{renderDetails()}</View>
   ) : (
-    <TouchableOpacity onPress={onPress} style={[styles.container, style, { backgroundColor }]}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, style, { backgroundColor: bg }]}>
       {renderDetails()}
     </TouchableOpacity>
   );
@@ -55,7 +57,6 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     gap: 40,
     flexDirection: 'row',
     alignItems: 'center',

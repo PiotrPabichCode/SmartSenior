@@ -1,8 +1,10 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Icons from '@src/components/Icons';
 import { goBack, navigate } from '@src/navigation/navigationUtils';
+import { Colors, Theme, useTheme } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
 
 type HeaderProps = {
   title: string;
@@ -14,12 +16,15 @@ type HeaderProps = {
 };
 
 const CustomHeader = ({ title, nested, more, filter, onBack, filters }: HeaderProps) => {
+  const theme = useThemeColors();
+  const styles = useStyles(theme);
+  const { top, bottom } = useSafeAreaInsets();
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: top, paddingBottom: bottom }]}>
       <View style={styles.itemsView}>
         {nested ? (
           <TouchableOpacity onPress={goBack} style={styles.back}>
-            <Icons name="arrow-left" />
+            <Icons name="arrow-left" color={theme.icon} />
           </TouchableOpacity>
         ) : (
           <View style={styles.back} />
@@ -31,6 +36,7 @@ const CustomHeader = ({ title, nested, more, filter, onBack, filters }: HeaderPr
           <TouchableOpacity style={styles.more}>
             <Icons
               name={more ? 'more' : 'less'}
+              color={theme.icon}
               onPress={() => {
                 filter
                   ? goBack()
@@ -45,42 +51,40 @@ const CustomHeader = ({ title, nested, more, filter, onBack, filters }: HeaderPr
           <View style={styles.more} />
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default CustomHeader;
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    paddingVertical: 10,
-  },
-  itemsView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  back: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titleContainer: {
-    flex: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '500',
-  },
-  more: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const useStyles = (theme: Colors) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: theme.mainBackground,
+    },
+    itemsView: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    back: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    titleContainer: {
+      flex: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    title: {
+      fontSize: 18,
+      fontWeight: '500',
+      color: theme.text,
+    },
+    more: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });

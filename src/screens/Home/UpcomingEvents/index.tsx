@@ -3,22 +3,20 @@ import { Icon, Divider, Text } from '@rneui/themed';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';
-import { selectTheme } from '@src/redux/auth/auth.slice';
 import NoActiveEvents from './NoActiveEvents';
 import MoreButton from './MoreButton';
 import ActionButton from './ActionButton';
 import Colors from '@src/constants/Colors';
-import { Theme } from '@src/models';
 import { useUpcomingEvents } from './useUpcomingEvents';
 import { selectEventGroups } from '@src/redux/events/events.slice';
 import { CustomActivityIndicator } from '@src/components';
+import useThemeColors from '@src/config/useThemeColors';
 
 const UpcomingEvents = () => {
   const eventGroups = useAppSelector(state => selectEventGroups(state));
   const { upcomingEvents, isReady } = useUpcomingEvents(eventGroups);
-  const theme = useAppSelector(state => selectTheme(state));
-  const currentTheme = Colors[theme];
-  const styles = useStyles(theme);
+  const theme = useThemeColors();
+  const styles = useStyles();
 
   if (!isReady) {
     return <CustomActivityIndicator />;
@@ -37,11 +35,11 @@ const UpcomingEvents = () => {
     return (
       <View style={styles.eventView} key={index}>
         <View style={styles.eventTimeView}>
-          <Icon name="arrow-right" size={30} color={currentTheme.icon} />
+          <Icon name="arrow-right" size={30} color={theme.icon} />
           <Text style={styles.date} numberOfLines={1}>
             {convertTimestampToDate(event.date!, 'DD-MM-YYYY HH:mm')}
           </Text>
-          <Icon name="arrow-left" size={30} color={currentTheme.icon} />
+          <Icon name="arrow-left" size={30} color={theme.icon} />
         </View>
         <Text style={styles.eventTitle} numberOfLines={1}>
           {event.title}
@@ -64,20 +62,19 @@ const UpcomingEvents = () => {
 
 export default UpcomingEvents;
 
-const useStyles = (theme: Theme) => {
-  const currentTheme = Colors[theme];
+const useStyles = (theme = useThemeColors()) => {
   return StyleSheet.create({
     viewStyle: {
       flexDirection: 'column',
       alignItems: 'center',
-      backgroundColor: currentTheme.upcomingEventsBackground,
+      backgroundColor: theme.upcomingEventsBackground,
       width: '95%',
       borderRadius: 20,
       overflow: 'hidden',
       elevation: 5,
     },
     actionButtonStyle: {
-      backgroundColor: currentTheme.upcomingEventsActionBtn,
+      backgroundColor: theme.upcomingEventsActionBtn,
     },
     actionButtonContainerStyle: {
       minWidth: '90%',
@@ -97,7 +94,7 @@ const useStyles = (theme: Theme) => {
       elevation: 5,
     },
     moreButtonStyle: {
-      backgroundColor: currentTheme.upcomingEventsMoreBtn,
+      backgroundColor: theme.upcomingEventsMoreBtn,
     },
     moreButtonTitle: {
       fontSize: 16,
@@ -112,7 +109,7 @@ const useStyles = (theme: Theme) => {
       marginVertical: 5,
     },
     eventTitle: {
-      color: currentTheme.upcomingEventsTitle,
+      color: theme.upcomingEventsTitle,
       fontWeight: '500',
       fontSize: 17,
       marginVertical: 7,
@@ -126,10 +123,10 @@ const useStyles = (theme: Theme) => {
     date: {
       fontSize: 16,
       fontWeight: 'bold',
-      color: currentTheme.upcomingEventsDate,
+      color: theme.upcomingEventsDate,
     },
     dividerStyle: {
-      backgroundColor: currentTheme.divider,
+      backgroundColor: theme.divider,
       height: 1.7,
       minWidth: '90%',
       marginVertical: 5,

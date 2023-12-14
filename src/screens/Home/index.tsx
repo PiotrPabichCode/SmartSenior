@@ -1,14 +1,15 @@
 import { StyleSheet, Text } from 'react-native';
 import { t } from '@src/localization/Localization';
-import Colors from '@src/constants/Colors';
 import HomeButtons from './HomeButtons';
 import { CustomScrollContainer, CustomActivityIndicator } from '@src/components';
 import { useAppSelector } from '@src/redux/types';
 import { selectUser } from '@src/redux/auth/auth.slice';
 import UpcomingEvents from './UpcomingEvents';
+import useThemeColors from '@src/config/useThemeColors';
 
 const HomeScreen = () => {
   const user = useAppSelector(state => selectUser(state));
+  const styles = useStyles();
 
   if (!user) {
     return <CustomActivityIndicator />;
@@ -29,12 +30,13 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-  welcomeText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-    color: Colors.black,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    welcomeText: {
+      fontSize: 36,
+      fontWeight: 'bold',
+      marginBottom: 10,
+      textAlign: 'center',
+      color: theme.text,
+    },
+  });

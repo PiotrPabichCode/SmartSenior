@@ -7,11 +7,12 @@ import { EventGroups } from '@src/models';
 import { connect } from 'react-redux';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
-import { Text } from '@rneui/themed';
+import { ThemeOptions, Text, withTheme } from '@rneui/themed';
 
 interface State {
   items?: AgendaSchedule;
   eventGroups: any;
+  theme: ThemeOptions;
 }
 
 const mapStateToProps = (state: any) => {
@@ -21,20 +22,47 @@ const mapStateToProps = (state: any) => {
 };
 
 class AgendaScreen extends Component<State> {
-  state: State = {
+  state: Partial<State> = {
     items: undefined,
     eventGroups: undefined,
   };
 
   render() {
+    const colors = this.props.theme.colors;
     return (
       <Agenda
+        key={this.props.theme.mode}
         items={this.state.items}
         loadItemsForMonth={this.loadItemsForMonth}
         renderItem={this.renderItem}
         renderEmptyDate={this.renderEmptyDate}
         rowHasChanged={this.rowHasChanged}
         showClosingKnob={true}
+        contentContainerStyle={{ backgroundColor: 'blue' }}
+        theme={{
+          backgroundColor: colors?.cardBackground,
+          calendarBackground: colors?.cardBackground,
+          textSectionTitleColor: colors?.text,
+          selectedDayBackgroundColor: 'transparent',
+          selectedDayTextColor: 'blue',
+          todayTextColor: colors?.text,
+          todayBackgroundColor: colors?.cardBackground,
+          dayTextColor: 'gray',
+          dotColor: 'green',
+          agendaDayNumColor: colors?.text,
+          agendaDayTextColor: colors?.text,
+          textDayStyle: {
+            backgroundColor: colors?.cardBackground,
+          },
+          agendaTodayColor: 'blue',
+          selectedDotColor: colors?.cardBackground,
+          monthTextColor: colors?.text,
+          // @ts-ignore - not typed
+          reservationsBackgroundColor: colors?.background,
+          textDayFontSize: 20,
+          textDayHeaderFontSize: 16,
+          textMonthFontSize: 20,
+        }}
         selected={moment().format('YYYY-MM-DD')}
         pastScrollRange={1}
         futureScrollRange={3}
@@ -103,21 +131,19 @@ class AgendaScreen extends Component<State> {
 
   renderItem = (event: AgendaEntry, isFirst: boolean) => {
     const fontSize = 16;
-    const color = 'black';
+    const backgroundColor = this.state.theme?.colors.cardBackground;
     return (
       <TouchableOpacity
-        style={[styles.item]}
+        style={[styles.item, { backgroundColor }]}
         onPress={() =>
           navigate('EventItem', {
             groupKey: event.groupKey,
             date: event.date,
           })
         }>
-        <Text style={{ fontSize, color }}>
-          {convertTimestampToDate(event.date, 'DD-MM-YYYY HH:mm')}
-        </Text>
-        <Text style={[styles.name, { fontSize, color }]}>{event.name}</Text>
-        <Text numberOfLines={1} style={{ fontSize, color }}>
+        <Text style={{ fontSize }}>{convertTimestampToDate(event.date, 'DD-MM-YYYY HH:mm')}</Text>
+        <Text style={[styles.name, { fontSize }]}>{event.name}</Text>
+        <Text numberOfLines={1} style={{ fontSize }}>
           {event.description}
         </Text>
         <Text>
@@ -142,11 +168,10 @@ class AgendaScreen extends Component<State> {
   };
 }
 
-export default connect(mapStateToProps)(AgendaScreen);
+export default withTheme(connect(mapStateToProps)(AgendaScreen));
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: 'white',
     flex: 1,
     borderRadius: 5,
     padding: 10,

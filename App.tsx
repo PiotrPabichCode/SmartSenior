@@ -34,16 +34,11 @@ export default function App() {
     return null;
   }
 
-  console.log(initialWindowMetrics);
-
   return (
     <Provider store={store}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics} onLayout={onLayoutRootView}>
         <ThemeProvider>
-          <NavigationContainer
-            ref={navigationRef}
-            // theme={NavigationDarkTheme}
-            onReady={() => setIsNavigationReady(true)}>
+          <NavigationContainer ref={navigationRef} onReady={() => setIsNavigationReady(true)}>
             <AppNavigator />
             <LocationPermissionModal />
           </NavigationContainer>

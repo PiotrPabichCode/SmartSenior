@@ -12,9 +12,6 @@ import { NoteDetailsProps } from '@src/navigation/types';
 import isEqual from 'lodash.isequal';
 import { NoteDescription, NoteTitle } from '../components';
 import UpdateButton from './UpdateButton';
-import { Button } from '@rneui/themed';
-import { t } from '@src/localization/Localization';
-import { onSubmit } from './utils';
 
 const NoteDetails = ({ navigation, route }: NoteDetailsProps) => {
   const { key } = route.params;

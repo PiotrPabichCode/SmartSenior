@@ -62,7 +62,8 @@
   "speedDial": {
     "addEvent": "Dodaj wydarzenie",
     "addSenior": "Dodaj seniora",
-    "addNote": "Dodaj notatkę"
+    "addNote": "Dodaj notatkę",
+    "emergencyCall": "Numer alarmowy"
   },
   "medicines": {
     "title": "Lista leków",

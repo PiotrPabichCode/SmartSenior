@@ -6,6 +6,9 @@ import { t } from '@src/localization/Localization';
 import { Roles } from '@src/models';
 import { useAppSelector } from '@src/redux/types';
 import useThemeColors from '@src/config/useThemeColors';
+import { Linking } from 'react-native';
+import Icons from '../Icons';
+import { constants } from '@src/constants/Constants';
 
 const SpeedDialMenu = (props: any) => {
   const role = useAppSelector(state => state.auth.user?.role);
@@ -16,6 +19,10 @@ const SpeedDialMenu = (props: any) => {
     switch (command) {
       case 'ADD_EVENT':
         navigate('CreateEvent');
+        setOpen(!open);
+        break;
+      case 'EMERGENCY_CALL':
+        Linking.openURL('tel:112');
         setOpen(!open);
         break;
       case 'ADD_NOTE':
@@ -29,6 +36,8 @@ const SpeedDialMenu = (props: any) => {
         break;
     }
   };
+
+  // <Icons name="first-aid" onPress={() => Linking.openURL('tel:112')} />;
 
   return (
     <SpeedDial
@@ -62,6 +71,12 @@ const SpeedDialMenu = (props: any) => {
       ) : (
         <></>
       )}
+      <SpeedDial.Action
+        icon={<Icons name="phone" size={constants.iconSizeS} />}
+        title={t('speedDial.emergencyCall')}
+        onPress={() => onClickAction('EMERGENCY_CALL')}
+        color={color}
+      />
     </SpeedDial>
   );
 };

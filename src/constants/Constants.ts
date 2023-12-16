@@ -4,6 +4,7 @@ export const constants = {
   textFontSize: 16,
   subTextFontSize: 14,
   spacing: 15,
+  iconSizeXS: 16,
   iconSizeS: 20,
   iconSizeM: 24,
   iconSizeL: 28,

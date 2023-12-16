@@ -28,7 +28,6 @@ export const renderIcon = ({ name, size, color, style, focused, onPress }: IconP
 };
 
 const Icons = ({ name, size, color, style, onPress }: IconProps) => {
-  console.log(color);
   const iconColor = color ?? useThemeColors().icon;
 
   switch (name) {
@@ -520,7 +519,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="md-checkmark-circle-outline"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={iconColor || 'green'}
+          color={'green'}
           style={style}
         />
       );
@@ -531,7 +530,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="cancel"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={iconColor || 'red'}
+          color={'red'}
           style={style}
         />
       );

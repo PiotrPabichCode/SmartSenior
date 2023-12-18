@@ -27,18 +27,14 @@ export const medicinesSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(action.loadMedicines.fulfilled, (state, action: PayloadAction<Medicines>) => {
-        state.medicines = action.payload;
-        state.status = 'succeeded';
-      })
       .addCase(action.loadMedicines.pending, state => {
         state.status = 'pending';
       })
       .addCase(action.loadMedicines.rejected, state => {
         state.status = 'failed';
       })
-      .addCase(action.deleteMedicine.fulfilled, (state, action: PayloadAction<string>) => {
-        state.medicines = state.medicines.filter(m => m.key !== action.payload);
+      .addCase(action.loadMedicines.fulfilled, (state, action: PayloadAction<Medicines>) => {
+        state.medicines = action.payload;
         state.status = 'succeeded';
       })
       .addCase(action.deleteMedicine.pending, state => {
@@ -47,8 +43,8 @@ export const medicinesSlice = createSlice({
       .addCase(action.deleteMedicine.rejected, state => {
         state.status = 'failed';
       })
-      .addCase(action.addMedicine.fulfilled, (state, action: PayloadAction<Medicine>) => {
-        state.medicines = [...state.medicines, action.payload];
+      .addCase(action.deleteMedicine.fulfilled, (state, action: PayloadAction<string>) => {
+        state.medicines = state.medicines.filter(m => m.key !== action.payload);
         state.status = 'succeeded';
       })
       .addCase(action.addMedicine.pending, state => {
@@ -57,7 +53,8 @@ export const medicinesSlice = createSlice({
       .addCase(action.addMedicine.rejected, state => {
         state.status = 'failed';
       })
-      .addCase(action.downloadMedicineFile.fulfilled, state => {
+      .addCase(action.addMedicine.fulfilled, (state, action: PayloadAction<Medicine>) => {
+        state.medicines = [...state.medicines, action.payload];
         state.status = 'succeeded';
       })
       .addCase(action.downloadMedicineFile.pending, state => {
@@ -65,6 +62,9 @@ export const medicinesSlice = createSlice({
       })
       .addCase(action.downloadMedicineFile.rejected, state => {
         state.status = 'failed';
+      })
+      .addCase(action.downloadMedicineFile.fulfilled, state => {
+        state.status = 'succeeded';
       });
   },
 });

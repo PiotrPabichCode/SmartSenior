@@ -170,7 +170,8 @@
     }
   },
   "chat": {
-    "noActiveChats": "Nie masz aktywnych czatów"
+    "noActiveChats": "Nie masz aktywnych czatów",
+    "placeholder": "Napisz wiadomość..."
   },
   "connectedUsers": {
     "keeperTitle": "Połączone osoby",

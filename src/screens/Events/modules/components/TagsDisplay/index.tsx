@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { Tags } from '@src/models';
 import { t } from '@src/localization/Localization';
-import { TagCard } from '@src/components';
+import TagCard from '@src/components/TagCard';
 import { Text } from '@rneui/themed';
 
 type Props = {

@@ -17,6 +17,19 @@ export const signIn = createAsyncThunk(
   },
 );
 
+export const signInWithOAuthGoogle = createAsyncThunk(
+  'auth/signInWithOAuthGoogle',
+  async (_, { rejectWithValue }) => {
+    try {
+      console.log('her');
+      return await api.signInWithOAuthGoogle();
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  },
+);
+
 export const signUp = createAsyncThunk(
   'auth/signUp',
   async (credentials: AuthCredentials, { rejectWithValue }) => {

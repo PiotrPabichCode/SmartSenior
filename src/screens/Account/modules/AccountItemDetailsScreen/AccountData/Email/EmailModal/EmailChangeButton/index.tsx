@@ -1,6 +1,6 @@
 import { t } from '@src/localization/Localization';
-import { Button } from '@rneui/themed';
 import { EmailChangeButtonProps } from './types';
+import { Button } from '@src/components/shared';
 
 const EmailChangeButton = ({ onPress }: EmailChangeButtonProps) => {
   return (

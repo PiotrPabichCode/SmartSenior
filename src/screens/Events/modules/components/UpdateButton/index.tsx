@@ -1,6 +1,6 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
+import { Button } from '@src/components/shared';
 
 type Props = {
   visible: boolean;

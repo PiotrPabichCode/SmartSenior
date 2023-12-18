@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Modal, View, Button } from 'react-native';
+import { Modal, View } from 'react-native';
 import * as Location from 'expo-location';
+import { Button } from '@src/components/shared';
 import { t } from '@src/localization/Localization';
 import { useAppSelector } from '@src/redux/types';
 import { selectRole } from '@src/redux/auth/auth.slice';

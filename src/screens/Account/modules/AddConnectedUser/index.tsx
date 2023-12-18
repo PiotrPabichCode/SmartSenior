@@ -1,4 +1,5 @@
-import { View, TextInput, Button } from 'react-native';
+import { View, TextInput } from 'react-native';
+import { Button } from '@src/components/shared';
 import { useState } from 'react';
 import { goBack } from '@src/navigation/navigationUtils';
 import { addConnectedUser } from '@src/redux/auth/auth.actions';

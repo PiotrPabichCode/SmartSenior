@@ -1,7 +1,7 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { navigate } from '@src/navigation/navigationUtils';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 const AddTagButton = () => {
   return (

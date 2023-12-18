@@ -24,6 +24,11 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
           },
           color: theme.colors.text,
         }),
+        Text: (props, theme) => ({
+          style: {
+            color: theme.colors.text,
+          },
+        }),
         Input: (props, theme) => ({
           inputContainerStyle: {
             width: '100%',
@@ -48,6 +53,8 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
       },
 
       lightColors: {
+        light: '#F8F8FF',
+        dark: '#1e2124',
         primary: 'blue',
         text: '#000000',
         mainBackground: '#FFFFFF',
@@ -64,6 +71,8 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         speedDial: '#ad1457',
       },
       darkColors: {
+        light: '#F8F8FF',
+        dark: '#1e2124',
         text: '#F8F8FF',
         mainBackground: '#1e2124',
         cardBackground: '#282b30',

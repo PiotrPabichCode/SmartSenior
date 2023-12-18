@@ -1,6 +1,6 @@
-import { Button } from '@rneui/themed';
 import { ChangePasswordButtonProps } from './types';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 const ChangePasswordButton = ({ title, onPress }: ChangePasswordButtonProps) => {
   return (

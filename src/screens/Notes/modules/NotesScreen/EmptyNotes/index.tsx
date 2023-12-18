@@ -3,7 +3,8 @@ import Icons from '@src/components/Icons';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import useThemeColors from '@src/config/useThemeColors';
-import { Button, Text } from '@rneui/themed';
+import { Text } from '@rneui/themed';
+import { Button } from '@src/components/shared';
 
 const EmptyNotes = () => {
   const styles = useStyles();

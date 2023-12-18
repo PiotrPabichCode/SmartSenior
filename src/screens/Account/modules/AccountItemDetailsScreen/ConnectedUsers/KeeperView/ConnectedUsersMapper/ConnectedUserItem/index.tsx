@@ -4,12 +4,14 @@ import { createUserLabel } from '@src/utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { Text } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
 
 type Props = {
   connectedUser: ConnectedUser;
 };
 
 const ConnectedUserItem = ({ connectedUser: user }: Props) => {
+  const styles = useStyles();
   const userData = user.user;
   return (
     <TouchableOpacity
@@ -43,34 +45,35 @@ const ConnectedUserItem = ({ connectedUser: user }: Props) => {
 
 export default ConnectedUserItem;
 
-const styles = StyleSheet.create({
-  container: {
-    minWidth: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'lightblue',
-    borderRadius: 25,
-    padding: 10,
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    marginRight: 20,
-    backgroundColor: 'darkblue',
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarLabel: {
-    fontWeight: '600',
-    fontSize: 18,
-  },
-  keeperContainer: {
-    gap: 10,
-  },
-  keeperText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      minWidth: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: 'lightblue',
+      borderRadius: 25,
+      padding: 10,
+    },
+    avatar: {
+      width: 50,
+      height: 50,
+      marginRight: 20,
+      backgroundColor: theme.customBtnBackground,
+      borderRadius: 25,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    avatarLabel: {
+      fontWeight: '600',
+      fontSize: 18,
+    },
+    keeperContainer: {
+      gap: 10,
+    },
+    keeperText: {
+      fontSize: 16,
+      fontWeight: '600',
+    },
+  });

@@ -1,8 +1,8 @@
 import { Timestamp } from 'firebase/firestore';
-import { Button } from '@rneui/themed';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 type Props = {
   isRecurring: boolean;

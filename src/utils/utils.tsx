@@ -1,9 +1,10 @@
 import moment from 'moment-timezone';
 import isEqual from 'lodash.isequal';
 import { t } from '@src/localization/Localization';
+import tinycolor from 'tinycolor2';
 import { store } from '@src/redux/common';
 import { DAYS, days } from '@src/redux/events/events.constants';
-import { Platform } from 'react-native';
+import { Platform, ColorValue } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
 import { selectConnectedUserById, selectTags, selectUser } from '@src/redux/auth/auth.slice';
 import { Genders, Images, Tags } from '@src/models';
@@ -81,11 +82,9 @@ export const renderDayValue = (value: number, shortTitle: boolean) => {
 };
 
 export function pickColorBasedOnRGB(bgColor: string, lightColor: string, darkColor: string) {
-  var color = bgColor.charAt(0) === '#' ? bgColor.substring(1, 7) : bgColor;
-  var r = parseInt(color.substring(0, 2), 16); // hexToR
-  var g = parseInt(color.substring(2, 4), 16); // hexToG
-  var b = parseInt(color.substring(4, 6), 16); // hexToB
-  return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? darkColor : lightColor;
+  const color = tinycolor(bgColor);
+  const isDark = color.isDark();
+  return isDark ? lightColor : darkColor;
 }
 
 export const createUsername = (userID: string) => {

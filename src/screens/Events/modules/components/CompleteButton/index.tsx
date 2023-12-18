@@ -1,7 +1,7 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { Timestamp } from 'firebase/firestore';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 type Props = {
   onPress: any;

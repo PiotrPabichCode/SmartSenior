@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import WheelColorPicker from 'react-native-wheel-color-picker';
-import { Button } from '@rneui/themed';
+import { Button } from '@src/components/shared';
 import { useState } from 'react';
 import { t } from '@src/localization/Localization';
 
@@ -32,7 +32,7 @@ const ColorPicker = ({
       />
       <Button
         title={t('colorPickerAccept')}
-        color={swatch}
+        buttonStyle={{ backgroundColor: swatch }}
         onPress={() => {
           onChange(fieldName, swatch);
           onPress();

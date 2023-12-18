@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CustomColorPicker from '@src/components/ColorPicker';
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
+import TagCard from '@src/components/TagCard';
 
 type ColorPickerProps = {
   name: string;
@@ -20,10 +20,11 @@ const ColorPicker = ({ color, name, onChange, fieldName }: ColorPickerProps) => 
       color={color}
     />
   ) : (
-    <Button
+    <TagCard
       color={color}
+      name={name ? name : t('tags.colorPlaceholder')}
       onPress={() => setActiveColorPicker(true)}
-      title={name ? name : t('tags.colorPlaceholder')}
+      id=""
     />
   );
 };

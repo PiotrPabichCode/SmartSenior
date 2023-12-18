@@ -25,6 +25,7 @@ const MultiSelectDropdown = (props: any) => {
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         containerStyle={styles.searchContainer}
+        itemTextStyle={styles.itemText}
         iconStyle={styles.iconStyle}
         iconColor={colors.icon}
         search
@@ -83,5 +84,8 @@ const useStyles = (theme = useThemeColors()) =>
     },
     selectedStyle: {
       borderRadius: 12,
+    },
+    itemText: {
+      color: theme.text,
     },
   });

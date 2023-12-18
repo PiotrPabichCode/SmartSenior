@@ -1,9 +1,12 @@
 import {
   EmailAuthProvider,
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
   reauthenticateWithCredential,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  signInWithRedirect,
   signOut,
   updateEmail,
   updatePassword,
@@ -70,6 +73,22 @@ const getUserTemplate = (uid: string, email: string | null): User => {
 export const signIn = async (authData: AuthCredentials): Promise<User> => {
   try {
     const response = await signInWithEmailAndPassword(auth, authData.email, authData.password);
+    const user: FirebaseUser = response.user;
+    if (!user) {
+      throw new Error('User not found');
+    }
+    const res = await loadUserDoc(user);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const signInWithOAuthGoogle = async (): Promise<User> => {
+  try {
+    const provider = new GoogleAuthProvider();
+    console.log(provider);
+    const response = await signInWithPopup(auth, provider);
     const user: FirebaseUser = response.user;
     if (!user) {
       throw new Error('User not found');
@@ -151,7 +170,7 @@ export const updateUserTag = async (tag: Tag) => {
     const userID = selectUserID(store.getState())!;
     const _doc = doc(db, 'users', userID, 'tags', tag.id);
     await updateDoc(_doc, {
-      tag,
+      ...tag,
     });
     return tag;
   } catch (error) {

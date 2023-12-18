@@ -1,7 +1,7 @@
-import { Button } from '@rneui/themed';
 import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 type Props = {
   visible: boolean;

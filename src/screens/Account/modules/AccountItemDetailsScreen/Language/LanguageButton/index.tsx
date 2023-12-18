@@ -1,7 +1,7 @@
-import { Button } from '@rneui/themed';
 import { Icons } from '@src/components';
 import useThemeColors from '@src/config/useThemeColors';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 type Props = {
   title: string;

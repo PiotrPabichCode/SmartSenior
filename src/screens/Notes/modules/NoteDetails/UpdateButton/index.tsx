@@ -1,9 +1,9 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { onSubmit } from '../utils';
 import useThemeColors from '@src/config/useThemeColors';
 import { Dispatch, SetStateAction } from 'react';
 import { Note } from '@src/models';
+import { Button } from '@src/components/shared';
 
 type Props = {
   storeNote: Note;

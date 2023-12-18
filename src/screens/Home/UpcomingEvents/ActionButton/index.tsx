@@ -1,9 +1,9 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { navigate } from '@src/navigation/navigationUtils';
 import { StyleSheet } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
 import useThemeColors from '@src/config/useThemeColors';
+import { Button } from '@src/components/shared';
 
 type Props = {
   groupKey: string;

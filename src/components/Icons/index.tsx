@@ -3,7 +3,6 @@ import {
   Entypo,
   Feather,
   FontAwesome,
-  FontAwesome5,
   Fontisto,
   Foundation,
   Ionicons,
@@ -464,7 +463,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="phone"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={iconColor || 'black'}
+          color={iconColor}
           style={style}
         />
       );

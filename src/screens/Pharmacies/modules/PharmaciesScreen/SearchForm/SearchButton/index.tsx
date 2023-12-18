@@ -1,6 +1,6 @@
-import { Button } from '@rneui/themed';
 import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
+import { Button } from '@src/components/shared';
 
 type Props = {
   onPress: () => void;

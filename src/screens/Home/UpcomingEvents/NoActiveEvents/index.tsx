@@ -1,6 +1,6 @@
 import { Text } from '@rneui/themed';
-import { Button } from '@rneui/themed';
-import Icons from '@src/components/Icons';
+import { Icons } from '@src/components';
+import { Button } from '@src/components/shared';
 import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { navigate } from '@src/navigation/navigationUtils';

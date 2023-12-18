@@ -1,9 +1,9 @@
-import { Button } from '@rneui/themed';
 import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { handlePress } from '../utils';
 import { Note } from '@src/models';
 import { Dispatch, SetStateAction } from 'react';
+import { Button } from '@src/components/shared';
 
 type Props = {
   note: Partial<Note>;

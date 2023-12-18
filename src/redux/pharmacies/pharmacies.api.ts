@@ -1,4 +1,4 @@
-import { Medicine, Medicines, Pharmacies, Pharmacy } from '@src/models';
+import { Pharmacies, Pharmacy } from '@src/models';
 import { selectUserID } from '../auth/auth.slice';
 import { store } from '../common';
 import {

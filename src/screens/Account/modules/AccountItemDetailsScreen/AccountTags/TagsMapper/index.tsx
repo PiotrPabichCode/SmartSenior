@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { Tags } from '@src/models';
 import { t } from '@src/localization/Localization';
 import AddTagButton from '../AddTagButton';
-import { TagCard } from '@src/components';
+import TagCard from '@src/components/TagCard';
 import { Text } from '@rneui/themed';
 
 type Props = {

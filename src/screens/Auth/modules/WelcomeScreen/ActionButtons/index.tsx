@@ -1,8 +1,8 @@
-import { Button } from '@rneui/themed';
 import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { navigate } from '@src/navigation/navigationUtils';
 import { View, StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 const ActionButtons = () => {
   const styles = useStyles();

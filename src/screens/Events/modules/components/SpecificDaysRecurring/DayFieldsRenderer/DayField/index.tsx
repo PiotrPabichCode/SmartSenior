@@ -1,6 +1,6 @@
-import { Button } from '@rneui/themed';
 import { renderDayValue } from '@src/utils/utils';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 export interface Day {
   value: number;

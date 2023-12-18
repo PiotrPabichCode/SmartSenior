@@ -7,6 +7,8 @@ import { selectUser } from '@src/redux/auth/auth.slice';
 import ChatList from './ChatList';
 import { View } from 'react-native';
 import useThemeColors from '@src/config/useThemeColors';
+import 'dayjs/locale/pl';
+import { t } from '@src/localization/Localization';
 
 // New functional component for fetching and displaying messages
 const MessageDisplay = ({ activeChat }: { activeChat: any }) => {
@@ -63,6 +65,10 @@ const MessageDisplay = ({ activeChat }: { activeChat: any }) => {
       <GiftedChat
         messages={messages}
         showAvatarForEveryMessage={true}
+        locale={'pl'}
+        dateFormat="DD-MM-YYYY"
+        timeFormat="HH:mm"
+        placeholder={t('chat.placeholder')}
         onSend={messages => onSend(messages as never)}
         user={{
           _id: user?.email!,

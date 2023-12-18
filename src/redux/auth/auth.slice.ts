@@ -47,18 +47,46 @@ export const authSlice = createSlice({
       .addCase(action.signIn.rejected, state => {
         state.status = 'failed';
       })
+      .addCase(action.signInWithOAuthGoogle.fulfilled, (state, action: PayloadAction<User>) => {
+        state.user = action.payload;
+        state.status = 'succeeded';
+      })
+      .addCase(action.signInWithOAuthGoogle.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.signInWithOAuthGoogle.rejected, state => {
+        state.status = 'failed';
+      })
       .addCase(action.signUp.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
         state.status = 'succeeded';
+      })
+      .addCase(action.signUp.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.signUp.rejected, state => {
+        state.status = 'failed';
       })
       .addCase(action.updateUserData.fulfilled, (state, action: PayloadAction<Partial<User>>) => {
         const data = action.payload;
         const newData = { ...state.user, ...data };
         state.user = newData as User;
       })
+      .addCase(action.updateUserData.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.updateUserData.rejected, state => {
+        state.status = 'failed';
+      })
       .addCase(action.verifyUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
         state.status = 'succeeded';
+      })
+      .addCase(action.verifyUser.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.verifyUser.rejected, state => {
+        state.status = 'failed';
       })
       .addCase(
         action.loadConnectedUsers.fulfilled,
@@ -66,29 +94,62 @@ export const authSlice = createSlice({
           state.connectedUsers = action.payload;
         },
       )
+      .addCase(action.loadConnectedUsers.pending, state => {
+        state.status = 'pending';
+      })
       .addCase(action.loadConnectedUsers.rejected, state => {
         state.status = 'failed';
       })
       .addCase(action.addConnectedUser.fulfilled, (state, action: PayloadAction<ConnectedUser>) => {
         state.connectedUsers = [...state.connectedUsers, action.payload];
       })
+      .addCase(action.addConnectedUser.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.addConnectedUser.rejected, state => {
+        state.status = 'failed';
+      })
       .addCase(action.deleteConnectedUser.fulfilled, (state, action: PayloadAction<string>) => {
         state.connectedUsers = state.connectedUsers.filter(
           user => user.user.email !== action.payload,
         );
       })
+      .addCase(action.deleteConnectedUser.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.deleteConnectedUser.rejected, state => {
+        state.status = 'failed';
+      })
       .addCase(action.changeLanguage.fulfilled, (state, action: PayloadAction<string>) => {
         state.language = action.payload;
+      })
+      .addCase(action.changeLanguage.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.changeLanguage.rejected, state => {
+        state.status = 'failed';
       })
       .addCase(action.addUserTag.fulfilled, (state, action: PayloadAction<Tag>) => {
         if (state.user) {
           state.user.tags = [...state.user.tags, action.payload];
         }
       })
+      .addCase(action.addUserTag.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.addUserTag.rejected, state => {
+        state.status = 'failed';
+      })
       .addCase(action.loadUserTags.fulfilled, (state, action: PayloadAction<Tags>) => {
         if (state.user) {
           state.user.tags = action.payload;
         }
+      })
+      .addCase(action.loadUserTags.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.loadUserTags.rejected, state => {
+        state.status = 'failed';
       })
       .addCase(action.updateUserTag.fulfilled, (state, action: PayloadAction<Tag>) => {
         const tag = action.payload;
@@ -108,6 +169,12 @@ export const authSlice = createSlice({
         if (state.user) {
           state.user.tags = state.user.tags.filter(tag => tag.id !== action.payload);
         }
+      })
+      .addCase(action.deleteUserTag.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.deleteUserTag.rejected, state => {
+        state.status = 'failed';
       });
   },
 });

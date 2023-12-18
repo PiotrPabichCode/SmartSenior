@@ -1,7 +1,7 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 import { onPress } from './utils';
+import { Button } from '@src/components/shared';
 
 type Props = {
   url: string;

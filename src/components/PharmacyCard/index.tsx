@@ -1,6 +1,7 @@
 import { View, StyleSheet } from 'react-native';
-import Icons, { renderIcon } from '@src/components/Icons';
-import { Button, Text } from '@rneui/themed';
+import Icons from '@src/components/Icons';
+import { Text } from '@rneui/themed';
+import { Button } from '../shared';
 
 import { t } from '@src/localization/Localization';
 import useThemeColors from '@src/config/useThemeColors';

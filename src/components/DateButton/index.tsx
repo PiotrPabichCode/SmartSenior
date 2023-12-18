@@ -1,5 +1,5 @@
 import { Timestamp } from 'firebase/firestore';
-import { Button } from '@rneui/themed';
+import { Button } from '@src/components/shared';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';

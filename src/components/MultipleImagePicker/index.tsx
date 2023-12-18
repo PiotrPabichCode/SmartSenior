@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { Button, Image, useTheme } from '@rneui/themed';
+import { Image } from '@rneui/themed';
+import { Button } from '@src/components/shared';
 import { ActivityIndicator, Alert } from 'react-native';
 import { Image as ImageModel, Images } from '@src/models';
 import { t } from '@src/localization/Localization';

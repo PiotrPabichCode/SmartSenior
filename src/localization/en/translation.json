@@ -38,7 +38,8 @@
       "addNote": "Added a new note",
       "updateNote": "Updated note",
       "completeEvent": "Event completed",
-      "deleteEvent": "Event deleted"
+      "deleteEvent": "Event deleted",
+      "notificationReminder": "Sent notification reminder"
     },
     "error": {
       "addConnectedUser": "Failed to add a new senior",
@@ -54,7 +55,8 @@
       "keeperNoPhone": "The caretaker did not provide a phone number.",
       "locationNotAvailable": "Location not available yet",
       "completeEvent": "Failed to complete event",
-      "deleteEvent": "Failed to delete event"
+      "deleteEvent": "Failed to delete event",
+      "notificationReminder": "Failed to send notification reminder"
     }
   },
   "speedDial": {
@@ -169,7 +171,8 @@
     }
   },
   "chat": {
-    "noActiveChats": "You have no active chats"
+    "noActiveChats": "You have no active chats",
+    "placeholder": "Type a message..."
   },
   "connectedUsers": {
     "keeperTitle": "Connected Users",

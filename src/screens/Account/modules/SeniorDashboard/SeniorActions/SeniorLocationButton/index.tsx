@@ -1,8 +1,8 @@
-import { Button, Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { ConnectedUser } from '@src/models';
 import { getSeniorLocation } from '@src/redux/auth/auth.api';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 type Props = {
   user: ConnectedUser;

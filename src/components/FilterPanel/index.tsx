@@ -1,6 +1,7 @@
-import { Button, Switch, Text, useTheme } from '@rneui/themed';
+import { Switch, Text } from '@rneui/themed';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useState } from 'react';
+import { Button } from '@src/components/shared';
 import { EventGroups, Events, Tag, Tags } from '@src/models';
 import { Formik } from 'formik';
 import { t } from '@src/localization/Localization';
@@ -16,6 +17,7 @@ import { selectEventGroups, selectEvents } from '@src/redux/events/events.slice'
 import { SearchTitle } from './components/TitlesPicker';
 import { View } from 'react-native';
 import useThemeColors from '@src/config/useThemeColors';
+import { handleError } from '@src/common/actions';
 
 const FilterPanel = ({ route }: any) => {
   const { filters } = route.params;
@@ -109,7 +111,7 @@ const FilterPanel = ({ route }: any) => {
             });
             goBack();
           } catch (error) {
-            console.log(error);
+            handleError(error);
           }
         }}>
         {({ values, setFieldValue, handleSubmit, setValues }) => (

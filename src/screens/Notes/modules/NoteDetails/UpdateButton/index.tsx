@@ -15,7 +15,6 @@ const UpdateButton = ({ storeNote, note, onSuccess }: Props) => {
   const backgroundColor = useThemeColors().customBtnBackground;
   return (
     <Button
-      size="lg"
       title={t('updateNoteButton')}
       buttonStyle={{ backgroundColor }}
       onPress={() => onSubmit(storeNote, note, onSuccess)}

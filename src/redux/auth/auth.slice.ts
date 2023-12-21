@@ -7,7 +7,7 @@ export interface AuthState {
   user: User | null;
   error: string | null;
   language: string | null;
-  theme: Theme;
+  theme: Theme | null;
   connectedUsers: ConnectedUsers;
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
@@ -16,7 +16,7 @@ const initialState: AuthState = {
   user: null,
   error: null,
   language: null,
-  theme: 'light',
+  theme: null,
   connectedUsers: [],
   status: 'pending',
 };
@@ -25,9 +25,6 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    changeTheme: (state, action: PayloadAction<Theme>) => {
-      state.theme = action.payload;
-    },
     logout: state => {
       state.connectedUsers = [];
       state.error = '';
@@ -37,6 +34,9 @@ export const authSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+      .addCase(action.changeTheme.fulfilled, (state, action: PayloadAction<Theme>) => {
+        state.theme = action.payload;
+      })
       .addCase(action.signIn.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
         state.status = 'succeeded';
@@ -179,7 +179,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { changeTheme, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 export const selectAuthStore = (state: RootState) => state.auth;
 export const selectUser = (state: RootState) => state.auth.user;

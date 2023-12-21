@@ -14,7 +14,7 @@ const NoEvents = () => {
 
 export default NoEvents;
 
-const useStyles = (theme = useThemeColors()) =>
+const useStyles = () =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -25,6 +25,5 @@ const useStyles = (theme = useThemeColors()) =>
       fontSize: 24,
       textAlign: 'center',
       marginBottom: 50,
-      color: theme.text,
     },
   });

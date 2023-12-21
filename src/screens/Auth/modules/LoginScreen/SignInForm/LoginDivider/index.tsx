@@ -28,5 +28,5 @@ const useStyles = (theme = useThemeColors()) =>
       height: 1,
       backgroundColor: theme.text,
     },
-    text: { width: 50, textAlign: 'center', color: theme.text },
+    text: { width: 50, textAlign: 'center' },
   });

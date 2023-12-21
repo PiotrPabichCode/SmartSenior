@@ -28,7 +28,6 @@ const useStyles = (theme = useThemeColors()) =>
     title: {
       fontSize: 22,
       textAlign: 'center',
-      color: theme.text,
     },
     description: {
       fontSize: 17,
@@ -36,6 +35,5 @@ const useStyles = (theme = useThemeColors()) =>
       marginVertical: 10,
       maxWidth: '90%',
       letterSpacing: 0.5,
-      color: theme.text,
     },
   });

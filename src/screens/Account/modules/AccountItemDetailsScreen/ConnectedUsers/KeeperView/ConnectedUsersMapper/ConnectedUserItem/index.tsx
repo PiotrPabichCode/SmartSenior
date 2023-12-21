@@ -4,7 +4,6 @@ import { createUserLabel } from '@src/utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { Text } from '@rneui/themed';
-import useThemeColors from '@src/config/useThemeColors';
 
 type Props = {
   connectedUser: ConnectedUser;
@@ -45,7 +44,7 @@ const ConnectedUserItem = ({ connectedUser: user }: Props) => {
 
 export default ConnectedUserItem;
 
-const useStyles = (theme = useThemeColors()) =>
+const useStyles = () =>
   StyleSheet.create({
     container: {
       minWidth: '100%',
@@ -60,8 +59,9 @@ const useStyles = (theme = useThemeColors()) =>
       width: 50,
       height: 50,
       marginRight: 20,
-      backgroundColor: theme.customBtnBackground,
       borderRadius: 25,
+      borderWidth: 2,
+      borderColor: 'lightblue',
       alignItems: 'center',
       justifyContent: 'center',
     },

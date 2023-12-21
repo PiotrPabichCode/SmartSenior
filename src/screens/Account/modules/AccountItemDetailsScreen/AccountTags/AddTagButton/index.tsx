@@ -6,7 +6,6 @@ import { Button } from '@src/components/shared';
 const AddTagButton = () => {
   return (
     <Button
-      size="md"
       title={t('tags.addTitle')}
       titleStyle={styles.title}
       color={'green'}

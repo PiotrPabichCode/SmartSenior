@@ -24,7 +24,6 @@ const useStyles = (theme = useThemeColors()) =>
       margin: 15,
       fontSize: 14,
       fontWeight: '600',
-      color: theme.text,
     },
     textRegister: {
       color: theme.primary,

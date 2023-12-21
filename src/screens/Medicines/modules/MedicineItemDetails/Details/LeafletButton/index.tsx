@@ -11,7 +11,6 @@ type Props = {
 const LeafletButton = ({ url, name }: Props) => {
   return (
     <Button
-      size="lg"
       title={t('medicineItem.leaflet')}
       containerStyle={styles.container}
       buttonStyle={styles.button}

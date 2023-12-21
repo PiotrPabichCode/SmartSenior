@@ -1,5 +1,4 @@
 import { t } from '@src/localization/Localization';
-import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
 
 type Props = {
@@ -7,20 +6,7 @@ type Props = {
 };
 
 const CreateButton = ({ onPress }: Props) => {
-  return (
-    <Button
-      size="lg"
-      title={t('createEvent.button.submit')}
-      buttonStyle={styles.button}
-      onPress={() => onPress()}
-    />
-  );
+  return <Button title={t('createEvent.button.submit')} onPress={() => onPress()} color="green" />;
 };
 
 export default CreateButton;
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: 'blue',
-  },
-});

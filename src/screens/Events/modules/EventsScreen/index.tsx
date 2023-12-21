@@ -50,6 +50,7 @@ export default EventsScreen;
 const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   eventsContainer: {
     minWidth: '100%',

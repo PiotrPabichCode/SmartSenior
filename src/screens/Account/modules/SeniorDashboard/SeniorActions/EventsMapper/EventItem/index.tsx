@@ -26,7 +26,6 @@ const EventItem = ({ event, userID, onEvent, onLoad }: Props) => {
 
       <View style={styles.buttonsContainer}>
         <Button
-          size="lg"
           color={'green'}
           buttonStyle={styles.buttonContainer}
           onPress={() =>
@@ -40,14 +39,11 @@ const EventItem = ({ event, userID, onEvent, onLoad }: Props) => {
           title={t('seniorDashboard.execute')}
         />
         <Button
-          size="lg"
-          color={'orange'}
           buttonStyle={styles.buttonContainer}
           onPress={() => sendEventNotificationReminder(event, userID, onLoad)}
           title={t('seniorDashboard.remind')}
         />
         <Button
-          size="lg"
           color={'red'}
           buttonStyle={styles.buttonContainer}
           onPress={() =>

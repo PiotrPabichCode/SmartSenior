@@ -1,25 +1,42 @@
-import { ButtonProps } from '@rneui/base';
 import { Button as RNEButton } from '@rneui/themed';
+import Icons from '@src/components/Icons';
 import useThemeColors from '@src/config/useThemeColors';
 import { pickColorBasedOnRGB } from '@src/utils/utils';
+import { find, get, isArray } from 'lodash';
 
-const Button = (props: ButtonProps) => {
-  const backgroundColor = props.buttonStyle?.backgroundColor;
-  const { light, dark } = useThemeColors();
+const Button = (props: any) => {
+  let updatedProps = { ...props };
 
-  let updatedProps: ButtonProps = { ...props };
+  function getBackgroundColor(objects: any) {
+    const obj = isArray(objects) ? find(objects, 'backgroundColor') : objects;
+    return get(obj, 'backgroundColor', useThemeColors().customBtnBackground);
+  }
 
-  if (backgroundColor) {
+  if (updatedProps) {
+    let backgroundColor = props.color;
+    if (!backgroundColor) {
+      backgroundColor = getBackgroundColor(props.buttonStyle);
+    }
+
+    const { light, dark } = useThemeColors();
+
     const newColor = pickColorBasedOnRGB(backgroundColor, light, dark);
     const titleStyle = props.titleStyle || {};
+    const icon = props.icon || {};
+
+    const updatedTitleStyle = {
+      ...titleStyle,
+      color: newColor,
+    };
 
     updatedProps = {
       ...updatedProps,
-      titleStyle: {
-        ...titleStyle,
-        color: newColor,
-      },
+      titleStyle: updatedTitleStyle,
     };
+
+    if (icon && icon.props && !icon.props.hasOwnProperty('color')) {
+      updatedProps.icon = <Icons {...icon.props} color={newColor} />;
+    }
   }
 
   return <RNEButton {...updatedProps} />;

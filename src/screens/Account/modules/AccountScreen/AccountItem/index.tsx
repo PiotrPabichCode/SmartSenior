@@ -3,10 +3,11 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import type { PropsWithChildren } from 'react';
 import { renderIcon } from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
-import { changeTheme, selectTheme } from '@src/redux/auth/auth.slice';
+import { selectTheme } from '@src/redux/auth/auth.slice';
 import { store } from '@src/redux/common';
 import useThemeColors from '@src/config/useThemeColors';
 import { Text } from '@rneui/themed';
+import { changeTheme } from '@src/redux/auth/auth.actions';
 
 type AccountItemProps = PropsWithChildren<{
   type?: string;
@@ -91,7 +92,6 @@ const useStyles = (theme = useThemeColors()) =>
       fontSize: 20,
       fontWeight: 'bold',
       textAlign: 'left',
-      color: theme.text,
     },
     arrowStyle: {
       alignSelf: 'flex-end',

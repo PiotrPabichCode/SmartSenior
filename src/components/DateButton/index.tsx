@@ -17,7 +17,6 @@ type Props = {
 const DateButton = ({ date, onPress, onBlur, isError, label, labelEmpty, styles }: Props) => {
   return (
     <Button
-      size="lg"
       onPress={() => onPress(true)}
       onBlur={onBlur}
       buttonStyle={[_styles.button, styles]}
@@ -37,7 +36,6 @@ export default DateButton;
 
 const _styles = StyleSheet.create({
   button: {
-    padding: 15,
     backgroundColor: 'green',
   },
 });

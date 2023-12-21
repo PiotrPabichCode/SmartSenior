@@ -14,7 +14,6 @@ const CreateButton = ({ note, onChange }: Props) => {
   const backgroundColor = useThemeColors().customBtnBackground;
   return (
     <Button
-      size="lg"
       title={t('createNoteButton')}
       buttonStyle={{ backgroundColor }}
       onPress={() => handlePress(note, onChange)}

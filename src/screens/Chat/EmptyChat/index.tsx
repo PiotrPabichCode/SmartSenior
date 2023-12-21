@@ -25,6 +25,5 @@ const useStyles = (theme = useThemeColors()) =>
     title: {
       textAlign: 'center',
       fontSize: 24,
-      color: theme.text,
     },
   });

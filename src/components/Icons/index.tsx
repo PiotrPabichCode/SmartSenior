@@ -197,7 +197,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="moon"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={'darkblue'}
+          color={'#562EA1'}
           style={style}
         />
       );

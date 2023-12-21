@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectEventsGroupByKey, selectEventsStatus } from '@src/redux/events/events.slice';
@@ -39,7 +39,6 @@ import { Tag, Tags } from '@src/models';
 import FormikObserver from '@src/utils/FormikObserver';
 import { updateEventsGroup } from '@src/redux/events/events.actions';
 import { ChangeEventSchema, filterTags } from './utils';
-import { StyleSheet } from 'react-native';
 import { usePrepareEventsGroup } from './usePrepareEventsGroup';
 
 const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {

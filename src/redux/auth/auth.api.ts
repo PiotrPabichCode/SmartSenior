@@ -37,6 +37,7 @@ import {
   Users,
   Tags,
   Tag,
+  Theme,
 } from '@src/models';
 import { User as FirebaseUser } from 'firebase/auth';
 import { fetchEventGroupsByID, fetchEventsByID } from '../events/events.api';
@@ -49,6 +50,8 @@ import { Alert } from 'react-native';
 import { t } from '@src/localization/Localization';
 import { UserLocation } from './auth.constants';
 import { FirebaseError } from 'firebase/app';
+import { selectTheme } from './auth.slice';
+import { useLocalStorage } from '@src/hooks/useLocalStorage';
 
 const selectUserID = (state: any) => state.auth.user?.uid;
 const selectEmail = (state: any) => state.auth.user?.email;
@@ -116,6 +119,21 @@ export const signUp = async (authData: AuthCredentials): Promise<User> => {
       deleted: false,
     });
     return emptyUser;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const changeTheme = async (theme?: Theme): Promise<Theme> => {
+  try {
+    const storage = useLocalStorage('THEME_KEY');
+    if (!theme) {
+      const savedTheme = (await storage.getItem()) ?? 'light';
+      return savedTheme;
+    }
+    await storage.setItem(theme);
+
+    return theme;
   } catch (error) {
     throw error;
   }

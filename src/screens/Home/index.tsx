@@ -38,6 +38,5 @@ const useStyles = (theme = useThemeColors()) =>
       fontWeight: 'bold',
       marginBottom: 10,
       textAlign: 'center',
-      color: theme.text,
     },
   });

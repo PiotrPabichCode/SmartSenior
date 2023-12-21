@@ -37,8 +37,6 @@ const SpeedDialMenu = (props: any) => {
     }
   };
 
-  // <Icons name="first-aid" onPress={() => Linking.openURL('tel:112')} />;
-
   return (
     <SpeedDial
       isOpen={open}
@@ -72,7 +70,7 @@ const SpeedDialMenu = (props: any) => {
         <></>
       )}
       <SpeedDial.Action
-        icon={<Icons name="phone" size={constants.iconSizeS} />}
+        icon={<Icons name="phone" size={constants.iconSizeS} color="#fff" />}
         title={t('speedDial.emergencyCall')}
         onPress={() => onClickAction('EMERGENCY_CALL')}
         color={color}

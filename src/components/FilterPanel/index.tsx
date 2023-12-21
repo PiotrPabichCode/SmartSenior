@@ -172,13 +172,11 @@ const FilterPanel = ({ route }: any) => {
             <Priority onChange={setFieldValue} fieldName={'priority'} priority={values.priority} />
             <Button
               title={t('filterPanel.submit')}
-              size="lg"
               buttonStyle={{ backgroundColor: 'green' }}
               onPress={() => handleSubmit()}
             />
             <Button
               title={t('filterPanel.delete')}
-              size="lg"
               buttonStyle={{ backgroundColor: 'red' }}
               onPress={() => {
                 setValues(INITIAL_VALUES);

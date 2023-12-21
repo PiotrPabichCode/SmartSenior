@@ -10,7 +10,6 @@ const SearchButton = ({ onPress }: Props) => {
   const backgroundColor = useThemeColors().customBtnBackground;
   return (
     <Button
-      size="lg"
       title={t('button.search')}
       buttonStyle={{ backgroundColor }}
       onPress={() => onPress()}

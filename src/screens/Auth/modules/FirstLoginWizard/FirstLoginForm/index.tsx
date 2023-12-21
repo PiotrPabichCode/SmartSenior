@@ -118,7 +118,6 @@ const useStyles = (theme = useThemeColors()) =>
     title: {
       fontSize: 24,
       fontWeight: '500',
-      color: theme.text,
     },
     dateButton: {
       backgroundColor: '#260a0b',

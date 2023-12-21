@@ -6,15 +6,7 @@ type Props = Tag & {
 };
 
 const TagCard = ({ name, color, id, onPress }: Props) => {
-  return (
-    <Button
-      size="lg"
-      id={id}
-      title={name}
-      buttonStyle={{ backgroundColor: color }}
-      onPress={onPress}
-    />
-  );
+  return <Button id={id} title={name} buttonStyle={{ backgroundColor: color }} onPress={onPress} />;
 };
 
 export default TagCard;

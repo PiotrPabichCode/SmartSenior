@@ -12,7 +12,6 @@ const LanguageButton = ({ title, onPress }: Props) => {
   const backgroundColor = useThemeColors().customBtnBackground;
   return (
     <Button
-      size="lg"
       title={title}
       buttonStyle={[styles.button, { backgroundColor }]}
       titleStyle={styles.title}

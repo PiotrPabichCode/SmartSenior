@@ -1,6 +1,5 @@
 import { navigate } from '@src/navigation/navigationUtils';
-import { StyleSheet } from 'react-native';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Tags } from '@src/models';
 import { t } from '@src/localization/Localization';
 import AddTagButton from '../AddTagButton';

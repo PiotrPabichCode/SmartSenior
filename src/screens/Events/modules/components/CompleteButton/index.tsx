@@ -12,7 +12,6 @@ type Props = {
 const CompleteButton = ({ onPress, onChange, fieldName }: Props) => {
   return (
     <Button
-      size="lg"
       title={t('eventItemScreen.button.title.execute')}
       buttonStyle={styles.button}
       onPress={() => {

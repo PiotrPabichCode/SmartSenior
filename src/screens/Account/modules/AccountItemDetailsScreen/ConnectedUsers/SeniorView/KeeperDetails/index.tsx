@@ -30,6 +30,14 @@ const KeeperDetails = ({ keeper }: Props) => {
           backgroundColor={theme.colors.white}
           icon={<Icons name="email" color={theme.colors.black} size={24} />}
         />
+        <CustomButton
+          title={'' + keeper.phoneNumber}
+          titleStyle={styles.buttonTitle}
+          style={styles.button}
+          color={theme.colors.black}
+          backgroundColor={theme.colors.white}
+          icon={<Icons name="phone" color={theme.colors.black} size={24} />}
+        />
       </View>
     </View>
   );
@@ -40,7 +48,7 @@ export default KeeperDetails;
 const styles = StyleSheet.create({
   details: {
     flex: 1,
-    marginVertical: 60,
+    marginVertical: 10,
     width: '100%',
     alignItems: 'center',
     backgroundColor: 'darkblue',

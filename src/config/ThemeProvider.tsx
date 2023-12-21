@@ -1,18 +1,23 @@
-import { ThemeProvider as RNEThemeProvider, createTheme } from '@rneui/themed';
+import { ThemeProvider as RNEThemeProvider, createTheme, useTheme } from '@rneui/themed';
 import { useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { StatusBar } from 'react-native';
+import { store } from '@src/redux/common';
+import { changeTheme } from '@src/redux/auth/auth.actions';
 
 type ThemeProviderProps = {
   children: React.ReactNode;
 };
 
 const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const themeMode = useAppSelector(state => selectTheme(state));
+  const themeMode = useAppSelector(state => selectTheme(state)) ?? 'light';
+
+  useEffect(() => {
+    store.dispatch(changeTheme(themeMode));
+  }, [themeMode]);
 
   const theme = useMemo(() => {
-    console.log('Theme mode changed', themeMode);
     const newTheme = createTheme({
       mode: themeMode,
       components: {
@@ -22,7 +27,8 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
             alignSelf: 'stretch',
             marginHorizontal: 10,
           },
-          color: theme.colors.text,
+          size: 'lg',
+          color: theme.colors.customBtnBackground,
         }),
         Text: (props, theme) => ({
           style: {
@@ -42,16 +48,32 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
           labelStyle: {
             alignSelf: 'center',
             fontSize: 24,
+            color: theme.colors.text,
           },
           keyboardAppearance: themeMode,
+        }),
+        Switch: (props, theme) => ({
+          color: theme.colors.grey5,
         }),
         CheckBox: (props, theme) => ({
           containerStyle: {
             backgroundColor: theme.colors.cardBackground,
           },
         }),
+        Divider: (props, theme) => ({
+          width: 1,
+          style: {
+            minWidth: '100%',
+          },
+        }),
       },
-
+      // spacing: {
+      //   xs: 4,
+      //   sm: 8,
+      //   md: 12,
+      //   lg: 24,
+      //   xl: 40,
+      // },
       lightColors: {
         light: '#F8F8FF',
         dark: '#1e2124',

@@ -11,7 +11,6 @@ type Props = {
 const SeniorLocationButton = ({ user }: Props) => {
   return (
     <Button
-      size="lg"
       title={t('seniorDashboard.localization')}
       buttonStyle={styles.button}
       onPress={() => {

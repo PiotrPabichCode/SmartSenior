@@ -12,14 +12,12 @@ export interface Day {
 export type Days = Day[];
 
 const DayField = ({ value, active, disabled, onPress }: Day) => {
+  const title = renderDayValue(value, false)[0];
   return (
     <Button
-      title={renderDayValue(value, false)}
+      title={title}
       buttonStyle={[styles.button, active ? styles.dayActive : styles.dayInactive]}
       disabled={disabled}
-      titleStyle={styles.title}
-      containerStyle={styles.container}
-      type="outline"
       onPress={onPress}
     />
   );
@@ -28,15 +26,9 @@ const DayField = ({ value, active, disabled, onPress }: Day) => {
 export default DayField;
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 13,
-    fontWeight: '800',
-  },
   button: {
     borderRadius: 25,
-    borderColor: 'rgba(78, 116, 289, 1)',
     borderWidth: 1.3,
-    textAlign: 'center',
   },
   dayActive: {
     backgroundColor: 'lightgreen',

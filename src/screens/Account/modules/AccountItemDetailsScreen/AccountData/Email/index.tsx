@@ -31,7 +31,6 @@ export default Email;
 
 const styles = StyleSheet.create({
   emailButton: {
-    padding: 15,
     backgroundColor: '#502419',
     gap: 10,
   },

@@ -24,5 +24,5 @@ const Password = () => {
 export default Password;
 
 const styles = StyleSheet.create({
-  button: { padding: 15, backgroundColor: '#502419', gap: 10 },
+  button: { backgroundColor: '#502419', gap: 10 },
 });

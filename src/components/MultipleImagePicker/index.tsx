@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
+import { View, ScrollView, Dimensions, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from '@rneui/themed';
 import { Button } from '@src/components/shared';
-import { ActivityIndicator, Alert } from 'react-native';
 import { Image as ImageModel, Images } from '@src/models';
 import { t } from '@src/localization/Localization';
 import Icons from '../Icons';
@@ -99,13 +98,11 @@ const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
   return (
     <View style={styles.container}>
       <Button
-        size="lg"
         title={t('multipleImagePicker.selectPhotos')}
         buttonStyle={{ backgroundColor }}
         onPress={pickImages}
       />
       <Button
-        size="lg"
         title={t('multipleImagePicker.takePhoto')}
         buttonStyle={{ backgroundColor }}
         onPress={takePhoto}

@@ -13,7 +13,6 @@ type Props = {
 const DateButton = ({ date, onPress, disabled }: Props) => {
   return (
     <Button
-      size="lg"
       onPress={() => {
         onPress && onPress(true);
       }}

@@ -14,12 +14,10 @@ const ActionButton = ({ groupKey, date }: Props) => {
   const styles = useStyles();
   return (
     <Button
-      size="lg"
       key={'execute-button-event'}
       title={t('button.execute')}
       containerStyle={styles.actionButtonContainerStyle}
       buttonStyle={styles.actionButtonStyle}
-      titleStyle={styles.actionButtonTitle}
       onPress={() =>
         navigate('EventItem', {
           groupKey: groupKey,
@@ -41,9 +39,6 @@ const useStyles = (theme = useThemeColors()) => {
       minWidth: '90%',
       marginBottom: 10,
       elevation: 5,
-    },
-    actionButtonTitle: {
-      color: theme.text,
     },
   });
 };

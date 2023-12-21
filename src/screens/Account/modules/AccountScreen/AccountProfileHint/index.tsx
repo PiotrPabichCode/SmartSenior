@@ -57,19 +57,16 @@ const useStyles = (theme = useThemeColors()) =>
       fontSize: 20,
       fontWeight: 'bold',
       maxWidth: 200,
-      color: theme.text,
     },
     email: {
       fontSize: 16,
       fontWeight: '400',
       maxWidth: 200,
-      color: theme.text,
     },
     role: {
       marginTop: 2,
       fontWeight: '500',
       fontSize: 15,
-      color: theme.text,
     },
     avatar: {
       backgroundColor: '#C0C0C0',

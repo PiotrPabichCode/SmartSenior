@@ -34,7 +34,7 @@ const NotesCard = ({
           {title}
         </Text>
 
-        <Divider width={1} style={styles.divider} />
+        <Divider />
         {extended && (
           <View style={styles.datesContainer}>
             <View style={styles.singleDate}>
@@ -60,7 +60,7 @@ const NotesCard = ({
             </Text>
           </View>
         )}
-        <Divider width={1} style={styles.divider} />
+        <Divider />
         <Text numberOfLines={3} style={styles.description}>
           {description}
         </Text>
@@ -91,7 +91,6 @@ const useStyles = (theme = useThemeColors()) =>
       textAlign: 'center',
       maxWidth: '90%',
       marginTop: 10,
-      color: theme.text,
     },
     divider: {
       width: '100%',
@@ -100,11 +99,10 @@ const useStyles = (theme = useThemeColors()) =>
       flexDirection: 'row',
     },
     singleDate: { alignItems: 'center', flex: 1 },
-    singleDateTitle: { fontSize: 15, fontWeight: '700', color: theme.text },
+    singleDateTitle: { fontSize: 15, fontWeight: '700' },
     singleDateTimestamp: {
       fontWeight: '500',
       fontSize: 15,
-      color: theme.text,
     },
     smallerNoteCard: {
       flexGrow: 1,
@@ -116,6 +114,5 @@ const useStyles = (theme = useThemeColors()) =>
       maxWidth: '90%',
       fontSize: 14,
       marginBottom: 10,
-      color: theme.text,
     },
   });

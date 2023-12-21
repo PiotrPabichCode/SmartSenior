@@ -3,11 +3,11 @@ import isEqual from 'lodash.isequal';
 import { t } from '@src/localization/Localization';
 import tinycolor from 'tinycolor2';
 import { store } from '@src/redux/common';
-import { DAYS, days } from '@src/redux/events/events.constants';
-import { Platform, ColorValue } from 'react-native';
+import { DAYS } from '@src/redux/events/events.constants';
+import { Platform } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
-import { selectConnectedUserById, selectTags, selectUser } from '@src/redux/auth/auth.slice';
-import { Genders, Images, Tags } from '@src/models';
+import { selectConnectedUserById, selectUser } from '@src/redux/auth/auth.slice';
+import { Genders } from '@src/models';
 export const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const IS_ANDROID = Platform.OS === 'android';
@@ -79,6 +79,7 @@ export const renderDayValue = (value: number, shortTitle: boolean) => {
     case DAYS.SUNDAY:
       return t(`${base}.sunday`);
   }
+  return '';
 };
 
 export function pickColorBasedOnRGB(bgColor: string, lightColor: string, darkColor: string) {

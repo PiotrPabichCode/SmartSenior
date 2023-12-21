@@ -11,7 +11,7 @@ const DetailsItem = ({ title, detail }: Props) => {
   const styles = useStyles();
   return (
     <>
-      <Divider style={styles.divider} />
+      <Divider />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.detail}>{detail}</Text>
     </>
@@ -28,11 +28,10 @@ const useStyles = (theme = useThemeColors()) =>
       backgroundColor: theme.divider,
       height: 1,
     },
-    title: { fontSize: 22, fontWeight: '500', color: theme.text },
+    title: { fontSize: 22, fontWeight: '500' },
     detail: {
       fontSize: 16,
       fontWeight: '400',
       textAlign: 'center',
-      color: theme.text,
     },
   });

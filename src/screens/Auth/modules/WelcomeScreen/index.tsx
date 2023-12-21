@@ -43,19 +43,16 @@ const useStyles = (theme = useThemeColors()) =>
     headerText: {
       marginTop: 50,
       fontSize: 48,
-      color: theme.text,
     },
     welcomeText: {
       marginTop: 10,
       fontSize: 32,
       fontWeight: '500',
       textAlign: 'center',
-      color: theme.text,
     },
     welcomeText2: {
       marginTop: 5,
       fontSize: 16,
       textAlign: 'center',
-      color: theme.text,
     },
   });

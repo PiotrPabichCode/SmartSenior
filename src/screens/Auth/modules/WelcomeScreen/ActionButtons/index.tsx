@@ -10,13 +10,11 @@ const ActionButtons = () => {
     <View style={styles.container}>
       {/* Buttons at the bottom */}
       <Button
-        size="lg"
         title={t('welcome.signUp')}
         buttonStyle={[styles.buttonSignUp, styles.button]}
         onPress={() => navigate('SignUp')}
       />
       <Button
-        size="lg"
         title={t('welcome.signIn')}
         buttonStyle={[styles.buttonSignIn, styles.button]}
         onPress={() => navigate('SignIn')}
@@ -39,9 +37,9 @@ const useStyles = (theme = useThemeColors()) =>
       paddingVertical: 15,
     },
     buttonSignUp: {
-      backgroundColor: theme.background,
+      backgroundColor: theme.grey4,
     },
     buttonSignIn: {
-      backgroundColor: theme.grey4,
+      backgroundColor: theme.dark,
     },
   });

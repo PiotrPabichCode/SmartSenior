@@ -28,8 +28,11 @@ const Recurrence = ({ type, daysOfWeek, interval, unit }: Props) => {
       out.push(
         <Text
           key={index}
-          style={[selectedDays.find(d => d === day) ? styles.activeDay : styles.inactiveDay]}>
-          {renderDayValue(day, true)}
+          style={[
+            { letterSpacing: 2 },
+            selectedDays.find(d => d === day) ? styles.activeDay : styles.inactiveDay,
+          ]}>
+          {`${renderDayValue(day, true)}`}
         </Text>,
       );
     });
@@ -48,6 +51,6 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   inactiveDay: {
-    color: 'red',
+    color: 'black',
   },
 });

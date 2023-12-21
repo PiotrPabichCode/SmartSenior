@@ -20,7 +20,7 @@ const Details = ({ pharmacyItem }: DetailsProps) => {
         title={t('pharmacyItem.openOnSundays')}
         detail={pharmacyItem.openOnSundays ? t('yes') : t('no')}
       />
-      <Divider style={styles.divider} />
+      <Divider />
     </>
   );
 };

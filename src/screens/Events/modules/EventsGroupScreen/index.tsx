@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { CustomScrollContainer } from '@src/components';
 import { useAppSelector } from '@src/redux/types';
 import { selectEventGroups } from '@src/redux/events/events.slice';
@@ -8,7 +8,7 @@ import { t } from '@src/localization/Localization';
 import { useEffect, useState } from 'react';
 import { EventGroups } from '@src/models';
 import EventsGroupsMapper from './EventsGroupsMapper';
-import useThemeColors from '@src/config/useThemeColors';
+import { Text } from '@rneui/themed';
 
 const EventsGroupScreen = ({ route }: EventsScreenProps) => {
   const styles = useStyles();
@@ -35,12 +35,11 @@ const EventsGroupScreen = ({ route }: EventsScreenProps) => {
 
 export default EventsGroupScreen;
 
-const useStyles = (theme = useThemeColors()) =>
+const useStyles = () =>
   StyleSheet.create({
     title: {
       fontSize: 36,
       fontWeight: 'bold',
       padding: 10,
-      color: theme.text,
     },
   });

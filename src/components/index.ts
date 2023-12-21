@@ -3,7 +3,6 @@ import ColorPicker from './ColorPicker';
 import Container from './Container';
 import CustomActivityIndicator from './CustomActivityIndicator';
 import CustomButton from './CustomButton';
-import CustomDivider from './CustomDivider';
 import CustomDropdown from './CustomDropdown';
 import CustomHeader from './CustomHeader';
 import CustomScrollContainer from './CustomScrollContainer';
@@ -28,7 +27,6 @@ export {
   Container,
   CustomActivityIndicator,
   CustomButton,
-  CustomDivider,
   CustomDropdown,
   CustomHeader,
   CustomScrollContainer,

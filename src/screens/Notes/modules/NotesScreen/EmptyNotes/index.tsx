@@ -12,7 +12,6 @@ const EmptyNotes = () => {
     <View style={styles.container}>
       <Text style={styles.description}>{t('emptyNotesDescription')}</Text>
       <Button
-        size="lg"
         onPress={() => navigate('CreateNote')}
         title={t('emptyNotesButton')}
         buttonStyle={styles.button}
@@ -40,7 +39,6 @@ const useStyles = (theme = useThemeColors()) =>
       letterSpacing: 0.2,
       maxWidth: '70%',
       marginBottom: 10,
-      color: theme.text,
     },
     button: {
       gap: 15,

@@ -14,7 +14,6 @@ const EndDateButton = ({ isRecurring, onPress, endDate }: Props) => {
   return (
     isRecurring && (
       <Button
-        size="lg"
         onPress={() => onPress(true)}
         buttonStyle={styles.button}
         title={

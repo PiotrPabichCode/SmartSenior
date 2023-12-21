@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Text } from '@rneui/themed';
+import { Divider, Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
-import { CustomScrollContainer, CustomDivider, CustomActivityIndicator } from '@src/components';
+import { CustomScrollContainer, CustomActivityIndicator } from '@src/components';
 import { useAppSelector } from '@src/redux/types';
 import { Pharmacies } from '@src/models';
 import { selectPharmaciesStatus } from '@src/redux/pharmacies/pharmacies.slice';
@@ -19,7 +19,7 @@ const PharmaciesScreen = () => {
   return (
     <CustomScrollContainer>
       <Text h3>{t('pharmaciesScreen.title')}</Text>
-      <CustomDivider />
+      <Divider />
       <SearchForm onLoad={setApiPharmacies} />
       <PharmaciesMapper apiPharmacies={apiPharmacies} />
     </CustomScrollContainer>

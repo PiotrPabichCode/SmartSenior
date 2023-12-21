@@ -39,7 +39,7 @@ const Details = ({ medicineItem }: Props) => {
       <DetailsItem title={t('medicineItem.expiration')} detail={medicineItem.expiration} />
       <DetailsItem title={t('medicineItem.company')} detail={medicineItem.company} />
       <DetailsItem title={t('medicineItem.country')} detail={medicineItem.country} />
-      <Divider style={styles.divider} />
+      <Divider />
       {medicineItem.leafletUrl && medicineItem.characteristicUrl && (
         <View style={styles.buttons}>
           <LeafletButton url={medicineItem.leafletUrl} name={medicineItem.commonName} />
@@ -58,7 +58,6 @@ const useStyles = (theme = useThemeColors()) =>
       fontSize: 26,
       fontWeight: '600',
       textAlign: 'center',
-      color: theme.text,
     },
     divider: {
       width: '100%',

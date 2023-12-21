@@ -31,6 +31,5 @@ const useStyles = (theme = useThemeColors()) =>
       marginVertical: 10,
       maxWidth: '85%',
       letterSpacing: 0.5,
-      color: theme.text,
     },
   });

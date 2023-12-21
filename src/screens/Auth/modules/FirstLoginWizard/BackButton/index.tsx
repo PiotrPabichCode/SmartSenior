@@ -32,7 +32,6 @@ const useStyles = (theme = useThemeColors()) =>
       backgroundColor: 'darkblue',
     },
     logoutTitle: {
-      color: theme.text,
       fontWeight: '500',
     },
   });

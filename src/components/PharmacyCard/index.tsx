@@ -50,7 +50,6 @@ const useStyles = (theme = useThemeColors()) =>
     },
     name: {
       flex: 1,
-      color: theme.text,
     },
     buttonTitle: {
       fontSize: 10,

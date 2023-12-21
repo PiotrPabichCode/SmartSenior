@@ -12,7 +12,6 @@ const NoActiveEvents = () => {
     <View>
       <Text style={styles.title}>{t('homeScreen.noActiveEvents')}</Text>
       <Button
-        size="lg"
         onPress={() => navigate('CreateEvent')}
         title={t('speedDial.addEvent')}
         buttonStyle={styles.button}

@@ -21,6 +21,7 @@ const MultiSelectDropdown = (props: any) => {
     <View style={styles.container}>
       <MultiSelect
         style={styles.dropdown}
+        activeColor={colors.grey5}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}

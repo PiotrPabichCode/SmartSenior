@@ -1,6 +1,7 @@
+import { Text } from '@rneui/themed';
 import Icons from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 type Props = {
   active: boolean;
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 5,
   },
   active: {
     fontWeight: '700',

@@ -1,6 +1,7 @@
-import { Button, Switch, Text, useTheme } from '@rneui/themed';
+import { Switch, Text } from '@rneui/themed';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useState } from 'react';
+import { Button } from '@src/components/shared';
 import { EventGroups, Events, Tag, Tags } from '@src/models';
 import { Formik } from 'formik';
 import { t } from '@src/localization/Localization';
@@ -15,14 +16,16 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { selectEventGroups, selectEvents } from '@src/redux/events/events.slice';
 import { SearchTitle } from './components/TitlesPicker';
 import { View } from 'react-native';
+import useThemeColors from '@src/config/useThemeColors';
+import { handleError } from '@src/common/actions';
 
 const FilterPanel = ({ route }: any) => {
   const { filters } = route.params;
   const eventGroups = useAppSelector(state => selectEventGroups(state));
   const tags = useAppSelector(state => selectTags(state));
-  const theme = useTheme().theme;
   const [showDateFrom, setShowDateFrom] = useState<boolean>(false);
   const [showDateTo, setShowDateTo] = useState<boolean>(false);
+  const styles = useStyles();
   const INITIAL_VALUES = {
     titles: [] as Array<string>,
     tags: [] as Tags,
@@ -108,7 +111,7 @@ const FilterPanel = ({ route }: any) => {
             });
             goBack();
           } catch (error) {
-            console.log(error);
+            handleError(error);
           }
         }}>
         {({ values, setFieldValue, handleSubmit, setValues }) => (
@@ -169,14 +172,12 @@ const FilterPanel = ({ route }: any) => {
             <Priority onChange={setFieldValue} fieldName={'priority'} priority={values.priority} />
             <Button
               title={t('filterPanel.submit')}
-              size="lg"
               buttonStyle={{ backgroundColor: 'green' }}
               onPress={() => handleSubmit()}
             />
             <Button
               title={t('filterPanel.delete')}
-              size="lg"
-              buttonStyle={{ backgroundColor: theme.colors.error }}
+              buttonStyle={{ backgroundColor: 'red' }}
               onPress={() => {
                 setValues(INITIAL_VALUES);
               }}
@@ -190,12 +191,13 @@ const FilterPanel = ({ route }: any) => {
 
 export default FilterPanel;
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    alignItems: 'center',
-    gap: 20,
-    backgroundColor: 'white',
-    paddingVertical: 15,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      flexGrow: 1,
+      alignItems: 'center',
+      gap: 20,
+      backgroundColor: theme.cardBackground,
+      paddingVertical: 15,
+    },
+  });

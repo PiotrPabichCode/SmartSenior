@@ -11,8 +11,10 @@ import { EmailModalProps } from './types';
 import FormInput from './FormInput';
 import EmailChangeButton from './EmailChangeButton';
 import { BackButton } from '../../components';
+import useThemeColors from '@src/config/useThemeColors';
 
 const EmailModal = ({ visible, onClose }: EmailModalProps) => {
+  const styles = useStyles();
   const email = useAppSelector(state => selectEmail(state));
   const [newEmail, setNewEmail] = useState<string>('');
 
@@ -49,16 +51,17 @@ const EmailModal = ({ visible, onClose }: EmailModalProps) => {
 
 export default EmailModal;
 
-const styles = StyleSheet.create({
-  container: {
-    minHeight: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  innerContainer: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      minHeight: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    innerContainer: {
+      backgroundColor: theme.cardBackground,
+      padding: 20,
+      borderRadius: 10,
+    },
+  });

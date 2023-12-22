@@ -12,6 +12,9 @@ export interface User {
   role: Roles;
   connectedUsersIds: Array<string>;
   tags: Tags;
+  createdAt?: Timestamp;
+  updatedAt?: Timestamp;
+  deleted?: boolean;
 }
 
 export type Users = User[];

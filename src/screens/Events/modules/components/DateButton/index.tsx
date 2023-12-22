@@ -1,8 +1,8 @@
 import { Timestamp } from 'firebase/firestore';
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 type Props = {
   date: Timestamp | null;
@@ -13,7 +13,6 @@ type Props = {
 const DateButton = ({ date, onPress, disabled }: Props) => {
   return (
     <Button
-      size="lg"
       onPress={() => {
         onPress && onPress(true);
       }}

@@ -40,7 +40,6 @@ export const useUpcomingEvents = (eventGroups: EventGroups) => {
         }),
       );
       setIsReady(true);
-      console.log(upcomingEvents);
     };
 
     prepareUpcomingEvents(eventGroups);

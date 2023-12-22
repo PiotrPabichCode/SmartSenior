@@ -1,24 +1,23 @@
-import { StyleSheet, Text } from 'react-native';
-import CustomActivityIndicator from '@components/CustomActivityIndicator';
+import { StyleSheet } from 'react-native';
 import { t } from '@src/localization/Localization';
-import Colors from '@src/constants/Colors';
 import HomeButtons from './HomeButtons';
-import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import { CustomScrollContainer, CustomActivityIndicator } from '@src/components';
 import { useAppSelector } from '@src/redux/types';
-import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
+import { selectUser } from '@src/redux/auth/auth.slice';
 import UpcomingEvents from './UpcomingEvents';
+import useThemeColors from '@src/config/useThemeColors';
+import { Text } from '@rneui/themed';
 
 const HomeScreen = () => {
   const user = useAppSelector(state => selectUser(state));
-  const theme = useAppSelector(state => selectTheme(state));
-  const currentTheme = Colors[theme];
+  const styles = useStyles();
 
   if (!user) {
     return <CustomActivityIndicator />;
   }
 
   return (
-    <CustomScrollContainer theme={currentTheme}>
+    <CustomScrollContainer>
       <Text style={styles.welcomeText}>
         {t('homeScreen.welcome', {
           name: user.firstName,
@@ -32,12 +31,12 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-  welcomeText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-    color: Colors.black,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    welcomeText: {
+      fontSize: 36,
+      fontWeight: 'bold',
+      marginBottom: 10,
+      textAlign: 'center',
+    },
+  });

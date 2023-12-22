@@ -1,8 +1,9 @@
+import { Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { Frequency } from '@src/models';
 import { recurringTimes } from '@src/redux/events/events.constants';
 import { renderDayValue } from '@src/utils/utils';
-import { Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 type Props = {
   type: Frequency['type'];
@@ -27,8 +28,11 @@ const Recurrence = ({ type, daysOfWeek, interval, unit }: Props) => {
       out.push(
         <Text
           key={index}
-          style={[selectedDays.find(d => d === day) ? styles.activeDay : styles.inactiveDay]}>
-          {renderDayValue(day, true)}
+          style={[
+            { letterSpacing: 2 },
+            selectedDays.find(d => d === day) ? styles.activeDay : styles.inactiveDay,
+          ]}>
+          {`${renderDayValue(day, true)}`}
         </Text>,
       );
     });
@@ -47,6 +51,6 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   inactiveDay: {
-    color: 'red',
+    color: 'black',
   },
 });

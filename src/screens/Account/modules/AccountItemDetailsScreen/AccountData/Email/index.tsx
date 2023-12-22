@@ -1,8 +1,9 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import EmailModal from './EmailModal';
+import { Button } from '@src/components/shared';
+import { Icons } from '@src/components';
 
 type Props = {
   email: string | null;
@@ -17,7 +18,7 @@ const Email = ({ email }: Props) => {
           email: email,
         })}
         titleProps={{ allowFontScaling: true }}
-        icon={{ type: 'entypo', name: 'email', color: 'white' }}
+        icon={<Icons name="email" />}
         buttonStyle={styles.emailButton}
         onPress={() => setEmailChange(true)}
       />
@@ -30,7 +31,6 @@ export default Email;
 
 const styles = StyleSheet.create({
   emailButton: {
-    padding: 15,
     backgroundColor: '#502419',
     gap: 10,
   },

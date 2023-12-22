@@ -1,17 +1,23 @@
+import { Text } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { Tag } from '@src/models';
-import { View, Text, StyleSheet } from 'react-native';
+import { pickColorBasedOnRGB } from '@src/utils/utils';
+import { View, StyleSheet } from 'react-native';
 
 type Props = {
   tag?: Tag;
 };
 
 const TagCard = ({ tag }: Props) => {
+  const { light, dark } = useThemeColors();
   return (
     <View style={styles.container}>
       {tag ? (
         <View style={[styles.nameContainer, { backgroundColor: tag.color }]}>
-          <Text style={styles.name} numberOfLines={1}>
+          <Text
+            style={[styles.name, { color: pickColorBasedOnRGB(tag.color, light, dark) }]}
+            numberOfLines={1}>
             {tag.name}
           </Text>
         </View>

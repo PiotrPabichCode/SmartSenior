@@ -1,14 +1,16 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { ConnectedUser } from '@src/models';
 import { createUserLabel } from '@src/utils/utils';
 import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
+import { Text } from '@rneui/themed';
 
 type Props = {
   connectedUser: ConnectedUser;
 };
 
 const ConnectedUserItem = ({ connectedUser: user }: Props) => {
+  const styles = useStyles();
   const userData = user.user;
   return (
     <TouchableOpacity
@@ -42,35 +44,36 @@ const ConnectedUserItem = ({ connectedUser: user }: Props) => {
 
 export default ConnectedUserItem;
 
-const styles = StyleSheet.create({
-  container: {
-    minWidth: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'lightblue',
-    borderRadius: 25,
-    padding: 10,
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    marginRight: 20,
-    backgroundColor: 'darkblue',
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarLabel: {
-    fontWeight: '600',
-    fontSize: 18,
-    color: 'white',
-  },
-  keeperContainer: {
-    gap: 10,
-  },
-  keeperText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
+const useStyles = () =>
+  StyleSheet.create({
+    container: {
+      minWidth: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: 'lightblue',
+      borderRadius: 25,
+      padding: 10,
+    },
+    avatar: {
+      width: 50,
+      height: 50,
+      marginRight: 20,
+      borderRadius: 25,
+      borderWidth: 2,
+      borderColor: 'lightblue',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    avatarLabel: {
+      fontWeight: '600',
+      fontSize: 18,
+    },
+    keeperContainer: {
+      gap: 10,
+    },
+    keeperText: {
+      fontSize: 16,
+      fontWeight: '600',
+    },
+  });

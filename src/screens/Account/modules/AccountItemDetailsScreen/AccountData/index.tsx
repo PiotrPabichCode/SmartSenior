@@ -54,6 +54,7 @@ const AccountData = () => {
               placeholder={t('account.placeholder.firstName')}
               fieldName={'firstName'}
               value={values.firstName}
+              iconName="person"
               onChange={setFieldValue}
               errorMessage={errors.firstName}
             />
@@ -62,6 +63,7 @@ const AccountData = () => {
               placeholder={t('account.placeholder.lastName')}
               fieldName={'lastName'}
               value={values.lastName}
+              iconName="person"
               onChange={setFieldValue}
               errorMessage={errors.lastName}
             />
@@ -70,6 +72,7 @@ const AccountData = () => {
               placeholder={t('account.placeholder.phoneNumber')}
               fieldName={'phoneNumber'}
               value={values.phoneNumber}
+              iconName="phone"
               onChange={setFieldValue}
               errorMessage={errors.phoneNumber}
             />

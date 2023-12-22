@@ -1,9 +1,13 @@
-import { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import type { PropsWithChildren } from 'react';
 import { renderIcon } from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
+import { selectTheme } from '@src/redux/auth/auth.slice';
+import { store } from '@src/redux/common';
+import useThemeColors from '@src/config/useThemeColors';
+import { Text } from '@rneui/themed';
+import { changeTheme } from '@src/redux/auth/auth.actions';
 
 type AccountItemProps = PropsWithChildren<{
   type?: string;
@@ -13,40 +17,42 @@ type AccountItemProps = PropsWithChildren<{
   onPress?: () => void;
 }>;
 
-const renderRightItems = (type?: string) => {
-  const [themeMode, setThemeMode] = useState('light');
-
-  switch (type) {
-    case 'language': {
-      return (
-        <View style={styles.rightItemsStacked}>
-          <Text style={styles.languageName}>{t('languageName')}</Text>
-          {renderIcon({ name: 'arrow-right' })}
-        </View>
-      );
-    }
-    case 'theme': {
-      return (
-        <View style={styles.rightItemsStacked}>
-          <TouchableOpacity onPress={() => setThemeMode('light')}>
-            {themeMode === 'light'
-              ? renderIcon({ name: 'theme-light', focused: true })
-              : renderIcon({ name: 'theme-light' })}
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setThemeMode('dark')}>
-            {themeMode === 'dark'
-              ? renderIcon({ name: 'theme-dark', focused: true })
-              : renderIcon({ name: 'theme-dark' })}
-          </TouchableOpacity>
-        </View>
-      );
-    }
-    default:
-      return renderIcon({ name: 'arrow-right' });
-  }
-};
-
 const AccountItem = ({ type, icon, iconStyle, title, onPress }: AccountItemProps) => {
+  const styles = useStyles();
+
+  const renderRightItems = (type?: string) => {
+    const theme = selectTheme(store.getState());
+
+    switch (type) {
+      case 'language': {
+        return (
+          <View style={styles.rightItemsStacked}>
+            <Text style={styles.languageName}>{t('languageName')}</Text>
+            {renderIcon({ name: 'arrow-right' })}
+          </View>
+        );
+      }
+      case 'theme': {
+        return (
+          <View style={styles.rightItemsStacked}>
+            <TouchableOpacity onPress={() => store.dispatch(changeTheme('light'))}>
+              {theme === 'light'
+                ? renderIcon({ name: 'theme-light', focused: true })
+                : renderIcon({ name: 'theme-light' })}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => store.dispatch(changeTheme('dark'))}>
+              {theme === 'dark'
+                ? renderIcon({ name: 'theme-dark', focused: true })
+                : renderIcon({ name: 'theme-dark' })}
+            </TouchableOpacity>
+          </View>
+        );
+      }
+      default:
+        return renderIcon({ name: 'arrow-right' });
+    }
+  };
+
   return onPress ? (
     <TouchableOpacity style={styles.viewStyle} onPress={onPress}>
       <View style={styles.iconTitleStyle}>
@@ -66,41 +72,42 @@ const AccountItem = ({ type, icon, iconStyle, title, onPress }: AccountItemProps
   );
 };
 
-const styles = StyleSheet.create({
-  viewStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 10,
-  },
-  iconTitleStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  textStyle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'left',
-  },
-  arrowStyle: {
-    alignSelf: 'flex-end',
-  },
-  rightItemsStacked: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: 10,
-  },
-  languageName: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#808080',
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    viewStyle: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: 10,
+    },
+    iconTitleStyle: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+    },
+    textStyle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'left',
+    },
+    arrowStyle: {
+      alignSelf: 'flex-end',
+    },
+    rightItemsStacked: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      gap: 10,
+    },
+    languageName: {
+      fontSize: 20,
+      fontWeight: '600',
+      color: '#808080',
+    },
+  });
 
 export default AccountItem;

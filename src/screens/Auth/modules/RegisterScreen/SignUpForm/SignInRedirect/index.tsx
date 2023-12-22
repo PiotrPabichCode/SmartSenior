@@ -1,9 +1,11 @@
-import { Text } from 'react-native';
 import { t } from '@src/localization/Localization';
 import { navigate } from '@src/navigation/navigationUtils';
 import { StyleSheet } from 'react-native';
+import useThemeColors from '@src/config/useThemeColors';
+import { Text } from '@rneui/themed';
 
 const SignInRedirect = () => {
+  const styles = useStyles();
   return (
     <Text style={styles.textLinks}>
       {t('register.question')}
@@ -16,13 +18,14 @@ const SignInRedirect = () => {
 
 export default SignInRedirect;
 
-const styles = StyleSheet.create({
-  textLinks: {
-    margin: 15,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  textRegister: {
-    color: 'blue',
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    textLinks: {
+      margin: 15,
+      fontSize: 14,
+      fontWeight: '600',
+    },
+    textRegister: {
+      color: theme.primary,
+    },
+  });

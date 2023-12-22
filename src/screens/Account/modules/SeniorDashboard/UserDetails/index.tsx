@@ -1,10 +1,10 @@
 import { View, StyleSheet } from 'react-native';
-import Colors from '@src/constants/Colors';
 import { ConnectedUser } from '@src/models';
 import { getUserAge, renderGender } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import { Text } from '@rneui/themed';
 import DetailText from './DetailText';
+import useThemeColors from '@src/config/useThemeColors';
 
 type Props = {
   user: ConnectedUser;
@@ -12,6 +12,7 @@ type Props = {
 
 const UserDetails = ({ user }: Props) => {
   const userData = user.user;
+  const styles = useStyles();
   return (
     <View style={styles.container}>
       <Text h3>{t('seniorDashboard.personal')}</Text>
@@ -48,19 +49,20 @@ const UserDetails = ({ user }: Props) => {
 
 export default UserDetails;
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    width: '95%',
-    elevation: 5,
-    backgroundColor: Colors.primary,
-    padding: 10,
-    borderRadius: 25,
-    margin: 10,
-    gap: 10,
-  },
-  details: {
-    alignItems: 'center',
-    gap: 20,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      alignItems: 'center',
+      width: '95%',
+      elevation: 5,
+      backgroundColor: theme.cardBackground,
+      padding: 10,
+      borderRadius: 25,
+      margin: 10,
+      gap: 10,
+    },
+    details: {
+      alignItems: 'center',
+      gap: 20,
+    },
+  });

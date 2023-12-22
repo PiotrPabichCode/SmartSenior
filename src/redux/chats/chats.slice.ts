@@ -6,11 +6,13 @@ import type { RootState } from '../store';
 export interface ChatState {
   chats: Chats;
   unseenMessages: number;
+  status: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 const initialState: ChatState = {
   chats: [],
   unseenMessages: 0,
+  status: 'pending',
 };
 
 export const chatsSlice = createSlice({
@@ -30,14 +32,27 @@ export const chatsSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(action.loadChats.fulfilled, (state, action: PayloadAction<any>) => {
-      state.chats = action.payload.chats;
-      state.unseenMessages = action.payload.unseenMessages;
-    });
-    builder.addCase(action.addChat.fulfilled, (state, action: PayloadAction<Chat>) => {
-      const chat = action.payload;
-      state.chats = [...state.chats, chat];
-    });
+    builder
+      .addCase(action.loadChats.fulfilled, (state, action: PayloadAction<any>) => {
+        state.chats = action.payload.chats;
+        state.unseenMessages = action.payload.unseenMessages;
+      })
+      .addCase(action.loadChats.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.loadChats.rejected, state => {
+        state.status = 'failed';
+      })
+      .addCase(action.addChat.fulfilled, (state, action: PayloadAction<Chat>) => {
+        const chat = action.payload;
+        state.chats = [...state.chats, chat];
+      })
+      .addCase(action.addChat.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(action.addChat.rejected, state => {
+        state.status = 'failed';
+      });
   },
 });
 

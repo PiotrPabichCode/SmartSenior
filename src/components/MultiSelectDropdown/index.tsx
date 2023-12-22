@@ -1,7 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { t } from '@src/localization/Localization';
+import useThemeColors from '@src/config/useThemeColors';
+import Icons from '../Icons';
 
 type SearchType = {
   label: string;
@@ -13,15 +14,21 @@ const MultiSelectDropdown = (props: any) => {
   const fieldName = props.fieldName;
   const selectedValues = props.selectedValues;
   const placeholder = props.placeholder;
+  const styles = useStyles();
+  const colors = useThemeColors();
 
   return (
     <View style={styles.container}>
       <MultiSelect
         style={styles.dropdown}
+        activeColor={colors.grey5}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
+        containerStyle={styles.searchContainer}
+        itemTextStyle={styles.itemText}
         iconStyle={styles.iconStyle}
+        iconColor={colors.icon}
         search
         data={props.data as Array<SearchType>}
         labelField="label"
@@ -32,9 +39,7 @@ const MultiSelectDropdown = (props: any) => {
         onChange={item => {
           onChange(fieldName, item);
         }}
-        renderLeftIcon={() => (
-          <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-        )}
+        renderLeftIcon={() => <Icons name="safety" size={20} style={{ marginRight: 10 }} />}
         selectedStyle={styles.selectedStyle}
       />
     </View>
@@ -43,32 +48,45 @@ const MultiSelectDropdown = (props: any) => {
 
 export default MultiSelectDropdown;
 
-const styles = StyleSheet.create({
-  container: { padding: 16, minWidth: '95%' },
-  dropdown: {
-    height: 50,
-    backgroundColor: 'transparent',
-    borderBottomColor: 'gray',
-    borderBottomWidth: 0.5,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-    fontSize: 14,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
-  icon: {
-    marginRight: 5,
-  },
-  selectedStyle: {
-    borderRadius: 12,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: { padding: 16, minWidth: '95%' },
+    dropdown: {
+      height: 50,
+      backgroundColor: 'transparent',
+      borderBottomColor: 'gray',
+      borderBottomWidth: 0.5,
+    },
+    placeholderStyle: {
+      fontSize: 16,
+      color: theme.text,
+    },
+    selectedTextStyle: {
+      fontSize: 14,
+      color: theme.text,
+    },
+    searchContainer: {
+      backgroundColor: theme.cardBackground,
+      color: theme.text,
+    },
+    iconStyle: {
+      width: 20,
+      height: 20,
+    },
+    inputSearchStyle: {
+      height: 40,
+      fontSize: 16,
+      borderWidth: 0,
+      backgroundColor: theme.cardBackground,
+      color: theme.text,
+    },
+    icon: {
+      marginRight: 5,
+    },
+    selectedStyle: {
+      borderRadius: 12,
+    },
+    itemText: {
+      color: theme.text,
+    },
+  });

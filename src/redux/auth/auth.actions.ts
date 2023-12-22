@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from './auth.api';
 
 import { User as FirebaseUser } from 'firebase/auth';
-import { AuthCredentials, Tag, User } from '@src/models';
+import { AuthCredentials, Tag, Theme, User } from '@src/models';
 import Localization from '@src/localization/Localization';
 import Calendar from '@src/components/Calendar';
 
@@ -11,6 +11,17 @@ export const signIn = createAsyncThunk(
   async (credentials: AuthCredentials, { rejectWithValue }) => {
     try {
       return await api.signIn(credentials);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const signInWithOAuthGoogle = createAsyncThunk(
+  'auth/signInWithOAuthGoogle',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await api.signInWithOAuthGoogle();
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -27,6 +38,10 @@ export const signUp = createAsyncThunk(
     }
   },
 );
+
+export const changeTheme = createAsyncThunk('auth/changeTheme', async (theme?: Theme) => {
+  return await api.changeTheme(theme);
+});
 
 export const updateUserData = createAsyncThunk(
   'auth/updateUserData',

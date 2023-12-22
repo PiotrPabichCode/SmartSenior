@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
-import CustomToast from '@src/components/CustomToast';
 import { t } from '@src/localization/Localization';
-import Colors from '@src/constants/Colors';
-import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import {
+  CustomScrollContainer,
+  MultipleImagePicker,
+  CustomToast,
+  CustomActivityIndicator,
+} from '@src/components';
 import { createEventGroup } from '@src/redux/events/events.actions';
 import { Timestamp } from 'firebase/firestore';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Event } from '@src/models';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
-import { selectTags, selectTheme, selectUserID } from '@src/redux/auth/auth.slice';
-import MultipleImagePicker from '@src/components/MultipleImagePicker';
+import { selectTags, selectUserID } from '@src/redux/auth/auth.slice';
 import {
   Notification,
   Priority,
@@ -32,18 +34,15 @@ import {
   DateButton,
 } from '../components';
 import { selectEventsStatus } from '@src/redux/events/events.slice';
-import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { NewEventSchema } from './utils';
 import { Text } from '@rneui/themed';
 import { initialValues } from './types';
 
 const CreateEventScreen = () => {
   const dispatch = useAppDispatch();
-  const theme = useAppSelector(state => selectTheme(state));
   const userID = useAppSelector(state => selectUserID(state));
   const tags = useAppSelector(state => selectTags(state));
   const status = useAppSelector(state => selectEventsStatus(state));
-  const currentTheme = Colors[theme];
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
@@ -58,7 +57,7 @@ const CreateEventScreen = () => {
   }
 
   return (
-    <CustomScrollContainer theme={currentTheme}>
+    <CustomScrollContainer>
       <Text h3>{t('createEvent.title')}</Text>
       <Formik
         initialValues={{ ...initialValues, userUid: userID }}

@@ -2,13 +2,14 @@ import {
   AntDesign,
   Entypo,
   Feather,
-  FontAwesome5,
+  FontAwesome,
   Fontisto,
   Foundation,
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons';
+import useThemeColors from '@src/config/useThemeColors';
 import { constants } from '@src/constants/Constants';
 
 type IconProps = {
@@ -26,6 +27,8 @@ export const renderIcon = ({ name, size, color, style, focused, onPress }: IconP
 };
 
 const Icons = ({ name, size, color, style, onPress }: IconProps) => {
+  const iconColor = color ?? useThemeColors().icon;
+
   switch (name) {
     case 'settings': {
       return (
@@ -33,7 +36,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="settings-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -44,7 +47,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="home-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -54,7 +57,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="home"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -64,7 +67,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="calendar-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -74,7 +77,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="calendar"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -84,7 +87,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="calendar-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -94,7 +97,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="calendar"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -104,7 +107,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="chatbox-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -114,7 +117,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="chatbox"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -124,7 +127,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="person-circle-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -134,7 +137,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="person-circle"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -144,7 +147,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="person-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -154,7 +157,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="partly-sunny-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -164,7 +167,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="sunny-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -174,7 +177,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="sunny"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color || '#d4d700'}
+          color={'#d4d700'}
           style={style}
         />
       );
@@ -184,7 +187,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="moon-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -194,7 +197,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="moon"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color || 'darkblue'}
+          color={'#562EA1'}
           style={style}
         />
       );
@@ -204,7 +207,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="language-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -214,7 +217,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="tagso"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -224,7 +227,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="medicinebox"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor || 'black'}
           style={style}
         />
       );
@@ -234,7 +237,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="shoppingcart"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor || 'black'}
           style={style}
         />
       );
@@ -244,7 +247,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="notifications-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -254,7 +257,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="share-social-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -264,7 +267,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="exit-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color || 'white'}
+          color={iconColor || 'white'}
           style={style}
         />
       );
@@ -274,7 +277,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="exit-outline"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -284,7 +287,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="pills"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -294,7 +297,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="doctor"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -304,7 +307,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="local-pharmacy"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -314,7 +317,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="note"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -324,7 +327,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="arrow-forward"
           size={size || constants.iconSizeXL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -334,7 +337,27 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="arrow-back"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
+          style={style}
+        />
+      );
+    case 'lock':
+      return (
+        <FontAwesome
+          name="lock"
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={iconColor}
+          style={style}
+        />
+      );
+    case 'safety':
+      return (
+        <AntDesign
+          name="Safety"
+          size={size || constants.iconSizeM}
+          onPress={onPress}
+          color={iconColor}
           style={style}
         />
       );
@@ -344,7 +367,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="edit"
           size={size || constants.iconSizeS}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -354,7 +377,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="indent-more"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor || 'black'}
           style={style}
         />
       );
@@ -364,7 +387,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="indent-less"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor || 'black'}
           style={style}
         />
       );
@@ -374,7 +397,18 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="add"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color || 'blue'}
+          color={iconColor || 'blue'}
+          style={style}
+        />
+      );
+    }
+    case 'person': {
+      return (
+        <Fontisto
+          name="person"
+          size={size || constants.iconSizeL}
+          onPress={onPress}
+          color={iconColor}
           style={style}
         />
       );
@@ -385,7 +419,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="delete"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color || 'red'}
+          color={'red'}
           style={style}
         />
       );
@@ -396,7 +430,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="medicinebox"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor || 'black'}
           style={style}
         />
       );
@@ -407,7 +441,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="users"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor || 'black'}
           style={style}
         />
       );
@@ -418,7 +452,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="chat"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor || 'blue'}
           style={style}
         />
       );
@@ -429,7 +463,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="phone"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor}
           style={style}
         />
       );
@@ -440,7 +474,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="email"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor || 'black'}
           style={style}
         />
       );
@@ -451,7 +485,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="heart"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color || 'red'}
+          color={'red'}
           style={style}
         />
       );
@@ -462,7 +496,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="hearto"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color}
+          color={'red'}
           style={style}
         />
       );
@@ -473,7 +507,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="user"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color || 'black'}
+          color={iconColor || 'black'}
           style={style}
         />
       );
@@ -484,7 +518,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="md-checkmark-circle-outline"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color || 'green'}
+          color={'green'}
           style={style}
         />
       );
@@ -495,7 +529,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="cancel"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color || 'red'}
+          color={'red'}
           style={style}
         />
       );
@@ -506,7 +540,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="eye-sharp"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -517,7 +551,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="eye-off-sharp"
           size={size || constants.iconSizeL}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );
@@ -528,7 +562,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
           name="search"
           size={size || constants.iconSizeM}
           onPress={onPress}
-          color={color}
+          color={iconColor}
           style={style}
         />
       );

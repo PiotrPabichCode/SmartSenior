@@ -2,9 +2,11 @@ import WelcomeSvg from '@assets/register-image.svg';
 import { Dimensions, ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import SignUpForm from './SignUpForm';
+import useThemeColors from '@src/config/useThemeColors';
 
 const RegisterScreen = () => {
   const { top } = useSafeAreaInsets();
+  const styles = useStyles();
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
@@ -20,9 +22,11 @@ const RegisterScreen = () => {
 
 export default RegisterScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    gap: 20,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      flexGrow: 1,
+      gap: 20,
+      backgroundColor: theme.cardBackground,
+    },
+  });

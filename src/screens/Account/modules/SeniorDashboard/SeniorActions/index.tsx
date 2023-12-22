@@ -10,9 +10,11 @@ import { selectEventsStatus } from '@src/redux/events/events.slice';
 import { Text } from '@rneui/themed';
 import Colors from '@src/constants/Colors';
 import SeniorLocationButton from './SeniorLocationButton';
+import useThemeColors from '@src/config/useThemeColors';
 
 const SeniorActions = ({ user }: { user: ConnectedUser }) => {
   const eventGroups = user.eventGroups;
+  const backgroundColor = useThemeColors().cardBackground;
   const status = useAppSelector(state => selectEventsStatus(state));
   const [isLoading, setIsLoading] = useState(true);
   const { events, setEvents } = usePrepareEvents(eventGroups, setIsLoading);
@@ -22,7 +24,7 @@ const SeniorActions = ({ user }: { user: ConnectedUser }) => {
   }
 
   return (
-    <View style={styles.mainContainer}>
+    <View style={[styles.mainContainer, { backgroundColor }]}>
       <Text h3>{t('seniorDashboard.availableActions')}</Text>
       <SeniorLocationButton user={user} />
       <EventsMapper events={events} onEvent={setEvents} user={user} onLoad={setIsLoading} />

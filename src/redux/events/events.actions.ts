@@ -2,17 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from './events.api';
 import { Event, EventGroup, Images } from '@src/models';
 
-export const loadEvents = createAsyncThunk(
-  'events/loadEvents',
-  async (uid: string, { rejectWithValue }) => {
-    try {
-      return await api.fetchEventsByID(uid);
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  },
-);
-
 export const loadEventGroups = createAsyncThunk(
   'events/loadEventGroups',
   async (uid: string, { rejectWithValue }) => {

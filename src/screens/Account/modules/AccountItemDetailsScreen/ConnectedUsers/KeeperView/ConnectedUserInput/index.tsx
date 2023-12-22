@@ -4,14 +4,14 @@ import { Icons } from '@src/components';
 import { handleAddUser } from './utils';
 import { t } from '@src/localization/Localization';
 import { Input } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
 
 const ConnectedUserInput = () => {
   const [email, setEmail] = useState<string>('');
+  const styles = useStyles();
   return (
     <Input
-      rightIcon={
-        <Icons name="add" color="white" style={styles.icon} onPress={() => handleAddUser(email)} />
-      }
+      rightIcon={<Icons name="add" style={styles.icon} onPress={() => handleAddUser(email)} />}
       placeholder={t('connectedUsers.placeholder')}
       value={email}
       onChangeText={setEmail}
@@ -22,10 +22,11 @@ const ConnectedUserInput = () => {
 
 export default ConnectedUserInput;
 
-const styles = StyleSheet.create({
-  icon: {
-    backgroundColor: 'blue',
-    padding: 5,
-    borderRadius: 25,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    icon: {
+      backgroundColor: theme.customBtnBackground,
+      padding: 5,
+      borderRadius: 25,
+    },
+  });

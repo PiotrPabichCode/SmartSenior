@@ -1,7 +1,7 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { Timestamp } from 'firebase/firestore';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 type Props = {
   onPress: any;
@@ -12,7 +12,6 @@ type Props = {
 const CompleteButton = ({ onPress, onChange, fieldName }: Props) => {
   return (
     <Button
-      size="lg"
       title={t('eventItemScreen.button.title.execute')}
       buttonStyle={styles.button}
       onPress={() => {

@@ -12,11 +12,13 @@ import CustomToast from '@src/components/CustomToast';
 import { TagSchema } from './utils';
 import { goBack } from '@src/navigation/navigationUtils';
 import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
+import useThemeColors from '@src/config/useThemeColors';
 
 const TagForm = ({ isUpdate, tag }: TagFormProps) => {
   const dispatch = useAppDispatch();
+  const backgroundColor = useThemeColors().cardBackground;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor }]}>
       <Formik
         initialValues={{
           id: tag.id ?? '',
@@ -70,8 +72,8 @@ const styles = StyleSheet.create({
     elevation: 5,
     gap: 10,
     alignItems: 'center',
-    backgroundColor: 'white',
     padding: 20,
     borderRadius: 25,
+    borderWidth: 0.5,
   },
 });

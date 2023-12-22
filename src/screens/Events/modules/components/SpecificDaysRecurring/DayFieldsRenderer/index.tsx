@@ -1,8 +1,9 @@
-import { View, StyleSheet, Text, Alert } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import DayField, { Day } from './DayField';
 import { t } from '@src/localization/Localization';
 import { renderDayValue } from '@src/utils/utils';
 import { Timestamp } from 'firebase/firestore';
+import { Text } from '@rneui/themed';
 
 interface DaysProps {
   days: Day[];
@@ -103,7 +104,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: 'black',
     fontWeight: '600',
     marginTop: 10,
     marginLeft: 20,

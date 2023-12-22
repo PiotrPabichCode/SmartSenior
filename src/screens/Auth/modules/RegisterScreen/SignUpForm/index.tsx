@@ -33,7 +33,7 @@ const SignUpForm = () => {
           <>
             <Input
               style={styles.inputField}
-              leftIcon={<Icon name="email" size={30} color="black" />}
+              leftIcon={<Icon name="email" size={30} />}
               placeholder={t('register.button.placeholder.email')}
               keyboardType="email-address"
               onBlur={handleBlur('email')}
@@ -44,7 +44,7 @@ const SignUpForm = () => {
 
             <Input
               style={styles.inputField}
-              leftIcon={<Icon name="lock" size={30} color="black" />}
+              leftIcon={<Icon name="lock" size={30} />}
               secureTextEntry={true}
               placeholder={t('register.button.placeholder.password')}
               onBlur={handleBlur('password')}
@@ -54,7 +54,7 @@ const SignUpForm = () => {
             />
             <Input
               style={styles.inputField}
-              leftIcon={<Icon name="lock" size={30} color="black" />}
+              leftIcon={<Icon name="lock" size={30} />}
               secureTextEntry={true}
               placeholder={t('register.button.placeholder.repeatPassword')}
               onBlur={handleBlur('repeatPassword')}

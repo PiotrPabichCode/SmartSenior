@@ -1,8 +1,7 @@
-import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
-import Colors from '@src/constants/Colors';
+import { CustomScrollContainer } from '@src/components';
 import { goBack } from '@src/navigation/navigationUtils';
 import { useAppSelector } from '@src/redux/types';
-import { selectTheme, selectUser } from '@src/redux/auth/auth.slice';
+import { selectUser } from '@src/redux/auth/auth.slice';
 import AccountData from './AccountData';
 import AccountTags from './AccountTags';
 import Language from './Language';
@@ -12,8 +11,6 @@ import ConnectedUsers from './ConnectedUsers';
 
 const AccountItemDetailsScreen = ({ route }: any) => {
   const user = useAppSelector(state => selectUser(state));
-  const theme = useAppSelector(state => selectTheme(state));
-  const currentTheme = Colors[theme];
 
   if (!user) {
     goBack();
@@ -49,11 +46,7 @@ const AccountItemDetailsScreen = ({ route }: any) => {
     }
   };
 
-  return (
-    <CustomScrollContainer theme={currentTheme}>
-      {renderScreenByType(screenType)}
-    </CustomScrollContainer>
-  );
+  return <CustomScrollContainer>{renderScreenByType(screenType)}</CustomScrollContainer>;
 };
 
 export default AccountItemDetailsScreen;

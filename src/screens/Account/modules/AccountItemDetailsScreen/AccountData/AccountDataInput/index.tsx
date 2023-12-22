@@ -1,5 +1,6 @@
 import { Input } from '@rneui/themed';
 import { AccountDataInputProps } from './types';
+import { Icons } from '@src/components';
 
 const AccountDataInput = ({
   label,
@@ -7,6 +8,7 @@ const AccountDataInput = ({
   fieldName,
   value,
   onChange,
+  iconName,
   errorMessage,
 }: AccountDataInputProps) => {
   return (
@@ -14,7 +16,7 @@ const AccountDataInput = ({
       placeholder={placeholder || ''}
       value={value || ''}
       label={label}
-      leftIcon={{ type: 'font-awesome', name: 'comment' }}
+      leftIcon={<Icons name={iconName} />}
       errorMessage={errorMessage}
       onChangeText={value => onChange(fieldName, value)}
     />

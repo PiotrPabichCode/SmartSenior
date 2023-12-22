@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Medicine } from '@src/models';
 import * as api from './medicines.api';
-import { Linking } from 'react-native';
 
 export const addMedicine = createAsyncThunk(
   'medicines/addMedicine',

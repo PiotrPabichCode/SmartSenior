@@ -1,7 +1,8 @@
+import { Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { Timestamp } from 'firebase/firestore';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 type Props = {
   date: Timestamp;

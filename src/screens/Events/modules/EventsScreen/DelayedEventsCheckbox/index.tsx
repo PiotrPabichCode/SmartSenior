@@ -13,7 +13,7 @@ const DelayedEventsCheckbox = ({ checked, onChange }: Props) => {
       title={t('eventGroups.delayedEventsTitle')}
       onPress={() => onChange(!checked)}
       textStyle={{ fontSize: 11 }}
-      containerStyle={{ backgroundColor: 'transparent' }}
+      containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
     />
   );
 };

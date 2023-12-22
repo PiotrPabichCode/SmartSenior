@@ -8,11 +8,13 @@ import FormInput from './FormInput';
 import { PasswordModalProps } from './types';
 import { BackButton } from '../../components';
 import ChangePasswordButton from './ChangePasswordButton';
+import useThemeColors from '@src/config/useThemeColors';
 
 const PasswordModal = ({ visible, onClose }: PasswordModalProps) => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [repeatNewPassword, setRepeatNewPassword] = useState('');
+  const styles = useStyles();
   const MIN_LENGTH = 6;
 
   const handlePasswordChange = async () => {
@@ -73,16 +75,17 @@ const PasswordModal = ({ visible, onClose }: PasswordModalProps) => {
 
 export default PasswordModal;
 
-const styles = StyleSheet.create({
-  container: {
-    minHeight: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  innerContainer: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    container: {
+      minHeight: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    innerContainer: {
+      padding: 20,
+      borderRadius: 10,
+      backgroundColor: theme.cardBackground,
+    },
+  });

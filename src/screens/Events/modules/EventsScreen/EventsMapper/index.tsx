@@ -1,7 +1,7 @@
 import EventItem from './EventItem';
 import Title from './Title';
 import { EventItemProps } from './EventItem/utils';
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet } from 'react-native';
 import { EventItems } from '../types';
 
 type Props = {

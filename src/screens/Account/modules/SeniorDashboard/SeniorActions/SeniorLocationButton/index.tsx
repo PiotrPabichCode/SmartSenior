@@ -1,8 +1,8 @@
-import { Button, Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { ConnectedUser } from '@src/models';
 import { getSeniorLocation } from '@src/redux/auth/auth.api';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 type Props = {
   user: ConnectedUser;
@@ -11,7 +11,6 @@ type Props = {
 const SeniorLocationButton = ({ user }: Props) => {
   return (
     <Button
-      size="lg"
       title={t('seniorDashboard.localization')}
       buttonStyle={styles.button}
       onPress={() => {

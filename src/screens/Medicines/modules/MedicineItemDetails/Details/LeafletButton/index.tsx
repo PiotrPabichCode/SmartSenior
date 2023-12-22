@@ -1,7 +1,7 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 import { onPress } from './utils';
+import { Button } from '@src/components/shared';
 
 type Props = {
   url: string;
@@ -11,7 +11,6 @@ type Props = {
 const LeafletButton = ({ url, name }: Props) => {
   return (
     <Button
-      size="lg"
       title={t('medicineItem.leaflet')}
       containerStyle={styles.container}
       buttonStyle={styles.button}

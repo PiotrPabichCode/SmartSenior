@@ -3,12 +3,14 @@ import RootNavigator from './RootNavigator';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import { useAppSelector } from '@src/redux/types';
-import { selectLanguage, selectUser } from '@src/redux/auth/auth.slice';
+import { selectLanguage, selectTheme, selectUser } from '@src/redux/auth/auth.slice';
+import useThemeColors from '@src/config/useThemeColors';
 
 const AppNavigator = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const user = useAppSelector(state => selectUser(state));
   const language = useAppSelector(state => selectLanguage(state));
+  const backgroundColor = useThemeColors().cardBackground;
   return (
     <Stack.Navigator
       key={language}
@@ -16,6 +18,9 @@ const AppNavigator = () => {
       screenOptions={{
         headerShown: false,
         animation: 'none',
+        contentStyle: {
+          backgroundColor,
+        },
       }}>
       {user ? (
         <Stack.Screen name="Inside" component={AuthNavigator} />

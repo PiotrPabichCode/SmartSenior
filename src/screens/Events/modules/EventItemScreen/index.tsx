@@ -2,19 +2,19 @@ import { EventItemScreenProps } from '@src/navigation/types';
 import { convertTimestampToDate, getUpdatedFields } from '@src/utils/utils';
 import { useState } from 'react';
 import { Formik } from 'formik';
-import CustomToast from '@src/components/CustomToast';
-import Colors from '@src/constants/Colors';
 import FormikObserver from '@src/utils/FormikObserver';
-import DiscardChangesAlert from '@src/components/DiscardChangesAlert';
 import { t } from '@src/localization/Localization';
-import { CustomScrollContainer } from '@src/components/CustomScrollContainer';
+import {
+  CustomScrollContainer,
+  CustomActivityIndicator,
+  DiscardChangesAlert,
+  MultipleImagePicker,
+  CustomToast,
+} from '@src/components';
 import { goBack } from '@src/navigation/navigationUtils';
 import { Timestamp } from 'firebase/firestore';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
-import { selectTheme } from '@src/redux/auth/auth.slice';
-import MultipleImagePicker from '@src/components/MultipleImagePicker';
 import { CompleteButton, DateButton, Description, TagsDisplay, Title } from '../components';
-import CustomActivityIndicator from '@src/components/CustomActivityIndicator';
 import { Text } from '@rneui/themed';
 import { completeEvent } from '@src/redux/events/events.actions';
 import { selectEventsStatus } from '@src/redux/events/events.slice';
@@ -23,9 +23,7 @@ import { usePrepareEvent } from './usePrepareEvent';
 
 const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
   const dispatch = useAppDispatch();
-  const theme = useAppSelector(state => selectTheme(state));
   const status = useAppSelector(state => selectEventsStatus(state));
-  const currentTheme = Colors[theme];
   const { groupKey, date } = route.params;
   const { event, isReady, initialValues, setInitialValues } = usePrepareEvent(groupKey, date);
 
@@ -41,7 +39,7 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
   }
 
   return (
-    <CustomScrollContainer theme={currentTheme}>
+    <CustomScrollContainer>
       <Formik
         initialValues={initialValues}
         enableReinitialize

@@ -1,6 +1,7 @@
-import { Button } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
+import { Button } from '@src/components/shared';
 
 type Props = {
   visible: boolean;
@@ -8,11 +9,12 @@ type Props = {
 };
 
 const ChangeDataButton = ({ visible, onSubmit }: Props) => {
+  const backgroundColor = useThemeColors().grey4;
   return (
     visible && (
       <Button
         title={t('account.changeData')}
-        buttonStyle={styles.changeDataButton}
+        buttonStyle={[styles.changeDataButton, { backgroundColor }]}
         onPress={() => onSubmit()}
       />
     )

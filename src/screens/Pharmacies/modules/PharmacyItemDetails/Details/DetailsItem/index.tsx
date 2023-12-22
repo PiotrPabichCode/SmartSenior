@@ -1,5 +1,6 @@
-import { Divider } from '@rneui/themed';
-import { Text, StyleSheet } from 'react-native';
+import { Divider, Text } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
+import { StyleSheet } from 'react-native';
 
 type Props = {
   title: string;
@@ -7,9 +8,10 @@ type Props = {
 };
 
 const DetailsItem = ({ title, detail }: Props) => {
+  const styles = useStyles();
   return (
     <>
-      <Divider style={styles.divider} />
+      <Divider />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.detail}>{detail}</Text>
     </>
@@ -18,17 +20,18 @@ const DetailsItem = ({ title, detail }: Props) => {
 
 export default DetailsItem;
 
-const styles = StyleSheet.create({
-  divider: {
-    width: '100%',
-    marginVertical: 10,
-    backgroundColor: 'black',
-    height: 1,
-  },
-  title: { fontSize: 22, fontWeight: '500' },
-  detail: {
-    fontSize: 16,
-    fontWeight: '400',
-    textAlign: 'center',
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    divider: {
+      width: '100%',
+      marginVertical: 10,
+      backgroundColor: theme.divider,
+      height: 1,
+    },
+    title: { fontSize: 22, fontWeight: '500' },
+    detail: {
+      fontSize: 16,
+      fontWeight: '400',
+      textAlign: 'center',
+    },
+  });

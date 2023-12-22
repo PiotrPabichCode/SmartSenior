@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { handleCompleteEvent, handleDeleteEvent, sendEventNotificationReminder } from '../../utils';
-import { Button } from '@rneui/themed';
+import { Text } from '@rneui/themed';
+import { Button } from '@src/components/shared';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { UserEvent } from '../../types';
 import { t } from '@src/localization/Localization';
@@ -25,7 +26,6 @@ const EventItem = ({ event, userID, onEvent, onLoad }: Props) => {
 
       <View style={styles.buttonsContainer}>
         <Button
-          size="lg"
           color={'green'}
           buttonStyle={styles.buttonContainer}
           onPress={() =>
@@ -39,14 +39,11 @@ const EventItem = ({ event, userID, onEvent, onLoad }: Props) => {
           title={t('seniorDashboard.execute')}
         />
         <Button
-          size="lg"
-          color={'orange'}
           buttonStyle={styles.buttonContainer}
           onPress={() => sendEventNotificationReminder(event, userID, onLoad)}
           title={t('seniorDashboard.remind')}
         />
         <Button
-          size="lg"
           color={'red'}
           buttonStyle={styles.buttonContainer}
           onPress={() =>

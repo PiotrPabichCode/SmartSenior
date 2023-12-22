@@ -1,5 +1,5 @@
 import { Timestamp } from 'firebase/firestore';
-import { Button } from '@rneui/themed';
+import { Button } from '@src/components/shared';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
@@ -17,7 +17,6 @@ type Props = {
 const DateButton = ({ date, onPress, onBlur, isError, label, labelEmpty, styles }: Props) => {
   return (
     <Button
-      size="lg"
       onPress={() => onPress(true)}
       onBlur={onBlur}
       buttonStyle={[_styles.button, styles]}
@@ -37,7 +36,6 @@ export default DateButton;
 
 const _styles = StyleSheet.create({
   button: {
-    padding: 15,
     backgroundColor: 'green',
   },
 });

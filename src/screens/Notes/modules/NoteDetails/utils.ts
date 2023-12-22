@@ -4,16 +4,19 @@ import { Note } from '@src/models';
 import { goBack } from '@src/navigation/navigationUtils';
 import { store } from '@src/redux/common';
 import { updateNote } from '@src/redux/notes/notes.actions';
-import { selectNoteByKey } from '@src/redux/notes/notes.slice';
 import { getUpdatedFields } from '@src/utils/utils';
 import { Timestamp } from 'firebase/firestore';
+import { Dispatch, SetStateAction } from 'react';
 
-export const onSubmit = async (key: string, onSuccess: (note: Note) => void) => {
+export const onSubmit = async (
+  storeNote: Note,
+  note: Note,
+  onSuccess: Dispatch<SetStateAction<Note>>,
+) => {
   try {
-    const storeNote = selectNoteByKey(store.getState(), key)!;
-    const updatedNote = { ...storeNote, updatedAt: Timestamp.now() };
+    const updatedNote = { ...note, updatedAt: Timestamp.now() };
     const updatedValues = getUpdatedFields(storeNote, updatedNote);
-    await store.dispatch(updateNote({ key: key, data: updatedValues })).unwrap();
+    await store.dispatch(updateNote({ key: storeNote.key, data: updatedValues })).unwrap();
     onSuccess(updatedNote);
     CustomToast('success', t('message.success.updateNote'));
     goBack();

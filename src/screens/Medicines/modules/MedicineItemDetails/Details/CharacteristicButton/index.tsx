@@ -1,7 +1,7 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 import { onPress } from './utils';
+import { Button } from '@src/components/shared';
 
 type Props = {
   url: string;
@@ -11,9 +11,7 @@ type Props = {
 const CharacteristicButton = ({ url, name }: Props) => {
   return (
     <Button
-      size="lg"
       title={t('medicineItem.characteristic')}
-      containerStyle={styles.container}
       buttonStyle={styles.button}
       onPress={() => onPress(name, url)}
     />
@@ -23,9 +21,6 @@ const CharacteristicButton = ({ url, name }: Props) => {
 export default CharacteristicButton;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   button: {
     backgroundColor: 'green',
   },

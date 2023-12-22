@@ -1,11 +1,14 @@
 import { Avatar } from '@rneui/themed';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useAppSelector } from '@src/redux/types';
 import { createUserLabel } from '@src/utils/utils';
 import { selectUser } from '@src/redux/auth/auth.slice';
+import useThemeColors from '@src/config/useThemeColors';
+import { Text } from '@rneui/themed';
 
 const AccountProfileHint = () => {
   const user = useAppSelector(state => selectUser(state));
+  const styles = useStyles();
 
   if (!user) {
     return null;
@@ -17,7 +20,7 @@ const AccountProfileHint = () => {
         size="large"
         rounded
         title={createUserLabel(user.firstName, user.lastName)}
-        containerStyle={{ backgroundColor: '#C0C0C0' }}
+        containerStyle={styles.avatar}
         titleStyle={{ color: 'black', fontWeight: '500' }}
       />
       <View style={styles.detailsView}>
@@ -33,37 +36,41 @@ const AccountProfileHint = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  viewStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    justifyContent: 'space-evenly',
-    margin: 20,
-    padding: 20,
-  },
-  detailsView: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  name: {
-    marginTop: 10,
-    fontSize: 20,
-    fontWeight: 'bold',
-    maxWidth: 200,
-  },
-  email: {
-    fontSize: 16,
-    fontWeight: '400',
-    maxWidth: 200,
-  },
-  role: {
-    marginTop: 2,
-    fontWeight: '500',
-    fontSize: 15,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    viewStyle: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '100%',
+      justifyContent: 'space-evenly',
+      margin: 20,
+      padding: 20,
+    },
+    detailsView: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    name: {
+      marginTop: 10,
+      fontSize: 20,
+      fontWeight: 'bold',
+      maxWidth: 200,
+    },
+    email: {
+      fontSize: 16,
+      fontWeight: '400',
+      maxWidth: 200,
+    },
+    role: {
+      marginTop: 2,
+      fontWeight: '500',
+      fontSize: 15,
+    },
+    avatar: {
+      backgroundColor: '#C0C0C0',
+    },
+  });
 
 export default AccountProfileHint;

@@ -1,7 +1,7 @@
-import { Button } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { StyleSheet, View } from 'react-native';
 import { goBack } from '@src/navigation/navigationUtils';
+import { Button } from '@src/components/shared';
 
 type ActionButtonsProps = {
   onSubmit: () => void;

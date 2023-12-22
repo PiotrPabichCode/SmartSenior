@@ -1,17 +1,16 @@
-import { selectConnectedUserById, selectTheme } from '@src/redux/auth/auth.slice';
+import { selectConnectedUserById } from '@src/redux/auth/auth.slice';
 import { useAppSelector } from '@src/redux/types';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import SeniorActions from './SeniorActions';
 import { goBack } from '@src/navigation/navigationUtils';
-import { ConnectedUser, Theme } from '@src/models';
-import Colors from '@src/constants/Colors';
+import { ConnectedUser } from '@src/models';
 import UserDetails from './UserDetails';
+import useThemeColors from '@src/config/useThemeColors';
 
 const SeniorDashboard = ({ route }: any) => {
   const { uid } = route.params;
   const user = useAppSelector(state => selectConnectedUserById(state, uid));
-  const theme = useAppSelector(state => selectTheme(state));
-  const styles = useStyles(theme);
+  const backgroundColor = useThemeColors().mainBackground;
 
   if (!user) {
     goBack();
@@ -25,7 +24,7 @@ const SeniorDashboard = ({ route }: any) => {
 
   return (
     <ScrollView
-      contentContainerStyle={styles.container}
+      contentContainerStyle={[styles.container, { backgroundColor }]}
       nestedScrollEnabled={true}
       showsVerticalScrollIndicator={false}>
       <UserDetails user={user} />
@@ -36,15 +35,11 @@ const SeniorDashboard = ({ route }: any) => {
 
 export default SeniorDashboard;
 
-const useStyles = (theme: Theme) => {
-  const currentTheme = Colors[theme];
-  return StyleSheet.create({
-    container: {
-      flexGrow: 1,
-      alignItems: 'center',
-      backgroundColor: currentTheme.mainBackground,
-      gap: 10,
-      paddingBottom: 10,
-    },
-  });
-};
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    alignItems: 'center',
+    gap: 10,
+    paddingBottom: 10,
+  },
+});

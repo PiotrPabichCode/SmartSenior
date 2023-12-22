@@ -1,9 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import * as action from './events.actions';
 import type { RootState } from '../store';
-import { Events, Event, EventGroups, EventGroup } from '@src/models';
+import { Events, EventGroups, EventGroup } from '@src/models';
 import { sortEvents } from './events.api';
-import { Timestamp } from 'firebase/firestore';
 
 export interface EventsState {
   eventGroups: EventGroups;
@@ -34,16 +33,6 @@ export const eventsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(action.loadEvents.fulfilled, (state, action: PayloadAction<Events>) => {
-        state.events = action.payload;
-        state.status = 'succeeded';
-      })
-      .addCase(action.loadEvents.pending, state => {
-        state.status = 'pending';
-      })
-      .addCase(action.loadEvents.rejected, state => {
-        state.status = 'failed';
-      })
       .addCase(action.loadEventGroups.fulfilled, (state, action: PayloadAction<EventGroups>) => {
         state.eventGroups = action.payload;
         state.status = 'succeeded';

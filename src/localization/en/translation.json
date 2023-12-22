@@ -37,6 +37,7 @@
       "updateAccountData": "Personal data has been updated",
       "addNote": "Added a new note",
       "updateNote": "Updated note",
+      "deleteNote": "Note deleted",
       "completeEvent": "Event completed",
       "deleteEvent": "Event deleted",
       "notificationReminder": "Sent notification reminder"
@@ -56,6 +57,7 @@
       "locationNotAvailable": "Location not available yet",
       "completeEvent": "Failed to complete event",
       "deleteEvent": "Failed to delete event",
+      "deleteNote": "Failed to delete note",
       "notificationReminder": "Failed to send notification reminder"
     }
   },

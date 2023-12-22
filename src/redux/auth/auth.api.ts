@@ -6,12 +6,12 @@ import {
   reauthenticateWithCredential,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signInWithRedirect,
   signOut,
   updateEmail,
   updatePassword,
 } from 'firebase/auth';
 import { auth, db } from 'firebaseConfig';
+import * as firebase from './auth.firebase';
 import {
   Timestamp,
   addDoc,
@@ -26,6 +26,7 @@ import {
   setDoc,
   updateDoc,
   where,
+  writeBatch,
 } from 'firebase/firestore';
 import {
   User,
@@ -40,7 +41,7 @@ import {
   Theme,
 } from '@src/models';
 import { User as FirebaseUser } from 'firebase/auth';
-import { fetchEventGroupsByID, fetchEventsByID } from '../events/events.api';
+import { fetchEventGroupsByID } from '../events/events.api';
 import { store } from '../common';
 import * as TaskManager from 'expo-task-manager';
 import * as Location from 'expo-location';
@@ -50,7 +51,6 @@ import { Alert } from 'react-native';
 import { t } from '@src/localization/Localization';
 import { UserLocation } from './auth.constants';
 import { FirebaseError } from 'firebase/app';
-import { selectTheme } from './auth.slice';
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
 
 const selectUserID = (state: any) => state.auth.user?.uid;
@@ -111,7 +111,7 @@ export const signUp = async (authData: AuthCredentials): Promise<User> => {
       throw new Error('Unable to create new account');
     }
     const emptyUser = getUserTemplate(user.uid, user.email);
-    const userDoc = doc(db, 'users', user.uid);
+    const userDoc = firebase.userDoc(user.uid);
     await setDoc(userDoc, {
       ...emptyUser,
       createdAt: Timestamp.now(),
@@ -141,7 +141,7 @@ export const changeTheme = async (theme?: Theme): Promise<Theme> => {
 
 export const loadUserDoc = async (user: FirebaseUser): Promise<User> => {
   try {
-    const userDoc = doc(db, 'users', user.uid);
+    const userDoc = firebase.userDoc(user.uid);
     const snapshot = await getDoc(userDoc);
     if (!snapshot.exists()) {
       const emptyUser = getUserTemplate(user.uid, user.email);
@@ -154,14 +154,14 @@ export const loadUserDoc = async (user: FirebaseUser): Promise<User> => {
     const _user = snapshot.data();
     delete _user.deleted;
 
-    const _collection = collection(userDoc, 'tags');
-    const tagsSnapshot = await getDocs(_collection);
+    const tagsCollection = firebase.tagsCollection(user.uid);
+    const tagsSnapshot = await getDocs(tagsCollection);
 
     const tags = tagsSnapshot.docs.map(doc => doc.data());
     return {
       ..._user,
       tags: tags,
-    } as User;
+    };
   } catch (error) {
     throw error;
   }
@@ -170,7 +170,11 @@ export const loadUserDoc = async (user: FirebaseUser): Promise<User> => {
 export const addUserTag = async (tag: Tag) => {
   try {
     const userID = selectUserID(store.getState())!;
-    const response = await addDoc(collection(db, 'users', userID, 'tags'), tag);
+    const tagsCollection = firebase.tagsCollection(userID);
+    const response = await addDoc(tagsCollection, tag);
+    if (!response.id) {
+      throw new Error('Unable to add tag');
+    }
     await updateDoc(doc(db, response.path), {
       id: response.id,
     });
@@ -186,10 +190,8 @@ export const addUserTag = async (tag: Tag) => {
 export const updateUserTag = async (tag: Tag) => {
   try {
     const userID = selectUserID(store.getState())!;
-    const _doc = doc(db, 'users', userID, 'tags', tag.id);
-    await updateDoc(_doc, {
-      ...tag,
-    });
+    const _doc = firebase.tagDoc(userID, tag.id);
+    await updateDoc(_doc, tag);
     return tag;
   } catch (error) {
     throw error;
@@ -209,14 +211,12 @@ export const deleteUserTag = async (id: string) => {
 export const loadUserTags = async (): Promise<Tags> => {
   try {
     const userID = selectUserID(store.getState())!;
-    const q = query(collection(db, 'users', userID, 'tags'));
-    const snapshot = await getDocs(q);
+    const tagsCollection = firebase.tagsCollection(userID);
+    const snapshot = await getDocs(tagsCollection);
     if (snapshot.empty) {
       throw new Error('No available tags');
     }
-    const tags = snapshot.docs.map(doc => doc.data());
-
-    return tags as Tags;
+    return snapshot.docs.map(doc => doc.data());
   } catch (error) {
     throw error;
   }
@@ -227,7 +227,7 @@ export const updateUserData = async (
   values: Partial<User>,
 ): Promise<Partial<User>> => {
   try {
-    const userDoc = doc(db, 'users', uid);
+    const userDoc = firebase.userDoc(uid);
     await updateDoc(userDoc, values);
     return values;
   } catch (error) {
@@ -291,7 +291,7 @@ export const validateUserData = (user: User | null) => {
 
 const loadUserByEmail = async (email: string): Promise<User> => {
   try {
-    const _collection = collection(db, 'users');
+    const _collection = firebase.usersCollection();
     const _query = query(
       _collection,
       where('deleted', '==', false),
@@ -304,7 +304,7 @@ const loadUserByEmail = async (email: string): Promise<User> => {
     }
     const data = snapshot.docs[0].data();
     delete data.deleted;
-    return data as User;
+    return data;
   } catch (error) {
     throw error;
   }
@@ -313,7 +313,7 @@ const loadUserByEmail = async (email: string): Promise<User> => {
 export const loadConnectedUsers = async () => {
   try {
     const connectedUsersIds = selectUserConnectedUsersIds(store.getState());
-    const _collection = collection(db, `users`);
+    const _collection = firebase.usersCollection();
 
     const _query = query(
       _collection,
@@ -325,7 +325,7 @@ export const loadConnectedUsers = async () => {
     snapshot.docs.forEach(doc => {
       const data = doc.data();
       delete data.deleted;
-      users.push(data as User);
+      users.push(data);
     });
 
     const connectedUsers: ConnectedUsers = await Promise.all(
@@ -370,16 +370,20 @@ export const addConnectedUser = async (email: string) => {
     }
 
     const userID = selectUserID(store.getState());
-    const _doc = doc(db, `users/${userID}`);
+    const _doc = firebase.userDoc(userID);
 
-    await updateDoc(_doc, {
+    const batch = writeBatch(db);
+
+    batch.update(_doc, {
       connectedUsersIds: [...connectedUsersIds, newUserID],
     });
 
-    const newUserDoc = doc(db, `users/${newUserID}`);
-    await updateDoc(newUserDoc, {
+    const newUserDoc = firebase.userDoc(newUserID);
+    batch.update(newUserDoc, {
       connectedUsersIds: [...newUser.connectedUsersIds, userID],
     });
+
+    await batch.commit();
 
     const connectedUser: ConnectedUser = {
       user: newUser,
@@ -438,13 +442,13 @@ export const setupLocationTracking = async () => {
 };
 
 export const updateSeniorLocation = (seniorID: string, newLocation: UserLocation) => {
-  const _collection = collection(db, `users/${seniorID}/locations`);
+  const _collection = firebase.locationsCollection(seniorID);
   addDoc(_collection, newLocation);
   console.log('New location', newLocation);
 };
 
 export const getSeniorLocation = async (seniorID: string) => {
-  const _collection = collection(db, `users/${seniorID}/locations`);
+  const _collection = firebase.locationsCollection(seniorID);
   const q = query(_collection, orderBy('timestamp', 'desc'), limit(1));
   const snapshot = await getDocs(q);
   if (snapshot.empty) {

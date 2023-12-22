@@ -1,7 +1,11 @@
 import { initializeApp } from 'firebase/app';
-import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import {
+  initializeAuth,
+  // @ts-ignore
+  getReactNativePersistence,
+} from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, type QueryDocumentSnapshot } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   FIREBASE_API_KEY,
@@ -12,6 +16,7 @@ import {
   FIREBASE_APP_ID,
   FIREBASE_MEASUREMENT_ID,
   FIREBASE_DATABASE_URL,
+  // @ts-ignore
 } from '@env';
 
 const firebaseConfig = {
@@ -34,6 +39,13 @@ export function getFirebase() {
   });
 
   return { app, firestore, storage, auth };
+}
+
+export function converter<T>() {
+  return {
+    toFirestore: (data: T) => data,
+    fromFirestore: (snapshot: QueryDocumentSnapshot) => snapshot.data() as T,
+  };
 }
 
 export const { firestore: db, storage, auth } = getFirebase();

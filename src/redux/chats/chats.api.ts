@@ -60,6 +60,9 @@ export const addChat = async (user: User) => {
       active: false,
     };
     const response = await addDoc(_collection, chat);
+    if (!response.id) {
+      throw new Error('Unable to add chat');
+    }
     await updateDoc(doc(db, response.path), {
       key: response.id,
     });

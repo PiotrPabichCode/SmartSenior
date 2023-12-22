@@ -12,7 +12,6 @@ const CharacteristicButton = ({ url, name }: Props) => {
   return (
     <Button
       title={t('medicineItem.characteristic')}
-      containerStyle={styles.container}
       buttonStyle={styles.button}
       onPress={() => onPress(name, url)}
     />
@@ -22,9 +21,6 @@ const CharacteristicButton = ({ url, name }: Props) => {
 export default CharacteristicButton;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   button: {
     backgroundColor: 'green',
   },

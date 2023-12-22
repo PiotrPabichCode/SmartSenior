@@ -37,6 +37,7 @@
       "updateAccountData": "Zaaktualizowano dane osobowe",
       "addNote": "Dodano nową notatkę",
       "updateNote": "Zaaktualizowano notatkę",
+      "deleteNote": "Usunięto notatkę",
       "completeEvent": "Wydarzenie wykonane",
       "deleteEvent": "Wydarzenie usunięte",
       "notificationReminder": "Wysłano przypomnienie wydarzenia"
@@ -56,6 +57,7 @@
       "locationNotAvailable": "Lokalizacja niedostępna",
       "completeEvent": "Nie udało się wykonać zadania",
       "deleteEvent": "Nie udało się usunąć wydarzenia",
+      "deleteNote": "Nie udało się usunąć notatki",
       "notificationReminder": "Nie udało się wysłać przypomnienia wydarzenia"
     }
   },

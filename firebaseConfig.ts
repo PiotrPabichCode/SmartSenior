@@ -8,26 +8,26 @@ import { getStorage } from 'firebase/storage';
 import { getFirestore, type QueryDocumentSnapshot } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  FIREBASE_API_KEY,
-  FIREBASE_AUTH_DOMAIN,
-  FIREBASE_PROJECT_ID,
-  FIREBASE_STORAGE_BUCKET,
-  FIREBASE_MESSAGING_SENDER_ID,
-  FIREBASE_APP_ID,
-  FIREBASE_MEASUREMENT_ID,
-  FIREBASE_DATABASE_URL,
+  APP_FIREBASE_API_KEY,
+  APP_FIREBASE_AUTH_DOMAIN,
+  APP_FIREBASE_PROJECT_ID,
+  APP_FIREBASE_STORAGE_BUCKET,
+  APP_FIREBASE_MESSAGING_SENDER_ID,
+  APP_FIREBASE_APP_ID,
+  APP_FIREBASE_MEASUREMENT_ID,
+  APP_FIREBASE_DATABASE_URL,
   // @ts-ignore
 } from '@env';
 
 const firebaseConfig = {
-  apiKey: FIREBASE_API_KEY,
-  authDomain: FIREBASE_AUTH_DOMAIN,
-  databaseURL: FIREBASE_DATABASE_URL,
-  projectId: FIREBASE_PROJECT_ID,
-  storageBucket: FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
-  appId: FIREBASE_APP_ID,
-  measurementId: FIREBASE_MEASUREMENT_ID,
+  apiKey: APP_FIREBASE_API_KEY,
+  authDomain: APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: APP_FIREBASE_DATABASE_URL,
+  projectId: APP_FIREBASE_PROJECT_ID,
+  storageBucket: APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: APP_FIREBASE_APP_ID,
+  measurementId: APP_FIREBASE_MEASUREMENT_ID,
 };
 
 export function getFirebase() {

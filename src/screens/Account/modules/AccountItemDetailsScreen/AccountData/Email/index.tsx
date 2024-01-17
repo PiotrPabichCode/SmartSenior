@@ -11,13 +11,14 @@ type Props = {
 
 const Email = ({ email }: Props) => {
   const [emailChange, setEmailChange] = useState<boolean>(false);
+
   return (
     <>
       <Button
         title={t('account.title.email', {
           email: email,
         })}
-        titleProps={{ allowFontScaling: true }}
+        titleProps={{ numberOfLines: 1 }}
         icon={<Icons name="email" />}
         buttonStyle={styles.emailButton}
         onPress={() => setEmailChange(true)}

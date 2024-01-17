@@ -12,7 +12,7 @@ export const useAppSetup = () => {
       try {
         await Calendar.setupCalendar();
         await Localization.setupI18nConfig();
-        store.dispatch(changeTheme());
+        await store.dispatch(changeTheme());
         store.dispatch(changeLanguage(Localization.getLocale()));
         setIsAppReady(true);
       } catch (error) {

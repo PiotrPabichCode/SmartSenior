@@ -37,7 +37,7 @@ const useStyles = (theme = useThemeColors()) =>
       paddingVertical: 15,
     },
     buttonSignUp: {
-      backgroundColor: theme.grey4,
+      backgroundColor: 'green',
     },
     buttonSignIn: {
       backgroundColor: theme.dark,

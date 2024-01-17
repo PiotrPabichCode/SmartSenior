@@ -127,13 +127,16 @@ export const signUp = async (authData: AuthCredentials): Promise<User> => {
 export const changeTheme = async (theme?: Theme): Promise<Theme> => {
   try {
     const storage = useLocalStorage('THEME_KEY');
-    if (!theme) {
-      const savedTheme = (await storage.getItem()) ?? 'light';
-      return savedTheme;
+    if (theme) {
+      await storage.setItem(theme);
+      return theme;
     }
-    await storage.setItem(theme);
-
-    return theme;
+    const savedTheme = await storage.getItem();
+    if (!savedTheme) {
+      await storage.setItem('light');
+      return 'light';
+    }
+    return savedTheme;
   } catch (error) {
     throw error;
   }

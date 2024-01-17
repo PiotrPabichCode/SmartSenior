@@ -1,5 +1,6 @@
 import { Text, useTheme } from '@rneui/themed';
 import { CustomButton, Icons } from '@src/components';
+import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { User } from '@src/models';
 import { View, StyleSheet } from 'react-native';
@@ -10,6 +11,7 @@ type Props = {
 
 const KeeperDetails = ({ keeper }: Props) => {
   const theme = useTheme().theme;
+  const styles = useStyles();
   return (
     <View style={styles.details}>
       <Text style={styles.title}>{t('connectedUsers.seniorTitle')}</Text>
@@ -19,7 +21,6 @@ const KeeperDetails = ({ keeper }: Props) => {
           titleStyle={styles.buttonTitle}
           style={styles.button}
           color={theme.colors.black}
-          backgroundColor={theme.colors.white}
           icon={<Icons name="user" color={theme.colors.black} size={24} />}
         />
         <CustomButton
@@ -27,7 +28,6 @@ const KeeperDetails = ({ keeper }: Props) => {
           titleStyle={styles.buttonTitle}
           style={styles.button}
           color={theme.colors.black}
-          backgroundColor={theme.colors.white}
           icon={<Icons name="email" color={theme.colors.black} size={24} />}
         />
         <CustomButton
@@ -35,7 +35,6 @@ const KeeperDetails = ({ keeper }: Props) => {
           titleStyle={styles.buttonTitle}
           style={styles.button}
           color={theme.colors.black}
-          backgroundColor={theme.colors.white}
           icon={<Icons name="phone" color={theme.colors.black} size={24} />}
         />
       </View>
@@ -45,38 +44,31 @@ const KeeperDetails = ({ keeper }: Props) => {
 
 export default KeeperDetails;
 
-const styles = StyleSheet.create({
-  details: {
-    flex: 1,
-    marginVertical: 10,
-    width: '100%',
-    alignItems: 'center',
-    backgroundColor: 'darkblue',
-    borderRadius: 25,
-    padding: 10,
-  },
-  detailsButtons: {
-    gap: 25,
-    width: '100%',
-    flexGrow: 1,
-    justifyContent: 'center',
-  },
-  view: {
-    height: '100%',
-    width: '100%',
-  },
-  title: {
-    marginTop: 10,
-    fontSize: 30,
-    fontWeight: '700',
-    color: 'white',
-  },
-  buttonTitle: {
-    fontSize: 16,
-  },
-  button: {
-    borderWidth: 2,
-    borderColor: 'lightblue',
-    gap: 20,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    details: {
+      flex: 1,
+      marginVertical: 10,
+      width: '100%',
+      alignItems: 'center',
+      borderRadius: 25,
+      padding: 10,
+    },
+    detailsButtons: {
+      gap: 25,
+      width: '100%',
+      flexGrow: 1,
+      justifyContent: 'center',
+    },
+    title: {
+      marginTop: 10,
+      fontSize: 30,
+      fontWeight: '700',
+    },
+    buttonTitle: {
+      fontSize: 16,
+    },
+    button: {
+      gap: 20,
+    },
+  });

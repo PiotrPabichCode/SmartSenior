@@ -92,7 +92,7 @@ export const filterPossibleDays = (
   const currentDate = startDate.toDate();
   const possibleDays: Array<number> = [];
   for (let i = 0; i < 7; i++) {
-    if (currentDate.getTime() < endDate.toDate().getTime()) {
+    if (currentDate.getDate() <= endDate.toDate().getDate()) {
       possibleDays.push(currentDate.getDay());
     }
     currentDate.setDate(currentDate.getDate() + 1);
@@ -102,9 +102,10 @@ export const filterPossibleDays = (
     ...d,
     disabled: !possibleDays.includes(d.value),
     active:
-      d.value === startDate.toDate().getDay() || (daysOfWeek && daysOfWeek.includes(d.value))
+      d.value === startDate.toDate().getDay() ||
+      (daysOfWeek && daysOfWeek.includes(d.value) && possibleDays.includes(d.value))
         ? true
-        : d.active,
+        : false,
   }));
 };
 

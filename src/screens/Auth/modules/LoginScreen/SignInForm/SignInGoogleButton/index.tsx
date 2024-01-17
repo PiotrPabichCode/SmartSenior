@@ -1,4 +1,3 @@
-import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
@@ -6,13 +5,12 @@ import { useAppDispatch } from '@src/redux/types';
 import { signInWithOAuthGoogle } from '@src/redux/auth/auth.actions';
 
 const SignInGoogleButton = () => {
-  const color = useThemeColors().customBtnBackground;
   const dispatch = useAppDispatch();
   return (
     <Button
       title={t('login.google')}
       buttonStyle={styles.button}
-      color={color}
+      color={'#0070FF'}
       containerStyle={styles.buttonContainer}
       onPress={() => dispatch(signInWithOAuthGoogle())}
     />

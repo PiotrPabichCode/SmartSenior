@@ -8,6 +8,7 @@ import { Platform } from 'react-native';
 import { Timestamp } from 'firebase/firestore';
 import { selectConnectedUserById, selectUser } from '@src/redux/auth/auth.slice';
 import { Genders } from '@src/models';
+import { find, get, isArray } from 'lodash';
 export const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const IS_ANDROID = Platform.OS === 'android';
@@ -119,3 +120,8 @@ export const createUserLabel = (firstName: string | null, lastName: string | nul
 export const getUserAge = (timestamp: Timestamp) => {
   return moment().diff(timestamp.toDate(), 'years');
 };
+
+export function getBackgroundColor(objects: any, defaultBackground: string) {
+  const obj = isArray(objects) ? find(objects, 'backgroundColor') : objects;
+  return get(obj, 'backgroundColor', defaultBackground);
+}

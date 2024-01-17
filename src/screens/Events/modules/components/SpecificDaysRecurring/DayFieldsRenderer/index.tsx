@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   view: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '100%',
+    gap: 10,
     padding: 10,
   },
   label: {

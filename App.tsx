@@ -11,7 +11,7 @@ import { usePushNotifications } from '@src/hooks/usePushNotifications';
 import LocationPermissionModal from '@src/components/LocationPermissionModal';
 import store from '@src/redux/store';
 import { injectStore } from '@src/redux/common';
-import { useUserAuthentication, useAppSetup, NavigationDarkTheme } from '@src/config';
+import { useUserAuthentication, useAppSetup } from '@src/config';
 import { ThemeProvider } from '@src/config';
 
 injectStore(store);
@@ -36,15 +36,15 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <SafeAreaProvider initialMetrics={initialWindowMetrics} onLayout={onLayoutRootView}>
-        <ThemeProvider>
+      <ThemeProvider>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics} onLayout={onLayoutRootView}>
           <NavigationContainer ref={navigationRef} onReady={() => setIsNavigationReady(true)}>
             <AppNavigator />
             <LocationPermissionModal />
           </NavigationContainer>
           <Toast />
-        </ThemeProvider>
-      </SafeAreaProvider>
+        </SafeAreaProvider>
+      </ThemeProvider>
     </Provider>
   );
 }

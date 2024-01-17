@@ -1,4 +1,6 @@
-import { CustomButton, CustomToast, Icons } from '@src/components';
+import { CustomToast, Icons } from '@src/components';
+import { Button } from '@src/components/shared';
+import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { User } from '@src/models';
 import { navigate } from '@src/navigation/navigationUtils';
@@ -9,10 +11,9 @@ type Props = {
 };
 
 const ActionButtons = ({ keeper }: Props) => {
-  const mainColor = '#FFFAF0';
   return (
     <View style={styles.container}>
-      <CustomButton
+      <Button
         onPress={() => {
           if (!keeper.phoneNumber) {
             return CustomToast('error', t('message.error.keeperNoPhone'));
@@ -21,19 +22,18 @@ const ActionButtons = ({ keeper }: Props) => {
         }}
         title={t('connectedUsers.callKeeper')}
         titleStyle={styles.buttonTitle}
-        color={mainColor}
-        style={styles.button}
-        backgroundColor={'green'}
-        icon={<Icons name="phone" color={mainColor} size={24} />}
+        buttonStyle={styles.button}
+        color={'green'}
+        icon={<Icons name="phone" size={24} />}
       />
-      <CustomButton
+
+      <Button
         onPress={() => navigate('Chat')}
         title={t('connectedUsers.messageKeeper')}
         titleStyle={styles.buttonTitle}
-        color={mainColor}
-        style={styles.button}
-        backgroundColor={'black'}
-        icon={<Icons name="chat" color={mainColor} size={24} />}
+        buttonStyle={styles.button}
+        color={useThemeColors().lightblue}
+        icon={<Icons name="chat" size={24} />}
       />
     </View>
   );
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   button: {
-    gap: 20,
+    padding: 15,
   },
 });

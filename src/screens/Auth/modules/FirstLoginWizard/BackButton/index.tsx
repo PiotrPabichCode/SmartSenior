@@ -1,37 +1,26 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Icons from '@src/components/Icons';
-import { logout } from '@src/redux/auth/auth.api';
 import { t } from '@src/localization/Localization';
-import useThemeColors from '@src/config/useThemeColors';
-import { Text } from '@rneui/themed';
+import { Button } from '@src/components/shared';
+import { logout } from '@src/redux/auth/auth.api';
 
 const BackButton = () => {
-  const styles = useStyles();
   return (
-    <TouchableOpacity style={styles.logout} onPress={() => logout()}>
-      <Text style={styles.logoutTitle}>{t('firstLoginWizard.button.title.logout')}</Text>
-      <Icons name="logout-wizard" />
-    </TouchableOpacity>
+    <Button
+      onPress={() => logout()}
+      containerStyle={styles.logout}
+      color="darkblue"
+      icon={<Icons name="logout-wizard" />}
+      iconRight>
+      {t('firstLoginWizard.button.title.logout')}
+    </Button>
   );
 };
 
 export default BackButton;
 
-const useStyles = (theme = useThemeColors()) =>
-  StyleSheet.create({
-    logout: {
-      paddingHorizontal: 10,
-      flexDirection: 'row',
-      alignSelf: 'flex-end',
-      alignItems: 'center',
-      borderRadius: 25,
-      gap: 10,
-      margin: 5,
-      borderWidth: 0.5,
-      elevation: 5,
-      backgroundColor: 'darkblue',
-    },
-    logoutTitle: {
-      fontWeight: '500',
-    },
-  });
+const styles = StyleSheet.create({
+  logout: {
+    alignSelf: 'flex-end',
+  },
+});

@@ -6,6 +6,7 @@ import { convertTimestampToDate } from '@src/utils/utils';
 import { UserEvent } from '../../types';
 import { t } from '@src/localization/Localization';
 import { Dispatch, SetStateAction } from 'react';
+import useThemeColors from '@src/config/useThemeColors';
 
 type Props = {
   event: UserEvent;
@@ -40,6 +41,7 @@ const EventItem = ({ event, userID, onEvent, onLoad }: Props) => {
         />
         <Button
           buttonStyle={styles.buttonContainer}
+          color={useThemeColors().lightblue}
           onPress={() => sendEventNotificationReminder(event, userID, onLoad)}
           title={t('seniorDashboard.remind')}
         />

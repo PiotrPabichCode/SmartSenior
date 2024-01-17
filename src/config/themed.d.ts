@@ -16,5 +16,6 @@ declare module '@rneui/themed' {
     upcomingEventsDate: string;
     icon: string;
     speedDial: string;
+    lightblue: string;
   }
 }

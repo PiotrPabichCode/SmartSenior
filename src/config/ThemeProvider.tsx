@@ -1,4 +1,4 @@
-import { ThemeProvider as RNEThemeProvider, createTheme, useTheme } from '@rneui/themed';
+import { ThemeProvider as RNEThemeProvider, createTheme } from '@rneui/themed';
 import { useAppSelector } from '@src/redux/types';
 import { selectTheme } from '@src/redux/auth/auth.slice';
 import { useEffect, useMemo } from 'react';
@@ -11,13 +11,17 @@ type ThemeProviderProps = {
 };
 
 const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const themeMode = useAppSelector(state => selectTheme(state)) ?? 'light';
+  const themeMode = useAppSelector(state => selectTheme(state));
 
+  if (!themeMode) {
+    return null;
+  }
   useEffect(() => {
     store.dispatch(changeTheme(themeMode));
   }, [themeMode]);
 
   const theme = useMemo(() => {
+    console.log(themeMode);
     const newTheme = createTheme({
       mode: themeMode,
       components: {
@@ -26,6 +30,10 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
             borderRadius: 25,
             alignSelf: 'stretch',
             marginHorizontal: 10,
+            elevation: 5,
+          },
+          buttonStyle: {
+            gap: 20,
           },
           size: 'lg',
           color: theme.colors.customBtnBackground,
@@ -81,7 +89,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         text: '#000000',
         mainBackground: '#FFFFFF',
         cardBackground: '#FDFDFD',
-        customBtnBackground: '#7EF9FF',
+        customBtnBackground: '#F0F8FF',
         customBtnTitle: '#3D0C02',
         upcomingEventsBackground: '#F9F9EF',
         upcomingEventsActionBtn: '#F0F8FF',
@@ -91,6 +99,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         divider: '#251D40',
         icon: '#000000',
         speedDial: '#ad1457',
+        lightblue: '#0070FF',
       },
       darkColors: {
         light: '#F8F8FF',
@@ -108,6 +117,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         divider: '#C0C0C0',
         icon: '#F8F8FF',
         speedDial: '#ad1457',
+        lightblue: '#0070FF',
       },
     });
 

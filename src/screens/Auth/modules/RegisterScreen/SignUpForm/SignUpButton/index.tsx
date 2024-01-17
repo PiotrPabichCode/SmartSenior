@@ -1,12 +1,14 @@
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
+import useThemeColors from '@src/config/useThemeColors';
 
 type Props = {
   onSubmit: () => void;
 };
 
 const SignUpButton = ({ onSubmit }: Props) => {
+  const styles = useStyles();
   return (
     <Button
       title={t('register.button.submit')}
@@ -18,9 +20,10 @@ const SignUpButton = ({ onSubmit }: Props) => {
 
 export default SignUpButton;
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: 'black',
-    paddingVertical: 15,
-  },
-});
+const useStyles = (theme = useThemeColors()) =>
+  StyleSheet.create({
+    button: {
+      backgroundColor: theme.dark,
+      paddingVertical: 15,
+    },
+  });

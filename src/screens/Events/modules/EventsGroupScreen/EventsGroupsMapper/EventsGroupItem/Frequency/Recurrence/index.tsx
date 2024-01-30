@@ -1,4 +1,5 @@
 import { Text } from '@rneui/themed';
+import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { Frequency } from '@src/models';
 import { recurringTimes } from '@src/redux/events/events.constants';
@@ -13,6 +14,7 @@ type Props = {
 };
 
 const Recurrence = ({ type, daysOfWeek, interval, unit }: Props) => {
+  const styles = useStyles();
   if (type === 'specificDays' && daysOfWeek) {
     const days = [1, 2, 3, 4, 5, 6, 0];
     const selectedDays = daysOfWeek;
@@ -46,11 +48,12 @@ const Recurrence = ({ type, daysOfWeek, interval, unit }: Props) => {
 
 export default Recurrence;
 
-const styles = StyleSheet.create({
-  activeDay: {
-    color: 'blue',
-  },
-  inactiveDay: {
-    color: 'black',
-  },
-});
+const useStyles = (colors = useThemeColors()) =>
+  StyleSheet.create({
+    activeDay: {
+      color: colors.lightblue,
+    },
+    inactiveDay: {
+      color: colors.grey0,
+    },
+  });

@@ -191,7 +191,7 @@
     }
   },
   "login": {
-    "welcomeBack": "Witaj z powrotem!",
+    "welcomeBack": "Witaj ponownie!",
     "google": "Zaloguj się za pomocą Google",
     "or": "Lub",
     "button": {
@@ -218,7 +218,7 @@
     }
   },
   "register": {
-    "welcome": "Cieszymy się, że zdecydowałeś się do nas!",
+    "welcome": "Cieszymy się, że zdecydowałeś się do nas dołączyć!",
     "button": {
       "placeholder": {
         "email": "Adres e-mail",

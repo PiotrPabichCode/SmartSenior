@@ -65,7 +65,7 @@ const BottomBarNavigator = () => {
           options={{
             tabBarLabel: t('bottomNav.events'),
             tabBarIcon: ({ focused, color }) =>
-              renderIcon({ name: 'home-bottom-nav', focused, color }),
+              renderIcon({ name: 'events-bottom-nav', focused, color }),
             tabBarBadge: events.length ? events.length : undefined,
             header: ({ navigation, route }) => (
               <CustomHeader

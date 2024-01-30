@@ -84,7 +84,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'events-bottom-nav':
       return (
         <Ionicons
-          name="calendar-outline"
+          name="today-outline"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={iconColor}
@@ -94,7 +94,7 @@ const Icons = ({ name, size, color, style, onPress }: IconProps) => {
     case 'events-bottom-nav-active':
       return (
         <Ionicons
-          name="calendar"
+          name="today"
           size={size || constants.iconSizeM}
           onPress={onPress}
           color={iconColor}

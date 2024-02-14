@@ -5,13 +5,13 @@ import { Dispatch, SetStateAction } from 'react';
 import { Note } from '@src/models';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type UpdateButtonProps = {
   storeNote: Note;
   note: Note;
   onSuccess: Dispatch<SetStateAction<Note>>;
 };
 
-const UpdateButton = ({ storeNote, note, onSuccess }: Props) => {
+const UpdateButton = ({ storeNote, note, onSuccess }: UpdateButtonProps) => {
   const backgroundColor = useThemeColors().customBtnBackground;
   return (
     <Button

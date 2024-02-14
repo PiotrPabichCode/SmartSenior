@@ -1,5 +1,7 @@
+import { SetFieldValueType } from '@src/models';
+
 export interface FormInputProps {
-  onChange: any;
+  onChange: SetFieldValueType;
   label: string;
   placeholder: string;
   value: string;

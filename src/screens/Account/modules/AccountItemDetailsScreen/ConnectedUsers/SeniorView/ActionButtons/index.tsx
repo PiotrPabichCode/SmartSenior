@@ -6,11 +6,11 @@ import { User } from '@src/models';
 import { navigate } from '@src/navigation/navigationUtils';
 import { View, Linking, StyleSheet } from 'react-native';
 
-type Props = {
+type ActionButtonsProps = {
   keeper: User;
 };
 
-const ActionButtons = ({ keeper }: Props) => {
+const ActionButtons = ({ keeper }: ActionButtonsProps) => {
   return (
     <View style={styles.container}>
       <Button

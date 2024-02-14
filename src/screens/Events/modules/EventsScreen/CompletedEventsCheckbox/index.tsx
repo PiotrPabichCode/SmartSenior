@@ -1,12 +1,12 @@
 import { CheckBox } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 
-type Props = {
+type CompletedEventsCheckboxProps = {
   onChange: (_: boolean) => void;
   checked: boolean;
 };
 
-const CompletedEventsCheckbox = ({ checked, onChange }: Props) => {
+const CompletedEventsCheckbox = ({ checked, onChange }: CompletedEventsCheckboxProps) => {
   return (
     <CheckBox
       checked={checked}

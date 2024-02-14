@@ -1,12 +1,13 @@
 import { CheckBox } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
+import { SetFieldValueType } from '@src/models';
 
-type Props = {
+type NotificationsCheckboxProps = {
   checked: boolean;
-  onPress: any;
+  onPress: SetFieldValueType;
 };
 
-const NotificationsCheckbox = ({ checked, onPress }: Props) => {
+const NotificationsCheckbox = ({ checked, onPress }: NotificationsCheckboxProps) => {
   return (
     <CheckBox
       title={t('createEvent.button.title.notification')}

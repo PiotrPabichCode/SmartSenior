@@ -4,13 +4,13 @@ import { EventItemProps } from './EventItem/utils';
 import { FlatList, ScrollView, StyleSheet } from 'react-native';
 import { EventItems } from '../types';
 
-type Props = {
+type EventsMapperProps = {
   events: EventItems;
   visible: boolean;
   type: 'completed' | 'delayed' | 'upcoming';
 };
 
-const EventsMapper = ({ events, visible, type }: Props) => {
+const EventsMapper = ({ events, visible, type }: EventsMapperProps) => {
   const renderItem = ({ item }: { item: EventItemProps }) => {
     return (
       <EventItem

@@ -1,14 +1,15 @@
 import { Timestamp } from 'firebase/firestore';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { SetFieldValueType } from '@src/models';
 
-type Props = {
+type DatePickerProps = {
   isVisible: boolean;
   date: Timestamp | null;
   minimumDate?: Timestamp | null;
   maximumDate?: Timestamp | null;
   fieldName: string;
-  onChange: any;
-  onClose: any;
+  onChange: SetFieldValueType;
+  onClose: (_: boolean) => void;
 };
 
 const DatePicker = ({
@@ -19,7 +20,7 @@ const DatePicker = ({
   fieldName,
   onChange,
   onClose,
-}: Props) => {
+}: DatePickerProps) => {
   return (
     isVisible && (
       <RNDateTimePicker

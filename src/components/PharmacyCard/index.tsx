@@ -6,14 +6,14 @@ import { Button } from '../shared';
 import { t } from '@src/localization/Localization';
 import useThemeColors from '@src/config/useThemeColors';
 
-type Props = {
+type PharmacyCardProps = {
   name: string;
   added: boolean;
   onPress?: () => void;
   onPressFavourite: () => void;
 };
 
-const PharmacyCard = ({ name, added, onPress, onPressFavourite }: Props) => {
+const PharmacyCard = ({ name, added, onPress, onPressFavourite }: PharmacyCardProps) => {
   const styles = useStyles();
   return (
     <View style={styles.container}>

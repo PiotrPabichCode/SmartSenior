@@ -5,17 +5,16 @@ import { Button } from '@src/components/shared';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { UserEvent } from '../../types';
 import { t } from '@src/localization/Localization';
-import { Dispatch, SetStateAction } from 'react';
 import useThemeColors from '@src/config/useThemeColors';
 
-type Props = {
+type EventItemProps = {
   event: UserEvent;
   userID: string;
   onEvent: () => void;
-  onLoad: Dispatch<SetStateAction<boolean>>;
+  onLoad: (_: boolean) => void;
 };
 
-const EventItem = ({ event, userID, onEvent, onLoad }: Props) => {
+const EventItem = ({ event, userID, onEvent, onLoad }: EventItemProps) => {
   return (
     <>
       <View style={styles.eventContainer}>

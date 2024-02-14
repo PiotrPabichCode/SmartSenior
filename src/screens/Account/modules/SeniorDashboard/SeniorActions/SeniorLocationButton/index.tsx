@@ -4,11 +4,11 @@ import { getSeniorLocation } from '@src/redux/auth/auth.api';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type SeniorLocationButtonProps = {
   user: ConnectedUser;
 };
 
-const SeniorLocationButton = ({ user }: Props) => {
+const SeniorLocationButton = ({ user }: SeniorLocationButtonProps) => {
   return (
     <Button
       title={t('seniorDashboard.localization')}

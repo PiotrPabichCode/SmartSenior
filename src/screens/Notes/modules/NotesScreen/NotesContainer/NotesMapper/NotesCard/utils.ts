@@ -1,9 +1,10 @@
 import { CustomToast } from '@src/components';
 import { t } from '@src/localization/Localization';
 import { deleteNote } from '@src/redux/notes/notes.actions';
+import { AppDispatch } from '@src/redux/store';
 import { Alert } from 'react-native';
 
-export const deleteNoteAlert = (key: string, title: string, dispatch: any) => {
+export const deleteNoteAlert = (key: string, title: string, dispatch: AppDispatch) => {
   return Alert.alert(title, t('noteDeleteAlertQuestion'), [
     {
       text: t('no'),

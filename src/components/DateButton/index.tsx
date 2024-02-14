@@ -2,19 +2,27 @@ import { Timestamp } from 'firebase/firestore';
 import { Button } from '@src/components/shared';
 import { convertTimestampToDate } from '@src/utils/utils';
 import { t } from '@src/localization/Localization';
-import { StyleSheet } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
-type Props = {
+type DateButtonProps = {
   date: Timestamp | null;
-  onPress: any;
-  onBlur?: any;
+  onPress: (_: boolean) => void;
+  onBlur?: (e: any) => void;
   isError?: boolean;
   labelEmpty: string;
   label: string;
-  styles?: any;
+  styles?: StyleProp<ViewStyle>;
 };
 
-const DateButton = ({ date, onPress, onBlur, isError, label, labelEmpty, styles }: Props) => {
+const DateButton = ({
+  date,
+  onPress,
+  onBlur,
+  isError,
+  label,
+  labelEmpty,
+  styles,
+}: DateButtonProps) => {
   return (
     <Button
       onPress={() => onPress(true)}

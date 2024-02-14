@@ -1,21 +1,22 @@
 import CustomDropdown from '@src/components/CustomDropdown';
 import { times } from '@src/redux/events/events.constants';
 import { t } from '@src/localization/Localization';
+import { SetFieldValueType } from '@src/models';
 
-type Props = {
+type NotificationProps = {
   enabled: boolean;
-  onChange: any;
+  onChange: SetFieldValueType;
   timeBefore: number;
 };
 
-const Notification = ({ enabled, onChange, timeBefore }: Props) => {
+const Notification = ({ enabled, onChange, timeBefore }: NotificationProps) => {
   return (
     enabled && (
       <CustomDropdown
         data={times}
         placeholder={t('createEvent.button.placeholder.notificationTime')}
         value={timeBefore}
-        handleChange={(e: any) => onChange('notifications.timeBefore', e.value)}
+        handleChange={e => onChange('notifications.timeBefore', e.value)}
       />
     )
   );

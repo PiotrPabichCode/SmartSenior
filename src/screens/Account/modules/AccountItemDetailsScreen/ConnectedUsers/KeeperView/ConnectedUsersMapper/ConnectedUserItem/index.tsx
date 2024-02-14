@@ -5,11 +5,11 @@ import { navigate } from '@src/navigation/navigationUtils';
 import { t } from '@src/localization/Localization';
 import { Text } from '@rneui/themed';
 
-type Props = {
+type ConnectedUserItemProps = {
   connectedUser: ConnectedUser;
 };
 
-const ConnectedUserItem = ({ connectedUser: user }: Props) => {
+const ConnectedUserItem = ({ connectedUser: user }: ConnectedUserItemProps) => {
   const styles = useStyles();
   const userData = user.user;
   return (

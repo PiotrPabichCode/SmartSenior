@@ -5,12 +5,12 @@ import { Timestamp } from 'firebase/firestore';
 import useThemeColors from '@src/config/useThemeColors';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type ActionButtonProps = {
   groupKey: string;
   date: Timestamp;
 };
 
-const ActionButton = ({ groupKey, date }: Props) => {
+const ActionButton = ({ groupKey, date }: ActionButtonProps) => {
   const styles = useStyles();
   return (
     <Button

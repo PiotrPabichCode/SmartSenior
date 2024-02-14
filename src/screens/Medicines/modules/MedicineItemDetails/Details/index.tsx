@@ -10,11 +10,11 @@ import DetailsItem from './DetailsItem';
 import { Medicine } from '@src/models';
 import useThemeColors from '@src/config/useThemeColors';
 
-type Props = {
+type DetailsProps = {
   medicineItem: Medicine;
 };
 
-const Details = ({ medicineItem }: Props) => {
+const Details = ({ medicineItem }: DetailsProps) => {
   const status = useAppSelector(state => selectMedicinesStatus(state));
   const styles = useStyles();
 

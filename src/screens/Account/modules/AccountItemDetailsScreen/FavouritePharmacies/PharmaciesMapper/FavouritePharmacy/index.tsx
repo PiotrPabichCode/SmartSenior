@@ -3,11 +3,11 @@ import { navigate } from '@src/navigation/navigationUtils';
 import { handleDeleteItem } from './utils';
 import { PharmacyCard } from '@src/components';
 
-type Props = {
+type FavouritePharmacyProps = {
   pharmacy: Pharmacy;
 };
 
-const FavouritePharmacy = ({ pharmacy }: Props) => {
+const FavouritePharmacy = ({ pharmacy }: FavouritePharmacyProps) => {
   return (
     <PharmacyCard
       name={pharmacy.name}

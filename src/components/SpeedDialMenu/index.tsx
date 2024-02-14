@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { SpeedDial } from '@rneui/themed';
 import { navigate } from '@src/navigation/navigationUtils';
-import { generateEvents } from '@src/helpers/generateEvents';
 import { t } from '@src/localization/Localization';
 import { Roles } from '@src/models';
 import { useAppSelector } from '@src/redux/types';

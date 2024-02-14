@@ -1,11 +1,11 @@
 import { Text } from '@rneui/themed';
 import { StyleSheet } from 'react-native';
 
-type Props = {
+type DetailTextProps = {
   text: string;
 };
 
-const DetailText = ({ text }: Props) => {
+const DetailText = ({ text }: DetailTextProps) => {
   return <Text style={styles.detail}>{text}</Text>;
 };
 

@@ -15,6 +15,7 @@ import { useAppSelector } from '@src/redux/types';
 import { selectChatsUnseenMessages } from '@src/redux/chats/chats.slice';
 import { selectEvents } from '@src/redux/events/events.slice';
 import useThemeColors from '@src/config/useThemeColors';
+import { Component, PropsWithChildren } from 'react';
 
 const Tab = createBottomTabNavigator<BottomBarParamList>();
 
@@ -50,7 +51,7 @@ const BottomBarNavigator = () => {
         />
         <Tab.Screen
           name="Calendar"
-          component={AgendaScreen} // TODO
+          component={AgendaScreen as any}
           options={{
             tabBarLabel: t('bottomNav.calendar'),
             tabBarIcon: ({ focused, color }) =>

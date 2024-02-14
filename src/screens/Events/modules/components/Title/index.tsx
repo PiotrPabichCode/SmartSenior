@@ -1,13 +1,14 @@
 import { Input } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
+import { HandleChangeType } from '@src/models';
 
-type Props = {
+type TitleProps = {
   value: string;
-  onChange: any;
+  onChange: HandleChangeType;
   disabled?: boolean;
 };
 
-const Title = ({ value, onChange, disabled }: Props) => {
+const Title = ({ value, onChange, disabled }: TitleProps) => {
   return (
     <Input
       disabled={disabled}

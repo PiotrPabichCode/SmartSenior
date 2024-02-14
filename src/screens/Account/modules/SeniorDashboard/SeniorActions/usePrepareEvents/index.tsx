@@ -4,7 +4,7 @@ import { UserEvents } from '../types';
 import { Timestamp } from 'firebase/firestore';
 import { createTags } from '@src/redux/events/events.api';
 
-export const usePrepareEvents = (eventGroups: EventGroups, onLoad: any) => {
+export const usePrepareEvents = (eventGroups: EventGroups, onLoad: (_: boolean) => void) => {
   const [events, setEvents] = useState<UserEvents>([]);
 
   useEffect(() => {

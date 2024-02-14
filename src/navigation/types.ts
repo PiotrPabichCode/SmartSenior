@@ -1,6 +1,6 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { EventGroups, Events, Medicine, Pharmacy } from '@src/models';
+import { EventGroup, EventGroups, Events, Medicine, Pharmacy } from '@src/models';
 import { Timestamp } from 'firebase/firestore';
 
 export type RootStackParamList = {
@@ -44,6 +44,7 @@ export type RootStackParamList = {
   };
   EventsGroup: {
     groupKey: string;
+    filterConditions: any;
   };
   EventsGroupDetails: {
     groupKey: string;
@@ -60,7 +61,7 @@ export type BottomBarParamList = {
   Events: {
     onBack: any;
     filteredData: EventGroups;
-    filterConditions: any;
+    filterConditions: object[];
   };
   Chat: undefined;
   Account: undefined;
@@ -85,3 +86,12 @@ export type MedicineItemScreenDetails = NativeStackScreenProps<
 >;
 
 export type NoteDetailsProps = NativeStackScreenProps<RootStackParamList, 'NoteDetails'>;
+
+export type SeniorDashboardProps = NativeStackScreenProps<RootStackParamList, 'SeniorDashboard'>;
+
+export type AccountItemDetailsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'AccountItemDetails'
+>;
+
+export type FilterPanelProps = NativeStackScreenProps<RootStackParamList, 'FilterPanel'>;

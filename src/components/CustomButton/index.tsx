@@ -9,15 +9,15 @@ import {
   ViewStyle,
 } from 'react-native';
 
-interface ButtonProps {
-  icon: any;
+type CustomButtonProps = {
+  icon: React.JSX.Element;
   title: string;
   titleStyle?: StyleProp<TextStyle>;
   style?: StyleProp<ViewStyle>;
   color?: ColorValue;
   backgroundColor?: ColorValue;
   onPress?: () => void;
-}
+};
 
 const CustomButton = ({
   icon,
@@ -26,7 +26,7 @@ const CustomButton = ({
   style,
   backgroundColor,
   onPress,
-}: ButtonProps) => {
+}: CustomButtonProps) => {
   const theme = useTheme().theme.colors;
   const renderDetails = () => {
     return (

@@ -1,15 +1,16 @@
 import { Timestamp } from 'firebase/firestore';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { SetFieldValueType } from '@src/models';
 
-type Props = {
+type EndDatePickerProps = {
   isVisible: boolean;
   date: Timestamp | null;
   endDate: Timestamp | null;
-  onChange: any;
-  onClose: any;
+  onChange: SetFieldValueType;
+  onClose: (_: boolean) => void;
 };
 
-const EndDatePicker = ({ isVisible, date, endDate, onChange, onClose }: Props) => {
+const EndDatePicker = ({ isVisible, date, endDate, onChange, onClose }: EndDatePickerProps) => {
   const getStartingEndDate = (date: Timestamp) => {
     const newDate = date.toDate();
     newDate.setDate(newDate.getDate() + 1);

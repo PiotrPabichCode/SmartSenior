@@ -1,19 +1,20 @@
 import MultiSelectDropdown from '@src/components/MultiSelectDropdown';
 import { t } from '@src/localization/Localization';
+import { SetFieldValueType } from '@src/models';
 
 export type SearchTitle = {
   label: string;
   value: string;
 };
 
-type Props = {
+type TitlesPickerProps = {
   data: Array<SearchTitle>;
   selectedValues: Array<string>;
   fieldName: string;
-  onChange: any;
+  onChange: SetFieldValueType;
 };
 
-const TitlesPicker = ({ data, selectedValues, fieldName, onChange }: Props) => {
+const TitlesPicker = ({ data, selectedValues, fieldName, onChange }: TitlesPickerProps) => {
   return (
     <MultiSelectDropdown
       data={data}

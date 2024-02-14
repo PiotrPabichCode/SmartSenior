@@ -95,13 +95,13 @@ const FirstLoginForm = ({ user }: FirstLoginFormProps) => {
               data={genders}
               placeholder={t('firstLoginWizard.button.placeholder.gender')}
               value={values.gender}
-              handleChange={(e: any) => setFieldValue('gender', e.value)}
+              handleChange={e => setFieldValue('gender', e.value)}
             />
             <CustomDropdown
               data={roles.filter(role => role.value !== Roles.ADMIN)}
               placeholder={t('firstLoginWizard.button.placeholder.role')}
               value={values.role}
-              handleChange={(e: any) => setFieldValue('role', e.value)}
+              handleChange={e => setFieldValue('role', e.value)}
             />
             <SaveChangesButton onSubmit={handleSubmit} />
           </>

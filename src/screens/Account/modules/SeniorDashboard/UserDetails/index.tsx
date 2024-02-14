@@ -6,11 +6,11 @@ import { Text } from '@rneui/themed';
 import DetailText from './DetailText';
 import useThemeColors from '@src/config/useThemeColors';
 
-type Props = {
+type UserDetailsProps = {
   user: ConnectedUser;
 };
 
-const UserDetails = ({ user }: Props) => {
+const UserDetails = ({ user }: UserDetailsProps) => {
   const userData = user.user;
   const styles = useStyles();
   return (

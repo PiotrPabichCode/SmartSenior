@@ -4,14 +4,15 @@ import { t } from '@src/localization/Localization';
 import { renderDayValue } from '@src/utils/utils';
 import { Timestamp } from 'firebase/firestore';
 import { Text } from '@rneui/themed';
+import { SetFieldValueType } from '@src/models';
 
-interface DaysProps {
+interface DayFieldsRendererProps {
   days: Day[];
   startDate: Timestamp;
-  setFieldValue: any;
+  setFieldValue: SetFieldValueType;
 }
 
-const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DaysProps) => {
+const DayFieldsRenderer = ({ days, startDate, setFieldValue }: DayFieldsRendererProps) => {
   const renderDaysLabel = () => {
     const activeDays = days.filter(day => day.active);
     return (

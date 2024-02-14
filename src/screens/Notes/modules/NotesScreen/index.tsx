@@ -32,7 +32,7 @@ const NotesScreen = () => {
           data={elementsPerLineOptions}
           value={elementsPerLine}
           viewStyle={{ flex: 1 }}
-          handleChange={(e: any) => setElementsPerLine(e.value)}
+          handleChange={e => setElementsPerLine(e.value)}
         />
       </View>
       <View style={styles.sortContainer}>
@@ -43,7 +43,7 @@ const NotesScreen = () => {
           <CustomDropdown
             data={sortOptions}
             value={sortBy}
-            handleChange={(e: any) => setSortBy(e.value)}
+            handleChange={e => setSortBy(e.value)}
           />
         </View>
         <View style={styles.sortSingleItemContainer}>
@@ -53,7 +53,7 @@ const NotesScreen = () => {
           <CustomDropdown
             data={sortTypes}
             value={sortType}
-            handleChange={(e: any) => setSortType(e.value)}
+            handleChange={e => setSortType(e.value)}
           />
         </View>
       </View>

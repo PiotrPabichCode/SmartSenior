@@ -2,12 +2,12 @@ import { Input } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 
-type Props = {
+type NoteDescriptionProps = {
   value: string | undefined;
   onChange: (value: string) => void;
 };
 
-const NoteDescription = ({ value, onChange }: Props) => {
+const NoteDescription = ({ value, onChange }: NoteDescriptionProps) => {
   return (
     <Input
       label={t('noteDescription')}

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@src/redux/types';
 import { selectUser } from '@src/redux/auth/auth.slice';
 import { t } from '@src/localization/Localization';
-import { Button } from '@rneui/themed';
 import { Formik } from 'formik';
 import { getUpdatedFields } from '@src/utils/utils';
 import CustomToast from '@src/components/CustomToast';
@@ -83,7 +82,7 @@ const AccountData = () => {
               <ChangeDataButton visible={isUpdate} onSubmit={handleSubmit} />
             </View>
             <FormikObserver
-              onChange={(data: any) => {
+              onChange={data => {
                 const changedFields = getUpdatedFields(data.initialValues, data.values);
                 if (Object.keys(changedFields).length > 0) {
                   setIsUpdate(true);

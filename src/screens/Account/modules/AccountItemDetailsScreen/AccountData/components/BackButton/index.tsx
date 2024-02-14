@@ -2,11 +2,11 @@ import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type BackButtonProps = {
   onClose: (_: boolean) => void;
 };
 
-const BackButton = ({ onClose }: Props) => {
+const BackButton = ({ onClose }: BackButtonProps) => {
   return (
     <Button
       title={t('account.back')}

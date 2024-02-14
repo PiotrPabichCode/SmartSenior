@@ -4,13 +4,13 @@ import { convertTimestampToDate } from '@src/utils/utils';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type DateButtonProps = {
   date: Timestamp | null;
-  onPress?: any;
+  onPress?: (_: boolean) => void;
   disabled?: boolean;
 };
 
-const DateButton = ({ date, onPress, disabled }: Props) => {
+const DateButton = ({ date, onPress, disabled }: DateButtonProps) => {
   return (
     <Button
       onPress={() => {

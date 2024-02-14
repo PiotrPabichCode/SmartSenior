@@ -6,19 +6,19 @@ import { recurringTimes } from '@src/redux/events/events.constants';
 import { renderDayValue } from '@src/utils/utils';
 import { StyleSheet } from 'react-native';
 
-type Props = {
+type RecurrenceProps = {
   type: Frequency['type'];
   daysOfWeek: Frequency['daysOfWeek'];
   interval: Frequency['interval'];
   unit: Frequency['unit'];
 };
 
-const Recurrence = ({ type, daysOfWeek, interval, unit }: Props) => {
+const Recurrence = ({ type, daysOfWeek, interval, unit }: RecurrenceProps) => {
   const styles = useStyles();
   if (type === 'specificDays' && daysOfWeek) {
     const days = [1, 2, 3, 4, 5, 6, 0];
     const selectedDays = daysOfWeek;
-    const out: any = [];
+    const out: React.JSX.Element[] = [];
     days.map((day, index) => {
       if (index === 0) {
         out.push(

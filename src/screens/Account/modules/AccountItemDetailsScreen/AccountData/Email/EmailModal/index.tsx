@@ -7,11 +7,15 @@ import CustomToast from '@src/components/CustomToast';
 import { changeEmail } from '@src/redux/auth/auth.api';
 import * as Yup from 'yup';
 import Toast from 'react-native-toast-message';
-import { EmailModalProps } from './types';
 import FormInput from './FormInput';
 import EmailChangeButton from './EmailChangeButton';
 import { BackButton } from '../../components';
 import useThemeColors from '@src/config/useThemeColors';
+
+type EmailModalProps = {
+  visible: boolean;
+  onClose: (_: boolean) => void;
+};
 
 const EmailModal = ({ visible, onClose }: EmailModalProps) => {
   const styles = useStyles();

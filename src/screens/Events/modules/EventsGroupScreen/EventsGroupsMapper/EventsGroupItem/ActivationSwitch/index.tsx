@@ -4,13 +4,13 @@ import { EventGroup } from '@src/models';
 import { View, StyleSheet } from 'react-native';
 import { switchEventsGroup } from '../utils';
 
-type Props = {
+type ActivationSwitchProps = {
   active: boolean;
   eventsGroup: EventGroup;
   groupKey: string;
 };
 
-const ActivationSwitch = ({ active, eventsGroup, groupKey }: Props) => {
+const ActivationSwitch = ({ active, eventsGroup, groupKey }: ActivationSwitchProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{t('eventGroups.switchEvent')}</Text>

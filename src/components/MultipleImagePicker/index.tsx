@@ -8,12 +8,12 @@ import { t } from '@src/localization/Localization';
 import Icons from '../Icons';
 import useThemeColors from '@src/config/useThemeColors';
 
-type Props = {
-  onChange: any;
+type MultipleImagePickerProps = {
+  onChange: (fieldName: string, images: Images) => void;
   initialValues?: Images;
 };
 
-const MultipleImagePicker = ({ onChange, initialValues }: Props) => {
+const MultipleImagePicker = ({ onChange, initialValues }: MultipleImagePickerProps) => {
   const [selectedImages, setSelectedImages] = useState<Images>(initialValues ? initialValues : []);
   const BASE_WIDTH = 200;
   const BASE_HEIGHT = 200;

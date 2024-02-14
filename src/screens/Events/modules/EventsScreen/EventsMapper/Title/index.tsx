@@ -1,11 +1,11 @@
 import { Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 
-type Props = {
+type TitleProps = {
   type: 'delayed' | 'completed' | 'upcoming';
 };
 
-const Title = ({ type }: Props) => {
+const Title = ({ type }: TitleProps) => {
   let label = t('eventGroups.upcomingEventsTitle');
   if (type === 'delayed') {
     label = t('eventGroups.delayedEventsTitle');

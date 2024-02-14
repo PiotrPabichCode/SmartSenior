@@ -9,13 +9,17 @@ import { View } from 'react-native';
 import useThemeColors from '@src/config/useThemeColors';
 import 'dayjs/locale/pl';
 import { t } from '@src/localization/Localization';
+import { Chat } from '@src/models';
+
+type MessageDisplayProps = {
+  activeChat: Chat;
+};
 
 // New functional component for fetching and displaying messages
-const MessageDisplay = ({ activeChat }: { activeChat: any }) => {
+const MessageDisplay = ({ activeChat }: MessageDisplayProps) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
 
   useLayoutEffect(() => {
-    console.log(activeChat);
     const q = query(
       collection(db, 'chats', activeChat.key, 'messages'),
       orderBy('createdAt', 'desc'),

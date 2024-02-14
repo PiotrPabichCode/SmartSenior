@@ -52,10 +52,11 @@ import { t } from '@src/localization/Localization';
 import { UserLocation } from './auth.constants';
 import { FirebaseError } from 'firebase/app';
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
+import { RootState } from '../store';
 
-const selectUserID = (state: any) => state.auth.user?.uid;
-const selectEmail = (state: any) => state.auth.user?.email;
-const selectUserConnectedUsersIds = (state: any) => state.auth.user?.connectedUsersIds;
+const selectUserID = (state: RootState) => state.auth.user?.uid;
+const selectEmail = (state: RootState) => state.auth.user?.email;
+const selectUserConnectedUsersIds = (state: RootState) => state.auth.user?.connectedUsersIds;
 
 const getUserTemplate = (uid: string, email: string | null): User => {
   const emptyUser: User = {
@@ -373,6 +374,9 @@ export const addConnectedUser = async (email: string) => {
     }
 
     const userID = selectUserID(store.getState());
+    if (!userID) {
+      throw new Error('User ID does not exists');
+    }
     const _doc = firebase.userDoc(userID);
 
     const batch = writeBatch(db);
@@ -432,6 +436,9 @@ TaskManager.defineTask(LOCATION_TASK_NAME, ({ data: { locations }, error }: any)
     timestamp: Timestamp.fromMillis(locations[0].timestamp),
   };
   const seniorID = selectUserID(store.getState());
+  if (!seniorID) {
+    throw new Error('Senior ID does not exists');
+  }
   updateSeniorLocation(seniorID, newLocation);
 });
 

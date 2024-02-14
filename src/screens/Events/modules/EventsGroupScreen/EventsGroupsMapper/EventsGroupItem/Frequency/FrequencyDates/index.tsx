@@ -4,12 +4,12 @@ import { convertTimestampToDate } from '@src/utils/utils';
 import { Timestamp } from 'firebase/firestore';
 import { StyleSheet } from 'react-native';
 
-type Props = {
+type FrequencyDatesProps = {
   startDate: Timestamp | null;
   endDate: Timestamp | null;
 };
 
-const FrequencyDates = ({ startDate, endDate }: Props) => {
+const FrequencyDates = ({ startDate, endDate }: FrequencyDatesProps) => {
   return (
     startDate &&
     endDate && (

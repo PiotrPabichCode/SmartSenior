@@ -1,17 +1,18 @@
 import { Timestamp } from 'firebase/firestore';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { createDatetimeTimezone } from '@src/utils/utils';
+import { SetFieldValueType } from '@src/models';
 
-type Props = {
+type TimePickerProps = {
   isVisible: boolean;
   newDate: Date | undefined;
   date: Timestamp | null;
   endDate: Timestamp | null;
-  onChange: any;
-  onClose: any;
+  onChange: SetFieldValueType;
+  onClose: (_: boolean) => void;
 };
 
-const TimePicker = ({ isVisible, newDate, date, endDate, onChange, onClose }: Props) => {
+const TimePicker = ({ isVisible, newDate, date, endDate, onChange, onClose }: TimePickerProps) => {
   return (
     isVisible && (
       <RNDateTimePicker

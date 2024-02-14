@@ -2,14 +2,15 @@ import { t } from '@src/localization/Localization';
 import { Timestamp } from 'firebase/firestore';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
+import { SetFieldValueType } from '@src/models';
 
-type Props = {
-  onPress: any;
+type CompleteButtonProps = {
+  onPress: () => void;
   fieldName: string;
-  onChange: any;
+  onChange: SetFieldValueType;
 };
 
-const CompleteButton = ({ onPress, onChange, fieldName }: Props) => {
+const CompleteButton = ({ onPress, onChange, fieldName }: CompleteButtonProps) => {
   return (
     <Button
       title={t('eventItemScreen.button.title.execute')}

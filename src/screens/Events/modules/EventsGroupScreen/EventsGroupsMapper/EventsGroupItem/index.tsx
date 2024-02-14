@@ -8,11 +8,11 @@ import Frequency from './Frequency';
 import ActivationSwitch from './ActivationSwitch';
 import ModificationDates from './ModificationDates';
 
-type Props = {
+type EventsGroupItemProps = {
   groupKey: string;
 };
 
-const EventsGroupItem = ({ groupKey }: Props) => {
+const EventsGroupItem = ({ groupKey }: EventsGroupItemProps) => {
   const eventsGroup = useAppSelector(state => selectEventsGroupByKey(state, groupKey));
 
   if (!eventsGroup) {

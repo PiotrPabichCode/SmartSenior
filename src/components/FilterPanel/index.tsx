@@ -18,8 +18,9 @@ import { SearchTitle } from './components/TitlesPicker';
 import { View } from 'react-native';
 import useThemeColors from '@src/config/useThemeColors';
 import { handleError } from '@src/common/actions';
+import { FilterPanelProps } from '@src/navigation/types';
 
-const FilterPanel = ({ route }: any) => {
+const FilterPanel = ({ route }: FilterPanelProps) => {
   const { filters } = route.params;
   const eventGroups = useAppSelector(state => selectEventGroups(state));
   const tags = useAppSelector(state => selectTags(state));

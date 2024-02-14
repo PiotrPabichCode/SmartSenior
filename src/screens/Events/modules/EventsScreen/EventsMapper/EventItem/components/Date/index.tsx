@@ -4,11 +4,11 @@ import { convertTimestampToDate } from '@src/utils/utils';
 import { Timestamp } from 'firebase/firestore';
 import { View, StyleSheet } from 'react-native';
 
-type Props = {
+type DateProps = {
   date: Timestamp;
 };
 
-const Date = ({ date }: Props) => {
+const Date = ({ date }: DateProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{t('eventGroups.date')}</Text>

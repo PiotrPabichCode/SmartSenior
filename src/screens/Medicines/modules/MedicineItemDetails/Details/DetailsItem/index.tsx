@@ -2,12 +2,12 @@ import { Divider, Text } from '@rneui/themed';
 import useThemeColors from '@src/config/useThemeColors';
 import { StyleSheet } from 'react-native';
 
-type Props = {
+type DetailsItemProps = {
   title: string;
   detail: string;
 };
 
-const DetailsItem = ({ title, detail }: Props) => {
+const DetailsItem = ({ title, detail }: DetailsItemProps) => {
   const styles = useStyles();
   return (
     <>

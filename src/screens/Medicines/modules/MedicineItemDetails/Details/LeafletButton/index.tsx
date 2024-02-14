@@ -3,12 +3,12 @@ import { StyleSheet } from 'react-native';
 import { onPress } from './utils';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type LeafletButtonProps = {
   url: string;
   name: string;
 };
 
-const LeafletButton = ({ url, name }: Props) => {
+const LeafletButton = ({ url, name }: LeafletButtonProps) => {
   return (
     <Button
       title={t('medicineItem.leaflet')}

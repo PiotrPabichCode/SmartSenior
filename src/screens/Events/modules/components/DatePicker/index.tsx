@@ -1,15 +1,15 @@
 import { Timestamp } from 'firebase/firestore';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
-type Props = {
+type DatePickerProps = {
   isVisible: boolean;
   date: Timestamp | null;
-  onChange: any;
-  onClose: any;
-  onTimePickerOpen: any;
+  onChange: (_: Date | undefined) => void;
+  onClose: (_: boolean) => void;
+  onTimePickerOpen: (_: boolean) => void;
 };
 
-const DatePicker = ({ isVisible, date, onChange, onClose, onTimePickerOpen }: Props) => {
+const DatePicker = ({ isVisible, date, onChange, onClose, onTimePickerOpen }: DatePickerProps) => {
   return (
     isVisible && (
       <RNDateTimePicker

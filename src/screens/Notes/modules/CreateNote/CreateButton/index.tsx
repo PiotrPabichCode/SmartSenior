@@ -2,15 +2,14 @@ import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { handlePress } from '../utils';
 import { Note } from '@src/models';
-import { Dispatch, SetStateAction } from 'react';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type CreateButtonProps = {
   note: Partial<Note>;
-  onChange: Dispatch<SetStateAction<Partial<Note>>>;
+  onChange: (note: Partial<Note>) => void;
 };
 
-const CreateButton = ({ note, onChange }: Props) => {
+const CreateButton = ({ note, onChange }: CreateButtonProps) => {
   const backgroundColor = useThemeColors().customBtnBackground;
   return (
     <Button

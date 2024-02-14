@@ -1,11 +1,11 @@
 import { EventGroups } from '@src/models';
 import EventsGroupItem from './EventsGroupItem';
 
-type Props = {
+type EventsGroupsMapperProps = {
   eventsGroups: EventGroups;
 };
 
-const EventsGroupsMapper = ({ eventsGroups }: Props) => {
+const EventsGroupsMapper = ({ eventsGroups }: EventsGroupsMapperProps) => {
   return eventsGroups.map((e, index) => {
     return <EventsGroupItem key={index} groupKey={e.key} />;
   });

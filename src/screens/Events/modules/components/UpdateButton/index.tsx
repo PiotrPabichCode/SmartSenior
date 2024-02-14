@@ -2,12 +2,12 @@ import { t } from '@src/localization/Localization';
 import Colors from '@src/constants/Colors';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type UpdateButtonProps = {
   visible: boolean;
-  onPress: any;
+  onPress: () => void;
 };
 
-const UpdateButton = ({ visible, onPress }: Props) => {
+const UpdateButton = ({ visible, onPress }: UpdateButtonProps) => {
   return (
     visible && (
       <Button

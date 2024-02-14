@@ -1,6 +1,9 @@
 import { t } from '@src/localization/Localization';
-import { EmailChangeButtonProps } from './types';
 import { Button } from '@src/components/shared';
+
+type EmailChangeButtonProps = {
+  onPress: () => void;
+};
 
 const EmailChangeButton = ({ onPress }: EmailChangeButtonProps) => {
   return (

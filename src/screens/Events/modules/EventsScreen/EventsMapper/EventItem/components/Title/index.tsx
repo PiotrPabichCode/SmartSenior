@@ -3,13 +3,13 @@ import { t } from '@src/localization/Localization';
 import { Timestamp } from 'firebase/firestore';
 import { StyleSheet } from 'react-native';
 
-type Props = {
+type TitleProps = {
   completed?: boolean;
   title: string;
   date: Timestamp;
 };
 
-const Title = ({ completed, title, date }: Props) => {
+const Title = ({ completed, title, date }: TitleProps) => {
   let label = t('eventGroups.upcomingEvent', {
     title: title,
   });

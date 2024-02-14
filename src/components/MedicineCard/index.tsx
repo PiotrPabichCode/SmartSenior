@@ -5,14 +5,14 @@ import { Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 import useThemeColors from '@src/config/useThemeColors';
 
-type Props = {
+type MedicineCardProps = {
   name: string;
   added: boolean;
   onPress?: () => void;
   onPressFavourite: () => void;
 };
 
-const MedicineCard = ({ added, name, onPressFavourite, onPress }: Props) => {
+const MedicineCard = ({ added, name, onPressFavourite, onPress }: MedicineCardProps) => {
   const styles = useStyles();
   return (
     <View style={styles.container}>

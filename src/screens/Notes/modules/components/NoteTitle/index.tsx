@@ -1,12 +1,12 @@
 import { Input } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 
-type Props = {
+type NoteTitleProps = {
   value: string | undefined;
   onChange: (value: string) => void;
 };
 
-const NoteTitle = ({ value, onChange }: Props) => {
+const NoteTitle = ({ value, onChange }: NoteTitleProps) => {
   return (
     <Input
       numberOfLines={1}

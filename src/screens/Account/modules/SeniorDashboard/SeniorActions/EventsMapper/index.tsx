@@ -6,14 +6,14 @@ import { Dispatch, SetStateAction } from 'react';
 import { Text } from '@rneui/themed';
 import { FlatList, ScrollView } from 'react-native';
 
-type Props = {
+type EventsMapperProps = {
   events: UserEvents;
   user: ConnectedUser;
   onEvent: (newEvents: UserEvents) => void;
   onLoad: Dispatch<SetStateAction<boolean>>;
 };
 
-const EventsMapper = ({ user, events, onEvent, onLoad }: Props) => {
+const EventsMapper = ({ user, events, onEvent, onLoad }: EventsMapperProps) => {
   const renderItem = ({ item }: { item: UserEvent }) => {
     return (
       <EventItem

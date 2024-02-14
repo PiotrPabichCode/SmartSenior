@@ -10,7 +10,7 @@ import SearchButton from './SearchButton';
 const SearchForm = ({ onLoad }: SearchFormProps) => {
   return (
     <Formik
-      initialValues={{ name: '', companyCity: '', companyProvince: '' }}
+      initialValues={{ name: '', pharmacyCity: '', pharmacyProvince: '' }}
       onSubmit={params => {
         try {
           const request = buildApiRequest(BASE_SEARCH_URL, params);
@@ -28,14 +28,14 @@ const SearchForm = ({ onLoad }: SearchFormProps) => {
           />
           <Input
             placeholder={t('pharmaciesScreen.placeholder.city')}
-            onChangeText={handleChange('companyCity')}
-            value={values.companyCity}
+            onChangeText={handleChange('pharmacyCity')}
+            value={values.pharmacyCity}
           />
           <CustomDropdown
             data={provinces}
             placeholder={t('pharmaciesScreen.placeholder.province')}
-            value={values.companyProvince}
-            handleChange={(e: any) => setFieldValue('companyProvince', e.value)}
+            value={values.pharmacyProvince}
+            handleChange={e => setFieldValue('pharmacyProvince', e.value)}
           />
           <SearchButton onPress={handleSubmit} />
         </>

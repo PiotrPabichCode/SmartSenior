@@ -2,12 +2,12 @@ import { t } from '@src/localization/Localization';
 import { useEffect } from 'react';
 import { Alert } from 'react-native';
 
-type Props = {
+type DiscardChangesAlertProps = {
   navigation: any;
   isUpdate: boolean;
 };
 
-const DiscardChangesAlert = ({ navigation, isUpdate }: Props) => {
+const DiscardChangesAlert = ({ navigation, isUpdate }: DiscardChangesAlertProps) => {
   useEffect(() => {
     return navigation.addListener('beforeRemove', (e: any) => {
       if (!isUpdate) {

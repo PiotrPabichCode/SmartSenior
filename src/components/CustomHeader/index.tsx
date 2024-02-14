@@ -5,17 +5,24 @@ import Icons from '@src/components/Icons';
 import { goBack, navigate } from '@src/navigation/navigationUtils';
 import useThemeColors from '@src/config/useThemeColors';
 import { Text } from '@rneui/themed';
+import { Event } from '@src/models';
 
-type HeaderProps = {
+type CustomHeaderProps = {
   title: string;
   nested?: boolean;
   more?: boolean;
   filter?: boolean;
-  onBack?: any;
+  onBack?: ({
+    filteredData,
+    filterConditions,
+  }: {
+    filteredData: Event[];
+    filterConditions: object;
+  }) => void;
   filters?: any;
 };
 
-const CustomHeader = ({ title, nested, more, filter, onBack, filters }: HeaderProps) => {
+const CustomHeader = ({ title, nested, more, filter, onBack, filters }: CustomHeaderProps) => {
   const theme = useThemeColors();
   const styles = useStyles();
   const { top } = useSafeAreaInsets();

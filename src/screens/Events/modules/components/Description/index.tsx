@@ -1,18 +1,21 @@
 import { Input } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 
-type Props = {
+type DescriptionProps = {
   value: string;
-  onChange: any;
+  onChange: (text: string) => void;
 };
 
-const Description = ({ value, onChange }: Props) => {
+const Description = ({ value, onChange }: DescriptionProps) => {
   return (
     <Input
       label={t('eventItemScreen.button.label.description')}
       placeholder={t('createEvent.button.placeholder.description')}
       multiline={true}
-      onChangeText={onChange('description')}
+      onChangeText={e => {
+        console.log(e);
+        onChange('description');
+      }}
       value={value}
     />
   );

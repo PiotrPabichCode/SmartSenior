@@ -4,13 +4,13 @@ import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type EndDateButtonProps = {
   isRecurring: boolean;
-  onPress: any;
+  onPress: (_: boolean) => void;
   endDate: Timestamp | null;
 };
 
-const EndDateButton = ({ isRecurring, onPress, endDate }: Props) => {
+const EndDateButton = ({ isRecurring, onPress, endDate }: EndDateButtonProps) => {
   return (
     isRecurring && (
       <Button

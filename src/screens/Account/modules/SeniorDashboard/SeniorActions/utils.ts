@@ -127,7 +127,7 @@ export const handleDeleteEvent = ({ groupKey, title, date, onDelete }: onDeleteP
 export async function sendEventNotificationReminder(
   userEvent: UserEvent,
   userID: string,
-  onNotification: any,
+  onNotification: (_: boolean) => void,
 ) {
   try {
     onNotification(true);

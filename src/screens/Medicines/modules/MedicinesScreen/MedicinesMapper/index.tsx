@@ -5,11 +5,11 @@ import { handleAddMedicine, handleDeleteItem } from './utils';
 import { MedicineCard } from '@src/components';
 import { Medicines } from '@src/models';
 
-type Props = {
+type MedicinesMapperProps = {
   apiMedicines: Medicines;
 };
 
-const MedicinesMapper = ({ apiMedicines }: Props) => {
+const MedicinesMapper = ({ apiMedicines }: MedicinesMapperProps) => {
   const medicines = useAppSelector(state => selectMedicines(state));
   return (
     apiMedicines &&

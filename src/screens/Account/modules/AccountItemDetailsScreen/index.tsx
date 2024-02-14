@@ -8,8 +8,9 @@ import Language from './Language';
 import FavouriteMedicines from './FavouriteMedicines';
 import FavouritePharmacies from './FavouritePharmacies';
 import ConnectedUsers from './ConnectedUsers';
+import { AccountItemDetailsScreenProps } from '@src/navigation/types';
 
-const AccountItemDetailsScreen = ({ route }: any) => {
+const AccountItemDetailsScreen = ({ route }: AccountItemDetailsScreenProps) => {
   const user = useAppSelector(state => selectUser(state));
 
   if (!user) {

@@ -4,12 +4,12 @@ import { convertTimestampToDate } from '@src/utils/utils';
 import { Timestamp } from 'firebase/firestore';
 import { View, StyleSheet } from 'react-native';
 
-type Props = {
+type ModificationDatesProps = {
   createdAt: Timestamp;
   updatedAt: Timestamp;
 };
 
-const ModificationDates = ({ createdAt, updatedAt }: Props) => {
+const ModificationDates = ({ createdAt, updatedAt }: ModificationDatesProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.dateContainer}>

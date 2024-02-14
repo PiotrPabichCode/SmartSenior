@@ -3,14 +3,15 @@ import DayFieldsRenderer from './DayFieldsRenderer';
 import { filterPossibleDays } from '@src/redux/events/events.constants';
 import { useEffect, useState } from 'react';
 import { Day } from './DayFieldsRenderer/DayField';
+import { SetFieldValueType } from '@src/models';
 
-type Props = {
+type SpecificDaysRecurringProps = {
   isRecurring: boolean;
   startDate: Timestamp | null;
   endDate: Timestamp | null;
   daysOfWeek: Array<number> | null;
   type: 'custom' | 'specificDays' | null;
-  onChange: any;
+  onChange: SetFieldValueType;
 };
 
 const SpecificDaysRecurring = ({
@@ -20,7 +21,7 @@ const SpecificDaysRecurring = ({
   daysOfWeek,
   type,
   onChange,
-}: Props) => {
+}: SpecificDaysRecurringProps) => {
   const [days, setDays] = useState([] as Day[]);
 
   useEffect(() => {

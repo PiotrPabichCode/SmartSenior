@@ -1,17 +1,17 @@
 import { View, StyleSheet } from 'react-native';
-import { Tags } from '@src/models';
+import { SetFieldValueType, Tags } from '@src/models';
 import { t } from '@src/localization/Localization';
 import TagCard from '@src/components/TagCard';
 import { Text } from '@rneui/themed';
 
-type Props = {
+type TagsDisplayProps = {
   selectedTags: Tags;
   fieldName?: string;
-  onPress?: any;
+  onPress?: SetFieldValueType;
   disabled?: boolean;
 };
 
-const TagsDisplay = ({ selectedTags, fieldName, onPress, disabled }: Props) => {
+const TagsDisplay = ({ selectedTags, fieldName, onPress, disabled }: TagsDisplayProps) => {
   return (
     selectedTags.length > 0 && (
       <View style={styles.container} pointerEvents={disabled ? 'none' : 'auto'}>
@@ -25,6 +25,7 @@ const TagsDisplay = ({ selectedTags, fieldName, onPress, disabled }: Props) => {
               id={tag.id}
               onPress={() => {
                 onPress &&
+                  fieldName &&
                   onPress(
                     fieldName,
                     selectedTags.filter(t => t.id !== tag.id),

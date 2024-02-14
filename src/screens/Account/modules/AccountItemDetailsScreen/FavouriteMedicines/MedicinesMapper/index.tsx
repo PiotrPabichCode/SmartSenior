@@ -1,11 +1,11 @@
 import { Medicines } from '@src/models';
 import FavouriteMedicine from './FavouriteMedicine';
 
-type Props = {
+type MedicinesMapperProps = {
   medicines: Medicines;
 };
 
-const MedicinesMapper = ({ medicines }: Props) => {
+const MedicinesMapper = ({ medicines }: MedicinesMapperProps) => {
   return medicines.map((medicine, index) => {
     return <FavouriteMedicine key={index} medicine={medicine} />;
   });

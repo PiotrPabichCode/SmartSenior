@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
 import useThemeColors from '@src/config/useThemeColors';
 
-type Props = {
+type SignInButtonProps = {
   onSubmit: () => void;
 };
 
-const SignInButton = ({ onSubmit }: Props) => {
+const SignInButton = ({ onSubmit }: SignInButtonProps) => {
   const styles = useStyles();
   return (
     <Button

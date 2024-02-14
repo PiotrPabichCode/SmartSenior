@@ -2,15 +2,16 @@ import { Timestamp } from 'firebase/firestore';
 import { RecurringValues, getReccuringTimes } from '@src/redux/events/events.constants';
 import CustomDropdown from '@src/components/CustomDropdown';
 import { t } from '@src/localization/Localization';
+import { SetFieldValueType } from '@src/models';
 
-type Props = {
+type CustomRecurringProps = {
   isRecurring: boolean;
   type: 'custom' | 'specificDays' | null;
   startDate: Timestamp | null;
   endDate: Timestamp | null;
   value: RecurringValues | null;
-  onValueChange: any;
-  onChange: any;
+  onValueChange: (_: RecurringValues | null) => void;
+  onChange: SetFieldValueType;
 };
 
 const CustomRecurring = ({
@@ -21,7 +22,7 @@ const CustomRecurring = ({
   value,
   onValueChange,
   onChange,
-}: Props) => {
+}: CustomRecurringProps) => {
   return (
     isRecurring &&
     startDate &&
@@ -31,7 +32,7 @@ const CustomRecurring = ({
         data={getReccuringTimes(startDate, endDate)}
         placeholder={t('createEvent.button.placeholder.customRecurring')}
         value={value}
-        handleChange={(e: any) => {
+        handleChange={e => {
           const type = e.value;
           onValueChange(type);
           if (type === RecurringValues.EVERYDAY) {

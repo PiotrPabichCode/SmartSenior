@@ -11,7 +11,7 @@ const ColorPicker = ({
   color,
 }: {
   onPress: () => void;
-  onChange: any;
+  onChange: (fieldName: string, swatch: string) => void;
   fieldName: string;
   color: string;
 }) => {
@@ -20,7 +20,7 @@ const ColorPicker = ({
     <View style={styles.container}>
       <WheelColorPicker
         color={swatch}
-        onColorChange={(color: any) => {
+        onColorChange={color => {
           setSwatch(color);
         }}
         gapSize={10}

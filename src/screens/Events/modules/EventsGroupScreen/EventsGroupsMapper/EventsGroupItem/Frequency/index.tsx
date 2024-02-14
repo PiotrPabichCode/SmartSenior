@@ -4,11 +4,11 @@ import Recurrence from './Recurrence';
 import { StyleSheet, View } from 'react-native';
 import { Text } from '@rneui/themed';
 
-type Props = {
+type FrequencyProps = {
   frequency: FrequencyModel;
 };
 
-const Frequency = ({ frequency }: Props) => {
+const Frequency = ({ frequency }: FrequencyProps) => {
   return (
     frequency && (
       <>

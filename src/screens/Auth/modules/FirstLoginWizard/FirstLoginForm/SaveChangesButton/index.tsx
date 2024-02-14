@@ -2,11 +2,11 @@ import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type SaveChangesButtonProps = {
   onSubmit: () => void;
 };
 
-const SaveChangesButton = ({ onSubmit }: Props) => {
+const SaveChangesButton = ({ onSubmit }: SaveChangesButtonProps) => {
   return (
     <Button
       title={t('firstLoginWizard.button.submit')}

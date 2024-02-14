@@ -2,12 +2,13 @@ import { useState } from 'react';
 import CustomColorPicker from '@src/components/ColorPicker';
 import { t } from '@src/localization/Localization';
 import TagCard from '@src/components/TagCard';
+import { SetFieldValueType } from '@src/models';
 
 type ColorPickerProps = {
   name: string;
   color: string;
   fieldName: string;
-  onChange: any;
+  onChange: SetFieldValueType;
 };
 
 const ColorPicker = ({ color, name, onChange, fieldName }: ColorPickerProps) => {

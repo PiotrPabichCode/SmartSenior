@@ -3,17 +3,23 @@ import { MultiSelect } from 'react-native-element-dropdown';
 import { t } from '@src/localization/Localization';
 import useThemeColors from '@src/config/useThemeColors';
 import Icons from '../Icons';
+import { SetFieldValueType } from '@src/models';
 
 type SearchType = {
   label: string;
   value: string;
 };
 
-const MultiSelectDropdown = (props: any) => {
-  const onChange = props.onChange;
-  const fieldName = props.fieldName;
-  const selectedValues = props.selectedValues;
-  const placeholder = props.placeholder;
+type MultiSelectDropdownProps = {
+  onChange: SetFieldValueType;
+  fieldName: string;
+  selectedValues: Array<string>;
+  placeholder: string;
+  data: Array<SearchType>;
+};
+
+const MultiSelectDropdown = (props: MultiSelectDropdownProps) => {
+  const { fieldName, selectedValues, placeholder, data, onChange } = props;
   const styles = useStyles();
   const colors = useThemeColors();
 
@@ -30,7 +36,7 @@ const MultiSelectDropdown = (props: any) => {
         iconStyle={styles.iconStyle}
         iconColor={colors.icon}
         search
-        data={props.data as Array<SearchType>}
+        data={data}
         labelField="label"
         valueField="value"
         placeholder={placeholder ? placeholder : 'Select item'}

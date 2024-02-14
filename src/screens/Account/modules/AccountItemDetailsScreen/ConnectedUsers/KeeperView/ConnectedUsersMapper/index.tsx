@@ -4,11 +4,11 @@ import { StyleSheet, View } from 'react-native';
 import { Text } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
 
-type Props = {
+type ConnectedUsersMapperProps = {
   connectedUsers: ConnectedUsers;
 };
 
-const ConnectedUsersMapper = ({ connectedUsers }: Props) => {
+const ConnectedUsersMapper = ({ connectedUsers }: ConnectedUsersMapperProps) => {
   return (
     connectedUsers.length > 0 && (
       <View style={styles.container}>

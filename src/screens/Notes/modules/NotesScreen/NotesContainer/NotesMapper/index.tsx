@@ -2,12 +2,12 @@ import { Notes } from '@src/models';
 import { StyleSheet, View } from 'react-native';
 import NotesCard from './NotesCard';
 
-type Props = {
+type NotesMapperProps = {
   notes: Notes;
   elementsPerLine: number;
 };
 
-const NotesMapper = ({ notes, elementsPerLine }: Props) => {
+const NotesMapper = ({ notes, elementsPerLine }: NotesMapperProps) => {
   const rows = [];
   const numNotes = notes.length;
   const elementsInLine = Math.min(elementsPerLine, numNotes);

@@ -180,7 +180,7 @@ const EventsGroupDetails = ({ route, navigation }: EventsGroupDetailsProps) => {
             <Priority onChange={setFieldValue} fieldName={'priority'} priority={values.priority} />
             <UpdateButton visible={isUpdate} onPress={handleSubmit} />
             <FormikObserver
-              onChange={(data: any) => {
+              onChange={data => {
                 const changedFields = getUpdatedFields(data.initialValues, data.values);
                 if (Object.keys(changedFields).length > 0) {
                   setIsUpdate(true);

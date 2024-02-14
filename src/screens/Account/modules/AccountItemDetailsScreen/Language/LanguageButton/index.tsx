@@ -3,12 +3,12 @@ import useThemeColors from '@src/config/useThemeColors';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type LanguageButtonProps = {
   title: string;
-  onPress: any;
+  onPress: () => void;
 };
 
-const LanguageButton = ({ title, onPress }: Props) => {
+const LanguageButton = ({ title, onPress }: LanguageButtonProps) => {
   const backgroundColor = useThemeColors().customBtnBackground;
   return (
     <Button

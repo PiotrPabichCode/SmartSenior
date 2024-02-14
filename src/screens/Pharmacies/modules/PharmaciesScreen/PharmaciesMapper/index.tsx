@@ -5,11 +5,11 @@ import { selectPharmacies } from '@src/redux/pharmacies/pharmacies.slice';
 import { Pharmacies } from '@src/models';
 import { PharmacyCard } from '@src/components';
 
-type Props = {
+type PharmaciesMapperProps = {
   apiPharmacies: Pharmacies;
 };
 
-const PharmaciesMapper = ({ apiPharmacies }: Props) => {
+const PharmaciesMapper = ({ apiPharmacies }: PharmaciesMapperProps) => {
   const pharmacies = useAppSelector(state => selectPharmacies(state));
   return (
     apiPharmacies &&

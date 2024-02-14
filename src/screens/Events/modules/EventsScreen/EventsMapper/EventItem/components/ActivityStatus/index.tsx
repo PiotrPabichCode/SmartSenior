@@ -3,11 +3,11 @@ import Icons from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
 import { View, StyleSheet } from 'react-native';
 
-type Props = {
+type ActivityStatusProps = {
   active: boolean;
 };
 
-const ActivityStatus = ({ active }: Props) => {
+const ActivityStatus = ({ active }: ActivityStatusProps) => {
   return (
     <View style={styles.container}>
       {active ? (

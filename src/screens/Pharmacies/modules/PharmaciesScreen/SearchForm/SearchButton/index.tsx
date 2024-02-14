@@ -2,11 +2,11 @@ import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type SearchButtonProps = {
   onPress: () => void;
 };
 
-const SearchButton = ({ onPress }: Props) => {
+const SearchButton = ({ onPress }: SearchButtonProps) => {
   const backgroundColor = useThemeColors().customBtnBackground;
   return (
     <Button

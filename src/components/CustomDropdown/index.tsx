@@ -2,13 +2,30 @@ import { Text } from '@rneui/themed';
 import useThemeColors from '@src/config/useThemeColors';
 import { t } from '@src/localization/Localization';
 import { useRef, useState } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, ViewStyle, StyleProp } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
-const CustomDropdown = (props: any) => {
+export interface CustomDropdownProps {
+  labelField?: string;
+  valueField?: string;
+  placeholder?: string;
+  search?: boolean;
+  value: any;
+  handleChange: (_: any) => void;
+  viewStyle?: StyleProp<ViewStyle>;
+  data: CustomDropdownData;
+}
+
+type CustomDropdownData = {
+  multiLang?: boolean;
+  label?: string;
+  values: any;
+};
+
+const CustomDropdown = (props: CustomDropdownProps) => {
   const labelField = props.labelField ? props.labelField : 'label';
   const valueField = props.valueField ? props.valueField : 'value';
-  const updatedData = Object.values(props.data).map((item: any) => ({
+  const updatedData = Object.values(props.data).map(item => ({
     ...item,
     label: !item.multiLang ? item.label : t(item.label, item.values),
   }));
@@ -57,7 +74,7 @@ const CustomDropdown = (props: any) => {
         labelField={labelField}
         valueField={valueField}
         placeholder={props.placeholder}
-        value={props[valueField] ? props[valueField] : props.value}
+        value={props.valueField ? props.valueField : props.value}
         onChange={props.handleChange}
         renderItem={renderItem}
         dropdownPosition={dropdownPosition}

@@ -3,7 +3,7 @@ export interface AccountDataInputProps {
   placeholder: string | null;
   fieldName: string;
   value: string | null;
-  onChange: any;
+  onChange: () => void;
   iconName: string;
   errorMessage?: string;
 }

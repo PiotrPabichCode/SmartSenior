@@ -6,8 +6,9 @@ import { goBack } from '@src/navigation/navigationUtils';
 import { ConnectedUser } from '@src/models';
 import UserDetails from './UserDetails';
 import useThemeColors from '@src/config/useThemeColors';
+import { SeniorDashboardProps } from '@src/navigation/types';
 
-const SeniorDashboard = ({ route }: any) => {
+const SeniorDashboard = ({ route }: SeniorDashboardProps) => {
   const { uid } = route.params;
   const user = useAppSelector(state => selectConnectedUserById(state, uid));
   const backgroundColor = useThemeColors().mainBackground;

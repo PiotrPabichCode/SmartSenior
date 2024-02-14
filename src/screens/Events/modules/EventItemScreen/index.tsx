@@ -86,7 +86,7 @@ const EventItemScreen = ({ route, navigation }: EventItemScreenProps) => {
               />
             )}
             <FormikObserver
-              onChange={(data: any) => {
+              onChange={data => {
                 const changedFields = getUpdatedFields(data.initialValues, data.values);
                 if (Object.keys(changedFields).length > 0) {
                   setIsUpdate(true);

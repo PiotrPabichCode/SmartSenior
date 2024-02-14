@@ -2,13 +2,13 @@ import { Input } from '@rneui/themed';
 import { renderIcon } from '@src/components/Icons';
 import { t } from '@src/localization/Localization';
 
-type Props = {
+type NameInputProps = {
   value: string;
   fieldName: string;
   onChange: (fieldName: string, value: string) => void;
 };
 
-const NameInput = ({ onChange, value, fieldName }: Props) => {
+const NameInput = ({ onChange, value, fieldName }: NameInputProps) => {
   return (
     <Input
       placeholder={t('tags.namePlaceholder')}

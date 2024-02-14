@@ -3,12 +3,12 @@ import { t } from '@src/localization/Localization';
 import { StyleSheet } from 'react-native';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type ChangeDataButtonProps = {
   visible: boolean;
   onSubmit: () => void;
 };
 
-const ChangeDataButton = ({ visible, onSubmit }: Props) => {
+const ChangeDataButton = ({ visible, onSubmit }: ChangeDataButtonProps) => {
   const backgroundColor = useThemeColors().grey4;
   return (
     visible && (

@@ -6,11 +6,11 @@ import AddTagButton from '../AddTagButton';
 import TagCard from '@src/components/TagCard';
 import { Text } from '@rneui/themed';
 
-type Props = {
+type TagsMapperProps = {
   tags: Tags;
 };
 
-const TagsMapper = ({ tags }: Props) => {
+const TagsMapper = ({ tags }: TagsMapperProps) => {
   return (
     <View style={styles.container}>
       <AddTagButton />

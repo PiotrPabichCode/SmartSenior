@@ -1,14 +1,15 @@
 import { Timestamp } from 'firebase/firestore';
 import { CheckBox } from '@rneui/themed';
 import { t } from '@src/localization/Localization';
+import { SetFieldValueType } from '@src/models';
 
-type Props = {
+type RecurringCheckboxProps = {
   checked: boolean;
   date: Timestamp | null;
-  onChange: any;
+  onChange: SetFieldValueType;
 };
 
-const RecurringCheckbox = ({ checked, date, onChange }: Props) => {
+const RecurringCheckbox = ({ checked, date, onChange }: RecurringCheckboxProps) => {
   return (
     <CheckBox
       title={t('createEvent.button.title.cyclic')}

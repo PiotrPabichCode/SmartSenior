@@ -5,11 +5,11 @@ import { Tag } from '@src/models';
 import { pickColorBasedOnRGB } from '@src/utils/utils';
 import { View, StyleSheet } from 'react-native';
 
-type Props = {
+type TagCardProps = {
   tag?: Tag;
 };
 
-const TagCard = ({ tag }: Props) => {
+const TagCard = ({ tag }: TagCardProps) => {
   const { light, dark } = useThemeColors();
   return (
     <View style={styles.container}>

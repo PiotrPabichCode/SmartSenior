@@ -3,12 +3,12 @@ import { StyleSheet } from 'react-native';
 import { onPress } from './utils';
 import { Button } from '@src/components/shared';
 
-type Props = {
+type CharacteristicButtonProps = {
   url: string;
   name: string;
 };
 
-const CharacteristicButton = ({ url, name }: Props) => {
+const CharacteristicButton = ({ url, name }: CharacteristicButtonProps) => {
   return (
     <Button
       title={t('medicineItem.characteristic')}

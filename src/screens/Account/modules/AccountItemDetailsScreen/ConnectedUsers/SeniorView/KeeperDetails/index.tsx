@@ -5,11 +5,11 @@ import { t } from '@src/localization/Localization';
 import { User } from '@src/models';
 import { View, StyleSheet } from 'react-native';
 
-type Props = {
+type KeeperDetailsProps = {
   keeper: User;
 };
 
-const KeeperDetails = ({ keeper }: Props) => {
+const KeeperDetails = ({ keeper }: KeeperDetailsProps) => {
   const theme = useTheme().theme;
   const styles = useStyles();
   return (

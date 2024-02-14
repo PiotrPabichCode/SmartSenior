@@ -1,6 +1,16 @@
 import { Input } from '@rneui/themed';
-import { AccountDataInputProps } from './types';
 import { Icons } from '@src/components';
+import { SetFieldValueType } from '@src/models/FormikHelpers';
+
+type AccountDataInputProps = {
+  label: string;
+  placeholder: string | null;
+  fieldName: string;
+  value: string | null;
+  onChange: SetFieldValueType;
+  iconName: string;
+  errorMessage?: string;
+};
 
 const AccountDataInput = ({
   label,

@@ -5,11 +5,11 @@ import EmailModal from './EmailModal';
 import { Button } from '@src/components/shared';
 import { Icons } from '@src/components';
 
-type Props = {
+type EmailProps = {
   email: string | null;
 };
 
-const Email = ({ email }: Props) => {
+const Email = ({ email }: EmailProps) => {
   const [emailChange, setEmailChange] = useState<boolean>(false);
 
   return (

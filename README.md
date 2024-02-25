@@ -17,7 +17,7 @@ SmartSenior is an efficient elderly care management mobile application built wit
 ## Features
 
 ✅ Push Notifications  
-✅ Senior / Keeper roles
+✅ Senior / Keeper roles  
 ✅ Internationalization  
 ✅ Light / Dark Mode  
 ✅ Live Chat  

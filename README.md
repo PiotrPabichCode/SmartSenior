@@ -16,27 +16,27 @@ SmartSenior is an efficient elderly care management mobile application built wit
 
 ## Features
 
-✅ Push Notifications
+✅ Push Notifications  
 ✅ Senior / Keeper roles
-✅ Internationalization
-✅ Light / Dark Mode
-✅ Live Chat
-✅ OAuth2 / Email Auth
-✅ Calendar integration
-✅ API connection for medicines and pharmacies in Poland
-✅ Notes
-✅ Location Tracker
+✅ Internationalization  
+✅ Light / Dark Mode  
+✅ Live Chat  
+✅ OAuth2 / Email Auth  
+✅ Calendar integration  
+✅ API connection for medicines and pharmacies in Poland  
+✅ Notes  
+✅ Location Tracker  
 ✅ Recurring Events including name, description, shared images etc.
 
 ## Technologies Used
 
-✅ React Native
-✅ Expo Modules
-✅ EAS Build
-✅ Firebase
-✅ i18n.js
-✅ Redux Toolkit
-✅ Push Notifications
+✅ React Native  
+✅ Expo Modules  
+✅ EAS Build  
+✅ Firebase  
+✅ i18n.js  
+✅ Redux Toolkit  
+✅ Push Notifications  
 ✅ Formik + Yup
 
 **And many more :)**
